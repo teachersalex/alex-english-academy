@@ -1,0 +1,72 @@
+/* Teacher Alex - English Academy Styles */
+
+/* Brand Colors & Gradients */
+.gradient-bg { 
+    background: linear-gradient(135deg, #2563eb 0%, #dc2626 50%, #f8fafc 100%);
+}
+
+/* Glass Morphism Effects */
+.glass { 
+    background: rgba(255,255,255,0.15); 
+    backdrop-filter: blur(10px); 
+    border: 1px solid rgba(255,255,255,0.3); 
+}
+
+/* Brand Color Classes */
+.smoke-white { 
+    background: #f8fafc; 
+}
+
+.alex-blue { 
+    color: #2563eb; 
+}
+
+.alex-red { 
+    color: #dc2626; 
+}
+
+/* Animations */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { 
+        opacity: 0; 
+        transform: translateY(20px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+/* Custom Utilities */
+.hidden {
+    display: none !important;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .glass {
+        background: rgba(255,255,255,0.2);
+        backdrop-filter: blur(8px);
+    }
+}
+
+/* Focus States */
+input:focus {
+    outline: none;
+    border-color: rgba(255,255,255,0.8) !important;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.3);
+}
+
+/* Button Hover Effects */
+button {
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
