@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal do Estudante - Teacher Alex</title>
+    
+    <!-- PWA essentials -->
+    <meta name="theme-color" content="#2563eb">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="elegant-bg min-h-screen">
+
+    <!-- Header -->
+    <div class="text-center py-8 px-4">
+        <h1 class="text-4xl font-bold text-blue-accent mb-2">Teacher Alex</h1>
+        <h2 class="text-2xl font-semibold text-red-accent mb-2">English Academy</h2>
+        <div class="inline-block bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-semibold mb-4">
+            BETA
+        </div>
+        <h3 class="text-xl text-red-accent font-medium">Portal do Estudante</h3>
+    </div>
+
+    <!-- Welcome Section -->
+    <div class="max-w-md mx-auto px-4 mb-8">
+        <div class="bg-blue-50 border border-blue-200 rounded-xl p-6 text-center">
+            <div class="text-2xl mb-2">👋</div>
+            <h4 class="text-lg font-semibold text-dark mb-2">Bem-vindo de volta!</h4>
+            <p class="text-sm text-gray" id="welcomeMessage">Olá, estudante!</p>
+        </div>
+    </div>
+
+    <!-- Progress Overview -->
+    <div class="max-w-md mx-auto px-4 mb-8">
+        <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-6">
+            <h5 class="text-lg font-semibold text-dark mb-4 text-center">📊 Meu Progresso</h5>
+            
+            <!-- Level -->
+            <div class="text-center mb-6">
+                <div class="inline-block bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-xl font-bold mb-2">
+                    3
+                </div>
+                <p class="text-sm text-gray">Nível 3 • Beginner</p>
+                <p class="text-xs text-blue-accent">⭐ 650 XP</p>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="mb-4">
+                <div class="flex justify-between text-sm text-gray mb-2">
+                    <span>Progresso para Nível 4</span>
+                    <span>30%</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-3">
+                    <div class="bg-gradient-to-r from-blue-500 to-purple-500 h-3 rounded-full" style="width: 30%"></div>
+                </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-2 gap-4">
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-blue-accent">22h</div>
+                    <div class="text-xs text-gray">Tempo de Estudo</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-green-500">5</div>
+                    <div class="text-xs text-gray">Dias Seguidos</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="max-w-md mx-auto px-4 mb-8">
+        <div class="space-y-3">
+            <button class="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-4 rounded-xl transition-all transform hover:scale-105 shadow-lg">
+                🎯 ACESSAR MINHAS AULAS
+            </button>
+            <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition-all">
+                📚 Ver Progresso Detalhado
+            </button>
+        </div>
+    </div>
+
+    <!-- Achievements -->
+    <div class="max-w-md mx-auto px-4 mb-8">
+        <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-6">
+            <h5 class="text-lg font-semibold text-dark mb-4 text-center">🏆 Conquistas</h5>
+            
+            <div class="space-y-3">
+                <div class="flex items-center p-3 bg-green-50 border border-green-200 rounded-lg">
+                    <div class="text-2xl mr-3">🌟</div>
+                    <div>
+                        <div class="font-medium text-dark">First Steps</div>
+                        <div class="text-xs text-gray">Primeira aula concluída!</div>
+                    </div>
+                </div>
+                
+                <div class="flex items-center p-3 bg-gray-50 border border-gray-200 rounded-lg opacity-50">
+                    <div class="text-2xl mr-3">🏆</div>
+                    <div>
+                        <div class="font-medium text-dark">Week Warrior</div>
+                        <div class="text-xs text-gray">7 dias seguidos (2/7)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Logout -->
+    <div class="max-w-md mx-auto px-4 pb-8">
+        <button id="logoutBtn" class="w-full text-red-accent hover:text-red-600 py-2 text-sm">
+            Sair do Portal
+        </button>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Load student data from localStorage
+        const studentUsername = localStorage.getItem('studentUsername');
+        
+        if (studentUsername) {
+            document.getElementById('welcomeMessage').textContent = `Olá, ${studentUsername}!`;
+        }
+
+        // Logout function
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            localStorage.removeItem('studentLoggedIn');
+            localStorage.removeItem('studentUsername');
+            window.location.href = '../index.html';
+        });
+
+        // Check if logged in
+        if (!localStorage.getItem('studentLoggedIn')) {
+            window.location.href = '../index.html';
+        }
+
+        console.log('📚 Student Portal initialized!');
+    </script>
+
+</body>
+</html>
