@@ -77,7 +77,21 @@
         </div>
     </div>
 
-    <!-- REGISTER PAGE -->
+    <!-- PENDING APPROVAL PAGE -->
+    <div id="pendingPage" class="hidden min-h-screen flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-lg p-8 w-full max-w-md text-center border border-gray-200">
+            <div class="text-6xl mb-4">🔒</div>
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Aguardando Aprovação</h2>
+            <p class="text-gray-600 mb-2">Olá, <span id="pendingUserEmail" class="font-semibold text-blue-600"></span>!</p>
+            <p class="text-gray-600 mb-6">
+                Sua conta foi criada com sucesso, mas ainda está aguardando aprovação do Teacher Alex.
+                Você receberá acesso assim que sua conta for aprovada.
+            </p>
+            <button id="backToLoginFromPending" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors">
+                Voltar ao Login
+            </button>
+        </div>
+    </div>
     <div id="registerPage" class="hidden min-h-screen flex items-center justify-center p-4">
         <div class="blue-card rounded-2xl p-8 w-full max-w-md fade-in shadow-xl">
             <div class="text-center mb-8">
@@ -136,6 +150,20 @@
 
         <!-- Dashboard Content -->
         <div class="max-w-6xl mx-auto p-6">
+            <!-- ADMIN PANEL (só aparece para admins) -->
+            <div id="adminPanel" class="hidden bg-red-50 border border-red-200 rounded-2xl p-6 mb-6">
+                <h3 class="text-xl font-bold text-red-700 mb-4">👑 Admin Panel</h3>
+                <div id="pendingUsersSection">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-gray-700 font-medium">Usuários Aguardando Aprovação:</span>
+                        <span id="pendingCount" class="bg-red-500 text-white px-3 py-1 rounded-full text-sm">0</span>
+                    </div>
+                    <div id="pendingUsersList" class="space-y-3">
+                        <!-- Lista de usuários pendentes aparece aqui -->
+                    </div>
+                </div>
+            </div>
+
             <div class="bg-white rounded-2xl shadow-lg p-8 mb-6 border border-gray-200">
                 <h2 class="text-3xl font-bold text-gray-800 mb-4">Welcome to Your Portal!</h2>
                 <p class="text-gray-600 text-lg">Ready to scale to 10,000 students 🚀</p>
@@ -205,21 +233,30 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
+        // Import additional Firestore functions
+        import { collection, query, where, getDocs, updateDoc, deleteDoc } from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js';
+
         // APP STATE
         let currentUser = null;
 
         // DOM ELEMENTS
         const loginPage = document.getElementById('loginPage');
         const registerPage = document.getElementById('registerPage');
+        const pendingPage = document.getElementById('pendingPage');
         const indexPage = document.getElementById('indexPage');
         const loginForm = document.getElementById('loginForm');
         const registerForm = document.getElementById('registerForm');
         const showRegister = document.getElementById('showRegister');
         const showLogin = document.getElementById('showLogin');
+        const backToLoginFromPending = document.getElementById('backToLoginFromPending');
         const errorMsg = document.getElementById('errorMsg');
         const regErrorMsg = document.getElementById('regErrorMsg');
         const userName = document.getElementById('userName');
+        const pendingUserEmail = document.getElementById('pendingUserEmail');
         const logoutBtn = document.getElementById('logoutBtn');
+        const adminPanel = document.getElementById('adminPanel');
+        const pendingCount = document.getElementById('pendingCount');
+        const pendingUsersList = document.getElementById('pendingUsersList');
 
         // UTILITY FUNCTIONS
         function showError(message, isRegister = false) {
@@ -232,26 +269,64 @@
         function showLoginPage() {
             loginPage.classList.remove('hidden');
             registerPage.classList.add('hidden');
+            pendingPage.classList.add('hidden');
             indexPage.classList.add('hidden');
         }
 
         function showRegisterPage() {
             loginPage.classList.add('hidden');
             registerPage.classList.remove('hidden');
+            pendingPage.classList.add('hidden');
             indexPage.classList.add('hidden');
+        }
+
+        function showPendingPage(email) {
+            loginPage.classList.add('hidden');
+            registerPage.classList.add('hidden');
+            pendingPage.classList.remove('hidden');
+            indexPage.classList.add('hidden');
+            pendingUserEmail.textContent = email;
         }
 
         function showDashboard() {
             loginPage.classList.add('hidden');
             registerPage.classList.add('hidden');
+            pendingPage.classList.add('hidden');
             indexPage.classList.remove('hidden');
         }
 
-        function updateUI(user) {
+        async function updateUI(user) {
             if (user) {
                 currentUser = user;
                 userName.textContent = user.email;
-                showDashboard();
+                
+                // Verificar status do usuário no Firestore
+                try {
+                    const userDoc = await getDoc(doc(db, 'users', user.uid));
+                    const userData = userDoc.data();
+                    
+                    if (!userData) {
+                        // Usuário não tem dados no Firestore (erro)
+                        showError('Erro: dados do usuário não encontrados');
+                        await signOut(auth);
+                        return;
+                    }
+                    
+                    if (userData.status === 'pending') {
+                        showPendingPage(user.email);
+                    } else if (userData.status === 'approved') {
+                        showDashboard();
+                        
+                        // Se for admin, mostrar painel admin
+                        if (userData.role === 'admin') {
+                            adminPanel.classList.remove('hidden');
+                            loadPendingUsers();
+                        }
+                    }
+                } catch (error) {
+                    console.error('Erro ao verificar status do usuário:', error);
+                    showError('Erro ao carregar dados do usuário');
+                }
             } else {
                 currentUser = null;
                 showLoginPage();
@@ -271,26 +346,91 @@
         async function handleRegister(email, password) {
             try {
                 const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                // Save user profile to Firestore
+                
+                // Save user profile to Firestore with pending status
                 await setDoc(doc(db, 'users', userCredential.user.uid), {
                     email: email,
                     role: 'student',
+                    status: 'pending',  // ← NOVO: sempre pending inicialmente
                     createdAt: new Date().toISOString()
                 });
+                
                 console.log('Registration successful:', userCredential.user.email);
+                // Usuário será direcionado para tela pending automaticamente
             } catch (error) {
                 showError(error.message, true);
             }
         }
 
-        async function handleLogout() {
+        // ADMIN FUNCTIONS
+        async function loadPendingUsers() {
             try {
-                await signOut(auth);
-                console.log('Logout successful');
+                const q = query(collection(db, 'users'), where('status', '==', 'pending'));
+                const querySnapshot = await getDocs(q);
+                
+                const pendingUsers = [];
+                querySnapshot.forEach((doc) => {
+                    pendingUsers.push({
+                        id: doc.id,
+                        ...doc.data()
+                    });
+                });
+                
+                // Atualizar contador
+                pendingCount.textContent = pendingUsers.length;
+                
+                // Atualizar lista
+                if (pendingUsers.length === 0) {
+                    pendingUsersList.innerHTML = '<p class="text-gray-500 italic">Nenhum usuário pendente</p>';
+                } else {
+                    pendingUsersList.innerHTML = pendingUsers.map(user => `
+                        <div class="flex items-center justify-between bg-white p-4 rounded-lg border border-gray-200">
+                            <div>
+                                <p class="font-medium text-gray-800">${user.email}</p>
+                                <p class="text-sm text-gray-500">Registrado em ${new Date(user.createdAt).toLocaleDateString('pt-BR')}</p>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button onclick="approveUser('${user.id}')" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm transition-colors">
+                                    ✅ Aprovar
+                                </button>
+                                <button onclick="rejectUser('${user.id}')" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm transition-colors">
+                                    ❌ Rejeitar
+                                </button>
+                            </div>
+                        </div>
+                    `).join('');
+                }
             } catch (error) {
-                showError(error.message);
+                console.error('Erro ao carregar usuários pendentes:', error);
             }
         }
+
+        // Funções globais para os botões
+        window.approveUser = async function(userId) {
+            try {
+                await updateDoc(doc(db, 'users', userId), {
+                    status: 'approved'
+                });
+                console.log('Usuário aprovado:', userId);
+                loadPendingUsers(); // Recarregar lista
+            } catch (error) {
+                console.error('Erro ao aprovar usuário:', error);
+                alert('Erro ao aprovar usuário');
+            }
+        };
+
+        window.rejectUser = async function(userId) {
+            if (confirm('Tem certeza que deseja rejeitar este usuário? Esta ação não pode ser desfeita.')) {
+                try {
+                    await deleteDoc(doc(db, 'users', userId));
+                    console.log('Usuário rejeitado e removido:', userId);
+                    loadPendingUsers(); // Recarregar lista
+                } catch (error) {
+                    console.error('Erro ao rejeitar usuário:', error);
+                    alert('Erro ao rejeitar usuário');
+                }
+            }
+        };
 
         // EVENT LISTENERS
         loginForm.addEventListener('submit', async (e) => {
