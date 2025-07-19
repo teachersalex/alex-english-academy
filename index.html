@@ -228,6 +228,38 @@
             appId: "1:859459202100:web:5aa01b23c4fc7ba1b16e61"
         };
 
+        // EVENT LISTENERS - colocados no final após todas as funções
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            await handleLogin(email, password);
+        });
+
+        registerForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('regEmail').value;
+            const password = document.getElementById('regPassword').value;
+            await handleRegister(email, password);
+        });
+
+        showRegister.addEventListener('click', () => {
+            showRegisterPage();
+        });
+
+        showLogin.addEventListener('click', () => {
+            showLoginPage();
+        });
+
+        backToLoginFromPending.addEventListener('click', () => {
+            signOut(auth); // Fazer logout e voltar ao login
+        });
+
+        logoutBtn.addEventListener('click', handleLogout);
+
+        // AUTH STATE LISTENER
+        onAuthStateChanged(auth, updateUI);
+
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
@@ -359,6 +391,15 @@
                 // Usuário será direcionado para tela pending automaticamente
             } catch (error) {
                 showError(error.message, true);
+            }
+        }
+
+        async function handleLogout() {
+            try {
+                await signOut(auth);
+                console.log('Logout successful');
+            } catch (error) {
+                showError(error.message);
             }
         }
 
