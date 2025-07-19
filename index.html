@@ -16,43 +16,43 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="gradient-bg min-h-screen">
+<body class="elegant-bg min-h-screen">
 
     <!-- HERO SECTION -->
     <div id="heroSection" class="min-h-screen flex items-center justify-center p-4">
         <div class="text-center max-w-4xl mx-auto">
             <!-- Logo -->
-            <div class="w-24 h-24 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-8">
+            <div class="w-24 h-24 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-8 logo-glow">
                 <span class="text-4xl font-bold text-white">A</span>
             </div>
             
             <!-- Main Title -->
-            <h1 class="text-5xl md:text-7xl font-bold text-white mb-6">
+            <h1 class="text-5xl md:text-7xl font-bold text-dark mb-6">
                 Teacher Alex
             </h1>
-            <h2 class="text-3xl md:text-4xl font-semibold text-blue-100 mb-8">
+            <h2 class="text-3xl md:text-4xl font-semibold text-blue-accent mb-8">
                 English Academy
             </h2>
             
             <!-- Subtitle -->
-            <p class="text-xl text-blue-200 mb-12 max-w-2xl mx-auto">
-                Professional English learning with <span class="text-red-300 font-semibold">gamified progress tracking</span>. 
+            <p class="text-xl text-gray mb-12 max-w-2xl mx-auto">
+                Professional English learning with <span class="text-red-accent font-semibold">gamified progress tracking</span>. 
                 Master English while tracking your achievements, levels, and study time.
             </p>
             
             <!-- Stats -->
             <div class="grid md:grid-cols-3 gap-8 mb-12">
-                <div class="glass rounded-xl p-6">
-                    <div class="text-3xl font-bold text-white mb-2">20+</div>
-                    <div class="text-blue-200">Active Students</div>
+                <div class="stats-card rounded-xl p-6 elegant-shadow">
+                    <div class="text-3xl font-bold text-blue-accent mb-2">20+</div>
+                    <div class="text-gray">Active Students</div>
                 </div>
-                <div class="glass rounded-xl p-6">
-                    <div class="text-3xl font-bold text-white mb-2">∞</div>
-                    <div class="text-blue-200">Progress Tracking</div>
+                <div class="stats-card rounded-xl p-6 elegant-shadow">
+                    <div class="text-3xl font-bold text-blue-accent mb-2">∞</div>
+                    <div class="text-gray">Progress Tracking</div>
                 </div>
-                <div class="glass rounded-xl p-6">
-                    <div class="text-3xl font-bold text-white mb-2">🏆</div>
-                    <div class="text-blue-200">Achievements</div>
+                <div class="stats-card rounded-xl p-6 elegant-shadow">
+                    <div class="text-3xl font-bold text-blue-accent mb-2">🏆</div>
+                    <div class="text-gray">Achievements</div>
                 </div>
             </div>
             
@@ -64,13 +64,13 @@
                 <button id="studentLoginBtn" class="bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all hover:scale-105">
                     📚 Student Portal
                 </button>
-                <div class="text-blue-200 text-sm">
+                <div class="text-gray text-sm">
                     Professional English Learning with Progress Tracking
                 </div>
             </div>
             
             <!-- Brand Colors -->
-            <div class="mt-8 text-red-200 text-sm">
+            <div class="mt-8 text-gray text-sm brand-accent">
                 Blue • Red • Smoke White
             </div>
         </div>
@@ -78,20 +78,20 @@
 
     <!-- TEACHER LOGIN MODAL -->
     <div id="teacherModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-        <div class="glass rounded-2xl p-8 w-full max-w-md">
+        <div class="modal-glass rounded-2xl p-8 w-full max-w-md">
             <div class="text-center mb-6">
-                <h3 class="text-2xl font-bold text-white mb-2">🎓 Teacher Portal</h3>
-                <p class="text-blue-200">Access your dashboard</p>
+                <h3 class="text-2xl font-bold text-dark mb-2">🎓 Teacher Portal</h3>
+                <p class="text-blue-accent">Access your dashboard</p>
             </div>
             
             <form id="teacherForm" class="space-y-4">
                 <div>
                     <input type="email" id="teacherEmail" placeholder="Email" required
-                           class="w-full p-3 rounded-lg bg-white/20 text-white placeholder-blue-200 border border-white/30 focus:border-white focus:outline-none">
+                           class="w-full p-3 rounded-lg bg-gray-50 text-dark placeholder-gray-400 border border-gray-200 focus:border-blue-500 focus:outline-none">
                 </div>
                 <div>
                     <input type="password" id="teacherPassword" placeholder="Password" required
-                           class="w-full p-3 rounded-lg bg-white/20 text-white placeholder-blue-200 border border-white/30 focus:border-white focus:outline-none">
+                           class="w-full p-3 rounded-lg bg-gray-50 text-dark placeholder-gray-400 border border-gray-200 focus:border-blue-500 focus:outline-none">
                 </div>
                 <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-colors">
                     Access Dashboard
@@ -99,35 +99,35 @@
             </form>
             
             <div class="text-center mt-4">
-                <button id="teacherToggleMode" class="text-blue-200 hover:text-white text-sm">Need an account? Register</button>
+                <button id="teacherToggleMode" class="text-blue-accent hover:text-blue-600 text-sm">Need an account? Register</button>
             </div>
             
             <div class="text-center mt-4">
-                <button id="closeTeacherModal" class="text-red-300 hover:text-white text-sm">Close</button>
+                <button id="closeTeacherModal" class="text-red-accent hover:text-red-600 text-sm">Close</button>
             </div>
             
-            <div id="teacherErrorMsg" class="hidden mt-4 p-3 bg-red-500/20 border border-red-500/50 rounded-lg text-red-200 text-sm text-center"></div>
+            <div id="teacherErrorMsg" class="hidden mt-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-600 text-sm text-center"></div>
         </div>
     </div>
 
     <!-- STUDENT LOGIN MODAL -->
     <div id="studentModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-        <div class="glass rounded-2xl p-8 w-full max-w-md">
+        <div class="modal-glass rounded-2xl p-8 w-full max-w-md">
             <div class="text-center mb-6">
-                <h3 class="text-2xl font-bold text-white mb-2">📚 Portal do Estudante</h3>
-                <p class="text-red-200">Acesso Exclusivo para Alunos</p>
+                <h3 class="text-2xl font-bold text-dark mb-2">📚 Portal do Estudante</h3>
+                <p class="text-red-accent">Acesso Exclusivo para Alunos</p>
             </div>
             
             <form id="studentForm" class="space-y-4">
                 <div>
-                    <label class="block text-blue-200 text-sm mb-2">Nome de usuário</label>
+                    <label class="block text-gray text-sm mb-2">Nome de usuário</label>
                     <input type="text" id="studentUsername" placeholder="Digite seu nome de usuário" required
-                           class="w-full p-3 rounded-lg bg-white/20 text-white placeholder-blue-300 border border-white/30 focus:border-white focus:outline-none">
+                           class="w-full p-3 rounded-lg bg-gray-50 text-dark placeholder-gray-400 border border-gray-200 focus:border-red-500 focus:outline-none">
                 </div>
                 <div>
-                    <label class="block text-blue-200 text-sm mb-2">Senha</label>
+                    <label class="block text-gray text-sm mb-2">Senha</label>
                     <input type="password" id="studentPassword" placeholder="Digite sua senha" required
-                           class="w-full p-3 rounded-lg bg-white/20 text-white placeholder-blue-300 border border-white/30 focus:border-white focus:outline-none">
+                           class="w-full p-3 rounded-lg bg-gray-50 text-dark placeholder-gray-400 border border-gray-200 focus:border-red-500 focus:outline-none">
                 </div>
                 <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 rounded-lg transition-colors">
                     🎯 ACESSAR MINHAS AULAS
@@ -135,16 +135,16 @@
             </form>
             
             <div class="text-center mt-4">
-                <div class="text-blue-200 text-sm">
-                    <span class="text-yellow-300">BETA</span> - Sistema de Progresso Gamificado
+                <div class="text-gray text-sm">
+                    <span class="text-yellow-500 font-semibold">BETA</span> - Sistema de Progresso Gamificado
                 </div>
             </div>
             
             <div class="text-center mt-4">
-                <button id="closeStudentModal" class="text-red-300 hover:text-white text-sm">Fechar</button>
+                <button id="closeStudentModal" class="text-red-accent hover:text-red-600 text-sm">Fechar</button>
             </div>
             
-            <div id="studentErrorMsg" class="hidden mt-4 p-3 bg-red-500/20 border border-red-500/50 rounded-lg text-red-200 text-sm text-center"></div>
+            <div id="studentErrorMsg" class="hidden mt-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-600 text-sm text-center"></div>
         </div>
     </div>
 
