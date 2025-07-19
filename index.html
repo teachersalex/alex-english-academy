@@ -115,27 +115,26 @@
         </div>
     </div>
 
-    <!-- FIREBASE SETUP INSTRUCTIONS (Remove after setup) -->
-    <div id="setupInstructions" class="fixed top-4 right-4 glass rounded-lg p-4 max-w-sm text-sm text-white">
-        <h4 class="font-semibold mb-2">🔧 Firebase Setup Needed</h4>
-        <p class="text-blue-200">Replace the config below with your Firebase credentials</p>
-        <button onclick="this.parentElement.style.display='none'" class="mt-2 text-blue-300 hover:text-white">×</button>
+    <!-- FIREBASE CONNECTED! -->
+    <div id="firebaseStatus" class="fixed top-4 right-4 glass rounded-lg p-4 max-w-sm text-sm text-white">
+        <h4 class="font-semibold mb-2">🔥 Firebase Connected!</h4>
+        <p class="text-green-200">Authentication & Database ready!</p>
+        <button onclick="this.parentElement.style.display='none'" class="mt-2 text-green-300 hover:text-white">×</button>
     </div>
 
     <script type="module">
         // FIREBASE CONFIGURATION - REPLACE WITH YOUR ACTUAL CONFIG
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
-        import { getFirestore, doc, setDoc, getDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js';
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js';
+        import { getFirestore, doc, setDoc, getDoc } from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js';
 
         const firebaseConfig = {
-            // 🚨 REPLACE THESE WITH YOUR ACTUAL FIREBASE CONFIG 🚨
-            apiKey: "your-api-key-here",
-            authDomain: "your-project.firebaseapp.com",
-            projectId: "your-project-id",
-            storageBucket: "your-project.appspot.com",
-            messagingSenderId: "123456789",
-            appId: "your-app-id-here"
+            apiKey: "AIzaSyDxkiG1iLyIkwJlETiknDqBcBMsmrRsSyk",
+            authDomain: "teacher-alex-portal.firebaseapp.com",
+            projectId: "teacher-alex-portal",
+            storageBucket: "teacher-alex-portal.firebasestorage.app",
+            messagingSenderId: "859459202100",
+            appId: "1:859459202100:web:5aa01b23c4fc7ba1b16e61"
         };
 
         // Initialize Firebase
