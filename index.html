@@ -248,10 +248,10 @@
         // AUTH STATE LISTENER
         onAuthStateChanged(auth, updateUI);
 
-        // PWA SERVICE WORKER
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('data:text/javascript,console.log("SW loaded")');
-        }
+        // PWA offline capability (commented out until properly configured)
+        // if ('serviceWorker' in navigator) {
+        //     navigator.serviceWorker.register('/sw.js');
+        // }
     </script>
 </body>
 </html>
