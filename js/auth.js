@@ -51,13 +51,17 @@ async function handleStudentAuth(username, password) {
             localStorage.setItem('studentLoggedIn', 'true');
             localStorage.setItem('studentUsername', username);
             showSuccess('Conta criada! Redirecionando...');
-            setTimeout(() => window.location.href = 'student/portal.html', 2000);
+            setTimeout(() => {
+                window.location.href = 'student/portal.html';
+            }, 2000);
         } else {
             // Login
             localStorage.setItem('studentLoggedIn', 'true');
             localStorage.setItem('studentUsername', username);
             showSuccess('Login realizado! Bem-vindo!');
-            setTimeout(() => window.location.href = 'student/portal.html', 1500);
+            setTimeout(() => {
+                window.location.href = 'student/portal.html';
+            }, 1500);
         }
     } catch (error) {
         showError('Erro no sistema. Tente novamente.');
