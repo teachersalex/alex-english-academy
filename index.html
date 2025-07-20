@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,126 +18,100 @@
 </head>
 <body class="elegant-bg min-h-screen">
 
-    <!-- HERO SECTION -->
-    <div id="heroSection" class="min-h-screen flex items-center justify-center p-4">
-        <div class="text-center max-w-4xl mx-auto">
-            <!-- Logo -->
-            <div class="w-24 h-24 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-8 logo-glow">
-                <span class="text-4xl font-bold text-white">A</span>
-            </div>
-            
-            <!-- Main Title -->
-            <h1 class="text-5xl md:text-7xl font-bold text-dark mb-6">
-                Teacher Alex
-            </h1>
-            <h2 class="text-3xl md:text-4xl font-semibold text-blue-accent mb-8">
-                English Academy
-            </h2>
-            
-            <!-- Subtitle -->
-            <p class="text-xl text-gray mb-12 max-w-2xl mx-auto">
-                Professional English learning with <span class="text-red-accent font-semibold">gamified progress tracking</span>. 
-                Master English while tracking your achievements, levels, and study time.
-            </p>
-            
-            <!-- CTA Buttons -->
-            <div class="space-y-4">
-                <button id="teacherLoginBtn" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all hover:scale-105">
-                    🎓 Teacher Portal
-                </button>
-                <button id="studentLoginBtn" class="bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all hover:scale-105">
-                    📚 Student Portal
-                </button>
-                <div class="text-gray text-sm">
-                    Professional English Learning with Progress Tracking
+    <!-- Main Container -->
+    <div class="min-h-screen flex items-center justify-center p-4">
+        <div class="w-full max-w-md">
+            <!-- Card Principal -->
+            <div class="bg-white rounded-2xl shadow-2xl p-8 border border-gray-100">
+                
+                <!-- Header -->
+                <div class="text-center mb-6">
+                    <h1 class="text-4xl font-bold text-blue-600 mb-2">Teacher Alex</h1>
+                    <h2 class="text-2xl font-semibold text-red-600 mb-3">English Academy</h2>
+                    <div class="inline-block bg-blue-600 text-white px-4 py-1 rounded-full text-sm font-bold mb-4">
+                        BETA
+                    </div>
+                    <h3 class="text-xl text-red-600 font-medium mb-6">Portal do Estudante</h3>
                 </div>
-            </div>
-            
-            <!-- Brand Colors -->
-            <div class="mt-8 text-gray text-sm brand-accent">
-                Blue • Red • Smoke White
+
+                <!-- Botão de Acesso -->
+                <div class="mb-6">
+                    <button id="showLoginForm" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-all transform hover:scale-105 shadow-lg">
+                        🎓 Acesso Exclusivo para Alunos
+                    </button>
+                </div>
+
+                <!-- Login Form (inicialmente oculto) -->
+                <div id="loginForm" class="hidden space-y-4">
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-2">Nome de usuário</label>
+                        <input type="text" id="studentUsername" placeholder="Digite seu nome de usuário" required
+                               class="w-full p-3 rounded-lg bg-gray-50 text-gray-800 placeholder-gray-400 border border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-2">Senha</label>
+                        <input type="password" id="studentPassword" placeholder="Digite sua senha" required
+                               class="w-full p-3 rounded-lg bg-gray-50 text-gray-800 placeholder-gray-400 border border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200">
+                    </div>
+                    
+                    <!-- Botões de Ação -->
+                    <div class="space-y-3">
+                        <button id="loginBtn" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-lg transition-colors text-lg">
+                            ACESSAR MINHAS AULAS
+                        </button>
+                        
+                        <!-- Registro em Destaque -->
+                        <button id="registerBtn" class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-lg transition-colors">
+                            📝 CRIAR NOVA CONTA DE ESTUDANTE
+                        </button>
+                    </div>
+
+                    <!-- Toggle de Modo -->
+                    <div class="text-center">
+                        <button id="toggleMode" class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                            Já tem conta? Fazer login
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="text-center mt-6 pt-6 border-t border-gray-100">
+                    <p class="text-gray-500 text-sm mb-1">Precisa de ajuda?</p>
+                    <p class="text-blue-600 text-sm font-medium mb-4">Entre em contato com <span class="text-red-600">Professor Alex</span></p>
+                    
+                    <!-- Acesso Professor -->
+                    <button id="teacherAccessBtn" class="text-gray-400 hover:text-gray-600 text-xs underline">
+                        Acesso para Professores
+                    </button>
+                </div>
+
+                <!-- Error Message -->
+                <div id="errorMsg" class="hidden mt-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-600 text-sm text-center"></div>
+                
+                <!-- Success Message -->
+                <div id="successMsg" class="hidden mt-4 p-3 bg-green-50 border border-green-200 rounded-lg text-green-600 text-sm text-center"></div>
             </div>
         </div>
     </div>
 
-    <!-- TEACHER LOGIN MODAL -->
+    <!-- Modal do Professor (simples) -->
     <div id="teacherModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-        <div class="modal-glass rounded-2xl p-8 w-full max-w-md">
-            <div class="text-center mb-6">
-                <h3 class="text-2xl font-bold text-dark mb-2">🎓 Teacher Portal</h3>
-                <p class="text-blue-accent">Access your dashboard</p>
-            </div>
+        <div class="bg-white rounded-2xl p-6 w-full max-w-sm">
+            <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">🎓 Acesso Professor</h3>
             
             <form id="teacherForm" class="space-y-4">
-                <div>
-                    <input type="email" id="teacherEmail" placeholder="Email" required
-                           class="w-full p-3 rounded-lg bg-gray-50 text-dark placeholder-gray-400 border border-gray-200 focus:border-blue-500 focus:outline-none">
-                </div>
-                <div>
-                    <input type="password" id="teacherPassword" placeholder="Password" required
-                           class="w-full p-3 rounded-lg bg-gray-50 text-dark placeholder-gray-400 border border-gray-200 focus:border-blue-500 focus:outline-none">
-                </div>
-                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-colors">
-                    Access Dashboard
+                <input type="email" id="teacherEmail" placeholder="Email do Professor" required
+                       class="w-full p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:outline-none">
+                <input type="password" id="teacherPassword" placeholder="Senha" required
+                       class="w-full p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:outline-none">
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg">
+                    Acessar Dashboard
                 </button>
             </form>
             
-            <div class="text-center mt-4">
-                <button id="teacherToggleMode" class="text-blue-accent hover:text-blue-600 text-sm">Need an account? Register</button>
-            </div>
-            
-            <div class="text-center mt-4">
-                <button id="closeTeacherModal" class="text-red-accent hover:text-red-600 text-sm">Close</button>
-            </div>
-            
-            <div id="teacherErrorMsg" class="hidden mt-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-600 text-sm text-center"></div>
-        </div>
-    </div>
-
-    <!-- STUDENT LOGIN MODAL -->
-    <div id="studentModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-        <div class="modal-glass rounded-2xl p-8 w-full max-w-md">
-            <!-- Header igual ao site atual -->
-            <div class="text-center mb-6">
-                <h1 class="text-3xl font-bold text-blue-accent mb-1">Teacher Alex</h1>
-                <h2 class="text-2xl font-semibold text-red-accent mb-2">English Academy</h2>
-                <div class="inline-block bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-bold mb-4">
-                    BETA
-                </div>
-                <h3 class="text-xl text-red-accent font-medium mb-4">Portal do Estudante</h3>
-                <div class="flex items-center justify-center mb-6">
-                    <span class="text-2xl mr-2">🎓</span>
-                    <span class="text-blue-accent font-medium">Acesso Exclusivo para Alunos</span>
-                </div>
-            </div>
-            
-            <form id="studentForm" class="space-y-4">
-                <div>
-                    <label class="block text-dark text-sm font-medium mb-2">Nome de usuário</label>
-                    <input type="text" id="studentUsername" placeholder="Digite seu nome de usuário" required
-                           class="w-full p-3 rounded-lg bg-gray-50 text-dark placeholder-gray-400 border border-gray-300 focus:border-blue-500 focus:outline-none">
-                </div>
-                <div>
-                    <label class="block text-dark text-sm font-medium mb-2">Senha</label>
-                    <input type="password" id="studentPassword" placeholder="Digite sua senha" required
-                           class="w-full p-3 rounded-lg bg-gray-50 text-dark placeholder-gray-400 border border-gray-300 focus:border-blue-500 focus:outline-none">
-                </div>
-                <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-lg transition-colors text-lg">
-                    Acessar Minhas Aulas
-                </button>
-            </form>
-            
-            <!-- Footer igual ao site atual -->
-            <div class="text-center mt-6">
-                <p class="text-gray text-sm mb-1">Precisa de ajuda?</p>
-                <p class="text-blue-accent text-sm font-medium">Entre em contato com Professor Alex</p>
-            </div>
-            
-            <div class="text-center mt-4">
-                <button id="closeStudentModal" class="text-red-accent hover:text-red-600 text-sm">Fechar</button>
-            </div>
-            
-            <div id="studentErrorMsg" class="hidden mt-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-600 text-sm text-center"></div>
+            <button id="closeTeacherModal" class="w-full mt-3 text-gray-500 hover:text-gray-700 text-sm">
+                Fechar
+            </button>
         </div>
     </div>
 
