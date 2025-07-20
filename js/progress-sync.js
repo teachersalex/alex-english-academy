@@ -1,6 +1,7 @@
 /**
  * Cross-Device Progress Synchronization - Teacher Alex English Academy
  * CORRECTED to match Alex's FLAT Firebase structure
+ * FIXED: Removed auto-deactivation on logout
  */
 
 import { db } from './firebase.js';
@@ -454,7 +455,7 @@ export async function updateStudyTime(additionalSeconds) {
     }
 }
 
-// End current session
+// FIXED: End current session without auto-deactivation
 export async function endCurrentSession() {
     try {
         const currentStudent = getCurrentStudent();
@@ -462,15 +463,15 @@ export async function endCurrentSession() {
 
         const studentRef = doc(db, 'students', currentStudent.username);
         
-        // CORRECTED: Update flat fields only
+        // FIXED: Don't auto-deactivate on logout - only track logout time
         const updateData = {
-            lastLogoutDate: serverTimestamp(), // CORRECTED: Flat field
-            isActive: false // CORRECTED: Flat field
+            lastLogoutDate: serverTimestamp() // CORRECTED: Only track logout time
+            // Removed: isActive: false (this was causing the logout trap)
         };
 
         await updateDoc(studentRef, updateData);
         
-        console.log('🔚 Session ended');
+        console.log('🔚 Session ended (no auto-deactivation)');
         return { success: true };
         
     } catch (error) {
@@ -514,4 +515,4 @@ export function getConnectionStatus() {
     return navigator.onLine;
 }
 
-console.log('🔄 Progress Sync System loaded - Cross-device progress ready!');
+console.log('🔄 Progress Sync System loaded - Cross-device progress ready (Logout Trap FIXED)!');
