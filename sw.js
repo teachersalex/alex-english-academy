@@ -1,18 +1,18 @@
-// Teacher Alex English Academy - Service Worker (Simplified)
+// Teacher Alex English Academy - Service Worker (Fixed Paths)
 // Guaranteed working version for GitHub Pages
 
 const CACHE_NAME = 'alex-english-v1';
 
-// Essential files to cache
+// Essential files to cache (FIXED: Relative paths)
 const STATIC_FILES = [
-  '/',
-  '/index.html',
-  '/student/portal.html',
-  '/student/hub.html',
-  '/css/style.css',
-  '/js/firebase.js',
-  '/js/auth.js',
-  '/manifest.json'
+  './',
+  './index.html',
+  './student/portal.html',
+  './student/hub.html',
+  './css/style.css',
+  './js/firebase.js',
+  './js/auth.js',
+  './manifest.json'
 ];
 
 // Install event - cache essential files
@@ -85,7 +85,7 @@ self.addEventListener('fetch', (event) => {
       .catch(() => {
         // Offline fallback for HTML pages
         if (event.request.headers.get('accept').includes('text/html')) {
-          return caches.match('/index.html');
+          return caches.match('./index.html');
         }
       })
   );
