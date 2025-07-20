@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Audio Lessons - Teacher Alex Academy</title>
+    <title>A1 Foundation - Teacher Alex Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../css/style.css">
 </head>
@@ -17,8 +17,8 @@
         </div>
         
         <div class="header-actions">
-            <button class="btn-portal">← Portal</button>
-            <button class="btn-sair">Sair</button>
+            <button class="btn-portal" onclick="window.location.href='hub.html'">← Hub</button>
+            <button class="btn-sair" onclick="logout()">Sair</button>
         </div>
     </header>
 
@@ -31,7 +31,7 @@
             <!-- Course Header -->
             <div class="elegant-card rounded-lg p-6 mb-6">
                 <div class="text-center">
-                    <div class="text-5xl mb-4">🎧</div>
+                    <div class="text-5xl mb-4">🌟</div>
                     <h2 class="text-2xl font-bold text-charcoal mb-2">A1 Foundation Course</h2>
                     <p class="text-medium-gray mb-4">Complete English basics with 10 interactive audio lessons</p>
                     <div class="bg-powder-blue rounded-lg p-3">
@@ -58,7 +58,7 @@
             <!-- Lesson Header -->
             <div class="elegant-card rounded-lg p-6 mb-6">
                 <div class="flex items-center justify-between mb-4">
-                    <button id="backToLessons" class="link-sophisticated text-sm">← Back to Lessons</button>
+                    <button id="backToLessons" class="link-sophisticated text-sm">← Back to Foundation</button>
                     <div id="lessonProgress" class="text-sm text-medium-gray">Lesson 1 of 10</div>
                 </div>
                 
@@ -149,7 +149,7 @@
                         Next Lesson →
                     </button>
                     <button id="backToLessonsList" class="link-muted text-sm py-2">
-                        Back to All Lessons
+                        Back to Foundation
                     </button>
                 </div>
             </div>
@@ -177,7 +177,7 @@
         import { db } from '../js/firebase.js';
         import { doc, getDoc, updateDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js';
 
-        // Complete lesson data with ALL 10 lessons
+        // Complete lesson data with ALL 10 Foundation lessons
         const LESSONS = [
             {
                 id: 'audio-01',
@@ -541,7 +541,7 @@
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
-            console.log('🎧 Complete Interactive Lessons Loading...');
+            console.log('🌟 A1 Foundation Lessons Loading...');
             if (!checkAuth()) return;
             
             audioPlayer = document.getElementById('audioPlayer');
@@ -592,7 +592,7 @@
                     renderLessons(audioLessons);
                     
                     const completedCount = Object.values(audioLessons).filter(lesson => lesson.status === 'completed').length;
-                    document.getElementById('firebaseStatus').innerHTML = `<span class="text-green-600 font-medium">✅ Firebase: ${completedCount}/10 aulas concluídas</span>`;
+                    document.getElementById('firebaseStatus').innerHTML = `<span class="text-green-600 font-medium">✅ Firebase: ${completedCount}/10 Foundation lessons completed</span>`;
                 } else {
                     document.getElementById('firebaseStatus').innerHTML = '<span class="text-red-600 font-medium">❌ Estudante não encontrado</span>';
                     renderLessons({});
@@ -621,7 +621,7 @@
                         <h3 class="font-semibold text-charcoal mb-2">Lesson ${index + 1}: ${lesson.title}</h3>
                         <p class="text-sm text-medium-gray mb-3">${lesson.description}</p>
                         <div class="flex items-center justify-between text-xs text-medium-gray">
-                            <span>📞 ${lesson.duration}</span>
+                            <span>🎧 ${lesson.duration}</span>
                             <span class="font-semibold text-alex-blue">${progress.status === 'completed' ? `✅ ${progress.score}/5` : '+50 XP'}</span>
                         </div>
                         ${progress.attempts > 0 ? `
@@ -671,7 +671,7 @@
             // Update header bar
             const currentStudent = getCurrentStudent();
             const displayName = currentStudent ? currentStudent.displayName : 'Estudante';
-            document.getElementById('userCourseLine').textContent = `${displayName} • Lesson ${lessonIndex}: ${currentLesson.title}`;
+            document.getElementById('userCourseLine').textContent = `${displayName} • Foundation ${lessonIndex}: ${currentLesson.title}`;
             
             // Setup audio
             document.getElementById('audioSource').src = `../audio/a1-foundation/${currentLesson.audioFile}`;
@@ -683,7 +683,7 @@
             // Reset progress
             updateProgress(0, 'Listen to Audio');
             
-            console.log('🎯 Lesson started:', currentLesson.title);
+            console.log('🎯 Foundation lesson started:', currentLesson.title);
         };
 
         function loadQuestions() {
@@ -804,16 +804,6 @@
             document.getElementById('closeReview').addEventListener('click', () => {
                 document.getElementById('reviewModal').classList.add('hidden');
             });
-            
-            // Header bar actions
-            document.querySelector('.btn-portal').addEventListener('click', () => {
-                window.location.href = 'portal.html';
-            });
-            
-            document.querySelector('.btn-sair').addEventListener('click', () => {
-                localStorage.clear();
-                window.location.href = '../index.html';
-            });
 
             // Audio events
             audioPlayer.addEventListener('play', () => {
@@ -824,6 +814,12 @@
                 updateProgress(20, 'Audio Complete - Answer Questions Below');
             });
         }
+
+        // Logout function
+        window.logout = function() {
+            localStorage.clear();
+            window.location.href = '../index.html';
+        };
 
         async function submitAnswers() {
             try {
@@ -895,7 +891,7 @@
             studentData.totalXP = newTotalXP;
             studentData.level = newLevel; // ✅ FIXED: Update local level too
             
-            console.log(`✅ Progress saved: +${xpEarned} XP, Level ${newLevel}`);
+            console.log(`✅ Foundation progress saved: +${xpEarned} XP, Level ${newLevel}`);
         }
 
         // Add level calculation function (matches portal system)
@@ -928,7 +924,7 @@
             // Check for achievements
             if (isPerfect) {
                 document.getElementById('achievementDisplay').classList.remove('hidden');
-                document.getElementById('achievementText').textContent = '🎯 Perfect Score Achievement!';
+                document.getElementById('achievementText').textContent = '🎯 Perfect Foundation Score!';
             }
             
             document.getElementById('resultsModal').classList.remove('hidden');
@@ -972,9 +968,9 @@
             if (nextLesson) {
                 startLesson(nextLesson.id);
             } else {
-                // Course completed - return to lesson list
+                // Foundation course completed - return to lesson list
                 document.getElementById('backToLessons').click();
-                alert('🎉 Parabéns! Você completou todas as aulas do curso A1 Foundation!');
+                alert('🎉 Parabéns! Você completou todas as aulas do Foundation Course! Explore outros temas no Hub.');
             }
         }
 
