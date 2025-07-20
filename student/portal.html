@@ -117,22 +117,31 @@
     </div>
 
     <script>
-        // Simple functionality
+        // Load student data
         const studentUsername = localStorage.getItem('studentUsername') || 'Estudante';
         document.getElementById('welcomeMessage').textContent = `Olá, ${studentUsername}!`;
 
+        // ZERO POPUP - só console.log
         function accessLessons() {
-            alert('Acessando suas aulas...');
+            console.log('Acessando aulas...');
+            // TODO: Redirect to lessons page
         }
 
         function viewProgress() {
-            alert('Progresso detalhado...');
+            console.log('Visualizando progresso...');
+            // TODO: Show detailed progress
         }
 
+        // LOGOUT DIRETO - zero popup, zero pergunta
         function handleLogout() {
             localStorage.removeItem('studentLoggedIn');
             localStorage.removeItem('studentUsername');
-            alert('Logout realizado!');
+            window.location.href = '../index.html';
+        }
+
+        // Check if logged in
+        if (!localStorage.getItem('studentLoggedIn')) {
+            window.location.href = '../index.html';
         }
 
         console.log('📚 Portal carregado!');
