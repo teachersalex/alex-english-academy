@@ -9,12 +9,12 @@ import {
 } from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js';
 
 // App State
-let isStudentLoginMode = false; // Começar com registro
+let isRegistrationMode = false;
 let isTeacherLoginMode = true;
 
 // DOM Elements - Student Form
 const loginBtn = document.getElementById('loginBtn');
-const toggleModeBtn = document.getElementById('toggleMode');
+const createAccountLink = document.getElementById('createAccountLink');
 const studentUsername = document.getElementById('studentUsername');
 const studentPassword = document.getElementById('studentPassword');
 
@@ -48,21 +48,16 @@ function hideMessages() {
     successMsg.classList.add('hidden');
 }
 
-// Student Form Functions
-function toggleStudentMode() {
-    isStudentLoginMode = !isStudentLoginMode;
-    
-    if (isStudentLoginMode) {
-        // Login Mode
-        loginBtn.textContent = 'ACESSAR MINHAS AULAS';
-        loginBtn.className = 'w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-lg transition-colors text-lg';
-        toggleModeBtn.textContent = 'Não tem conta? Criar nova conta';
-    } else {
-        // Register Mode (padrão)
-        loginBtn.textContent = '📝 CRIAR CONTA E COMEÇAR';
-        loginBtn.className = 'w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition-colors text-lg';
-        toggleModeBtn.textContent = 'Já tem conta? Fazer login';
-    }
+// Student Form Functions - Simples e direto
+function showRegistrationMode() {
+    isRegistrationMode = true;
+    createAccountLink.textContent = '← Voltar para login';
+    showSuccess('Modo registro ativado - preencha os dados para criar sua conta');
+}
+
+function showLoginMode() {
+    isRegistrationMode = false;
+    createAccountLink.textContent = 'Criar nova conta de estudante';
     hideMessages();
 }
 
@@ -85,22 +80,7 @@ async function handleStudentAuth(username, password) {
             return;
         }
 
-        if (isStudentLoginMode) {
-            // Student Login
-            console.log('Student login attempt:', username);
-            
-            // TODO: Validate against student database
-            // For now, simple validation
-            localStorage.setItem('studentLoggedIn', 'true');
-            localStorage.setItem('studentUsername', username);
-            
-            showSuccess('Login realizado com sucesso!');
-            
-            setTimeout(() => {
-                window.location.href = 'student/portal.html';
-            }, 1500);
-            
-        } else {
+        if (isRegistrationMode) {
             // Student Registration
             console.log('Student registration attempt:', username);
             
@@ -113,6 +93,20 @@ async function handleStudentAuth(username, password) {
             setTimeout(() => {
                 window.location.href = 'student/portal.html';
             }, 2000);
+            
+        } else {
+            // Student Login (padrão)
+            console.log('Student login attempt:', username);
+            
+            // TODO: Validate against student database
+            localStorage.setItem('studentLoggedIn', 'true');
+            localStorage.setItem('studentUsername', username);
+            
+            showSuccess('Login realizado com sucesso!');
+            
+            setTimeout(() => {
+                window.location.href = 'student/portal.html';
+            }, 1500);
         }
         
     } catch (error) {
@@ -144,9 +138,13 @@ loginBtn.addEventListener('click', async (e) => {
     await handleStudentAuth(username, password);
 });
 
-toggleModeBtn.addEventListener('click', (e) => {
+createAccountLink.addEventListener('click', (e) => {
     e.preventDefault();
-    toggleStudentMode();
+    if (isRegistrationMode) {
+        showLoginMode();
+    } else {
+        showRegistrationMode();
+    }
 });
 
 // Event Listeners - Teacher Modal
@@ -196,7 +194,9 @@ studentPassword.addEventListener('keypress', (e) => {
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
-    // Estado inicial já está correto (registro)
+    // Modo padrão: login
+    showLoginMode();
+    
     // Focus username field
     studentUsername.focus();
     
