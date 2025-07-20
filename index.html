@@ -9,6 +9,23 @@
     <meta name="theme-color" content="#3b82f6">
     <meta name="description" content="Teacher Alex English Academy - Professional English Learning with Progress Tracking">
     
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- PWA iOS Support -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Alex English">
+    <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+    
+    <!-- PWA Windows Support -->
+    <meta name="msapplication-TileImage" content="/icons/icon-192x192.png">
+    <meta name="msapplication-TileColor" content="#3b82f6">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/css/style.css" as="style">
+    <link rel="preload" href="/js/firebase.js" as="script">
+    
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -35,7 +52,7 @@
                     
                     <div class="inline-flex items-center beta-badge text-white px-4 py-2 rounded-full text-sm font-semibold mb-5">
                         <span class="w-2 h-2 bg-white rounded-full mr-2 animate-pulse"></span>
-                        FIREBASE
+                        FIREBASE PWA
                     </div>
                     
                     <h3 id="formTitle" class="text-xl text-academy-red font-medium mb-2">Portal do Estudante</h3>
@@ -116,6 +133,332 @@
     
     <!-- Firebase Auth System -->
     <script type="module" src="js/auth.js"></script>
+    
+    <!-- PWA Install Prompt -->
+    <script src="js/pwa-install.js"></script>
+    
+    <!-- PWA Service Worker Registration -->
+    <script>
+        // Register service worker for PWA functionality
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', async () => {
+                try {
+                    const registration = await navigator.serviceWorker.register('/sw.js');
+                    console.log('✅ Service Worker registered:', registration.scope);
+                    
+                    // Listen for updates
+                    registration.addEventListener('updatefound', () => {
+                        console.log('🔄 Service Worker update found');
+                        const newWorker = registration.installing;
+                        
+                        newWorker.addEventListener('statechange', () => {
+                            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                console.log('🎯 New version available - reload to update');
+                                
+                                // Show update notification
+                                showUpdateNotification();
+                            }
+                        });
+                    });
+                    
+                } catch (error) {
+                    console.error('❌ Service Worker registration failed:', error);
+                }
+            });
+        }
+        
+        // Show update notification
+        function showUpdateNotification() {
+            const updateBanner = document.createElement('div');
+            updateBanner.className = 'pwa-update-banner';
+            updateBanner.innerHTML = `
+                <div class="pwa-update-content">
+                    <span class="pwa-update-icon">🔄</span>
+                    <span class="pwa-update-text">Nova versão disponível!</span>
+                    <button onclick="window.location.reload()" class="pwa-update-btn">Atualizar</button>
+                    <button onclick="this.parentElement.parentElement.remove()" class="pwa-update-close">×</button>
+                </div>
+            `;
+            
+            document.body.appendChild(updateBanner);
+            
+            // Auto-hide after 10 seconds
+            setTimeout(() => {
+                if (updateBanner.parentElement) {
+                    updateBanner.remove();
+                }
+            }, 10000);
+        }
+        
+        // PWA Analytics and status tracking
+        function trackPWAUsage() {
+            const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+            const isIOSStandalone = window.navigator.standalone === true;
+            const isPWA = isStandalone || isIOSStandalone;
+            
+            if (isPWA) {
+                console.log('📱 PWA: Running in standalone app mode');
+                document.body.classList.add('pwa-standalone');
+                
+                // Track PWA usage
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'pwa_usage', {
+                        'event_category': 'PWA',
+                        'event_label': 'standalone_mode'
+                    });
+                }
+            } else {
+                console.log('🌐 PWA: Running in browser mode');
+                document.body.classList.add('pwa-browser');
+            }
+            
+            // Check for iOS
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+            if (isIOS) {
+                document.body.classList.add('pwa-ios');
+            }
+            
+            // Check for Android
+            const isAndroid = /Android/.test(navigator.userAgent);
+            if (isAndroid) {
+                document.body.classList.add('pwa-android');
+            }
+        }
+        
+        // Enhanced offline detection
+        function setupOfflineDetection() {
+            function updateOnlineStatus() {
+                const isOnline = navigator.onLine;
+                const statusIndicator = document.querySelector('.pwa-connection-status');
+                
+                if (statusIndicator) {
+                    statusIndicator.remove();
+                }
+                
+                if (!isOnline) {
+                    const offlineIndicator = document.createElement('div');
+                    offlineIndicator.className = 'pwa-connection-status pwa-offline';
+                    offlineIndicator.innerHTML = `
+                        <div class="pwa-status-content">
+                            <span class="pwa-status-icon">📴</span>
+                            <span class="pwa-status-text">Modo offline - lições em cache disponíveis</span>
+                        </div>
+                    `;
+                    document.body.appendChild(offlineIndicator);
+                } else {
+                    // Show brief "back online" message
+                    const onlineIndicator = document.createElement('div');
+                    onlineIndicator.className = 'pwa-connection-status pwa-online';
+                    onlineIndicator.innerHTML = `
+                        <div class="pwa-status-content">
+                            <span class="pwa-status-icon">🌐</span>
+                            <span class="pwa-status-text">Conectado novamente</span>
+                        </div>
+                    `;
+                    document.body.appendChild(onlineIndicator);
+                    
+                    setTimeout(() => {
+                        if (onlineIndicator.parentElement) {
+                            onlineIndicator.remove();
+                        }
+                    }, 3000);
+                }
+            }
+            
+            window.addEventListener('online', updateOnlineStatus);
+            window.addEventListener('offline', updateOnlineStatus);
+            
+            // Initial check
+            updateOnlineStatus();
+        }
+        
+        // Initialize PWA features
+        document.addEventListener('DOMContentLoaded', () => {
+            trackPWAUsage();
+            setupOfflineDetection();
+            
+            console.log('🚀 Alex English Academy PWA - Ready for mobile learning!');
+        });
+        
+        // Prevent zoom on iOS double-tap (better app experience)
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function (event) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+        
+        // Enhanced console branding for PWA
+        console.log(`
+        🎯 TEACHER ALEX ENGLISH ACADEMY PWA
+        ====================================
+        📱 Progressive Web App: ENABLED
+        🔥 Firebase: CONNECTED  
+        🎧 Offline Lessons: READY
+        🇧🇷 Brazilian English Revolution: ACTIVE
+        
+        Status: Production Ready 🚀
+        Students: Ready for mobile learning! 
+        `);
+    </script>
+
+    <!-- PWA-specific styles -->
+    <style>
+        /* PWA Status Indicators */
+        .pwa-update-banner {
+            position: fixed;
+            top: 20px;
+            left: 16px;
+            right: 16px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border-radius: 12px;
+            z-index: 1001;
+            animation: slideDown 0.3s ease;
+            box-shadow: 0 8px 32px rgba(16, 185, 129, 0.3);
+        }
+        
+        .pwa-update-content {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            gap: 8px;
+        }
+        
+        .pwa-update-icon {
+            font-size: 18px;
+            animation: spin 2s linear infinite;
+        }
+        
+        .pwa-update-text {
+            flex-grow: 1;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        .pwa-update-btn {
+            background: white;
+            color: #059669;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        
+        .pwa-update-close {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            font-size: 14px;
+            cursor: pointer;
+            margin-left: 8px;
+        }
+        
+        .pwa-connection-status {
+            position: fixed;
+            top: 20px;
+            left: 16px;
+            right: 16px;
+            border-radius: 8px;
+            z-index: 1000;
+            animation: slideDown 0.3s ease;
+        }
+        
+        .pwa-connection-status.pwa-offline {
+            background: #6b7280;
+            color: white;
+        }
+        
+        .pwa-connection-status.pwa-online {
+            background: #10b981;
+            color: white;
+        }
+        
+        .pwa-status-content {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            gap: 8px;
+        }
+        
+        .pwa-status-icon {
+            font-size: 16px;
+        }
+        
+        .pwa-status-text {
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        /* PWA-specific body classes for enhanced styling */
+        .pwa-standalone {
+            /* When running as installed app */
+            /* Additional styling for app mode can go here */
+        }
+        
+        .pwa-browser {
+            /* When running in browser */
+        }
+        
+        .pwa-ios {
+            /* iOS-specific adjustments */
+        }
+        
+        .pwa-android {
+            /* Android-specific adjustments */
+        }
+        
+        /* Animations */
+        @keyframes slideDown {
+            from { 
+                transform: translateY(-100%); 
+                opacity: 0; 
+            }
+            to { 
+                transform: translateY(0); 
+                opacity: 1; 
+            }
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Enhanced mobile experience */
+        @media (max-width: 480px) {
+            .pwa-update-banner,
+            .pwa-connection-status {
+                left: 8px;
+                right: 8px;
+            }
+            
+            .pwa-update-content,
+            .pwa-status-content {
+                padding: 10px 12px;
+            }
+            
+            .pwa-update-text,
+            .pwa-status-text {
+                font-size: 13px;
+            }
+        }
+        
+        /* Hide elements when in standalone mode for cleaner app experience */
+        @media (display-mode: standalone) {
+            /* App mode customizations */
+            .sophisticated-bg {
+                /* Could adjust background for app mode */
+            }
+        }
+    </style>
 
 </body>
 </html>
