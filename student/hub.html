@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Learning Hub - Teacher Alex Academy</title>
+    <!-- PRODUCTION NOTE: Replace Tailwind CDN with local build -->
+    <!-- See: https://tailwindcss.com/docs/installation -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../css/style.css">
 </head>
@@ -63,26 +65,28 @@
                 </div>
             </div>
 
-            <!-- Featured Foundation Theme (FIRST & PROMINENT) -->
+            <!-- Featured Foundation Theme (Clean & Elegant) -->
             <div class="mb-8">
                 <h3 class="text-xl font-bold text-charcoal mb-4">🌟 Start Your Journey</h3>
-                <div class="featured-theme-card elegant-card rounded-lg p-8 bg-gradient-to-r from-alex-blue to-academy-red text-white cursor-pointer hover:scale-105 transition-all" onclick="navigateToTheme('foundation')">
-                    <div class="text-center">
-                        <div class="text-6xl mb-4">🌟</div>
-                        <h3 class="text-2xl font-bold mb-3">A1 Foundation (Start Here!)</h3>
-                        <p class="text-blue-100 mb-4 text-lg">Perfect for beginners - build your English basics with proven lessons</p>
-                        <div class="bg-white/20 rounded-lg p-4 mb-4">
-                            <div class="flex justify-between text-sm mb-2">
-                                <span>Progress</span>
-                                <span id="foundation-progress">0/10</span>
+                <div class="elegant-card rounded-lg p-6 bg-gradient-to-r from-alex-blue to-academy-red text-white cursor-pointer hover:scale-105 transition-all" onclick="navigateToTheme('foundation')">
+                    <div class="flex items-center justify-between">
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold mb-2">A1 Foundation Course</h3>
+                            <p class="text-blue-100 mb-3">Perfect for beginners - build your English basics</p>
+                            <div class="bg-white/20 rounded-lg p-3 mb-3">
+                                <div class="flex justify-between text-sm mb-2">
+                                    <span>Progress</span>
+                                    <span id="foundation-progress">0/10</span>
+                                </div>
+                                <div class="w-full bg-white/30 rounded-full h-2">
+                                    <div id="foundation-bar" class="bg-white h-2 rounded-full" style="width: 0%;"></div>
+                                </div>
                             </div>
-                            <div class="w-full bg-white/30 rounded-full h-3">
-                                <div id="foundation-bar" class="bg-white h-3 rounded-full" style="width: 0%;"></div>
+                            <div class="bg-white text-alex-blue px-4 py-2 rounded-lg text-sm font-semibold inline-block">
+                                Start Foundation 🎯
                             </div>
                         </div>
-                        <div class="bg-white text-alex-blue px-6 py-3 rounded-lg text-lg font-bold inline-block">
-                            Start Foundation Course 🎯
-                        </div>
+                        <div class="ml-6 text-3xl">🎧</div>
                     </div>
                 </div>
             </div>
