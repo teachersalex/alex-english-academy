@@ -35,7 +35,7 @@
                     <h2 class="text-2xl font-bold text-charcoal mb-2">Learning Hub</h2>
                     <p class="text-medium-gray mb-4">Choose your English learning theme and start practicing!</p>
                     <div class="bg-powder-blue rounded-lg p-3">
-                        <p class="text-alex-blue font-medium">📚 100 free lessons • 🎯 10 themes • 🎧 Audio practice</p>
+                        <p class="text-alex-blue font-medium">📚 2 themes ready • 🚀 8 coming soon • 🎧 Audio practice</p>
                     </div>
                 </div>
             </div>
@@ -72,7 +72,7 @@
                     <div class="flex items-center justify-between">
                         <div class="flex-1">
                             <h3 class="text-xl font-bold mb-2">A1 Foundation Course</h3>
-                            <p class="text-blue-900 mb-3">Perfect for beginners - build your English basics</p>
+                            <p class="text-blue-100 mb-3">Perfect for beginners - build your English basics</p>
                             <div class="bg-white/20 rounded-lg p-3 mb-3">
                                 <div class="flex justify-between text-sm mb-2">
                                     <span>Progress</span>
@@ -83,7 +83,7 @@
                                 </div>
                             </div>
                             <div class="bg-white text-alex-blue px-4 py-2 rounded-lg text-sm font-semibold inline-block">
-                                Start Foundation 🎯
+                                ✅ AVAILABLE - Start Foundation 🎯
                             </div>
                         </div>
                         <div class="ml-6 text-3xl">🎧</div>
@@ -91,218 +91,224 @@
                 </div>
             </div>
 
-            <!-- Other Themes Grid -->
+            <!-- Gaming World (Ready!) -->
+            <div class="mb-8">
+                <h3 class="text-xl font-bold text-charcoal mb-4">🎮 Gaming World (READY!)</h3>
+                <div class="elegant-card rounded-lg p-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white cursor-pointer hover:scale-105 transition-all" onclick="navigateToTheme('gaming')">
+                    <div class="flex items-center justify-between">
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold mb-2">🎮 Gaming World</h3>
+                            <p class="text-purple-100 mb-3">Learn English through gaming vocabulary and scenarios</p>
+                            <div class="bg-white/20 rounded-lg p-3 mb-3">
+                                <div class="flex justify-between text-sm mb-2">
+                                    <span>Progress</span>
+                                    <span id="gaming-progress">0/10</span>
+                                </div>
+                                <div class="w-full bg-white/30 rounded-full h-2">
+                                    <div id="gaming-bar" class="bg-white h-2 rounded-full" style="width: 0%;"></div>
+                                </div>
+                            </div>
+                            <div class="bg-white text-purple-600 px-4 py-2 rounded-lg text-sm font-semibold inline-block">
+                                ✅ AVAILABLE - Start Gaming 🎮
+                            </div>
+                        </div>
+                        <div class="ml-6 text-3xl">🎮</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coming Soon Themes -->
             <div class="mb-6">
-                <h3 class="text-xl font-bold text-charcoal mb-4">🎮 Explore More Themes</h3>
+                <h3 class="text-xl font-bold text-charcoal mb-4">🚀 Coming Soon</h3>
+                <p class="text-medium-gray mb-6">These themes are being developed and will be available soon!</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 
-                <!-- Gaming Theme -->
-                <div class="theme-card elegant-card rounded-lg p-6 cursor-pointer hover:scale-105 transition-all" onclick="navigateToTheme('gaming')">
+                <!-- Movies Theme - COMING SOON -->
+                <div class="theme-card-disabled elegant-card rounded-lg p-6">
                     <div class="text-center">
-                        <div class="text-4xl mb-4">🎮</div>
-                        <h3 class="text-xl font-bold text-charcoal mb-2">Gaming World</h3>
-                        <p class="text-medium-gray mb-4">Learn English through gaming vocabulary and scenarios</p>
-                        <div class="bg-bg-gray rounded-lg p-3 mb-4">
-                            <div class="flex justify-between text-sm">
+                        <div class="text-4xl mb-4 opacity-50">🎬</div>
+                        <h3 class="text-xl font-bold text-gray-500 mb-2">Movie Magic</h3>
+                        <p class="text-gray-400 mb-4">Hollywood English and cinema conversations</p>
+                        <div class="bg-gray-100 rounded-lg p-3 mb-4">
+                            <div class="flex justify-between text-sm text-gray-500">
                                 <span>Progress</span>
-                                <span id="gaming-progress">0/10</span>
+                                <span>0/10</span>
                             </div>
-                            <div class="w-full bg-light-gray rounded-full h-2 mt-2">
-                                <div id="gaming-bar" class="bg-alex-blue h-2 rounded-full" style="width: 0%;"></div>
+                            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                                <div class="bg-gray-300 h-2 rounded-full" style="width: 0%;"></div>
                             </div>
                         </div>
-                        <div class="btn-primary px-4 py-2 rounded-lg text-sm font-semibold">
-                            Start Gaming 🎯
+                        <div class="bg-gray-200 text-gray-500 px-4 py-2 rounded-lg text-sm font-semibold cursor-not-allowed">
+                            🚀 Em Breve
                         </div>
                     </div>
                 </div>
 
-                <!-- Movies Theme -->
-                <div class="theme-card elegant-card rounded-lg p-6 cursor-pointer hover:scale-105 transition-all" onclick="navigateToTheme('movies')">
+                <!-- Business Theme - COMING SOON -->
+                <div class="theme-card-disabled elegant-card rounded-lg p-6">
                     <div class="text-center">
-                        <div class="text-4xl mb-4">🎬</div>
-                        <h3 class="text-xl font-bold text-charcoal mb-2">Movie Magic</h3>
-                        <p class="text-medium-gray mb-4">Hollywood English and cinema conversations</p>
-                        <div class="bg-bg-gray rounded-lg p-3 mb-4">
-                            <div class="flex justify-between text-sm">
+                        <div class="text-4xl mb-4 opacity-50">💼</div>
+                        <h3 class="text-xl font-bold text-gray-500 mb-2">Business Pro</h3>
+                        <p class="text-gray-400 mb-4">Professional English for career success</p>
+                        <div class="bg-gray-100 rounded-lg p-3 mb-4">
+                            <div class="flex justify-between text-sm text-gray-500">
                                 <span>Progress</span>
-                                <span id="movies-progress">0/10</span>
+                                <span>0/10</span>
                             </div>
-                            <div class="w-full bg-light-gray rounded-full h-2 mt-2">
-                                <div id="movies-bar" class="bg-academy-red h-2 rounded-full" style="width: 0%;"></div>
+                            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                                <div class="bg-gray-300 h-2 rounded-full" style="width: 0%;"></div>
                             </div>
                         </div>
-                        <div class="btn-secondary px-4 py-2 rounded-lg text-sm font-semibold">
-                            Start Movies 🎭
+                        <div class="bg-gray-200 text-gray-500 px-4 py-2 rounded-lg text-sm font-semibold cursor-not-allowed">
+                            🚀 Em Breve
                         </div>
                     </div>
                 </div>
 
-                <!-- Business Theme -->
-                <div class="theme-card elegant-card rounded-lg p-6 cursor-pointer hover:scale-105 transition-all" onclick="navigateToTheme('business')">
+                <!-- Travel Theme - COMING SOON -->
+                <div class="theme-card-disabled elegant-card rounded-lg p-6">
                     <div class="text-center">
-                        <div class="text-4xl mb-4">💼</div>
-                        <h3 class="text-xl font-bold text-charcoal mb-2">Business Pro</h3>
-                        <p class="text-medium-gray mb-4">Professional English for career success</p>
-                        <div class="bg-bg-gray rounded-lg p-3 mb-4">
-                            <div class="flex justify-between text-sm">
+                        <div class="text-4xl mb-4 opacity-50">✈️</div>
+                        <h3 class="text-xl font-bold text-gray-500 mb-2">Travel Adventures</h3>
+                        <p class="text-gray-400 mb-4">Essential English for travelers and explorers</p>
+                        <div class="bg-gray-100 rounded-lg p-3 mb-4">
+                            <div class="flex justify-between text-sm text-gray-500">
                                 <span>Progress</span>
-                                <span id="business-progress">0/10</span>
+                                <span>0/10</span>
                             </div>
-                            <div class="w-full bg-light-gray rounded-full h-2 mt-2">
-                                <div id="business-bar" class="bg-green-600 h-2 rounded-full" style="width: 0%;"></div>
+                            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                                <div class="bg-gray-300 h-2 rounded-full" style="width: 0%;"></div>
                             </div>
                         </div>
-                        <div class="btn-subtle px-4 py-2 rounded-lg text-sm font-semibold">
-                            Start Business 📈
+                        <div class="bg-gray-200 text-gray-500 px-4 py-2 rounded-lg text-sm font-semibold cursor-not-allowed">
+                            🚀 Em Breve
                         </div>
                     </div>
                 </div>
 
-                <!-- Travel Theme -->
-                <div class="theme-card elegant-card rounded-lg p-6 cursor-pointer hover:scale-105 transition-all" onclick="navigateToTheme('travel')">
+                <!-- Conversation Theme - COMING SOON -->
+                <div class="theme-card-disabled elegant-card rounded-lg p-6">
                     <div class="text-center">
-                        <div class="text-4xl mb-4">✈️</div>
-                        <h3 class="text-xl font-bold text-charcoal mb-2">Travel Adventures</h3>
-                        <p class="text-medium-gray mb-4">Essential English for travelers and explorers</p>
-                        <div class="bg-bg-gray rounded-lg p-3 mb-4">
-                            <div class="flex justify-between text-sm">
+                        <div class="text-4xl mb-4 opacity-50">💬</div>
+                        <h3 class="text-xl font-bold text-gray-500 mb-2">Daily Conversations</h3>
+                        <p class="text-gray-400 mb-4">Real-life English conversations and dialogues</p>
+                        <div class="bg-gray-100 rounded-lg p-3 mb-4">
+                            <div class="flex justify-between text-sm text-gray-500">
                                 <span>Progress</span>
-                                <span id="travel-progress">0/10</span>
+                                <span>0/10</span>
                             </div>
-                            <div class="w-full bg-light-gray rounded-full h-2 mt-2">
-                                <div id="travel-bar" class="bg-blue-500 h-2 rounded-full" style="width: 0%;"></div>
+                            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                                <div class="bg-gray-300 h-2 rounded-full" style="width: 0%;"></div>
                             </div>
                         </div>
-                        <div class="btn-primary px-4 py-2 rounded-lg text-sm font-semibold">
-                            Start Travel 🗺️
+                        <div class="bg-gray-200 text-gray-500 px-4 py-2 rounded-lg text-sm font-semibold cursor-not-allowed">
+                            🚀 Em Breve
                         </div>
                     </div>
                 </div>
 
-                <!-- Conversation Theme -->
-                <div class="theme-card elegant-card rounded-lg p-6 cursor-pointer hover:scale-105 transition-all" onclick="navigateToTheme('conversation')">
+                <!-- Food Theme - COMING SOON -->
+                <div class="theme-card-disabled elegant-card rounded-lg p-6">
                     <div class="text-center">
-                        <div class="text-4xl mb-4">💬</div>
-                        <h3 class="text-xl font-bold text-charcoal mb-2">Daily Conversations</h3>
-                        <p class="text-medium-gray mb-4">Real-life English conversations and dialogues</p>
-                        <div class="bg-bg-gray rounded-lg p-3 mb-4">
-                            <div class="flex justify-between text-sm">
+                        <div class="text-4xl mb-4 opacity-50">🍕</div>
+                        <h3 class="text-xl font-bold text-gray-500 mb-2">Food & Cooking</h3>
+                        <p class="text-gray-400 mb-4">Culinary English and restaurant conversations</p>
+                        <div class="bg-gray-100 rounded-lg p-3 mb-4">
+                            <div class="flex justify-between text-sm text-gray-500">
                                 <span>Progress</span>
-                                <span id="conversation-progress">0/10</span>
+                                <span>0/10</span>
                             </div>
-                            <div class="w-full bg-light-gray rounded-full h-2 mt-2">
-                                <div id="conversation-bar" class="bg-purple-600 h-2 rounded-full" style="width: 0%;"></div>
+                            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                                <div class="bg-gray-300 h-2 rounded-full" style="width: 0%;"></div>
                             </div>
                         </div>
-                        <div class="btn-secondary px-4 py-2 rounded-lg text-sm font-semibold">
-                            Start Talking 💭
+                        <div class="bg-gray-200 text-gray-500 px-4 py-2 rounded-lg text-sm font-semibold cursor-not-allowed">
+                            🚀 Em Breve
                         </div>
                     </div>
                 </div>
 
-                <!-- Food Theme -->
-                <div class="theme-card elegant-card rounded-lg p-6 cursor-pointer hover:scale-105 transition-all" onclick="navigateToTheme('food')">
+                <!-- Technology Theme - COMING SOON -->
+                <div class="theme-card-disabled elegant-card rounded-lg p-6">
                     <div class="text-center">
-                        <div class="text-4xl mb-4">🍕</div>
-                        <h3 class="text-xl font-bold text-charcoal mb-2">Food & Cooking</h3>
-                        <p class="text-medium-gray mb-4">Culinary English and restaurant conversations</p>
-                        <div class="bg-bg-gray rounded-lg p-3 mb-4">
-                            <div class="flex justify-between text-sm">
+                        <div class="text-4xl mb-4 opacity-50">📱</div>
+                        <h3 class="text-xl font-bold text-gray-500 mb-2">Tech World</h3>
+                        <p class="text-gray-400 mb-4">Modern technology and digital English</p>
+                        <div class="bg-gray-100 rounded-lg p-3 mb-4">
+                            <div class="flex justify-between text-sm text-gray-500">
                                 <span>Progress</span>
-                                <span id="food-progress">0/10</span>
+                                <span>0/10</span>
                             </div>
-                            <div class="w-full bg-light-gray rounded-full h-2 mt-2">
-                                <div id="food-bar" class="bg-orange-500 h-2 rounded-full" style="width: 0%;"></div>
+                            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                                <div class="bg-gray-300 h-2 rounded-full" style="width: 0%;"></div>
                             </div>
                         </div>
-                        <div class="btn-primary px-4 py-2 rounded-lg text-sm font-semibold">
-                            Start Cooking 👨‍🍳
+                        <div class="bg-gray-200 text-gray-500 px-4 py-2 rounded-lg text-sm font-semibold cursor-not-allowed">
+                            🚀 Em Breve
                         </div>
                     </div>
                 </div>
 
-                <!-- Technology Theme -->
-                <div class="theme-card elegant-card rounded-lg p-6 cursor-pointer hover:scale-105 transition-all" onclick="navigateToTheme('technology')">
+                <!-- Culture Theme - COMING SOON -->
+                <div class="theme-card-disabled elegant-card rounded-lg p-6">
                     <div class="text-center">
-                        <div class="text-4xl mb-4">📱</div>
-                        <h3 class="text-xl font-bold text-charcoal mb-2">Tech World</h3>
-                        <p class="text-medium-gray mb-4">Modern technology and digital English</p>
-                        <div class="bg-bg-gray rounded-lg p-3 mb-4">
-                            <div class="flex justify-between text-sm">
+                        <div class="text-4xl mb-4 opacity-50">🇧🇷</div>
+                        <h3 class="text-xl font-bold text-gray-500 mb-2">Brazilian Culture</h3>
+                        <p class="text-gray-400 mb-4">Share Brazilian culture in English</p>
+                        <div class="bg-gray-100 rounded-lg p-3 mb-4">
+                            <div class="flex justify-between text-sm text-gray-500">
                                 <span>Progress</span>
-                                <span id="technology-progress">0/10</span>
+                                <span>0/10</span>
                             </div>
-                            <div class="w-full bg-light-gray rounded-full h-2 mt-2">
-                                <div id="technology-bar" class="bg-indigo-500 h-2 rounded-full" style="width: 0%;"></div>
+                            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                                <div class="bg-gray-300 h-2 rounded-full" style="width: 0%;"></div>
                             </div>
                         </div>
-                        <div class="btn-secondary px-4 py-2 rounded-lg text-sm font-semibold">
-                            Start Tech 💻
+                        <div class="bg-gray-200 text-gray-500 px-4 py-2 rounded-lg text-sm font-semibold cursor-not-allowed">
+                            🚀 Em Breve
                         </div>
                     </div>
                 </div>
 
-                <!-- Culture Theme -->
-                <div class="theme-card elegant-card rounded-lg p-6 cursor-pointer hover:scale-105 transition-all" onclick="navigateToTheme('culture')">
+                <!-- Sports Theme - COMING SOON -->
+                <div class="theme-card-disabled elegant-card rounded-lg p-6">
                     <div class="text-center">
-                        <div class="text-4xl mb-4">🇧🇷</div>
-                        <h3 class="text-xl font-bold text-charcoal mb-2">Brazilian Culture</h3>
-                        <p class="text-medium-gray mb-4">Share Brazilian culture in English</p>
-                        <div class="bg-bg-gray rounded-lg p-3 mb-4">
-                            <div class="flex justify-between text-sm">
+                        <div class="text-4xl mb-4 opacity-50">⚽</div>
+                        <h3 class="text-xl font-bold text-gray-500 mb-2">Sports Arena</h3>
+                        <p class="text-gray-400 mb-4">Football, sports, and competition English</p>
+                        <div class="bg-gray-100 rounded-lg p-3 mb-4">
+                            <div class="flex justify-between text-sm text-gray-500">
                                 <span>Progress</span>
-                                <span id="culture-progress">0/10</span>
+                                <span>0/10</span>
                             </div>
-                            <div class="w-full bg-light-gray rounded-full h-2 mt-2">
-                                <div id="culture-bar" class="bg-yellow-500 h-2 rounded-full" style="width: 0%;"></div>
+                            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                                <div class="bg-gray-300 h-2 rounded-full" style="width: 0%;"></div>
                             </div>
                         </div>
-                        <div class="btn-primary px-4 py-2 rounded-lg text-sm font-semibold">
-                            Start Culture 🎉
+                        <div class="bg-gray-200 text-gray-500 px-4 py-2 rounded-lg text-sm font-semibold cursor-not-allowed">
+                            🚀 Em Breve
                         </div>
                     </div>
                 </div>
 
-                <!-- Sports Theme -->
-                <div class="theme-card elegant-card rounded-lg p-6 cursor-pointer hover:scale-105 transition-all" onclick="navigateToTheme('sports')">
+                <!-- News Theme - COMING SOON -->
+                <div class="theme-card-disabled elegant-card rounded-lg p-6">
                     <div class="text-center">
-                        <div class="text-4xl mb-4">⚽</div>
-                        <h3 class="text-xl font-bold text-charcoal mb-2">Sports Arena</h3>
-                        <p class="text-medium-gray mb-4">Football, sports, and competition English</p>
-                        <div class="bg-bg-gray rounded-lg p-3 mb-4">
-                            <div class="flex justify-between text-sm">
+                        <div class="text-4xl mb-4 opacity-50">📰</div>
+                        <h3 class="text-xl font-bold text-gray-500 mb-2">News & Media</h3>
+                        <p class="text-gray-400 mb-4">Current events and media English</p>
+                        <div class="bg-gray-100 rounded-lg p-3 mb-4">
+                            <div class="flex justify-between text-sm text-gray-500">
                                 <span>Progress</span>
-                                <span id="sports-progress">0/10</span>
+                                <span>0/10</span>
                             </div>
-                            <div class="w-full bg-light-gray rounded-full h-2 mt-2">
-                                <div id="sports-bar" class="bg-green-500 h-2 rounded-full" style="width: 0%;"></div>
-                            </div>
-                        </div>
-                        <div class="btn-secondary px-4 py-2 rounded-lg text-sm font-semibold">
-                            Start Sports ⚽
-                        </div>
-                    </div>
-                </div>
-
-                <!-- News Theme -->
-                <div class="theme-card elegant-card rounded-lg p-6 cursor-pointer hover:scale-105 transition-all" onclick="navigateToTheme('news')">
-                    <div class="text-center">
-                        <div class="text-4xl mb-4">📰</div>
-                        <h3 class="text-xl font-bold text-charcoal mb-2">News & Media</h3>
-                        <p class="text-medium-gray mb-4">Current events and media English</p>
-                        <div class="bg-bg-gray rounded-lg p-3 mb-4">
-                            <div class="flex justify-between text-sm">
-                                <span>Progress</span>
-                                <span id="news-progress">0/10</span>
-                            </div>
-                            <div class="w-full bg-light-gray rounded-full h-2 mt-2">
-                                <div id="news-bar" class="bg-red-600 h-2 rounded-full" style="width: 0%;"></div>
+                            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                                <div class="bg-gray-300 h-2 rounded-full" style="width: 0%;"></div>
                             </div>
                         </div>
-                        <div class="btn-primary px-4 py-2 rounded-lg text-sm font-semibold">
-                            Start News 📺
+                        <div class="bg-gray-200 text-gray-500 px-4 py-2 rounded-lg text-sm font-semibold cursor-not-allowed">
+                            🚀 Em Breve
                         </div>
                     </div>
                 </div>
@@ -333,12 +339,20 @@
             return authData ? JSON.parse(authData) : null;
         }
 
-        // Navigation function
+        // FIXED Navigation function - only allow working themes
         window.navigateToTheme = function(theme) {
+            const workingThemes = ['foundation', 'gaming'];
+            
+            if (!workingThemes.includes(theme)) {
+                // Show a friendly message for coming soon themes
+                alert('🚀 Este tema está em desenvolvimento!\n\nPor enquanto, explore:\n• Foundation Course (básicos)\n• Gaming World (vocabulário gamer)\n\nMais temas chegando em breve!');
+                return;
+            }
+            
             if (theme === 'foundation') {
                 window.location.href = 'lessons-foundation.html';
-            } else {
-                window.location.href = `lessons-${theme}.html`;
+            } else if (theme === 'gaming') {
+                window.location.href = 'lessons-gaming.html';
             }
         };
 
@@ -378,13 +392,13 @@
                     document.getElementById('foundation-progress').textContent = `${foundationCompleted}/10`;
                     document.getElementById('foundation-bar').style.width = `${foundationPercentage}%`;
 
-                    // Update other theme progress (placeholder until individual themes implemented)
-                    const themes = ['gaming', 'movies', 'business', 'travel', 'conversation', 'food', 'technology', 'culture', 'sports', 'news'];
-                    themes.forEach(theme => {
-                        // For now, show foundation progress in all themes (placeholder)
-                        document.getElementById(`${theme}-progress`).textContent = `${foundationCompleted}/10`;
-                        document.getElementById(`${theme}-bar`).style.width = `${foundationPercentage}%`;
-                    });
+                    // Update gaming progress (from gamingLessons)
+                    const gamingLessons = studentData.gamingLessons || {};
+                    const gamingCompleted = Object.values(gamingLessons).filter(lesson => lesson.status === 'completed').length;
+                    const gamingPercentage = (gamingCompleted / 10) * 100;
+                    
+                    document.getElementById('gaming-progress').textContent = `${gamingCompleted}/10`;
+                    document.getElementById('gaming-bar').style.width = `${gamingPercentage}%`;
 
                     console.log('✅ Hub progress loaded from Firebase');
                 } else {
@@ -400,27 +414,22 @@
             const audioLessons = studentData.audioLessons || {};
             const foundationCompleted = Object.values(audioLessons).filter(lesson => lesson.status === 'completed').length;
             
-            // Count completed themed lessons (when implemented)
-            const themes = ['gaming', 'movies', 'business', 'travel', 'conversation', 'food', 'technology', 'culture', 'sports', 'news'];
-            let themedCompleted = 0;
+            // Count completed gaming lessons
+            const gamingLessons = studentData.gamingLessons || {};
+            const gamingCompleted = Object.values(gamingLessons).filter(lesson => lesson.status === 'completed').length;
             
-            themes.forEach(theme => {
-                const themeLessons = studentData[`${theme}Lessons`] || {};
-                themedCompleted += Object.values(themeLessons).filter(lesson => lesson.status === 'completed').length;
-            });
-            
-            return foundationCompleted + themedCompleted;
+            return foundationCompleted + gamingCompleted;
         }
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             if (!checkAuth()) return;
             loadOverallProgress();
-            console.log('🌟 Learning Hub loaded!');
+            console.log('🌟 Learning Hub loaded with Coming Soon protection!');
         });
     </script>
 
-    <!-- Header Bar Styles (Reuse from lessons.html) -->
+    <!-- Header Bar Styles -->
     <style>
         /* Professional Header Bar */
         .lesson-header-bar {
@@ -509,6 +518,17 @@
         .theme-card:hover {
             transform: translateY(-4px);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        /* DISABLED Theme Cards */
+        .theme-card-disabled {
+            transition: none;
+            opacity: 0.6;
+        }
+
+        .theme-card-disabled:hover {
+            transform: none;
+            box-shadow: none;
         }
 
         /* Desktop responsive */
