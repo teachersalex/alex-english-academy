@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A1 Foundation - Teacher Alex Academy</title>
+    <!-- PRODUCTION NOTE: Replace Tailwind CDN with local build -->
+    <!-- See: https://tailwindcss.com/docs/installation -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../css/style.css">
 </head>
@@ -662,6 +664,9 @@
             document.getElementById('lessonSelection').classList.add('hidden');
             document.getElementById('lessonInterface').classList.remove('hidden');
             
+            // ✅ SCROLL TO TOP FOR BETTER UX
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
             // Update lesson info
             const lessonIndex = LESSONS.findIndex(l => l.id === lessonId) + 1;
             document.getElementById('lessonProgress').textContent = `Lesson ${lessonIndex} of ${LESSONS.length}`;
@@ -786,6 +791,9 @@
                 document.getElementById('lessonInterface').classList.add('hidden');
                 document.getElementById('lessonSelection').classList.remove('hidden');
                 
+                // ✅ SCROLL TO TOP WHEN RETURNING TO LESSON LIST
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
                 // Update header bar back to course view
                 const currentStudent = getCurrentStudent();
                 const displayName = currentStudent ? currentStudent.displayName : 'Estudante';
@@ -796,7 +804,15 @@
             document.getElementById('nextLesson').addEventListener('click', goToNextLesson);
             document.getElementById('backToLessonsList').addEventListener('click', () => {
                 closeResultsModal();
-                document.getElementById('backToLessons').click();
+                document.getElementById('lessonInterface').classList.add('hidden');
+                document.getElementById('lessonSelection').classList.remove('hidden');
+                
+                // ✅ SCROLL TO TOP WHEN RETURNING TO LESSON LIST
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                const currentStudent = getCurrentStudent();
+                const displayName = currentStudent ? currentStudent.displayName : 'Estudante';
+                document.getElementById('userCourseLine').textContent = `${displayName} • A1 Foundation Course`;
             });
             
             // Review modal
@@ -966,10 +982,21 @@
             closeResultsModal();
             
             if (nextLesson) {
+                // ✅ SCROLL TO TOP WHEN ADVANCING TO NEXT LESSON
+                window.scrollTo({ top: 0, behavior: 'smooth' });
                 startLesson(nextLesson.id);
             } else {
                 // Foundation course completed - return to lesson list
-                document.getElementById('backToLessons').click();
+                document.getElementById('lessonInterface').classList.add('hidden');
+                document.getElementById('lessonSelection').classList.remove('hidden');
+                
+                // ✅ SCROLL TO TOP WHEN RETURNING TO LESSON LIST
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                const currentStudent = getCurrentStudent();
+                const displayName = currentStudent ? currentStudent.displayName : 'Estudante';
+                document.getElementById('userCourseLine').textContent = `${displayName} • A1 Foundation Course`;
+                
                 alert('🎉 Parabéns! Você completou todas as aulas do Foundation Course! Explore outros temas no Hub.');
             }
         }
