@@ -9,7 +9,7 @@ import {
 } from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js';
 
 // App State
-let isStudentLoginMode = true;
+let isStudentLoginMode = false; // Começar com registro
 let isTeacherLoginMode = true;
 
 // DOM Elements - Student Form
@@ -58,9 +58,9 @@ function toggleStudentMode() {
         loginBtn.className = 'w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-lg transition-colors text-lg';
         toggleModeBtn.textContent = 'Não tem conta? Criar nova conta';
     } else {
-        // Register Mode
+        // Register Mode (padrão)
         loginBtn.textContent = '📝 CRIAR CONTA E COMEÇAR';
-        loginBtn.className = 'w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-lg transition-colors text-lg';
+        loginBtn.className = 'w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition-colors text-lg';
         toggleModeBtn.textContent = 'Já tem conta? Fazer login';
     }
     hideMessages();
@@ -196,9 +196,7 @@ studentPassword.addEventListener('keypress', (e) => {
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
-    // Set initial mode
-    toggleStudentMode();
-    
+    // Estado inicial já está correto (registro)
     // Focus username field
     studentUsername.focus();
     
