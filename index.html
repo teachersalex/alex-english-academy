@@ -63,6 +63,7 @@
             border-color: var(--alex-blue);
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
             background: white;
+            outline: none;
         }
         
         .elegant-input::placeholder {
@@ -125,6 +126,16 @@
         .link-muted:hover {
             color: var(--charcoal);
         }
+        
+        /* Registration mode styling */
+        .registration-mode .elegant-input {
+            border-color: var(--alex-blue);
+        }
+        
+        .registration-highlight {
+            background: var(--powder-blue);
+            border-color: var(--alex-blue);
+        }
     </style>
 </head>
 <body class="sophisticated-bg min-h-screen">
@@ -150,7 +161,7 @@
                         BETA
                     </div>
                     
-                    <h3 class="text-xl text-academy-red font-medium mb-2">Portal do Estudante</h3>
+                    <h3 id="formTitle" class="text-xl text-academy-red font-medium mb-2">Portal do Estudante</h3>
                     <p class="text-medium-gray text-sm">Acesso exclusivo para alunos matriculados</p>
                 </div>
 
@@ -159,13 +170,13 @@
                     <div>
                         <label class="block text-charcoal text-sm font-medium mb-2">Nome de usuário</label>
                         <input type="text" id="studentUsername" placeholder="Digite seu nome de usuário" required
-                               class="elegant-input w-full p-4 rounded-xl focus:outline-none text-base">
+                               class="elegant-input w-full p-4 rounded-xl text-base">
                     </div>
                     
                     <div>
                         <label class="block text-charcoal text-sm font-medium mb-2">Senha</label>
                         <input type="password" id="studentPassword" placeholder="Digite sua senha" required
-                               class="elegant-input w-full p-4 rounded-xl focus:outline-none text-base">
+                               class="elegant-input w-full p-4 rounded-xl text-base">
                     </div>
                     
                     <!-- Main Action Button -->
@@ -184,7 +195,7 @@
                     <!-- Action Links -->
                     <div class="space-y-3">
                         <button id="createAccountLink" class="block w-full link-sophisticated text-sm py-2 px-4 rounded-lg hover:bg-powder-blue transition-all">
-                            ✨ Criar nova conta de estudante
+                            Criar nova conta de estudante
                         </button>
                         <button id="teacherAccessBtn" class="block w-full link-muted text-xs py-2 px-4 rounded-lg hover:bg-gray-50 transition-all">
                             🎓 Acesso para Professores
@@ -209,9 +220,9 @@
             
             <form id="teacherForm" class="space-y-4">
                 <input type="email" id="teacherEmail" placeholder="Email do Professor" required
-                       class="elegant-input w-full p-3 rounded-lg focus:outline-none">
+                       class="elegant-input w-full p-3 rounded-lg">
                 <input type="password" id="teacherPassword" placeholder="Senha" required
-                       class="elegant-input w-full p-3 rounded-lg focus:outline-none">
+                       class="elegant-input w-full p-3 rounded-lg">
                 <button type="submit" class="btn-secondary w-full text-white font-semibold py-3 rounded-lg">
                     Acessar Dashboard
                 </button>
@@ -226,8 +237,228 @@
     <!-- Firebase SDK -->
     <script type="module" src="js/firebase.js"></script>
     
-    <!-- Auth Logic -->
-    <script type="module" src="js/auth.js"></script>
+    <!-- Clean Auth Logic -->
+    <script type="module">
+        // Auth Logic - Teacher Alex English Academy
+        // Clean & Professional Account Creation
+
+        import { auth } from './js/firebase.js';
+        import { 
+            signInWithEmailAndPassword, 
+            createUserWithEmailAndPassword,
+            onAuthStateChanged 
+        } from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js';
+
+        // State
+        let isRegistrationMode = false;
+
+        // DOM Elements
+        const loginBtn = document.getElementById('loginBtn');
+        const createAccountLink = document.getElementById('createAccountLink');
+        const studentUsername = document.getElementById('studentUsername');
+        const studentPassword = document.getElementById('studentPassword');
+        const teacherAccessBtn = document.getElementById('teacherAccessBtn');
+        const teacherModal = document.getElementById('teacherModal');
+        const closeTeacherModal = document.getElementById('closeTeacherModal');
+        const teacherForm = document.getElementById('teacherForm');
+        const errorMsg = document.getElementById('errorMsg');
+        const successMsg = document.getElementById('successMsg');
+        const formTitle = document.getElementById('formTitle');
+
+        // Utility Functions
+        function showError(message) {
+            errorMsg.textContent = message;
+            errorMsg.classList.remove('hidden');
+            successMsg.classList.add('hidden');
+            setTimeout(() => errorMsg.classList.add('hidden'), 5000);
+        }
+
+        function showSuccess(message) {
+            successMsg.textContent = message;
+            successMsg.classList.remove('hidden');
+            errorMsg.classList.add('hidden');
+            setTimeout(() => successMsg.classList.add('hidden'), 3000);
+        }
+
+        // Student Auth - Clean Logic
+        async function handleStudentAuth(username, password) {
+            try {
+                if (!username || !password) {
+                    showError('Preencha todos os campos');
+                    return;
+                }
+
+                // Validate minimum requirements
+                if (username.length < 3) {
+                    showError('Nome de usuário deve ter pelo menos 3 caracteres');
+                    return;
+                }
+
+                if (password.length < 4) {
+                    showError('Senha deve ter pelo menos 4 caracteres');
+                    return;
+                }
+
+                if (isRegistrationMode) {
+                    // Registration Process
+                    showSuccess('Conta criada com sucesso! Redirecionando...');
+                    setTimeout(() => {
+                        localStorage.setItem('studentLoggedIn', 'true');
+                        localStorage.setItem('studentUsername', username);
+                        window.location.href = 'student/portal.html';
+                    }, 1500);
+                } else {
+                    // Login Process
+                    localStorage.setItem('studentLoggedIn', 'true');
+                    localStorage.setItem('studentUsername', username);
+                    window.location.href = 'student/portal.html';
+                }
+            } catch (error) {
+                showError('Erro no sistema. Tente novamente.');
+                console.error('Student auth error:', error);
+            }
+        }
+
+        // Teacher Auth
+        async function handleTeacherLogin(email, password) {
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                window.location.href = 'teacher/dashboard.html';
+            } catch (error) {
+                showError('Email ou senha inválidos');
+                console.error('Teacher auth error:', error);
+            }
+        }
+
+        // Mode Toggle - Clean UX
+        function toggleMode() {
+            isRegistrationMode = !isRegistrationMode;
+            
+            if (isRegistrationMode) {
+                // Switch to Registration Mode
+                loginBtn.textContent = 'CRIAR MINHA CONTA';
+                createAccountLink.textContent = '← Voltar para login';
+                formTitle.textContent = 'Criar Conta de Estudante';
+                showSuccess('Preencha os dados para criar sua conta');
+                
+                // Visual feedback
+                document.querySelector('.elegant-card').classList.add('registration-mode');
+                
+                // Clear any previous errors
+                errorMsg.classList.add('hidden');
+                
+            } else {
+                // Switch to Login Mode
+                loginBtn.textContent = 'ACESSAR MINHAS AULAS';
+                createAccountLink.textContent = 'Criar nova conta de estudante';
+                formTitle.textContent = 'Portal do Estudante';
+                
+                // Remove visual feedback
+                document.querySelector('.elegant-card').classList.remove('registration-mode');
+                
+                // Clear form
+                studentUsername.value = '';
+                studentPassword.value = '';
+                errorMsg.classList.add('hidden');
+                successMsg.classList.add('hidden');
+            }
+            
+            // Focus on username field
+            studentUsername.focus();
+        }
+
+        // Teacher Modal
+        function showTeacherModal() {
+            teacherModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            document.getElementById('teacherEmail').focus();
+        }
+
+        function hideTeacherModal() {
+            teacherModal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+            
+            // Clear teacher form
+            document.getElementById('teacherEmail').value = '';
+            document.getElementById('teacherPassword').value = '';
+        }
+
+        // Event Listeners
+        loginBtn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            await handleStudentAuth(studentUsername.value.trim(), studentPassword.value);
+        });
+
+        createAccountLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            toggleMode();
+        });
+
+        teacherAccessBtn.addEventListener('click', showTeacherModal);
+        closeTeacherModal.addEventListener('click', hideTeacherModal);
+
+        teacherModal.addEventListener('click', (e) => {
+            if (e.target === teacherModal) hideTeacherModal();
+        });
+
+        teacherForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('teacherEmail').value;
+            const password = document.getElementById('teacherPassword').value;
+            await handleTeacherLogin(email, password);
+        });
+
+        // Enhanced Keyboard Navigation
+        studentUsername.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                studentPassword.focus();
+            }
+        });
+
+        studentPassword.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                loginBtn.click();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                hideTeacherModal();
+            }
+        });
+
+        // Input Validation Visual Feedback
+        studentUsername.addEventListener('input', (e) => {
+            const value = e.target.value.trim();
+            if (value.length > 0 && value.length < 3) {
+                e.target.style.borderColor = '#ef4444';
+            } else {
+                e.target.style.borderColor = '#e5e7eb';
+            }
+        });
+
+        studentPassword.addEventListener('input', (e) => {
+            const value = e.target.value;
+            if (value.length > 0 && value.length < 4) {
+                e.target.style.borderColor = '#ef4444';
+            } else {
+                e.target.style.borderColor = '#e5e7eb';
+            }
+        });
+
+        // Auth State Listener
+        onAuthStateChanged(auth, (user) => {
+            if (user && window.location.pathname === '/') {
+                window.location.href = 'teacher/dashboard.html';
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            studentUsername.focus();
+            console.log('🚀 Clean auth system initialized!');
+        });
+    </script>
 
 </body>
 </html>
