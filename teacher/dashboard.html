@@ -13,16 +13,7 @@
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="../css/style.css">
-    
-    <style>
-        .card-hover {
-            transition: all 0.3s ease;
-        }
-        .card-hover:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 20px 40px rgba(31, 41, 55, 0.15);
-        }
-    </style>
+    <link rel="stylesheet" href="../css/dashboard.css">
 </head>
 <body class="sophisticated-bg min-h-screen">
 
@@ -39,7 +30,7 @@
                 </div>
             </div>
             <div class="flex items-center space-x-4">
-                <span id="teacherName" class="text-gray-600 text-sm"></span>
+                <span id="teacherName" class="text-gray-600 text-sm">Carregando...</span>
                 <button id="logoutBtn" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm transition-colors">
                     Sair
                 </button>
@@ -53,189 +44,153 @@
         <!-- Quick Stats -->
         <div class="grid md:grid-cols-4 gap-6 mb-8">
             <div class="bg-white rounded-xl shadow-lg p-6 text-center card-hover">
-                <div class="text-3xl font-bold text-blue-600 mb-2" id="totalStudents">20</div>
+                <div class="text-3xl font-bold text-blue-600 mb-2" id="totalStudents">0</div>
+                <div class="text-gray-600 text-sm">Estudantes Criados</div>
+            </div>
+            <div class="bg-white rounded-xl shadow-lg p-6 text-center card-hover">
+                <div class="text-3xl font-bold text-green-600 mb-2" id="activeStudents">0</div>
                 <div class="text-gray-600 text-sm">Estudantes Ativos</div>
             </div>
             <div class="bg-white rounded-xl shadow-lg p-6 text-center card-hover">
-                <div class="text-3xl font-bold text-red-600 mb-2" id="paidStudents">18</div>
-                <div class="text-gray-600 text-sm">Pagamentos em Dia</div>
+                <div class="text-3xl font-bold text-academy-red mb-2" id="newStudentsThisMonth">0</div>
+                <div class="text-gray-600 text-sm">Novos Este Mês</div>
             </div>
             <div class="bg-white rounded-xl shadow-lg p-6 text-center card-hover">
-                <div class="text-3xl font-bold text-green-600 mb-2" id="monthlyRevenue">R$ 3.200</div>
-                <div class="text-gray-600 text-sm">Receita Mensal</div>
-            </div>
-            <div class="bg-white rounded-xl shadow-lg p-6 text-center card-hover">
-                <div class="text-3xl font-bold text-gray-600 mb-2" id="pendingPayments">2</div>
-                <div class="text-gray-600 text-sm">Pendências</div>
+                <div class="text-3xl font-bold text-alex-blue mb-2" id="totalLessonsCompleted">0</div>
+                <div class="text-gray-600 text-sm">Lições Completadas</div>
             </div>
         </div>
 
-        <!-- Main Dashboard -->
-        <div class="grid lg:grid-cols-3 gap-8">
+        <!-- Student Management Section -->
+        <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold text-gray-800">👥 Gerenciar Alunos</h3>
+                <button id="addStudentBtn" class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-medium transition-colors">
+                    + Adicionar Novo Aluno
+                </button>
+            </div>
             
-            <!-- Student Management -->
-            <div class="lg:col-span-2">
-                <div class="bg-white rounded-xl shadow-lg p-6">
-                    <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-xl font-bold text-gray-800">👥 Gerenciar Estudantes</h3>
-                        <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition-colors">
-                            + Novo Estudante
-                        </button>
-                    </div>
-                    
-                    <!-- Students List -->
-                    <div class="space-y-4" id="studentsList">
-                        
-                        <!-- Student Item -->
-                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
-                                    <span class="text-white font-semibold text-sm">JS</span>
-                                </div>
-                                <div>
-                                    <div class="font-medium text-gray-800">João Silva</div>
-                                    <div class="text-gray-500 text-sm">joao.silva@email.com</div>
-                                </div>
-                            </div>
-                            <div class="flex items-center space-x-3">
-                                <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Ativo</span>
-                                <span class="text-green-600 text-sm font-medium">Pago</span>
-                                <button class="text-gray-400 hover:text-gray-600 text-sm">⚙️</button>
-                            </div>
-                        </div>
+            <!-- Student Creation Form (Hidden Initially) -->
+            <div id="studentCreationForm" class="hidden bg-gray-50 rounded-lg p-6 mb-6">
+                <h4 class="text-lg font-semibold text-gray-800 mb-4">📝 Criar Conta para Cliente</h4>
+                <div class="grid md:grid-cols-3 gap-4 mb-4">
+                    <input type="text" id="newStudentName" placeholder="Nome do aluno" 
+                           class="elegant-input p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+                    <input type="text" id="newStudentUsername" placeholder="Nome de usuário (login)" 
+                           class="elegant-input p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+                    <input type="password" id="newStudentPassword" placeholder="Senha (min 4 caracteres)" 
+                           class="elegant-input p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+                </div>
+                <div class="flex space-x-3">
+                    <button id="createStudentBtn" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors">
+                        ✅ Criar Conta
+                    </button>
+                    <button id="cancelStudentBtn" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-lg transition-colors">
+                        ❌ Cancelar
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Loading State -->
+            <div id="studentsLoading" class="text-center py-8">
+                <div class="text-gray-500">🔄 Carregando estudantes...</div>
+            </div>
+            
+            <!-- Empty State -->
+            <div id="studentsEmpty" class="hidden text-center py-8">
+                <div class="text-gray-500 mb-4">📚 Nenhum estudante criado ainda</div>
+                <p class="text-sm text-gray-400">Clique em "Adicionar Novo Aluno" para criar a primeira conta</p>
+            </div>
+            
+            <!-- Student List -->
+            <div id="managedStudentsList" class="space-y-3">
+                <!-- Students will be populated here -->
+            </div>
+        </div>
 
-                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center">
-                                    <span class="text-white font-semibold text-sm">MS</span>
-                                </div>
-                                <div>
-                                    <div class="font-medium text-gray-800">Maria Santos</div>
-                                    <div class="text-gray-500 text-sm">maria.santos@email.com</div>
-                                </div>
-                            </div>
-                            <div class="flex items-center space-x-3">
-                                <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Ativo</span>
-                                <span class="text-green-600 text-sm font-medium">Pago</span>
-                                <button class="text-gray-400 hover:text-gray-600 text-sm">⚙️</button>
-                            </div>
-                        </div>
-
-                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center">
-                                    <span class="text-white font-semibold text-sm">PC</span>
-                                </div>
-                                <div>
-                                    <div class="font-medium text-gray-800">Pedro Costa</div>
-                                    <div class="text-gray-500 text-sm">pedro.costa@email.com</div>
-                                </div>
-                            </div>
-                            <div class="flex items-center space-x-3">
-                                <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Ativo</span>
-                                <span class="text-green-600 text-sm font-medium">Pago</span>
-                                <button class="text-gray-400 hover:text-gray-600 text-sm">⚙️</button>
-                            </div>
-                        </div>
-
-                        <div class="flex items-center justify-between p-4 bg-red-50 rounded-lg border border-red-200">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-10 h-10 bg-gray-400 rounded-full flex items-center justify-center">
-                                    <span class="text-white font-semibold text-sm">AL</span>
-                                </div>
-                                <div>
-                                    <div class="font-medium text-gray-800">Ana Lima</div>
-                                    <div class="text-gray-500 text-sm">ana.lima@email.com</div>
-                                </div>
-                            </div>
-                            <div class="flex items-center space-x-3">
-                                <span class="bg-red-100 text-red-800 px-2 py-1 rounded text-xs font-medium">Pendente</span>
-                                <span class="text-red-600 text-sm font-medium">Vencido</span>
-                                <button class="text-gray-400 hover:text-gray-600 text-sm">⚙️</button>
-                            </div>
-                        </div>
-                        
-                    </div>
-                    
-                    <!-- Load More -->
-                    <button class="w-full mt-4 bg-gray-100 hover:bg-gray-200 text-gray-700 py-2 rounded-lg transition-colors">
-                        Carregar Mais Estudantes...
+        <!-- Quick Actions & Analytics -->
+        <div class="grid lg:grid-cols-2 gap-8">
+            
+            <!-- Quick Actions -->
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-lg font-bold text-gray-800 mb-4">⚡ Ações Rápidas</h3>
+                <div class="space-y-3">
+                    <button id="viewPortalBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg text-sm transition-colors quick-action-btn">
+                        📱 Visualizar Portal do Estudante
+                    </button>
+                    <button id="exportStudentsBtn" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 rounded-lg text-sm transition-colors quick-action-btn">
+                        📊 Exportar Lista de Estudantes
+                    </button>
+                    <button id="bulkMessageBtn" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 rounded-lg text-sm transition-colors quick-action-btn">
+                        📧 Mensagem para Todos os Alunos
+                    </button>
+                    <button id="backupDataBtn" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 rounded-lg text-sm transition-colors quick-action-btn">
+                        💾 Backup dos Dados
                     </button>
                 </div>
             </div>
 
-            <!-- Right Sidebar -->
-            <div class="space-y-6">
-                
-                <!-- Quick Actions -->
-                <div class="bg-white rounded-xl shadow-lg p-6">
-                    <h3 class="text-lg font-bold text-gray-800 mb-4">⚡ Ações Rápidas</h3>
-                    <div class="space-y-3">
-                        <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg text-sm transition-colors">
-                            📧 Lembrete de Pagamento
-                        </button>
-                        <button class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 rounded-lg text-sm transition-colors">
-                            📊 Relatório Mensal
-                        </button>
-                        <button class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 rounded-lg text-sm transition-colors">
-                            💳 Configurar Pagamentos
-                        </button>
-                        <button class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 rounded-lg text-sm transition-colors">
-                            📱 Portal do Estudante
-                        </button>
+            <!-- System Status -->
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-lg font-bold text-gray-800 mb-4">📈 Status do Sistema</h3>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-600 text-sm">🔥 Firebase Status</span>
+                        <span id="firebaseStatus" class="text-green-600 font-semibold">●&nbsp;Online</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-600 text-sm">📊 Hub System</span>
+                        <span class="text-green-600 font-semibold">●&nbsp;Funcionando</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-600 text-sm">🎧 Foundation Lessons</span>
+                        <span class="text-green-600 font-semibold">10/10 Ativas</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-600 text-sm">🎮 Gaming Lessons</span>
+                        <span class="text-blue-600 font-semibold">10/10 Prontas</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-600 text-sm">🌟 Achievement System</span>
+                        <span class="text-green-600 font-semibold">●&nbsp;Ativo</span>
                     </div>
                 </div>
+            </div>
+            
+        </div>
 
-                <!-- Payment Status -->
-                <div class="bg-white rounded-xl shadow-lg p-6">
-                    <h3 class="text-lg font-bold text-gray-800 mb-4">💰 Status Pagamentos</h3>
-                    <div class="space-y-3">
-                        <div class="flex items-center justify-between">
-                            <span class="text-gray-600 text-sm">Pagamentos em Dia</span>
-                            <span class="text-green-600 font-semibold">18/20</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-gray-600 text-sm">Vencidos</span>
-                            <span class="text-red-600 font-semibold">2</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-gray-600 text-sm">Taxa de Pagamento</span>
-                            <span class="text-blue-600 font-semibold">90%</span>
-                        </div>
-                        <div class="w-full bg-gray-200 rounded-full h-2 mt-3">
-                            <div class="bg-blue-600 h-2 rounded-full" style="width: 90%"></div>
-                        </div>
-                    </div>
+        <!-- Recent Activity -->
+        <div class="bg-white rounded-xl shadow-lg p-6 mt-8">
+            <h3 class="text-lg font-bold text-gray-800 mb-4">📈 Atividades Recentes</h3>
+            <div id="recentActivityList" class="space-y-3">
+                <div class="text-center text-gray-500 py-4">
+                    📝 Atividades aparecerão aqui conforme os estudantes usam o sistema
                 </div>
+            </div>
+        </div>
+    </div>
 
-                <!-- Recent Activity -->
-                <div class="bg-white rounded-xl shadow-lg p-6">
-                    <h3 class="text-lg font-bold text-gray-800 mb-4">📈 Atividades Recentes</h3>
-                    <div class="space-y-3">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <div class="text-sm font-medium text-gray-800">João Silva</div>
-                                <div class="text-xs text-gray-600">Pagamento recebido</div>
-                            </div>
-                            <span class="text-xs text-gray-500">hoje</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <div class="text-sm font-medium text-gray-800">Maria Santos</div>
-                                <div class="text-xs text-gray-600">Novo acesso ao portal</div>
-                            </div>
-                            <span class="text-xs text-gray-500">ontem</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <div class="text-sm font-medium text-gray-800">Pedro Costa</div>
-                                <div class="text-xs text-gray-600">Completou 5h de estudo</div>
-                            </div>
-                            <span class="text-xs text-gray-500">2 dias</span>
-                        </div>
+    <!-- Success Modal -->
+    <div id="successModal" class="hidden fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-2xl p-6 max-w-md w-full">
+            <div class="text-center">
+                <div class="text-5xl mb-4">✅</div>
+                <h3 class="text-xl font-bold text-gray-800 mb-4">Conta Criada!</h3>
+                <div class="bg-gray-50 rounded-lg p-4 mb-4">
+                    <h4 class="font-semibold text-gray-800 mb-2">Envie estas credenciais para o cliente:</h4>
+                    <div class="text-left space-y-2">
+                        <div><strong>Usuário:</strong> <span id="createdUsername" class="font-mono bg-blue-100 px-2 py-1 rounded"></span></div>
+                        <div><strong>Senha:</strong> <span id="createdPassword" class="font-mono bg-blue-100 px-2 py-1 rounded"></span></div>
+                        <div><strong>URL:</strong> <span class="font-mono bg-blue-100 px-2 py-1 rounded text-xs">alex-english-academy.vercel.app</span></div>
                     </div>
                 </div>
-                
+                <button id="copyCredentialsBtn" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg mb-3 transition-colors">
+                    📋 Copiar Credenciais
+                </button>
+                <br>
+                <button id="closeSuccessModal" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-lg transition-colors">
+                    Fechar
+                </button>
             </div>
         </div>
     </div>
@@ -244,47 +199,27 @@
     <script type="module" src="../js/firebase.js"></script>
     
     <!-- Dashboard Logic -->
-    <script type="module">
-        import { auth } from '../js/firebase.js';
-        import { 
-            onAuthStateChanged,
-            signOut 
-        } from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js';
+    <script type="module" src="../js/dashboard.js"></script>
 
-        // DOM Elements
-        const teacherName = document.getElementById('teacherName');
-        const logoutBtn = document.getElementById('logoutBtn');
-
-        // Logout Function
-        async function handleLogout() {
-            try {
-                await signOut(auth);
-                window.location.href = '../index.html';
-            } catch (error) {
-                console.error('Logout error:', error);
-                alert('Erro ao sair. Tente novamente.');
-            }
+    <style>
+        .card-hover {
+            transition: all 0.3s ease;
         }
-
-        // Event Listeners
-        logoutBtn.addEventListener('click', handleLogout);
-
-        // Auth State Listener
-        onAuthStateChanged(auth, (user) => {
-            if (!user) {
-                // User not logged in, redirect to landing
-                window.location.href = '../index.html';
-                return;
-            }
-            
-            // User is logged in
-            teacherName.textContent = user.email;
-            
-            console.log('👨‍🏫 Teacher Dashboard initialized for:', user.email);
-        });
-
-        console.log('🎯 Teacher Dashboard loaded!');
-    </script>
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px rgba(31, 41, 55, 0.15);
+        }
+        .elegant-input {
+            background: white;
+            border: 1px solid #d1d5db;
+            transition: all 0.2s ease;
+        }
+        .elegant-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+    </style>
 
 </body>
 </html>
