@@ -47,21 +47,15 @@ async function handleStudentAuth(username, password) {
         }
 
         if (isRegistrationMode) {
-            // Registration
+            // Registration - direct redirect
             localStorage.setItem('studentLoggedIn', 'true');
             localStorage.setItem('studentUsername', username);
-            showSuccess('Conta criada! Redirecionando...');
-            setTimeout(() => {
-                window.location.href = 'student/portal.html';
-            }, 2000);
+            window.location.href = 'student/portal.html';
         } else {
-            // Login
+            // Login - direct redirect  
             localStorage.setItem('studentLoggedIn', 'true');
             localStorage.setItem('studentUsername', username);
-            showSuccess('Login realizado! Bem-vindo!');
-            setTimeout(() => {
-                window.location.href = 'student/portal.html';
-            }, 1500);
+            window.location.href = 'student/portal.html';
         }
     } catch (error) {
         showError('Erro no sistema. Tente novamente.');
