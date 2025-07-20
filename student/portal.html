@@ -31,10 +31,10 @@
                 </div>
                 
                 <!-- Lesson Progress Indicator -->
-                <div class="bg-bg-subtle rounded-lg p-3 mt-3">
+                <div class="bg-powder-blue rounded-lg p-3 mt-3">
                     <div class="flex justify-between text-xs sm:text-sm text-medium-gray mb-1">
                         <span>Progresso das Aulas</span>
-                        <span id="lessonProgress">0/10</span>
+                        <span id="lessonProgress">0/110</span>
                     </div>
                     <div class="w-full bg-light-gray rounded-full h-2">
                         <div id="lessonProgressBar" class="bg-alex-blue h-2 rounded-full transition-all duration-500" style="width: 0%;"></div>
@@ -49,17 +49,31 @@
             
             <div class="space-y-4 sm:space-y-5 md:space-y-6">
                 
-                <!-- Audio Lessons Card (Active) -->
+                <!-- Study English Hub Card (MAIN ACCESS) -->
                 <div class="lesson-card-active">
                     <div class="flex items-center justify-between">
                         <div class="flex-1">
-                            <h3 class="text-lg sm:text-xl font-semibold text-charcoal mb-1 sm:mb-2">🎵 AULAS DE ÁUDIO</h3>
-                            <p class="text-sm sm:text-base text-medium-gray mb-3 sm:mb-4">Acesse suas lições interativas</p>
+                            <h3 class="text-lg sm:text-xl font-semibold text-charcoal mb-1 sm:mb-2">🌟 STUDY ENGLISH</h3>
+                            <p class="text-sm sm:text-base text-medium-gray mb-3 sm:mb-4">Acesse 110 lições em 11 temas diferentes</p>
                         </div>
                         <div class="ml-4 text-2xl sm:text-3xl">──►</div>
                     </div>
-                    <a href="lessons.html" class="btn-primary w-full sm:w-auto inline-block text-center font-semibold py-3 px-6 rounded-lg text-sm sm:text-base no-underline">
-                        INICIAR AULA
+                    <a href="hub.html" class="btn-primary w-full sm:w-auto inline-block text-center font-semibold py-3 px-6 rounded-lg text-sm sm:text-base no-underline">
+                        EXPLORAR TEMAS
+                    </a>
+                </div>
+
+                <!-- A1 Foundation Direct Access (Legacy) -->
+                <div class="lesson-card-soon">
+                    <div class="flex items-center justify-between">
+                        <div class="flex-1">
+                            <h3 class="text-lg sm:text-xl font-semibold text-medium-gray mb-1 sm:mb-2">🎯 A1 FOUNDATION</h3>
+                            <p class="text-sm sm:text-base text-medium-gray mb-3 sm:mb-4">Acesso direto às aulas básicas (iniciantes)</p>
+                        </div>
+                        <div class="ml-4 text-2xl sm:text-3xl text-light-gray">──</div>
+                    </div>
+                    <a href="lessons-foundation.html" class="btn-secondary w-full sm:w-auto inline-block text-center font-semibold py-3 px-6 rounded-lg text-sm sm:text-base no-underline">
+                        AULAS A1
                     </a>
                 </div>
 
@@ -68,7 +82,7 @@
                     <div class="flex items-center justify-between">
                         <div class="flex-1">
                             <h3 class="text-lg sm:text-xl font-semibold text-medium-gray mb-1 sm:mb-2">📝 EXERCÍCIOS</h3>
-                            <p class="text-sm sm:text-base text-medium-gray mb-3 sm:mb-4">Em desenvolvimento</p>
+                            <p class="text-sm sm:text-base text-medium-gray mb-3 sm:mb-4">Sistema de exercícios interativos</p>
                         </div>
                         <div class="ml-4 text-2xl sm:text-3xl text-light-gray">────</div>
                     </div>
@@ -82,7 +96,7 @@
                     <div class="flex items-center justify-between">
                         <div class="flex-1">
                             <h3 class="text-lg sm:text-xl font-semibold text-medium-gray mb-1 sm:mb-2">🗣️ CONVERSAÇÃO</h3>
-                            <p class="text-sm sm:text-base text-medium-gray mb-3 sm:mb-4">Em desenvolvimento</p>
+                            <p class="text-sm sm:text-base text-medium-gray mb-3 sm:mb-4">Prática de conversação com IA</p>
                         </div>
                         <div class="ml-4 text-2xl sm:text-3xl text-light-gray">────</div>
                     </div>
@@ -163,7 +177,7 @@
             return totalXPNeeded;
         }
 
-        // Load REAL student data and update UI with lesson progress
+        // Load REAL student data and update UI with ALL lesson progress
         async function loadStudentData() {
             try {
                 const currentStudent = getCurrentStudent();
@@ -173,7 +187,7 @@
                 const displayName = currentStudent.displayName || 'Estudante';
                 document.getElementById('welcomeMessage').textContent = `Bem-vindo(a) de volta, ${displayName}`;
 
-                // CRITICAL: Load real Firebase data from lessons
+                // CRITICAL: Load real Firebase data from ALL lesson types
                 try {
                     const { getStudentOverallProgress } = await import('../js/progress-sync.js');
                     const progressResult = await getStudentOverallProgress();
@@ -181,7 +195,7 @@
                     if (progressResult.success) {
                         const data = progressResult;
                         
-                        // Calculate level from REAL XP earned in lessons
+                        // Calculate level from REAL XP earned across ALL lessons
                         const realXP = data.profile.totalXP || 0;
                         const level = calculateLevelFromXP(realXP);
                         const category = getLevelCategory(level);
@@ -191,32 +205,32 @@
                         document.getElementById('xpDisplay').textContent = `${realXP.toLocaleString('pt-BR')} XP`;
                         document.getElementById('streakDisplay').textContent = `Sequência ${data.profile.currentStreak || 0}`;
                         
-                        // Update lesson progress
-                        const completedLessons = data.completedLessons || 0;
-                        const totalLessons = data.totalLessons || 10;
-                        const progressPercentage = (completedLessons / totalLessons) * 100;
+                        // Calculate TOTAL lesson progress across ALL themes
+                        const foundationCompleted = data.completedLessons || 0; // from audioLessons
                         
-                        document.getElementById('lessonProgress').textContent = `${completedLessons}/${totalLessons}`;
+                        // Calculate themed lesson completions (when implemented)
+                        let themedCompleted = 0;
+                        const themes = ['gaming', 'movies', 'business', 'travel', 'conversation', 'food', 'technology', 'culture', 'sports', 'news'];
+                        themes.forEach(theme => {
+                            const themeLessons = data[`${theme}Lessons`] || {};
+                            themedCompleted += Object.values(themeLessons).filter(lesson => lesson && lesson.status === 'completed').length;
+                        });
+                        
+                        const totalCompleted = foundationCompleted + themedCompleted;
+                        const totalLessons = 110; // 10 Foundation + 100 themed
+                        const progressPercentage = (totalCompleted / totalLessons) * 100;
+                        
+                        document.getElementById('lessonProgress').textContent = `${totalCompleted}/${totalLessons}`;
                         document.getElementById('lessonProgressBar').style.width = `${progressPercentage}%`;
                         
-                        // Log lesson completion data
-                        // Check for recent achievements
-                        const achievements = data.achievements || {};
-                        const recentAchievements = Object.values(achievements)
-                            .filter(ach => ach.unlocked && ach.unlockedAt)
-                            .length;
-                        
-                        if (recentAchievements > 0) {
-                            console.log(`🏆 Student has ${recentAchievements} achievements unlocked!`);
-                            showAchievementIndicator(recentAchievements);
-                        }
-                        
-                        console.log(`📊 REAL Student Progress Loaded:`);
+                        // Log comprehensive progress data
+                        console.log(`📊 COMPLETE Student Progress Loaded:`);
                         console.log(`   → Level: ${level} (${category})`);
-                        console.log(`   → XP: ${realXP} (earned from lessons)`);
-                        console.log(`   → Lessons: ${completedLessons}/${totalLessons} completed (${Math.round(progressPercentage)}%)`);
+                        console.log(`   → XP: ${realXP} (earned from all lessons)`);
+                        console.log(`   → Foundation: ${foundationCompleted}/10 completed`);
+                        console.log(`   → Themed: ${themedCompleted}/100 completed`);
+                        console.log(`   → Total: ${totalCompleted}/110 completed (${Math.round(progressPercentage)}%)`);
                         console.log(`   → Streak: ${data.profile.currentStreak || 0} days`);
-                        console.log(`   → Achievements: ${recentAchievements} unlocked`);
                         
                         // Success indicator
                         showDataLoadSuccess();
@@ -242,7 +256,7 @@
             document.getElementById('levelDisplay').textContent = 'Nível 1 • Beginner';
             document.getElementById('xpDisplay').textContent = '0 XP';
             document.getElementById('streakDisplay').textContent = 'Sequência 0';
-            document.getElementById('lessonProgress').textContent = '0/10';
+            document.getElementById('lessonProgress').textContent = '0/110';
             document.getElementById('lessonProgressBar').style.width = '0%';
             console.log('📴 Using default data - Firebase unavailable');
         }
@@ -312,7 +326,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             loadStudentData();
             
-            // Refresh data when returning from lessons
+            // Refresh data when returning from lessons/hub
             window.addEventListener('focus', () => {
                 console.log('🔄 Page focused - refreshing student data...');
                 loadStudentData();
@@ -323,9 +337,10 @@
                 loadStudentData();
             }, 30000);
             
-            console.log('🚀 Final Portal Design Loaded with REAL DATA SYNC!');
+            console.log('🚀 Portal Design Loaded with HUB INTEGRATION!');
             console.log('📱 Responsive: ' + window.innerWidth + 'px');
-            console.log('🔄 Auto-refresh enabled for lesson progress');
+            console.log('🔄 Auto-refresh enabled for ALL lesson progress');
+            console.log('🌟 Hub system: Portal → Hub → 11 Theme Categories');
         });
     </script>
 
@@ -447,6 +462,18 @@
             text-decoration: none;
         }
 
+        .btn-secondary {
+            background: var(--alex-blue);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #2563eb;
+            transform: translateY(-1px);
+            text-decoration: none;
+        }
+
         .btn-disabled {
             background: var(--light-gray);
             color: #9ca3af;
@@ -456,8 +483,8 @@
             background-color: var(--alex-blue);
         }
 
-        .bg-bg-subtle {
-            background-color: var(--bg-subtle);
+        .bg-powder-blue {
+            background-color: var(--powder-blue);
         }
 
         @media (max-width: 640px) {
