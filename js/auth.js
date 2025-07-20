@@ -1,5 +1,5 @@
 // Firebase Working Auth - js/auth.js
-// KEEPS FIREBASE + WORKS IMMEDIATELY
+// LOGIN ONLY - REGISTRATION DISABLED BUT CODE PRESERVED
 
 import { auth, db } from './firebase.js';
 import { 
@@ -12,8 +12,8 @@ import {
     serverTimestamp 
 } from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js';
 
-// State
-let isRegistrationMode = false;
+// State - DISABLED REGISTRATION MODE
+let isRegistrationMode = false; // Always false, but preserved for compatibility
 
 // Safe DOM access
 function getEl(id) {
@@ -22,7 +22,7 @@ function getEl(id) {
 
 // DOM Elements
 const loginBtn = getEl('loginBtn');
-const createAccountLink = getEl('createAccountLink');
+const createAccountLink = getEl('createAccountLink'); // Keep for compatibility
 const studentUsername = getEl('studentUsername');
 const studentPassword = getEl('studentPassword');
 const teacherAccessBtn = getEl('teacherAccessBtn');
@@ -31,7 +31,7 @@ const closeTeacherModal = getEl('closeTeacherModal');
 const teacherForm = getEl('teacherForm');
 const errorMsg = getEl('errorMsg');
 const successMsg = getEl('successMsg');
-const formTitle = getEl('formTitle');
+const formTitle = getEl('formTitle'); // Keep for compatibility
 
 // Messages
 function showError(msg) {
@@ -52,7 +52,7 @@ function showSuccess(msg) {
     }
 }
 
-// Firebase Student Auth - WORKING
+// Firebase Student Auth - LOGIN ONLY (Registration Disabled)
 async function handleStudentAuth(username, password) {
     try {
         if (!username || !password) {
@@ -93,9 +93,16 @@ async function handleStudentAuth(username, password) {
                     return;
                 }
 
+                // Check if account is active
+                if (studentData.isActive === false) {
+                    showError('Conta desativada. Entre em contato com Professor Alex.');
+                    resetButton();
+                    return;
+                }
+
                 // Update last login
                 await updateDoc(studentRef, {
-                    lastLogin: serverTimestamp(),
+                    lastLoginDate: serverTimestamp(),
                     isActive: true
                 });
 
@@ -117,92 +124,18 @@ async function handleStudentAuth(username, password) {
                 }, 1500);
 
             } else {
-                // NEW STUDENT - CREATE IN FIREBASE
-                if (!isRegistrationMode) {
-                    showError('Usuário não encontrado. Clique em "Criar nova conta"');
-                    resetButton();
-                    return;
-                }
-
-                // Create student in Firebase
-                const newStudentData = {
-                    username: cleanUsername,
-                    displayName: username.charAt(0).toUpperCase() + username.slice(1),
-                    password: password, // In production, hash this
-                    email: `${cleanUsername}@academy.com`,
-                    level: 1,
-                    totalXP: 0,
-                    completedLessons: 0,
-                    currentStreak: 0,
-                    totalStudyTime: 0,
-                    joinDate: serverTimestamp(),
-                    lastLogin: serverTimestamp(),
-                    isActive: true,
-                    
-                    // Basic lesson progress
-                    audioLessons: {
-                        'audio-01': { status: 'not-started', score: 0, attempts: 0 },
-                        'audio-02': { status: 'not-started', score: 0, attempts: 0 },
-                        'audio-03': { status: 'not-started', score: 0, attempts: 0 },
-                        'audio-04': { status: 'not-started', score: 0, attempts: 0 },
-                        'audio-05': { status: 'not-started', score: 0, attempts: 0 },
-                        'audio-06': { status: 'not-started', score: 0, attempts: 0 },
-                        'audio-07': { status: 'not-started', score: 0, attempts: 0 },
-                        'audio-08': { status: 'not-started', score: 0, attempts: 0 },
-                        'audio-09': { status: 'not-started', score: 0, attempts: 0 },
-                        'audio-10': { status: 'not-started', score: 0, attempts: 0 }
-                    },
-                    
-                    // Basic achievements
-                    achievements: {
-                        'first-steps': { unlocked: false },
-                        'perfect-score': { unlocked: false, count: 0 },
-                        'week-warrior': { unlocked: false },
-                        'listening-master': { unlocked: false }
-                    }
-                };
-
-                await setDoc(studentRef, newStudentData);
-
-                // Store auth locally
-                const authData = {
-                    username: cleanUsername,
-                    displayName: newStudentData.displayName,
-                    loginTime: new Date().toISOString(),
-                    isAuthenticated: true
-                };
-
-                localStorage.setItem('studentAuth', JSON.stringify(authData));
-                localStorage.setItem('studentLoggedIn', 'true');
-                localStorage.setItem('studentUsername', newStudentData.displayName);
-
-                showSuccess('Conta criada no Firebase! Redirecionando...');
-                setTimeout(() => {
-                    window.location.href = 'student/portal.html';
-                }, 1500);
+                // STUDENT NOT FOUND - REGISTRATION DISABLED
+                showError('Usuário não encontrado. Entre em contato com Professor Alex para criar sua conta.');
+                resetButton();
+                return;
+                
+                // OLD REGISTRATION CODE REMOVED - Now handled by teacher dashboard
             }
 
         } catch (firestoreError) {
             console.error('Firebase error:', firestoreError);
-            
-            // Fallback to localStorage if Firebase fails
-            showError('Firebase offline. Usando modo local...');
-            
-            const authData = {
-                username: cleanUsername,
-                displayName: username.charAt(0).toUpperCase() + username.slice(1),
-                loginTime: new Date().toISOString(),
-                isAuthenticated: true,
-                mode: 'offline'
-            };
-
-            localStorage.setItem('studentAuth', JSON.stringify(authData));
-            localStorage.setItem('studentLoggedIn', 'true');
-            localStorage.setItem('studentUsername', authData.displayName);
-
-            setTimeout(() => {
-                window.location.href = 'student/portal.html';
-            }, 1500);
+            showError('Erro de conexão. Tente novamente ou entre em contato com Professor Alex.');
+            resetButton();
         }
 
     } catch (error) {
@@ -223,8 +156,14 @@ async function handleTeacherLogin(email, password) {
     }
 }
 
-// Mode toggle
+// Mode toggle - DISABLED (preserved for compatibility)
 function toggleMode() {
+    // Registration mode is disabled - show contact message instead
+    showError('Criação de conta desabilitada. Entre em contato com Professor Alex para criar sua conta.');
+    return;
+    
+    // OLD TOGGLE CODE PRESERVED BUT DISABLED
+    /*
     isRegistrationMode = !isRegistrationMode;
     
     if (isRegistrationMode) {
@@ -236,10 +175,7 @@ function toggleMode() {
         if (formTitle) formTitle.textContent = 'Criar Conta de Estudante';
         showSuccess('Digite os dados para criar conta no Firebase');
     } else {
-        if (loginBtn) {
-            loginBtn.textContent = 'ACESSAR MINHAS AULAS';
-            loginBtn.className = 'btn-primary w-full text-white font-bold py-4 rounded-xl text-lg shadow-lg';
-        }
+        resetButton();
         if (createAccountLink) createAccountLink.textContent = 'Criar nova conta de estudante';
         if (formTitle) formTitle.textContent = 'Portal do Estudante';
         
@@ -251,18 +187,16 @@ function toggleMode() {
     }
     
     if (studentUsername) studentUsername.focus();
+    */
 }
 
 function resetButton() {
     if (!loginBtn) return;
     loginBtn.disabled = false;
-    if (isRegistrationMode) {
-        loginBtn.textContent = 'CRIAR MINHA CONTA';
-        loginBtn.className = 'btn-secondary w-full text-white font-bold py-4 rounded-xl text-lg shadow-lg';
-    } else {
-        loginBtn.textContent = 'ACESSAR MINHAS AULAS';
-        loginBtn.className = 'btn-primary w-full text-white font-bold py-4 rounded-xl text-lg shadow-lg';
-    }
+    
+    // Always show login button (registration disabled)
+    loginBtn.textContent = 'ACESSAR MINHAS AULAS';
+    loginBtn.className = 'btn-primary w-full text-white font-bold py-4 rounded-xl text-lg shadow-lg';
 }
 
 // Teacher modal
@@ -297,10 +231,11 @@ function init() {
         });
     }
 
+    // Keep registration link but disable it
     if (createAccountLink) {
         createAccountLink.addEventListener('click', (e) => {
             e.preventDefault();
-            toggleMode();
+            toggleMode(); // Will show disabled message
         });
     }
 
@@ -354,7 +289,7 @@ onAuthStateChanged(auth, (user) => {
     }
 });
 
-// Exports for other files
+// Exports for other files - UNCHANGED (100% compatible)
 export function getCurrentStudent() {
     const data = localStorage.getItem('studentAuth');
     return data ? JSON.parse(data) : null;
@@ -382,5 +317,5 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('🔥 Firebase Auth Loading...');
     init();
     if (studentUsername) studentUsername.focus();
-    console.log('✅ Firebase Auth Ready - Real Database!');
+    console.log('✅ Firebase Auth Ready - Login Only (Registration Disabled)!');
 });
