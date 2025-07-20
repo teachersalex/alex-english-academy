@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -37,7 +36,7 @@
                     
                     <div class="inline-flex items-center beta-badge text-white px-4 py-2 rounded-full text-sm font-semibold mb-5">
                         <span class="w-2 h-2 bg-white rounded-full mr-2 animate-pulse"></span>
-                        BETA
+                        REAL DATABASE
                     </div>
                     
                     <h3 id="formTitle" class="text-xl text-academy-red font-medium mb-2">Portal do Estudante</h3>
@@ -116,188 +115,8 @@
     <!-- Firebase SDK -->
     <script type="module" src="js/firebase.js"></script>
     
-    <!-- Clean Auth Logic -->
-    <script type="module">
-        // Auth Logic - Teacher Alex English Academy
-        import { auth } from './js/firebase.js';
-        import { 
-            signInWithEmailAndPassword, 
-            createUserWithEmailAndPassword,
-            onAuthStateChanged 
-        } from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js';
-
-        // State
-        let isRegistrationMode = false;
-
-        // DOM Elements
-        const loginBtn = document.getElementById('loginBtn');
-        const createAccountLink = document.getElementById('createAccountLink');
-        const studentUsername = document.getElementById('studentUsername');
-        const studentPassword = document.getElementById('studentPassword');
-        const teacherAccessBtn = document.getElementById('teacherAccessBtn');
-        const teacherModal = document.getElementById('teacherModal');
-        const closeTeacherModal = document.getElementById('closeTeacherModal');
-        const teacherForm = document.getElementById('teacherForm');
-        const errorMsg = document.getElementById('errorMsg');
-        const successMsg = document.getElementById('successMsg');
-        const formTitle = document.getElementById('formTitle');
-
-        // Utility Functions
-        function showError(message) {
-            errorMsg.textContent = message;
-            errorMsg.classList.remove('hidden');
-            successMsg.classList.add('hidden');
-            setTimeout(() => errorMsg.classList.add('hidden'), 5000);
-        }
-
-        function showSuccess(message) {
-            successMsg.textContent = message;
-            successMsg.classList.remove('hidden');
-            errorMsg.classList.add('hidden');
-            setTimeout(() => successMsg.classList.add('hidden'), 3000);
-        }
-
-        // Student Auth
-        async function handleStudentAuth(username, password) {
-            try {
-                if (!username || !password) {
-                    showError('Preencha todos os campos');
-                    return;
-                }
-
-                if (username.length < 3) {
-                    showError('Nome de usuário deve ter pelo menos 3 caracteres');
-                    return;
-                }
-
-                if (password.length < 4) {
-                    showError('Senha deve ter pelo menos 4 caracteres');
-                    return;
-                }
-
-                if (isRegistrationMode) {
-                    showSuccess('Conta criada com sucesso! Redirecionando...');
-                    setTimeout(() => {
-                        localStorage.setItem('studentLoggedIn', 'true');
-                        localStorage.setItem('studentUsername', username);
-                        window.location.href = 'student/portal.html';
-                    }, 1500);
-                } else {
-                    localStorage.setItem('studentLoggedIn', 'true');
-                    localStorage.setItem('studentUsername', username);
-                    window.location.href = 'student/portal.html';
-                }
-            } catch (error) {
-                showError('Erro no sistema. Tente novamente.');
-                console.error('Student auth error:', error);
-            }
-        }
-
-        // Teacher Auth
-        async function handleTeacherLogin(email, password) {
-            try {
-                await signInWithEmailAndPassword(auth, email, password);
-                window.location.href = 'teacher/dashboard.html';
-            } catch (error) {
-                showError('Email ou senha inválidos');
-                console.error('Teacher auth error:', error);
-            }
-        }
-
-        // Mode Toggle - Visual Button Change
-        function toggleMode() {
-            isRegistrationMode = !isRegistrationMode;
-            
-            if (isRegistrationMode) {
-                // Registration Mode - Blue Button
-                loginBtn.textContent = 'CRIAR MINHA CONTA';
-                loginBtn.className = 'btn-secondary w-full text-white font-bold py-4 rounded-xl text-lg shadow-lg';
-                createAccountLink.textContent = '← Voltar para login';
-                formTitle.textContent = 'Criar Conta de Estudante';
-                showSuccess('Preencha os dados para criar sua conta');
-                errorMsg.classList.add('hidden');
-                
-            } else {
-                // Login Mode - Red Button
-                loginBtn.textContent = 'ACESSAR MINHAS AULAS';
-                loginBtn.className = 'btn-primary w-full text-white font-bold py-4 rounded-xl text-lg shadow-lg';
-                createAccountLink.textContent = 'Criar nova conta de estudante';
-                formTitle.textContent = 'Portal do Estudante';
-                
-                studentUsername.value = '';
-                studentPassword.value = '';
-                errorMsg.classList.add('hidden');
-                successMsg.classList.add('hidden');
-            }
-            
-            studentUsername.focus();
-        }
-
-        // Teacher Modal
-        function showTeacherModal() {
-            teacherModal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-            document.getElementById('teacherEmail').focus();
-        }
-
-        function hideTeacherModal() {
-            teacherModal.classList.add('hidden');
-            document.body.style.overflow = 'auto';
-            document.getElementById('teacherEmail').value = '';
-            document.getElementById('teacherPassword').value = '';
-        }
-
-        // Event Listeners
-        loginBtn.addEventListener('click', async (e) => {
-            e.preventDefault();
-            await handleStudentAuth(studentUsername.value.trim(), studentPassword.value);
-        });
-
-        createAccountLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            toggleMode();
-        });
-
-        teacherAccessBtn.addEventListener('click', showTeacherModal);
-        closeTeacherModal.addEventListener('click', hideTeacherModal);
-
-        teacherModal.addEventListener('click', (e) => {
-            if (e.target === teacherModal) hideTeacherModal();
-        });
-
-        teacherForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = document.getElementById('teacherEmail').value;
-            const password = document.getElementById('teacherPassword').value;
-            await handleTeacherLogin(email, password);
-        });
-
-        // Keyboard Navigation
-        studentUsername.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') studentPassword.focus();
-        });
-
-        studentPassword.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') loginBtn.click();
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') hideTeacherModal();
-        });
-
-        // Auth State Listener
-        onAuthStateChanged(auth, (user) => {
-            if (user && window.location.pathname === '/') {
-                window.location.href = 'teacher/dashboard.html';
-            }
-        });
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            studentUsername.focus();
-            console.log('🚀 Clean auth system initialized!');
-        });
-    </script>
+    <!-- Enhanced Authentication System -->
+    <script type="module" src="js/auth.js"></script>
 
 </body>
 </html>
