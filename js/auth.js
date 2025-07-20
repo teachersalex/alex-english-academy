@@ -1,5 +1,6 @@
 // Firebase Working Auth - js/auth.js
 // LOGIN ONLY - REGISTRATION DISABLED BUT CODE PRESERVED
+// FIXED: Logout trap removed
 
 import { auth, db } from './firebase.js';
 import { 
@@ -93,17 +94,18 @@ async function handleStudentAuth(username, password) {
                     return;
                 }
 
-                // Check if account is active
-                if (studentData.isActive === false) {
+                // FIXED: Check if account is manually deactivated by teacher (not auto-logout)
+                if (studentData.isActive === false && studentData.deactivatedByTeacher === true) {
                     showError('Conta desativada. Entre em contato com Professor Alex.');
                     resetButton();
                     return;
                 }
 
-                // Update last login
+                // FIXED: Always reactivate account on successful login (removes logout trap)
                 await updateDoc(studentRef, {
                     lastLoginDate: serverTimestamp(),
-                    isActive: true
+                    isActive: true,
+                    deactivatedByTeacher: false // Clear any previous deactivation
                 });
 
                 // Store auth locally
@@ -317,5 +319,5 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('🔥 Firebase Auth Loading...');
     init();
     if (studentUsername) studentUsername.focus();
-    console.log('✅ Firebase Auth Ready - Login Only (Registration Disabled)!');
+    console.log('✅ Firebase Auth Ready - Login Only (Logout Trap FIXED)!');
 });
