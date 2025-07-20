@@ -134,7 +134,24 @@
 
     <!-- Scripts -->
     <script type="module">
-        import { getCurrentStudent } from '../js/auth.js';
+        // Simple auth check - don't import full auth.js to avoid DOM conflicts
+        function getCurrentStudent() {
+            const authData = localStorage.getItem('studentAuth');
+            return authData ? JSON.parse(authData) : null;
+        }
+
+        function isStudentAuthenticated() {
+            const currentStudent = getCurrentStudent();
+            if (!currentStudent || !currentStudent.isAuthenticated) return false;
+            
+            // Check if login is still valid (24 hours)
+            const loginTime = new Date(currentStudent.loginTime);
+            const now = new Date();
+            const hoursDiff = (now - loginTime) / (1000 * 60 * 60);
+            
+            return hoursDiff < 24;
+        }
+
         import { 
             loadLessonProgress, 
             saveLessonProgress, 
@@ -175,7 +192,7 @@
             
             // Check authentication
             const currentStudent = getCurrentStudent();
-            if (!currentStudent) {
+            if (!currentStudent || !isStudentAuthenticated()) {
                 window.location.href = '../index.html';
                 return;
             }
@@ -603,7 +620,19 @@
             }
         }
 
-        function handleLogout() {
+        async function handleLogout() {
+            // Update session in Firestore if needed
+            try {
+                const currentStudent = getCurrentStudent();
+                if (currentStudent) {
+                    const { endCurrentSession } = await import('../js/progress-sync.js');
+                    await endCurrentSession();
+                }
+            } catch (error) {
+                console.log('Session cleanup error:', error);
+            }
+            
+            // Clear local storage
             localStorage.removeItem('studentLoggedIn');
             localStorage.removeItem('studentUsername');
             localStorage.removeItem('studentAuth');
