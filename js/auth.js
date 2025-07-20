@@ -13,10 +13,7 @@ let isStudentLoginMode = true;
 let isTeacherLoginMode = true;
 
 // DOM Elements - Student Form
-const showLoginFormBtn = document.getElementById('showLoginForm');
-const loginForm = document.getElementById('loginForm');
 const loginBtn = document.getElementById('loginBtn');
-const registerBtn = document.getElementById('registerBtn');
 const toggleModeBtn = document.getElementById('toggleMode');
 const studentUsername = document.getElementById('studentUsername');
 const studentPassword = document.getElementById('studentPassword');
@@ -52,18 +49,6 @@ function hideMessages() {
 }
 
 // Student Form Functions
-function showStudentForm() {
-    loginForm.classList.remove('hidden');
-    showLoginFormBtn.classList.add('hidden');
-    studentUsername.focus();
-}
-
-function hideStudentForm() {
-    loginForm.classList.add('hidden');
-    showLoginFormBtn.classList.remove('hidden');
-    hideMessages();
-}
-
 function toggleStudentMode() {
     isStudentLoginMode = !isStudentLoginMode;
     
@@ -71,13 +56,11 @@ function toggleStudentMode() {
         // Login Mode
         loginBtn.textContent = 'ACESSAR MINHAS AULAS';
         loginBtn.className = 'w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-lg transition-colors text-lg';
-        registerBtn.classList.add('hidden');
         toggleModeBtn.textContent = 'Não tem conta? Criar nova conta';
     } else {
         // Register Mode
         loginBtn.textContent = '📝 CRIAR CONTA E COMEÇAR';
         loginBtn.className = 'w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-lg transition-colors text-lg';
-        registerBtn.classList.add('hidden');
         toggleModeBtn.textContent = 'Já tem conta? Fazer login';
     }
     hideMessages();
@@ -153,20 +136,12 @@ async function handleTeacherLogin(email, password) {
 }
 
 // Event Listeners - Student Form
-showLoginFormBtn.addEventListener('click', showStudentForm);
-
 loginBtn.addEventListener('click', async (e) => {
     e.preventDefault();
     const username = studentUsername.value.trim();
     const password = studentPassword.value;
     
     await handleStudentAuth(username, password);
-});
-
-registerBtn.addEventListener('click', async (e) => {
-    e.preventDefault();
-    isStudentLoginMode = false;
-    toggleStudentMode();
 });
 
 toggleModeBtn.addEventListener('click', (e) => {
@@ -203,9 +178,6 @@ onAuthStateChanged(auth, (user) => {
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
         hideTeacherModal();
-        if (!loginForm.classList.contains('hidden')) {
-            hideStudentForm();
-        }
     }
 });
 
@@ -226,6 +198,9 @@ studentPassword.addEventListener('keypress', (e) => {
 document.addEventListener('DOMContentLoaded', () => {
     // Set initial mode
     toggleStudentMode();
+    
+    // Focus username field
+    studentUsername.focus();
     
     console.log('🚀 Teacher Alex Landing Page initialized!');
 });
