@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gaming World - Teacher Alex Academy</title>
+    <!-- PRODUCTION NOTE: Replace Tailwind CDN with local build -->
+    <!-- See: https://tailwindcss.com/docs/installation -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../css/style.css">
 </head>
@@ -658,6 +660,9 @@
             document.getElementById('lessonSelection').classList.add('hidden');
             document.getElementById('lessonInterface').classList.remove('hidden');
             
+            // ✅ SCROLL TO TOP FOR BETTER UX
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
             // Update lesson info
             const lessonIndex = GAMING_LESSONS.findIndex(l => l.id === lessonId) + 1;
             document.getElementById('lessonProgress').textContent = `Quest ${lessonIndex} of ${GAMING_LESSONS.length}`;
@@ -781,6 +786,9 @@
                 document.getElementById('lessonInterface').classList.add('hidden');
                 document.getElementById('lessonSelection').classList.remove('hidden');
                 
+                // ✅ SCROLL TO TOP WHEN RETURNING TO LESSON LIST
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
                 const currentStudent = getCurrentStudent();
                 const displayName = currentStudent ? currentStudent.displayName : 'Estudante';
                 document.getElementById('userCourseLine').textContent = `${displayName} • Gaming World`;
@@ -887,6 +895,60 @@
             }
             
             document.getElementById('resultsModal').classList.remove('hidden');
+        }
+
+        function showReviewModal() {
+            const reviewContent = document.getElementById('reviewContent');
+            
+            reviewContent.innerHTML = currentLesson.questions.map((question, index) => {
+                const userAnswer = userAnswers[index];
+                const isCorrect = userAnswer === question.correct;
+                const correctAnswer = question.options[question.correct];
+                const userAnswerText = question.options[userAnswer];
+                
+                return `
+                    <div class="border-b border-light-gray pb-4 last:border-b-0">
+                        <div class="font-medium text-charcoal mb-2">${index + 1}. ${question.question}</div>
+                        <div class="space-y-1">
+                            <div class="${isCorrect ? 'text-green-600' : 'text-red-600'} font-medium">
+                                ${isCorrect ? '✅' : '❌'} Your answer: ${userAnswerText}
+                            </div>
+                            ${!isCorrect ? `
+                                <div class="text-green-600 font-medium">
+                                    ✅ Correct: ${correctAnswer}
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            document.getElementById('reviewModal').classList.remove('hidden');
+        }
+
+        function goToNextLesson() {
+            const currentIndex = GAMING_LESSONS.findIndex(l => l.id === currentLesson.id);
+            const nextLesson = GAMING_LESSONS[currentIndex + 1];
+            
+            closeResultsModal();
+            
+            if (nextLesson) {
+                startLesson(nextLesson.id);
+            } else {
+                // Gaming course completed - return to gaming list
+                document.getElementById('lessonInterface').classList.add('hidden');
+                document.getElementById('lessonSelection').classList.remove('hidden');
+                
+                const currentStudent = getCurrentStudent();
+                const displayName = currentStudent ? currentStudent.displayName : 'Estudante';
+                document.getElementById('userCourseLine').textContent = `${displayName} • Gaming World`;
+                
+                alert('🎉 Parabéns! Você completou todas as gaming quests! Explore outros temas no Hub.');
+            }
+        }
+
+        function closeResultsModal() {
+            document.getElementById('resultsModal').classList.add('hidden');
         }
 
         // Logout function
