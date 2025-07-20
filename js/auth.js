@@ -9,24 +9,81 @@ import {
 } from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js';
 
 // App State
+let isStudentLoginMode = true;
 let isTeacherLoginMode = true;
 
-// DOM Elements - Teacher Portal
-const teacherLoginBtn = document.getElementById('teacherLoginBtn');
+// DOM Elements - Student Form
+const showLoginFormBtn = document.getElementById('showLoginForm');
+const loginForm = document.getElementById('loginForm');
+const loginBtn = document.getElementById('loginBtn');
+const registerBtn = document.getElementById('registerBtn');
+const toggleModeBtn = document.getElementById('toggleMode');
+const studentUsername = document.getElementById('studentUsername');
+const studentPassword = document.getElementById('studentPassword');
+
+// DOM Elements - Teacher Modal
+const teacherAccessBtn = document.getElementById('teacherAccessBtn');
 const teacherModal = document.getElementById('teacherModal');
 const closeTeacherModal = document.getElementById('closeTeacherModal');
 const teacherForm = document.getElementById('teacherForm');
-const teacherToggleMode = document.getElementById('teacherToggleMode');
-const teacherErrorMsg = document.getElementById('teacherErrorMsg');
 
-// DOM Elements - Student Portal
-const studentLoginBtn = document.getElementById('studentLoginBtn');
-const studentModal = document.getElementById('studentModal');
-const closeStudentModal = document.getElementById('closeStudentModal');
-const studentForm = document.getElementById('studentForm');
-const studentErrorMsg = document.getElementById('studentErrorMsg');
+// DOM Elements - Messages
+const errorMsg = document.getElementById('errorMsg');
+const successMsg = document.getElementById('successMsg');
 
-// Modal Functions - Teacher
+// Utility Functions
+function showError(message) {
+    errorMsg.textContent = message;
+    errorMsg.classList.remove('hidden');
+    successMsg.classList.add('hidden');
+    setTimeout(() => errorMsg.classList.add('hidden'), 5000);
+}
+
+function showSuccess(message) {
+    successMsg.textContent = message;
+    successMsg.classList.remove('hidden');
+    errorMsg.classList.add('hidden');
+    setTimeout(() => successMsg.classList.add('hidden'), 3000);
+}
+
+function hideMessages() {
+    errorMsg.classList.add('hidden');
+    successMsg.classList.add('hidden');
+}
+
+// Student Form Functions
+function showStudentForm() {
+    loginForm.classList.remove('hidden');
+    showLoginFormBtn.classList.add('hidden');
+    studentUsername.focus();
+}
+
+function hideStudentForm() {
+    loginForm.classList.add('hidden');
+    showLoginFormBtn.classList.remove('hidden');
+    hideMessages();
+}
+
+function toggleStudentMode() {
+    isStudentLoginMode = !isStudentLoginMode;
+    
+    if (isStudentLoginMode) {
+        // Login Mode
+        loginBtn.textContent = 'ACESSAR MINHAS AULAS';
+        loginBtn.className = 'w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-lg transition-colors text-lg';
+        registerBtn.classList.add('hidden');
+        toggleModeBtn.textContent = 'Não tem conta? Criar nova conta';
+    } else {
+        // Register Mode
+        loginBtn.textContent = '📝 CRIAR CONTA E COMEÇAR';
+        loginBtn.className = 'w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-lg transition-colors text-lg';
+        registerBtn.classList.add('hidden');
+        toggleModeBtn.textContent = 'Já tem conta? Fazer login';
+    }
+    hideMessages();
+}
+
+// Teacher Modal Functions
 function showTeacherModal() {
     teacherModal.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
@@ -37,27 +94,48 @@ function hideTeacherModal() {
     document.body.style.overflow = 'auto';
 }
 
-function showTeacherError(message) {
-    teacherErrorMsg.textContent = message;
-    teacherErrorMsg.classList.remove('hidden');
-    setTimeout(() => teacherErrorMsg.classList.add('hidden'), 5000);
-}
+// Authentication Functions - Student
+async function handleStudentAuth(username, password) {
+    try {
+        if (!username || !password) {
+            showError('Por favor, preencha todos os campos');
+            return;
+        }
 
-// Modal Functions - Student
-function showStudentModal() {
-    studentModal.classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
-}
-
-function hideStudentModal() {
-    studentModal.classList.add('hidden');
-    document.body.style.overflow = 'auto';
-}
-
-function showStudentError(message) {
-    studentErrorMsg.textContent = message;
-    studentErrorMsg.classList.remove('hidden');
-    setTimeout(() => studentErrorMsg.classList.add('hidden'), 5000);
+        if (isStudentLoginMode) {
+            // Student Login
+            console.log('Student login attempt:', username);
+            
+            // TODO: Validate against student database
+            // For now, simple validation
+            localStorage.setItem('studentLoggedIn', 'true');
+            localStorage.setItem('studentUsername', username);
+            
+            showSuccess('Login realizado com sucesso!');
+            
+            setTimeout(() => {
+                window.location.href = 'student/portal.html';
+            }, 1500);
+            
+        } else {
+            // Student Registration
+            console.log('Student registration attempt:', username);
+            
+            // TODO: Save to student database
+            localStorage.setItem('studentLoggedIn', 'true');
+            localStorage.setItem('studentUsername', username);
+            
+            showSuccess('Conta criada com sucesso! Redirecionando...');
+            
+            setTimeout(() => {
+                window.location.href = 'student/portal.html';
+            }, 2000);
+        }
+        
+    } catch (error) {
+        console.error('Student auth error:', error);
+        showError('Erro no sistema. Tente novamente.');
+    }
 }
 
 // Authentication Functions - Teacher
@@ -66,126 +144,88 @@ async function handleTeacherLogin(email, password) {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         console.log('Teacher login successful:', userCredential.user.email);
         
-        // Redirect to teacher dashboard
         window.location.href = 'teacher/dashboard.html';
         
     } catch (error) {
         console.error('Teacher login error:', error);
-        showTeacherError('Invalid email or password');
+        showError('Email ou senha inválidos');
     }
 }
 
-async function handleTeacherRegister(email, password) {
-    try {
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        console.log('Teacher registration successful:', userCredential.user.email);
-        
-        // Redirect to teacher dashboard
-        window.location.href = 'teacher/dashboard.html';
-        
-    } catch (error) {
-        console.error('Teacher registration error:', error);
-        showTeacherError(error.message);
-    }
-}
+// Event Listeners - Student Form
+showLoginFormBtn.addEventListener('click', showStudentForm);
 
-// Authentication Functions - Student
-async function handleStudentLogin(username, password) {
-    try {
-        // For now, we'll use a simple validation
-        // TODO: Connect to student database
-        
-        if (username && password) {
-            console.log('Student login attempt:', username);
-            
-            // Simulate successful login
-            // In the future, this will validate against student database
-            localStorage.setItem('studentLoggedIn', 'true');
-            localStorage.setItem('studentUsername', username);
-            
-            // Redirect to student portal (to be created)
-            window.location.href = 'student/portal.html';
-        } else {
-            showStudentError('Por favor, preencha todos os campos');
-        }
-        
-    } catch (error) {
-        console.error('Student login error:', error);
-        showStudentError('Erro no login. Tente novamente.');
-    }
-}
+loginBtn.addEventListener('click', async (e) => {
+    e.preventDefault();
+    const username = studentUsername.value.trim();
+    const password = studentPassword.value;
+    
+    await handleStudentAuth(username, password);
+});
 
-// Event Listeners - Teacher Portal
-teacherLoginBtn.addEventListener('click', showTeacherModal);
+registerBtn.addEventListener('click', async (e) => {
+    e.preventDefault();
+    isStudentLoginMode = false;
+    toggleStudentMode();
+});
+
+toggleModeBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    toggleStudentMode();
+});
+
+// Event Listeners - Teacher Modal
+teacherAccessBtn.addEventListener('click', showTeacherModal);
 closeTeacherModal.addEventListener('click', hideTeacherModal);
 
-// Event Listeners - Student Portal  
-studentLoginBtn.addEventListener('click', showStudentModal);
-closeStudentModal.addEventListener('click', hideStudentModal);
-
-// Close modals on outside click
 teacherModal.addEventListener('click', (e) => {
     if (e.target === teacherModal) {
         hideTeacherModal();
     }
 });
 
-studentModal.addEventListener('click', (e) => {
-    if (e.target === studentModal) {
-        hideStudentModal();
-    }
-});
-
-// Teacher form submission
 teacherForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const email = document.getElementById('teacherEmail').value;
     const password = document.getElementById('teacherPassword').value;
     
-    if (isTeacherLoginMode) {
-        await handleTeacherLogin(email, password);
-    } else {
-        await handleTeacherRegister(email, password);
-    }
+    await handleTeacherLogin(email, password);
 });
 
-// Student form submission
-studentForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const username = document.getElementById('studentUsername').value;
-    const password = document.getElementById('studentPassword').value;
-    
-    await handleStudentLogin(username, password);
-});
-
-// Toggle between teacher login and register
-teacherToggleMode.addEventListener('click', () => {
-    isTeacherLoginMode = !isTeacherLoginMode;
-    const submitBtn = teacherForm.querySelector('button[type="submit"]');
-    
-    if (isTeacherLoginMode) {
-        submitBtn.textContent = 'Access Dashboard';
-        teacherToggleMode.textContent = 'Need an account? Register';
-    } else {
-        submitBtn.textContent = 'Create Account';
-        teacherToggleMode.textContent = 'Have an account? Login';
-    }
-});
-
-// Auth State Listener - redirect if already logged in
+// Auth State Listener
 onAuthStateChanged(auth, (user) => {
     if (user && window.location.pathname === '/') {
-        // User is logged in, redirect to dashboard
         window.location.href = 'teacher/dashboard.html';
     }
 });
 
-// Escape key to close modals
+// Keyboard Shortcuts
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
         hideTeacherModal();
-        hideStudentModal();
+        if (!loginForm.classList.contains('hidden')) {
+            hideStudentForm();
+        }
     }
 });
 
-console.log('🚀 Teacher Alex Landing Page with Student & Teacher Portals initialized!');
+// Form Enter Key Support
+studentUsername.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        studentPassword.focus();
+    }
+});
+
+studentPassword.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        loginBtn.click();
+    }
+});
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+    // Set initial mode
+    toggleStudentMode();
+    
+    console.log('🚀 Teacher Alex Landing Page initialized!');
+});
