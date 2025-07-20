@@ -12,8 +12,8 @@
     <!-- Header -->
     <div class="portal-header">
         <div class="max-w-sm mx-auto px-4 sm:max-w-md md:max-w-lg lg:max-w-2xl xl:max-w-4xl sm:px-6 md:px-8">
-            <div class="brand-text">Teacher Alex English Academy</div>
-            <div class="welcome-text" id="welcomeMessage">Bem-vindo(a) de volta, Estudante</div>
+            <div class="brand-title">TEACHER ALEX ENGLISH ACADEMY</div>
+            <div class="welcome-message" id="welcomeMessage">Bem-vindo(a) de volta, Estudante</div>
         </div>
     </div>
 
@@ -94,9 +94,9 @@
             </div>
         </div>
 
-        <!-- Footer -->
-        <div class="text-center pt-4 sm:pt-6 md:pt-8 pb-4">
-            <p class="text-xs sm:text-sm text-medium-gray">
+        <!-- Footer with Revolutionary Message -->
+        <div class="revolutionary-footer">
+            <p class="revolutionary-text">
                 ℹ️ Sua revolução no inglês começa aqui • Teacher Alex English Academy
             </p>
         </div>
@@ -334,20 +334,83 @@
         .portal-header {
             background: white;
             text-align: center;
-            padding: 1.5rem 1rem;
+            padding: 2rem 1rem;
             border-bottom: 1px solid var(--light-gray);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        .brand-text {
+        .brand-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--alex-blue);
+            letter-spacing: 0.5px;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .welcome-message {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--academy-red);
+            margin-bottom: 0.5rem;
+        }
+
+        .revolutionary-footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            background: linear-gradient(135deg, var(--powder-blue), var(--bg-subtle));
+            border-radius: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .revolutionary-text {
             font-size: 0.875rem;
             font-weight: 600;
             color: var(--alex-blue);
-            margin-bottom: 0.25rem;
+            margin: 0;
+            text-align: center;
         }
 
-        .welcome-text {
-            font-size: 0.75rem;
-            color: var(--medium-gray);
+        /* Responsive brand scaling */
+        @media (min-width: 640px) {
+            .brand-title {
+                font-size: 1.5rem;
+                letter-spacing: 1px;
+            }
+            
+            .welcome-message {
+                font-size: 1.125rem;
+            }
+            
+            .revolutionary-text {
+                font-size: 1rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .brand-title {
+                font-size: 1.75rem;
+                letter-spacing: 1.5px;
+            }
+            
+            .welcome-message {
+                font-size: 1.25rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .brand-title {
+                font-size: 2rem;
+                letter-spacing: 2px;
+            }
+            
+            .welcome-message {
+                font-size: 1.375rem;
+            }
+            
+            .revolutionary-text {
+                font-size: 1.125rem;
+            }
         }
 
         .lesson-card-active {
