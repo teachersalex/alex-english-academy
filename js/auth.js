@@ -1,5 +1,5 @@
 // Enhanced Auth Logic - Teacher Alex English Academy
-// CSI ENHANCED: Real Student Firestore Authentication + Existing Teacher Auth
+// CSI ENHANCED: Real Student Firestore Authentication + Safe DOM Access
 
 import { auth, db } from './firebase.js';
 import { 
@@ -15,24 +15,37 @@ import {
 // State
 let isRegistrationMode = false;
 
-// DOM Elements
-const loginBtn = document.getElementById('loginBtn');
-const createAccountLink = document.getElementById('createAccountLink');
-const studentUsername = document.getElementById('studentUsername');
-const studentPassword = document.getElementById('studentPassword');
-const teacherAccessBtn = document.getElementById('teacherAccessBtn');
-const teacherModal = document.getElementById('teacherModal');
-const closeTeacherModal = document.getElementById('closeTeacherModal');
-const teacherForm = document.getElementById('teacherForm');
-const errorMsg = document.getElementById('errorMsg');
-const successMsg = document.getElementById('successMsg');
-const formTitle = document.getElementById('formTitle');
+// ========================================================================
+// SAFE DOM ELEMENT ACCESS
+// ========================================================================
+
+function safeGetElement(id) {
+    const element = document.getElementById(id);
+    if (!element) {
+        console.warn(`⚠️ Element with ID '${id}' not found`);
+    }
+    return element;
+}
+
+// DOM Elements - Safe Access
+const loginBtn = safeGetElement('loginBtn');
+const createAccountLink = safeGetElement('createAccountLink');
+const studentUsername = safeGetElement('studentUsername');
+const studentPassword = safeGetElement('studentPassword');
+const teacherAccessBtn = safeGetElement('teacherAccessBtn');
+const teacherModal = safeGetElement('teacherModal');
+const closeTeacherModal = safeGetElement('closeTeacherModal');
+const teacherForm = safeGetElement('teacherForm');
+const errorMsg = safeGetElement('errorMsg');
+const successMsg = safeGetElement('successMsg');
+const formTitle = safeGetElement('formTitle');
 
 // ========================================================================
 // UTILITY FUNCTIONS
 // ========================================================================
 
 function showError(message) {
+    if (!errorMsg || !successMsg) return;
     errorMsg.textContent = message;
     errorMsg.classList.remove('hidden');
     successMsg.classList.add('hidden');
@@ -40,6 +53,7 @@ function showError(message) {
 }
 
 function showSuccess(message) {
+    if (!successMsg || !errorMsg) return;
     successMsg.textContent = message;
     successMsg.classList.remove('hidden');
     errorMsg.classList.add('hidden');
@@ -98,8 +112,10 @@ async function handleStudentAuth(username, password) {
         }
 
         // Show loading state
-        loginBtn.textContent = '🔍 Verificando...';
-        loginBtn.disabled = true;
+        if (loginBtn) {
+            loginBtn.textContent = '🔍 Verificando...';
+            loginBtn.disabled = true;
+        }
 
         const cleanUsername = username.toLowerCase().trim();
         const studentRef = doc(db, 'students', cleanUsername);
@@ -284,6 +300,8 @@ async function updateStudentSession(username, action, data = {}) {
 
 // Reset login button state
 function resetLoginButton() {
+    if (!loginBtn) return;
+    
     if (isRegistrationMode) {
         loginBtn.textContent = 'CRIAR MINHA CONTA';
         loginBtn.className = 'btn-secondary w-full text-white font-bold py-4 rounded-xl text-lg shadow-lg';
@@ -317,86 +335,127 @@ function toggleMode() {
     
     if (isRegistrationMode) {
         // Registration Mode - Blue Button
-        loginBtn.textContent = 'CRIAR MINHA CONTA';
-        loginBtn.className = 'btn-secondary w-full text-white font-bold py-4 rounded-xl text-lg shadow-lg';
-        createAccountLink.textContent = '← Voltar para login';
-        formTitle.textContent = 'Criar Conta de Estudante';
+        if (loginBtn) {
+            loginBtn.textContent = 'CRIAR MINHA CONTA';
+            loginBtn.className = 'btn-secondary w-full text-white font-bold py-4 rounded-xl text-lg shadow-lg';
+        }
+        if (createAccountLink) createAccountLink.textContent = '← Voltar para login';
+        if (formTitle) formTitle.textContent = 'Criar Conta de Estudante';
         showSuccess('Preencha os dados para criar sua conta');
-        errorMsg.classList.add('hidden');
+        if (errorMsg) errorMsg.classList.add('hidden');
         
     } else {
         // Login Mode - Red Button
-        loginBtn.textContent = 'ACESSAR MINHAS AULAS';
-        loginBtn.className = 'btn-primary w-full text-white font-bold py-4 rounded-xl text-lg shadow-lg';
-        createAccountLink.textContent = 'Criar nova conta de estudante';
-        formTitle.textContent = 'Portal do Estudante';
+        if (loginBtn) {
+            loginBtn.textContent = 'ACESSAR MINHAS AULAS';
+            loginBtn.className = 'btn-primary w-full text-white font-bold py-4 rounded-xl text-lg shadow-lg';
+        }
+        if (createAccountLink) createAccountLink.textContent = 'Criar nova conta de estudante';
+        if (formTitle) formTitle.textContent = 'Portal do Estudante';
         
-        studentUsername.value = '';
-        studentPassword.value = '';
-        errorMsg.classList.add('hidden');
-        successMsg.classList.add('hidden');
+        if (studentUsername) studentUsername.value = '';
+        if (studentPassword) studentPassword.value = '';
+        if (errorMsg) errorMsg.classList.add('hidden');
+        if (successMsg) successMsg.classList.add('hidden');
     }
     
-    studentUsername.focus();
+    if (studentUsername) studentUsername.focus();
 }
 
 // ========================================================================
-// TEACHER MODAL (UNCHANGED)
+// TEACHER MODAL (SAFE ACCESS)
 // ========================================================================
 
 function showTeacherModal() {
+    if (!teacherModal) return;
     teacherModal.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
-    document.getElementById('teacherEmail').focus();
+    const teacherEmail = safeGetElement('teacherEmail');
+    if (teacherEmail) teacherEmail.focus();
 }
 
 function hideTeacherModal() {
+    if (!teacherModal) return;
     teacherModal.classList.add('hidden');
     document.body.style.overflow = 'auto';
-    document.getElementById('teacherEmail').value = '';
-    document.getElementById('teacherPassword').value = '';
+    const teacherEmail = safeGetElement('teacherEmail');
+    const teacherPassword = safeGetElement('teacherPassword');
+    if (teacherEmail) teacherEmail.value = '';
+    if (teacherPassword) teacherPassword.value = '';
 }
 
 // ========================================================================
-// EVENT LISTENERS
+// SAFE EVENT LISTENERS
 // ========================================================================
 
-loginBtn.addEventListener('click', async (e) => {
-    e.preventDefault();
-    await handleStudentAuth(studentUsername.value.trim(), studentPassword.value);
-});
+function initializeEventListeners() {
+    // Login button
+    if (loginBtn) {
+        loginBtn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            if (studentUsername && studentPassword) {
+                await handleStudentAuth(studentUsername.value.trim(), studentPassword.value);
+            }
+        });
+    }
 
-createAccountLink.addEventListener('click', (e) => {
-    e.preventDefault();
-    toggleMode();
-});
+    // Create account link
+    if (createAccountLink) {
+        createAccountLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            toggleMode();
+        });
+    }
 
-teacherAccessBtn.addEventListener('click', showTeacherModal);
-closeTeacherModal.addEventListener('click', hideTeacherModal);
+    // Teacher access
+    if (teacherAccessBtn) {
+        teacherAccessBtn.addEventListener('click', showTeacherModal);
+    }
 
-teacherModal.addEventListener('click', (e) => {
-    if (e.target === teacherModal) hideTeacherModal();
-});
+    // Teacher modal close
+    if (closeTeacherModal) {
+        closeTeacherModal.addEventListener('click', hideTeacherModal);
+    }
 
-teacherForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = document.getElementById('teacherEmail').value;
-    const password = document.getElementById('teacherPassword').value;
-    await handleTeacherLogin(email, password);
-});
+    // Teacher modal background click
+    if (teacherModal) {
+        teacherModal.addEventListener('click', (e) => {
+            if (e.target === teacherModal) hideTeacherModal();
+        });
+    }
 
-// Enhanced Keyboard Navigation
-studentUsername.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') studentPassword.focus();
-});
+    // Teacher form
+    if (teacherForm) {
+        teacherForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const teacherEmail = safeGetElement('teacherEmail');
+            const teacherPassword = safeGetElement('teacherPassword');
+            if (teacherEmail && teacherPassword) {
+                await handleTeacherLogin(teacherEmail.value, teacherPassword.value);
+            }
+        });
+    }
 
-studentPassword.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') loginBtn.click();
-});
+    // Enhanced Keyboard Navigation
+    if (studentUsername) {
+        studentUsername.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && studentPassword) studentPassword.focus();
+        });
+    }
 
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') hideTeacherModal();
-});
+    if (studentPassword) {
+        studentPassword.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && loginBtn) loginBtn.click();
+        });
+    }
+
+    // Global escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') hideTeacherModal();
+    });
+
+    console.log('✅ Event listeners initialized safely');
+}
 
 // ========================================================================
 // AUTH STATE LISTENER (TEACHER ONLY)
@@ -409,12 +468,21 @@ onAuthStateChanged(auth, (user) => {
 });
 
 // ========================================================================
-// INITIALIZE
+// SAFE INITIALIZE
 // ========================================================================
 
 document.addEventListener('DOMContentLoaded', () => {
-    studentUsername.focus();
-    console.log('🔥 Enhanced CSI Auth System Initialized!');
+    console.log('🔥 Enhanced CSI Auth System Initializing...');
+    
+    // Initialize event listeners safely
+    initializeEventListeners();
+    
+    // Focus on username if available
+    if (studentUsername) {
+        studentUsername.focus();
+    }
+    
+    console.log('✅ Enhanced CSI Auth System Initialized!');
     console.log('👥 Teacher Auth: Firebase (Production Ready)');
     console.log('🎓 Student Auth: Firestore (Real Database)');
 });
