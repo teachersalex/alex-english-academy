@@ -9,18 +9,22 @@
 </head>
 <body class="sophisticated-bg min-h-screen">
 
-    <!-- Professional Floating Header -->
-    <div class="lesson-floating-header">
-        <div class="brand-line">Teacher Alex English Academy</div>
-        <div class="user-course-line" id="userCourseLine">João Silva • A1 Foundation Course</div>
+    <!-- Professional Full-Width Header Bar -->
+    <header class="lesson-header-bar">
+        <div class="header-left">
+            <div class="brand-line">Teacher Alex English Academy</div>
+            <div class="user-course-line" id="userCourseLine">Alex12345 • A1 Foundation Course</div>
+        </div>
+        
         <div class="header-actions">
             <button class="btn-portal">← Portal</button>
             <button class="btn-sair">Sair</button>
         </div>
-    </div>
+    </header>
 
     <!-- Main Content -->
-    <div class="max-w-4xl mx-auto px-4 pb-8" style="margin-top: 120px;">
+    <main class="lesson-content">
+        <div class="max-w-4xl mx-auto px-4 pb-8">
         
         <!-- Lesson Selection View -->
         <div id="lessonSelection">
@@ -111,9 +115,10 @@
                     Submit Answers (0/5 Complete)
                 </button>
                 <p class="text-medium-gray text-sm mt-2">Answer all questions to continue</p>
+                </div>
             </div>
         </div>
-    </div>
+    </main>
 
     <!-- Results Modal -->
     <div id="resultsModal" class="hidden fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
@@ -543,12 +548,12 @@
             initializeEventListeners();
             loadLessonsWithProgress();
             
-            // Initialize floating header
-            initializeFloatingHeader();
+            // Initialize header bar
+            initializeHeaderBar();
         });
 
-        // Initialize floating header functionality
-        function initializeFloatingHeader() {
+        // Initialize header bar functionality
+        function initializeHeaderBar() {
             const currentStudent = getCurrentStudent();
             if (currentStudent) {
                 const displayName = currentStudent.displayName || 'Estudante';
@@ -663,7 +668,7 @@
             document.getElementById('lessonTitle').textContent = currentLesson.title;
             document.getElementById('lessonDescription').textContent = currentLesson.description;
             
-            // Update floating header
+            // Update header bar
             const currentStudent = getCurrentStudent();
             const displayName = currentStudent ? currentStudent.displayName : 'Estudante';
             document.getElementById('userCourseLine').textContent = `${displayName} • Lesson ${lessonIndex}: ${currentLesson.title}`;
@@ -781,7 +786,7 @@
                 document.getElementById('lessonInterface').classList.add('hidden');
                 document.getElementById('lessonSelection').classList.remove('hidden');
                 
-                // Update floating header back to course view
+                // Update header bar back to course view
                 const currentStudent = getCurrentStudent();
                 const displayName = currentStudent ? currentStudent.displayName : 'Estudante';
                 document.getElementById('userCourseLine').textContent = `${displayName} • A1 Foundation Course`;
@@ -800,7 +805,7 @@
                 document.getElementById('reviewModal').classList.add('hidden');
             });
             
-            // Floating header actions
+            // Header bar actions
             document.querySelector('.btn-portal').addEventListener('click', () => {
                 window.location.href = 'portal.html';
             });
@@ -978,38 +983,43 @@
         }
     </script>
 
-    <!-- Floating Header Styles -->
+    <!-- Professional Full-Width Header Bar Styles -->
     <style>
-        /* Professional Floating Header */
-        .lesson-floating-header {
+        /* Professional Full-Width Header Bar */
+        .lesson-header-bar {
             position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
             background: white;
-            border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-            padding: 16px 24px;
+            border-bottom: 1px solid #e5e7eb;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            padding: 16px 20px;
             z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-left {
             text-align: center;
-            min-width: 320px;
-            max-width: 90vw;
-            border: 1px solid #e5e7eb;
         }
 
         .brand-line {
             font-size: 12px;
             font-weight: 600;
             color: #3b82f6;
-            margin-bottom: 4px;
+            text-align: center;
             letter-spacing: 0.5px;
         }
 
         .user-course-line {
             font-size: 14px;
             color: #1f2937;
-            margin-bottom: 12px;
             font-weight: 500;
+            text-align: center;
         }
 
         .header-actions {
@@ -1050,12 +1060,34 @@
             color: #374151;
         }
 
-        /* Responsive adjustments */
+        /* Add top margin to main content */
+        .lesson-content {
+            margin-top: 120px;
+        }
+
+        /* Desktop responsive */
+        @media (min-width: 768px) {
+            .lesson-header-bar {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                padding: 12px 40px;
+            }
+            
+            .header-left {
+                text-align: left;
+            }
+            
+            .lesson-content {
+                margin-top: 80px;
+            }
+        }
+
+        /* Mobile adjustments */
         @media (max-width: 480px) {
-            .lesson-floating-header {
-                top: 10px;
-                min-width: 280px;
+            .lesson-header-bar {
                 padding: 12px 16px;
+                gap: 6px;
             }
             
             .brand-line {
@@ -1069,6 +1101,10 @@
             .btn-portal, .btn-sair {
                 padding: 6px 12px;
                 font-size: 11px;
+            }
+            
+            .lesson-content {
+                margin-top: 110px;
             }
         }
     </style>
