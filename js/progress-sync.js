@@ -1,0 +1,496 @@
+/**
+ * Cross-Device Progress Synchronization - Teacher Alex English Academy
+ * Handles saving, loading, and syncing student progress across devices
+ */
+
+import { db } from './firebase.js';
+import { 
+    doc, getDoc, updateDoc, setDoc,
+    serverTimestamp, onSnapshot 
+} from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js';
+import { getCurrentStudent } from './auth.js';
+import { calculateXPEarned, calculateLevelFromXP } from './lesson-data.js';
+
+// ========================================================================
+// LESSON PROGRESS MANAGEMENT
+// ========================================================================
+
+// Save lesson progress to Firestore
+export async function saveLessonProgress(lessonId, progressData) {
+    try {
+        const currentStudent = getCurrentStudent();
+        if (!currentStudent) {
+            throw new Error('No authenticated student');
+        }
+
+        const studentRef = doc(db, 'students', currentStudent.username);
+        const updatePath = `audioLessons.${lessonId}`;
+        
+        const updateData = {
+            [updatePath]: {
+                ...progressData,
+                lastUpdated: serverTimestamp(),
+                deviceLastUsed: currentStudent.deviceId
+            },
+            'profile.lastActiveDate': serverTimestamp()
+        };
+
+        await updateDoc(studentRef, updateData);
+        
+        console.log(`✅ Progress saved for ${lessonId}:`, progressData);
+        return { success: true };
+        
+    } catch (error) {
+        console.error('❌ Error saving progress:', error);
+        
+        // Store locally if Firestore fails (offline mode)
+        storeProgressLocally(lessonId, progressData);
+        return { success: false, storedLocally: true, error: error.message };
+    }
+}
+
+// Load lesson progress from Firestore  
+export async function loadLessonProgress(lessonId) {
+    try {
+        const currentStudent = getCurrentStudent();
+        if (!currentStudent) {
+            throw new Error('No authenticated student');
+        }
+
+        const studentRef = doc(db, 'students', currentStudent.username);
+        const studentDoc = await getDoc(studentRef);
+        
+        if (studentDoc.exists()) {
+            const studentData = studentDoc.data();
+            const lessonProgress = studentData.audioLessons?.[lessonId];
+            
+            if (lessonProgress) {
+                console.log(`📖 Loaded progress for ${lessonId}:`, lessonProgress);
+                return { success: true, progress: lessonProgress };
+            } else {
+                // Create initial progress structure
+                const initialProgress = { 
+                    status: "not-started",
+                    score: 0,
+                    totalQuestions: 5,
+                    attempts: 0,
+                    timeSpent: 0
+                };
+                await saveLessonProgress(lessonId, initialProgress);
+                return { success: true, progress: initialProgress };
+            }
+        }
+        
+        throw new Error('Student document not found');
+        
+    } catch (error) {
+        console.error('❌ Error loading progress:', error);
+        
+        // Try to load from localStorage as fallback
+        const localProgress = getProgressLocally(lessonId);
+        return { 
+            success: false, 
+            progress: localProgress || { 
+                status: "not-started",
+                score: 0,
+                totalQuestions: 5,
+                attempts: 0,
+                timeSpent: 0
+            },
+            error: error.message 
+        };
+    }
+}
+
+// Save lesson completion with XP calculation
+export async function completeLessonWithXP(lessonId, score, totalQuestions, timeSpent, answers, correctAnswers) {
+    try {
+        const currentStudent = getCurrentStudent();
+        if (!currentStudent) {
+            throw new Error('No authenticated student');
+        }
+
+        // Calculate XP earned
+        const xpEarned = calculateXPEarned(score, totalQuestions, timeSpent);
+        
+        // Prepare lesson completion data
+        const completionData = {
+            status: "completed",
+            score: score,
+            totalQuestions: totalQuestions,
+            xpEarned: xpEarned,
+            completedAt: serverTimestamp(),
+            attempts: 1, // TODO: Increment from existing attempts
+            timeSpent: timeSpent,
+            answers: answers,
+            correctAnswers: correctAnswers,
+            lastQuestionIndex: totalQuestions
+        };
+
+        // Save lesson progress
+        await saveLessonProgress(lessonId, completionData);
+
+        // Update student stats (XP and level)
+        const statsResult = await updateStudentStats(xpEarned);
+        
+        console.log(`🎉 Lesson ${lessonId} completed! +${xpEarned} XP`);
+        
+        return { 
+            success: true, 
+            xpEarned,
+            newLevel: statsResult.newLevel,
+            newTotalXP: statsResult.newTotalXP
+        };
+        
+    } catch (error) {
+        console.error('❌ Error completing lesson:', error);
+        return { success: false, error: error.message };
+    }
+}
+
+// Start lesson (for resuming and tracking)
+export async function startLesson(lessonId) {
+    try {
+        const currentStudent = getCurrentStudent();
+        if (!currentStudent) {
+            throw new Error('No authenticated student');
+        }
+
+        const studentRef = doc(db, 'students', currentStudent.username);
+        
+        // Update current session
+        const updateData = {
+            'sessions.currentSession.lessonId': lessonId,
+            'sessions.currentSession.questionIndex': 0,
+            'sessions.currentSession.lastActivityTime': serverTimestamp(),
+            'profile.lastActiveDate': serverTimestamp()
+        };
+
+        // Update lesson status to in-progress if not started
+        const progressResult = await loadLessonProgress(lessonId);
+        if (progressResult.success && progressResult.progress.status === 'not-started') {
+            updateData[`audioLessons.${lessonId}.status`] = 'in-progress';
+            updateData[`audioLessons.${lessonId}.startedAt`] = serverTimestamp();
+        }
+
+        await updateDoc(studentRef, updateData);
+        
+        console.log(`🎯 Lesson ${lessonId} started`);
+        return { success: true };
+        
+    } catch (error) {
+        console.error('❌ Error starting lesson:', error);
+        return { success: false, error: error.message };
+    }
+}
+
+// ========================================================================
+// STUDENT STATS MANAGEMENT
+// ========================================================================
+
+// Update student's total XP and level
+export async function updateStudentStats(xpToAdd, achievements = []) {
+    try {
+        const currentStudent = getCurrentStudent();
+        if (!currentStudent) {
+            throw new Error('No authenticated student');
+        }
+
+        const studentRef = doc(db, 'students', currentStudent.username);
+        const studentDoc = await getDoc(studentRef);
+        
+        if (studentDoc.exists()) {
+            const currentData = studentDoc.data();
+            const currentXP = currentData.profile.totalXP || 0;
+            const newTotalXP = currentXP + xpToAdd;
+            const newLevel = calculateLevelFromXP(newTotalXP);
+            
+            const updateData = {
+                'profile.totalXP': newTotalXP,
+                'profile.level': newLevel,
+                'profile.lastActiveDate': serverTimestamp()
+            };
+
+            // Add any new achievements
+            achievements.forEach(achievement => {
+                updateData[`achievements.${achievement.id}`] = {
+                    ...achievement,
+                    unlockedAt: serverTimestamp()
+                };
+            });
+
+            await updateDoc(studentRef, updateData);
+            
+            console.log(`✅ Student stats updated: +${xpToAdd} XP, Level ${newLevel}`);
+            return { success: true, newTotalXP, newLevel };
+        }
+        
+        throw new Error('Student document not found');
+        
+    } catch (error) {
+        console.error('❌ Error saving student stats:', error);
+        return { success: false, error: error.message };
+    }
+}
+
+// Get student's current overall progress
+export async function getStudentOverallProgress() {
+    try {
+        const currentStudent = getCurrentStudent();
+        if (!currentStudent) {
+            throw new Error('No authenticated student');
+        }
+
+        const studentRef = doc(db, 'students', currentStudent.username);
+        const studentDoc = await getDoc(studentRef);
+        
+        if (studentDoc.exists()) {
+            const studentData = studentDoc.data();
+            
+            // Calculate overall progress statistics
+            const audioLessons = studentData.audioLessons || {};
+            const completedLessons = Object.values(audioLessons).filter(
+                lesson => lesson.status === 'completed'
+            ).length;
+            
+            const inProgressLessons = Object.values(audioLessons).filter(
+                lesson => lesson.status === 'in-progress'
+            ).length;
+            
+            const totalLessons = 10;
+            const progressPercentage = (completedLessons / totalLessons) * 100;
+            
+            // Calculate total study time
+            const totalStudyTime = Object.values(audioLessons).reduce(
+                (total, lesson) => total + (lesson.timeSpent || 0), 0
+            );
+            
+            return {
+                success: true,
+                profile: studentData.profile,
+                completedLessons,
+                inProgressLessons,
+                totalLessons,
+                progressPercentage: Math.round(progressPercentage),
+                achievements: studentData.achievements || {},
+                currentStreak: studentData.profile.currentStreak || 0,
+                totalStudyTime,
+                audioLessons: audioLessons
+            };
+        }
+        
+        throw new Error('Student document not found');
+        
+    } catch (error) {
+        console.error('❌ Error getting overall progress:', error);
+        return { success: false, error: error.message };
+    }
+}
+
+// ========================================================================
+// OFFLINE SUPPORT
+// ========================================================================
+
+// Store progress locally when offline
+function storeProgressLocally(lessonId, progressData) {
+    try {
+        const offlineData = JSON.parse(localStorage.getItem('offlineProgress') || '{}');
+        const currentStudent = getCurrentStudent();
+        
+        if (!currentStudent) return;
+        
+        if (!offlineData[currentStudent.username]) {
+            offlineData[currentStudent.username] = {};
+        }
+        
+        offlineData[currentStudent.username][lessonId] = {
+            ...progressData,
+            timestamp: new Date().toISOString(),
+            needsSync: true
+        };
+        
+        localStorage.setItem('offlineProgress', JSON.stringify(offlineData));
+        console.log(`💾 Stored progress locally for ${lessonId}`);
+        
+    } catch (error) {
+        console.error('Error storing progress locally:', error);
+    }
+}
+
+// Get progress from localStorage
+function getProgressLocally(lessonId) {
+    try {
+        const offlineData = JSON.parse(localStorage.getItem('offlineProgress') || '{}');
+        const currentStudent = getCurrentStudent();
+        return offlineData[currentStudent?.username]?.[lessonId] || null;
+        
+    } catch (error) {
+        console.error('Error getting local progress:', error);
+        return null;
+    }
+}
+
+// Sync offline progress when back online
+export async function syncOfflineProgress() {
+    try {
+        const offlineData = JSON.parse(localStorage.getItem('offlineProgress') || '{}');
+        const currentStudent = getCurrentStudent();
+        
+        if (!currentStudent || !offlineData[currentStudent.username]) {
+            return { success: true, itemsSynced: 0 };
+        }
+        
+        const userOfflineData = offlineData[currentStudent.username];
+        let itemsSynced = 0;
+        
+        for (const [lessonId, progressData] of Object.entries(userOfflineData)) {
+            if (progressData.needsSync) {
+                const { timestamp, needsSync, ...cleanProgressData } = progressData;
+                const result = await saveLessonProgress(lessonId, cleanProgressData);
+                
+                if (result.success) {
+                    itemsSynced++;
+                }
+            }
+        }
+        
+        // Clear synced offline data
+        if (itemsSynced > 0) {
+            delete offlineData[currentStudent.username];
+            localStorage.setItem('offlineProgress', JSON.stringify(offlineData));
+        }
+        
+        console.log(`🔄 Synced ${itemsSynced} offline progress items`);
+        return { success: true, itemsSynced };
+        
+    } catch (error) {
+        console.error('❌ Error syncing offline progress:', error);
+        return { success: false, error: error.message };
+    }
+}
+
+// ========================================================================
+// REAL-TIME LISTENERS
+// ========================================================================
+
+// Set up real-time progress listener
+export function setupProgressListener(callback) {
+    const currentStudent = getCurrentStudent();
+    if (!currentStudent) return null;
+
+    const studentRef = doc(db, 'students', currentStudent.username);
+    
+    return onSnapshot(studentRef, (doc) => {
+        if (doc.exists()) {
+            const studentData = doc.data();
+            
+            if (callback) {
+                callback({
+                    profile: studentData.profile,
+                    audioLessons: studentData.audioLessons,
+                    achievements: studentData.achievements,
+                    sessions: studentData.sessions
+                });
+            }
+        }
+    }, (error) => {
+        console.error('❌ Progress listener error:', error);
+    });
+}
+
+// ========================================================================
+// SESSION MANAGEMENT
+// ========================================================================
+
+// Update study time tracking
+export async function updateStudyTime(additionalSeconds) {
+    try {
+        const currentStudent = getCurrentStudent();
+        if (!currentStudent) return { success: false };
+
+        const studentRef = doc(db, 'students', currentStudent.username);
+        const studentDoc = await getDoc(studentRef);
+        
+        if (studentDoc.exists()) {
+            const currentData = studentDoc.data();
+            const currentTotal = currentData.sessions?.totalStudyTime || 0;
+            
+            const updateData = {
+                'sessions.totalStudyTime': currentTotal + additionalSeconds,
+                'sessions.currentSession.lastActivityTime': serverTimestamp(),
+                'profile.lastActiveDate': serverTimestamp()
+            };
+
+            await updateDoc(studentRef, updateData);
+            return { success: true };
+        }
+        
+        return { success: false };
+        
+    } catch (error) {
+        console.error('❌ Error updating study time:', error);
+        return { success: false, error: error.message };
+    }
+}
+
+// End current session
+export async function endCurrentSession() {
+    try {
+        const currentStudent = getCurrentStudent();
+        if (!currentStudent) return { success: false };
+
+        const studentRef = doc(db, 'students', currentStudent.username);
+        
+        const updateData = {
+            'sessions.currentSession.isActive': false,
+            'sessions.currentSession.endTime': serverTimestamp(),
+            'profile.lastActiveDate': serverTimestamp()
+        };
+
+        await updateDoc(studentRef, updateData);
+        
+        console.log('🔚 Session ended');
+        return { success: true };
+        
+    } catch (error) {
+        console.error('❌ Error ending session:', error);
+        return { success: false, error: error.message };
+    }
+}
+
+// ========================================================================
+// CONNECTIVITY DETECTION
+// ========================================================================
+
+// Check if online and sync if needed
+export function initializeOfflineSync() {
+    let isOnline = navigator.onLine;
+    
+    // Sync when coming back online
+    window.addEventListener('online', async () => {
+        if (!isOnline) {
+            console.log('🌐 Back online - syncing progress...');
+            await syncOfflineProgress();
+            isOnline = true;
+        }
+    });
+    
+    window.addEventListener('offline', () => {
+        console.log('📴 Gone offline - will store progress locally');
+        isOnline = false;
+    });
+    
+    // Initial sync if online
+    if (isOnline) {
+        syncOfflineProgress();
+    }
+    
+    return isOnline;
+}
+
+// Export connection status
+export function getConnectionStatus() {
+    return navigator.onLine;
+}
+
+console.log('🔄 Progress Sync System loaded - Cross-device progress ready!');
