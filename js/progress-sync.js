@@ -1,6 +1,6 @@
 /**
  * Cross-Device Progress Synchronization - Teacher Alex English Academy
- * Handles saving, loading, and syncing student progress across devices
+ * CORRECTED to match Alex's FLAT Firebase structure
  */
 
 import { db } from './firebase.js';
@@ -32,7 +32,7 @@ export async function saveLessonProgress(lessonId, progressData) {
                 lastUpdated: serverTimestamp(),
                 deviceLastUsed: currentStudent.deviceId
             },
-            'profile.lastActiveDate': serverTimestamp()
+            lastLoginDate: serverTimestamp() // CORRECTED: Flat structure
         };
 
         await updateDoc(studentRef, updateData);
@@ -158,12 +158,10 @@ export async function startLesson(lessonId) {
 
         const studentRef = doc(db, 'students', currentStudent.username);
         
-        // Update current session
+        // CORRECTED: Update flat fields, no nested sessions
         const updateData = {
-            'sessions.currentSession.lessonId': lessonId,
-            'sessions.currentSession.questionIndex': 0,
-            'sessions.currentSession.lastActivityTime': serverTimestamp(),
-            'profile.lastActiveDate': serverTimestamp()
+            currentLessonId: lessonId, // FLAT field
+            lastLoginDate: serverTimestamp() // FLAT field
         };
 
         // Update lesson status to in-progress if not started
@@ -201,14 +199,16 @@ export async function updateStudentStats(xpToAdd, achievements = []) {
         
         if (studentDoc.exists()) {
             const currentData = studentDoc.data();
-            const currentXP = currentData.profile.totalXP || 0;
+            
+            // CORRECTED: Access flat fields, not nested profile
+            const currentXP = currentData.totalXP || 0;
             const newTotalXP = currentXP + xpToAdd;
             const newLevel = calculateLevelFromXP(newTotalXP);
             
             const updateData = {
-                'profile.totalXP': newTotalXP,
-                'profile.level': newLevel,
-                'profile.lastActiveDate': serverTimestamp()
+                totalXP: newTotalXP,        // CORRECTED: Flat field
+                level: newLevel,            // CORRECTED: Flat field
+                lastLoginDate: serverTimestamp() // CORRECTED: Flat field
             };
 
             // Add any new achievements
@@ -233,7 +233,7 @@ export async function updateStudentStats(xpToAdd, achievements = []) {
     }
 }
 
-// Get student's current overall progress
+// Get student's current overall progress (CORRECTED FOR FLAT STRUCTURE)
 export async function getStudentOverallProgress() {
     try {
         const currentStudent = getCurrentStudent();
@@ -247,33 +247,48 @@ export async function getStudentOverallProgress() {
         if (studentDoc.exists()) {
             const studentData = studentDoc.data();
             
-            // Calculate overall progress statistics
+            // CORRECTED: Access fields directly (FLAT structure)
             const audioLessons = studentData.audioLessons || {};
+            const achievements = studentData.achievements || {};
+            
+            // Calculate ACTUAL completed lessons from audioLessons data
             const completedLessons = Object.values(audioLessons).filter(
-                lesson => lesson.status === 'completed'
+                lesson => lesson && lesson.status === 'completed'
             ).length;
             
             const inProgressLessons = Object.values(audioLessons).filter(
-                lesson => lesson.status === 'in-progress'
+                lesson => lesson && lesson.status === 'in-progress'
             ).length;
             
             const totalLessons = 10;
             const progressPercentage = (completedLessons / totalLessons) * 100;
             
-            // Calculate total study time
+            // Calculate total study time from audioLessons
             const totalStudyTime = Object.values(audioLessons).reduce(
-                (total, lesson) => total + (lesson.timeSpent || 0), 0
+                (total, lesson) => total + ((lesson && lesson.timeSpent) || 0), 0
             );
             
+            // Return structure that portal expects, mapping flat Firebase to nested profile
             return {
                 success: true,
-                profile: studentData.profile,
-                completedLessons,
+                profile: {
+                    // Map flat Firebase fields to expected profile structure
+                    username: studentData.username || currentStudent.username,
+                    displayName: studentData.displayName || currentStudent.displayName,
+                    level: studentData.level || 1,
+                    totalXP: studentData.totalXP || 0,
+                    currentStreak: studentData.currentStreak || 0,
+                    longestStreak: studentData.longestStreak || 0,
+                    lastActiveDate: studentData.lastLoginDate || null,
+                    email: studentData.email || '',
+                    joinDate: studentData.joinDate || null
+                },
+                completedLessons,  // CALCULATED from audioLessons
                 inProgressLessons,
                 totalLessons,
                 progressPercentage: Math.round(progressPercentage),
-                achievements: studentData.achievements || {},
-                currentStreak: studentData.profile.currentStreak || 0,
+                achievements,
+                currentStreak: studentData.currentStreak || 0,
                 totalStudyTime,
                 audioLessons: audioLessons
             };
@@ -385,11 +400,16 @@ export function setupProgressListener(callback) {
             const studentData = doc.data();
             
             if (callback) {
+                // CORRECTED: Return flat structure, create profile object for compatibility
                 callback({
-                    profile: studentData.profile,
+                    profile: {
+                        level: studentData.level,
+                        totalXP: studentData.totalXP,
+                        currentStreak: studentData.currentStreak
+                    },
                     audioLessons: studentData.audioLessons,
                     achievements: studentData.achievements,
-                    sessions: studentData.sessions
+                    sessions: {} // Simplified
                 });
             }
         }
@@ -413,12 +433,13 @@ export async function updateStudyTime(additionalSeconds) {
         
         if (studentDoc.exists()) {
             const currentData = studentDoc.data();
-            const currentTotal = currentData.sessions?.totalStudyTime || 0;
+            
+            // CORRECTED: Access flat field, not nested sessions
+            const currentTotal = currentData.totalStudyTime || 0;
             
             const updateData = {
-                'sessions.totalStudyTime': currentTotal + additionalSeconds,
-                'sessions.currentSession.lastActivityTime': serverTimestamp(),
-                'profile.lastActiveDate': serverTimestamp()
+                totalStudyTime: currentTotal + additionalSeconds, // CORRECTED: Flat field
+                lastLoginDate: serverTimestamp() // CORRECTED: Flat field
             };
 
             await updateDoc(studentRef, updateData);
@@ -441,10 +462,10 @@ export async function endCurrentSession() {
 
         const studentRef = doc(db, 'students', currentStudent.username);
         
+        // CORRECTED: Update flat fields only
         const updateData = {
-            'sessions.currentSession.isActive': false,
-            'sessions.currentSession.endTime': serverTimestamp(),
-            'profile.lastActiveDate': serverTimestamp()
+            lastLogoutDate: serverTimestamp(), // CORRECTED: Flat field
+            isActive: false // CORRECTED: Flat field
         };
 
         await updateDoc(studentRef, updateData);
