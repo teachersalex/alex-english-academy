@@ -3,222 +3,299 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Acadêmico - Teacher Alex</title>
+    <title>Teacher Alex - English Academy</title>
+    
+    <!-- PWA essentials -->
+    <meta name="theme-color" content="#3b82f6">
+    <meta name="description" content="Teacher Alex English Academy - Professional English Learning with Progress Tracking">
+    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiVGVhY2hlciBBbGV4IC0gRW5nbGlzaCBBY2FkZW15Iiwic2hvcnRfbmFtZSI6IlRlYWNoZXIgQWxleCIsInN0YXJ0X3VybCI6Ii8iLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsInRoZW1lX2NvbG9yIjoiIzNiODJmNiJ9">
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="../css/style.css">
+    
+    <!-- Your CSS File -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="sophisticated-bg min-h-screen">
 
-    <!-- Responsive Container -->
-    <div class="min-h-screen">
-        <div class="max-w-sm mx-auto px-4 py-6 sm:max-w-md md:max-w-2xl lg:max-w-4xl">
-            
-            <!-- Fixed Header -->
-            <div class="elegant-card rounded-lg mb-6 sticky top-4 z-10">
-                <div class="p-4">
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center space-x-3">
-                            <div class="logo-sophisticated w-8 h-8 rounded-full flex items-center justify-center">
-                                <span class="text-white font-bold text-sm">A</span>
-                            </div>
-                            <div>
-                                <h1 class="text-sm font-semibold text-charcoal">Teacher Alex Academy</h1>
-                                <p class="text-xs text-medium-gray" id="userEmail">alexmg@email.com</p>
-                            </div>
-                        </div>
-                        <button id="logoutBtn" class="link-muted text-xs">
-                            Sair
-                        </button>
+    <!-- Main Container -->
+    <div class="min-h-screen flex items-center justify-center p-4">
+        <div class="w-full max-w-md">
+            <!-- Sophisticated Card -->
+            <div class="elegant-card rounded-3xl p-8">
+                
+                <!-- Header -->
+                <div class="text-center mb-8">
+                    <!-- Logo -->
+                    <div class="w-20 h-20 logo-sophisticated rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-3xl font-bold text-white">A</span>
                     </div>
+                    
+                    <h1 class="text-2xl font-medium text-alex-blue mb-1">Teacher Alex</h1>
+                    <h2 class="text-4xl font-bold text-academy-red mb-4">ENGLISH ACADEMY</h2>
+                    
+                    <div class="inline-flex items-center beta-badge text-white px-4 py-2 rounded-full text-sm font-semibold mb-5">
+                        <span class="w-2 h-2 bg-white rounded-full mr-2 animate-pulse"></span>
+                        BETA
+                    </div>
+                    
+                    <h3 id="formTitle" class="text-xl text-academy-red font-medium mb-2">Portal do Estudante</h3>
+                    <p class="text-medium-gray text-base">Acesso exclusivo para alunos matriculados</p>
                 </div>
-            </div>
 
-            <!-- Academic Status Section -->
-            <div class="elegant-card rounded-lg mb-6">
-                <div class="p-4 sm:p-6">
-                    <h2 class="heading-secondary text-lg mb-4">📊 Situação Acadêmica</h2>
-                    
-                    <!-- Status Overview -->
-                    <div class="stats-card rounded-lg p-4 mb-4">
-                        <div class="text-center">
-                            <h3 class="text-base font-medium mb-1 text-charcoal">Nível 3 • Beginner</h3>
-                            <p class="text-sm text-medium-gray">650 XP acumulados</p>
-                            <p class="text-sm text-medium-gray">22 horas de estudo</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Quick Stats - Responsive Grid -->
-                    <div class="grid grid-cols-3 gap-3 sm:gap-4 md:gap-6 mb-4">
-                        <div class="stats-card rounded-lg p-3 text-center">
-                            <div class="text-lg font-semibold text-charcoal">3</div>
-                            <div class="text-xs text-medium-gray">Nível</div>
-                        </div>
-                        <div class="stats-card rounded-lg p-3 text-center">
-                            <div class="text-lg font-semibold text-charcoal">650</div>
-                            <div class="text-xs text-medium-gray">XP Total</div>
-                        </div>
-                        <div class="stats-card rounded-lg p-3 text-center">
-                            <div class="text-lg font-semibold text-charcoal">22h</div>
-                            <div class="text-xs text-medium-gray">Estudado</div>
-                        </div>
-                    </div>
-                    
-                    <!-- Progress Bar -->
+                <!-- Login Form -->
+                <div class="space-y-5">
                     <div>
-                        <div class="flex justify-between text-sm mb-2 text-medium-gray">
-                            <span>Progresso para Nível 4</span>
-                            <span>30%</span>
-                        </div>
-                        <div class="progress-bar-container">
-                            <div class="progress-bar w-3/10"></div>
-                        </div>
-                        <p class="text-xs mt-1 text-center text-medium-gray">350 XP restantes</p>
+                        <label class="block text-charcoal text-base font-medium mb-2">Nome de usuário</label>
+                        <input type="text" id="studentUsername" placeholder="Digite seu nome de usuário" required
+                               class="elegant-input w-full p-4 rounded-xl text-base">
                     </div>
-                </div>
-            </div>
-
-            <!-- Action Center -->
-            <div class="elegant-card rounded-lg mb-6">
-                <div class="p-4 sm:p-6">
-                    <h2 class="heading-secondary text-lg mb-4">⚡ Centro de Ações</h2>
                     
-                    <!-- Responsive Button Layout -->
-                    <div class="space-y-3 sm:space-y-4 md:flex md:space-y-0 md:space-x-4">
-                        <button class="btn-primary w-full md:flex-1 py-3 rounded-lg font-semibold" onclick="accessLessons()">
-                            🎓 ACESSAR MINHAS AULAS
-                        </button>
-                        <button class="btn-secondary w-full md:flex-1 py-3 rounded-lg font-medium" onclick="viewReport()">
-                            📊 VER RELATÓRIO COMPLETO
-                        </button>
+                    <div>
+                        <label class="block text-charcoal text-base font-medium mb-2">Senha</label>
+                        <input type="password" id="studentPassword" placeholder="Digite sua senha" required
+                               class="elegant-input w-full p-4 rounded-xl text-base">
                     </div>
-                </div>
-            </div>
-
-            <!-- Recent Achievements -->
-            <div class="elegant-card rounded-lg mb-6">
-                <div class="p-4 sm:p-6">
-                    <h2 class="heading-secondary text-lg mb-4">🏆 Conquistas Recentes</h2>
                     
+                    <!-- Main Action Button -->
+                    <button id="loginBtn" class="btn-primary w-full text-white font-bold py-4 rounded-xl text-lg shadow-lg">
+                        ACESSAR MINHAS AULAS
+                    </button>
+                </div>
+
+                <!-- Help Section -->
+                <div class="text-center mt-8 pt-6 border-t border-light-gray">
+                    <p class="text-medium-gray text-base mb-1">Precisa de ajuda?</p>
+                    <p class="text-charcoal text-base font-medium mb-6">
+                        Entre em contato com <span class="text-academy-red font-semibold">Professor Alex</span>
+                    </p>
+                    
+                    <!-- Action Links -->
                     <div class="space-y-3">
-                        <div class="achievement-badge bg-powder-blue border-l-4 border-alex-blue rounded-lg p-3">
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <h3 class="text-sm font-medium text-charcoal">First Steps</h3>
-                                    <p class="text-xs text-medium-gray">Primeira aula concluída</p>
-                                </div>
-                                <span class="text-xs font-medium text-alex-blue">+50 XP</span>
-                            </div>
-                        </div>
-                        
-                        <div class="achievement-badge bg-powder-blue border-l-4 border-alex-blue rounded-lg p-3">
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <h3 class="text-sm font-medium text-charcoal">Week Warrior</h3>
-                                    <p class="text-xs text-medium-gray">7 dias seguidos (2/7)</p>
-                                    <div class="progress-bar-container mt-1 h-1">
-                                        <div class="progress-bar w-1/4"></div>
-                                    </div>
-                                </div>
-                                <span class="text-xs font-medium text-medium-gray">+100 XP</span>
-                            </div>
-                        </div>
-                        
-                        <div class="achievement-badge bg-gray-50 border-l-4 border-gray-300 rounded-lg p-3 opacity-60">
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <h3 class="text-sm font-medium text-medium-gray">Grammar Master</h3>
-                                    <p class="text-xs text-medium-gray">5 exercícios de gramática</p>
-                                </div>
-                                <span class="text-xs font-medium text-medium-gray">+150 XP</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Study Session -->
-            <div class="elegant-card rounded-lg">
-                <div class="p-4 sm:p-6">
-                    <h2 class="heading-secondary text-lg mb-4">⏱️ Sessão de Estudo</h2>
-                    
-                    <div class="stats-card rounded-lg p-4 text-center">
-                        <div class="text-2xl font-bold mb-2 text-charcoal" id="studyTimer">00:00</div>
-                        <p class="text-sm mb-3 text-medium-gray">Tempo da sessão atual</p>
-                        <button id="startStudyBtn" class="btn-secondary px-6 py-2 rounded-lg text-sm font-medium">
-                            ▶️ Iniciar Estudo
+                        <button id="createAccountLink" class="block w-full link-sophisticated text-base py-3 px-4 rounded-lg hover:bg-powder-blue transition-all font-medium">
+                            Criar nova conta de estudante
+                        </button>
+                        <button id="teacherAccessBtn" class="block w-full link-muted text-sm py-3 px-4 rounded-lg hover:bg-gray-50 transition-all">
+                            🎓 Acesso para Professores
                         </button>
                     </div>
+                </div>
+
+                <!-- Messages -->
+                <div id="errorMsg" class="hidden mt-4 p-4 bg-red-50 border border-red-200 rounded-xl text-red-700 text-base text-center font-medium">
+                </div>
+                
+                <div id="successMsg" class="hidden mt-4 p-4 bg-green-50 border border-green-200 rounded-xl text-green-700 text-base text-center font-medium">
                 </div>
             </div>
         </div>
     </div>
 
-    <script>
-        // Session Management
-        const studentUsername = localStorage.getItem('studentUsername') || 'Estudante';
-        document.getElementById('userEmail').textContent = `${studentUsername}@academy.com`;
+    <!-- Teacher Modal -->
+    <div id="teacherModal" class="hidden fixed inset-0 bg-black bg-opacity-40 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+        <div class="elegant-card rounded-2xl p-6 w-full max-w-sm">
+            <h3 class="text-xl font-bold text-charcoal mb-6 text-center">🎓 Acesso Professor</h3>
+            
+            <form id="teacherForm" class="space-y-4">
+                <input type="email" id="teacherEmail" placeholder="Email do Professor" required
+                       class="elegant-input w-full p-3 rounded-lg">
+                <input type="password" id="teacherPassword" placeholder="Senha" required
+                       class="elegant-input w-full p-3 rounded-lg">
+                <button type="submit" class="btn-secondary w-full text-white font-semibold py-3 rounded-lg">
+                    Acessar Dashboard
+                </button>
+            </form>
+            
+            <button id="closeTeacherModal" class="w-full mt-4 text-medium-gray hover:text-charcoal text-sm py-2 transition-colors">
+                Fechar
+            </button>
+        </div>
+    </div>
 
-        // Study Timer
-        let studySeconds = 0;
-        let studyInterval = null;
-        let isStudying = false;
+    <!-- Firebase SDK -->
+    <script type="module" src="js/firebase.js"></script>
+    
+    <!-- Clean Auth Logic -->
+    <script type="module">
+        // Auth Logic - Teacher Alex English Academy
+        import { auth } from './js/firebase.js';
+        import { 
+            signInWithEmailAndPassword, 
+            createUserWithEmailAndPassword,
+            onAuthStateChanged 
+        } from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js';
 
-        function formatTime(seconds) {
-            const mins = Math.floor(seconds / 60);
-            const secs = seconds % 60;
-            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        // State
+        let isRegistrationMode = false;
+
+        // DOM Elements
+        const loginBtn = document.getElementById('loginBtn');
+        const createAccountLink = document.getElementById('createAccountLink');
+        const studentUsername = document.getElementById('studentUsername');
+        const studentPassword = document.getElementById('studentPassword');
+        const teacherAccessBtn = document.getElementById('teacherAccessBtn');
+        const teacherModal = document.getElementById('teacherModal');
+        const closeTeacherModal = document.getElementById('closeTeacherModal');
+        const teacherForm = document.getElementById('teacherForm');
+        const errorMsg = document.getElementById('errorMsg');
+        const successMsg = document.getElementById('successMsg');
+        const formTitle = document.getElementById('formTitle');
+
+        // Utility Functions
+        function showError(message) {
+            errorMsg.textContent = message;
+            errorMsg.classList.remove('hidden');
+            successMsg.classList.add('hidden');
+            setTimeout(() => errorMsg.classList.add('hidden'), 5000);
         }
 
-        function toggleStudy() {
-            const btn = document.getElementById('startStudyBtn');
-            const timer = document.getElementById('studyTimer');
-            
-            if (!isStudying) {
-                isStudying = true;
-                btn.textContent = '⏸️ Pausar Estudo';
-                btn.className = 'btn-primary px-6 py-2 rounded-lg text-sm font-medium';
-                
-                studyInterval = setInterval(() => {
-                    studySeconds++;
-                    timer.textContent = formatTime(studySeconds);
-                }, 1000);
-                
-                console.log('📚 Sessão de estudo iniciada');
-            } else {
-                isStudying = false;
-                btn.textContent = '▶️ Continuar Estudo';
-                btn.className = 'btn-secondary px-6 py-2 rounded-lg text-sm font-medium';
-                
-                clearInterval(studyInterval);
-                console.log(`📊 Sessão pausada: ${formatTime(studySeconds)}`);
+        function showSuccess(message) {
+            successMsg.textContent = message;
+            successMsg.classList.remove('hidden');
+            errorMsg.classList.add('hidden');
+            setTimeout(() => successMsg.classList.add('hidden'), 3000);
+        }
+
+        // Student Auth
+        async function handleStudentAuth(username, password) {
+            try {
+                if (!username || !password) {
+                    showError('Preencha todos os campos');
+                    return;
+                }
+
+                if (username.length < 3) {
+                    showError('Nome de usuário deve ter pelo menos 3 caracteres');
+                    return;
+                }
+
+                if (password.length < 4) {
+                    showError('Senha deve ter pelo menos 4 caracteres');
+                    return;
+                }
+
+                if (isRegistrationMode) {
+                    showSuccess('Conta criada com sucesso! Redirecionando...');
+                    setTimeout(() => {
+                        localStorage.setItem('studentLoggedIn', 'true');
+                        localStorage.setItem('studentUsername', username);
+                        window.location.href = 'student/portal.html';
+                    }, 1500);
+                } else {
+                    localStorage.setItem('studentLoggedIn', 'true');
+                    localStorage.setItem('studentUsername', username);
+                    window.location.href = 'student/portal.html';
+                }
+            } catch (error) {
+                showError('Erro no sistema. Tente novamente.');
+                console.error('Student auth error:', error);
             }
         }
 
-        // Professional Actions
-        function accessLessons() {
-            console.log('🎓 Acessando sistema de aulas...');
+        // Teacher Auth
+        async function handleTeacherLogin(email, password) {
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                window.location.href = 'teacher/dashboard.html';
+            } catch (error) {
+                showError('Email ou senha inválidos');
+                console.error('Teacher auth error:', error);
+            }
         }
 
-        function viewReport() {
-            console.log('📊 Carregando relatório acadêmico...');
+        // Mode Toggle - Visual Button Change
+        function toggleMode() {
+            isRegistrationMode = !isRegistrationMode;
+            
+            if (isRegistrationMode) {
+                // Registration Mode - Blue Button
+                loginBtn.textContent = 'CRIAR MINHA CONTA';
+                loginBtn.className = 'btn-secondary w-full text-white font-bold py-4 rounded-xl text-lg shadow-lg';
+                createAccountLink.textContent = '← Voltar para login';
+                formTitle.textContent = 'Criar Conta de Estudante';
+                showSuccess('Preencha os dados para criar sua conta');
+                errorMsg.classList.add('hidden');
+                
+            } else {
+                // Login Mode - Red Button
+                loginBtn.textContent = 'ACESSAR MINHAS AULAS';
+                loginBtn.className = 'btn-primary w-full text-white font-bold py-4 rounded-xl text-lg shadow-lg';
+                createAccountLink.textContent = 'Criar nova conta de estudante';
+                formTitle.textContent = 'Portal do Estudante';
+                
+                studentUsername.value = '';
+                studentPassword.value = '';
+                errorMsg.classList.add('hidden');
+                successMsg.classList.add('hidden');
+            }
+            
+            studentUsername.focus();
         }
 
-        function handleLogout() {
-            localStorage.removeItem('studentLoggedIn');
-            localStorage.removeItem('studentUsername');
-            window.location.href = '../index.html';
+        // Teacher Modal
+        function showTeacherModal() {
+            teacherModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            document.getElementById('teacherEmail').focus();
         }
 
-        // Session Protection
-        if (!localStorage.getItem('studentLoggedIn')) {
-            window.location.href = '../index.html';
+        function hideTeacherModal() {
+            teacherModal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+            document.getElementById('teacherEmail').value = '';
+            document.getElementById('teacherPassword').value = '';
         }
 
         // Event Listeners
-        document.getElementById('logoutBtn').addEventListener('click', handleLogout);
-        document.getElementById('startStudyBtn').addEventListener('click', toggleStudy);
+        loginBtn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            await handleStudentAuth(studentUsername.value.trim(), studentPassword.value);
+        });
 
-        console.log('🏢 Portal acadêmico responsivo carregado');
+        createAccountLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            toggleMode();
+        });
+
+        teacherAccessBtn.addEventListener('click', showTeacherModal);
+        closeTeacherModal.addEventListener('click', hideTeacherModal);
+
+        teacherModal.addEventListener('click', (e) => {
+            if (e.target === teacherModal) hideTeacherModal();
+        });
+
+        teacherForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('teacherEmail').value;
+            const password = document.getElementById('teacherPassword').value;
+            await handleTeacherLogin(email, password);
+        });
+
+        // Keyboard Navigation
+        studentUsername.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') studentPassword.focus();
+        });
+
+        studentPassword.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') loginBtn.click();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') hideTeacherModal();
+        });
+
+        // Auth State Listener
+        onAuthStateChanged(auth, (user) => {
+            if (user && window.location.pathname === '/') {
+                window.location.href = 'teacher/dashboard.html';
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            studentUsername.focus();
+            console.log('🚀 Clean auth system initialized!');
+        });
     </script>
 
 </body>
