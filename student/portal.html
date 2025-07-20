@@ -4,462 +4,138 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal do Estudante - Teacher Alex</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #f8fafc;
-            color: #1f2937;
-            line-height: 1.6;
-        }
-        
-        .container {
-            max-width: 400px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        .header {
-            text-align: center;
-            background: white;
-            padding: 24px;
-            border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-        
-        .logo {
-            width: 48px;
-            height: 48px;
-            background: #3b82f6;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 16px;
-            color: white;
-            font-weight: bold;
-            font-size: 20px;
-        }
-        
-        .header h1 {
-            font-size: 20px;
-            color: #3b82f6;
-            margin-bottom: 4px;
-        }
-        
-        .header h2 {
-            font-size: 24px;
-            color: #ef4444;
-            margin-bottom: 8px;
-        }
-        
-        .beta-badge {
-            display: inline-block;
-            background: #3b82f6;
-            color: white;
-            padding: 4px 12px;
-            border-radius: 16px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        
-        .header h3 {
-            font-size: 18px;
-            color: #ef4444;
-            margin-bottom: 8px;
-        }
-        
-        .welcome-text {
-            color: #6b7280;
-            font-size: 14px;
-        }
-        
-        .card {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            padding: 24px;
-            margin-bottom: 20px;
-        }
-        
-        .card h4 {
-            font-size: 18px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        
-        .level-section {
-            text-align: center;
-            margin-bottom: 24px;
-        }
-        
-        .level-circle {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 16px;
-            color: white;
-            font-size: 32px;
-            font-weight: bold;
-        }
-        
-        .level-info {
-            margin-bottom: 20px;
-        }
-        
-        .level-info p {
-            color: #6b7280;
-            margin-bottom: 4px;
-        }
-        
-        .xp-text {
-            color: #3b82f6;
-            font-weight: 600;
-        }
-        
-        .progress-section {
-            margin-bottom: 20px;
-        }
-        
-        .progress-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            font-size: 14px;
-            color: #6b7280;
-        }
-        
-        .progress-bar {
-            width: 100%;
-            height: 12px;
-            background: #e5e7eb;
-            border-radius: 6px;
-            overflow: hidden;
-        }
-        
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-            border-radius: 6px;
-            transition: width 0.3s ease;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-        
-        .stat-item {
-            text-align: center;
-            padding: 16px 8px;
-            border-radius: 8px;
-        }
-        
-        .stat-time {
-            background: #dbeafe;
-            color: #1d4ed8;
-        }
-        
-        .stat-streak {
-            background: #fed7d7;
-            color: #c53030;
-        }
-        
-        .stat-lessons {
-            background: #d1fae5;
-            color: #065f46;
-        }
-        
-        .stat-number {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 4px;
-        }
-        
-        .stat-label {
-            font-size: 12px;
-            opacity: 0.8;
-        }
-        
-        .btn-primary {
-            width: 100%;
-            background: #ef4444;
-            color: white;
-            border: none;
-            padding: 16px;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-bottom: 12px;
-            transition: background 0.2s;
-        }
-        
-        .btn-primary:hover {
-            background: #dc2626;
-        }
-        
-        .btn-secondary {
-            width: 100%;
-            background: #3b82f6;
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            margin-bottom: 8px;
-            transition: background 0.2s;
-        }
-        
-        .btn-secondary:hover {
-            background: #2563eb;
-        }
-        
-        .btn-tertiary {
-            width: 100%;
-            background: #f3f4f6;
-            color: #374151;
-            border: none;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 14px;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        
-        .btn-tertiary:hover {
-            background: #e5e7eb;
-        }
-        
-        .achievements-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        
-        .achievement-item {
-            display: flex;
-            align-items: center;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid #e5e7eb;
-        }
-        
-        .achievement-unlocked {
-            background: #d1fae5;
-            border-color: #a7f3d0;
-        }
-        
-        .achievement-locked {
-            background: #f9fafb;
-            opacity: 0.6;
-        }
-        
-        .achievement-icon {
-            font-size: 24px;
-            margin-right: 12px;
-            width: 32px;
-            text-align: center;
-        }
-        
-        .achievement-info h5 {
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 2px;
-        }
-        
-        .achievement-info p {
-            font-size: 12px;
-            color: #6b7280;
-        }
-        
-        .achievement-xp {
-            margin-left: auto;
-            font-size: 12px;
-            font-weight: 600;
-            color: #3b82f6;
-        }
-        
-        .logout-btn {
-            width: 100%;
-            background: transparent;
-            color: #6b7280;
-            border: none;
-            padding: 16px;
-            font-size: 14px;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-        
-        .logout-btn:hover {
-            color: #374151;
-        }
-        
-        @media (max-width: 480px) {
-            .container {
-                padding: 16px;
-            }
-            
-            .card {
-                padding: 20px;
-            }
-            
-            .stats-grid {
-                gap: 8px;
-            }
-            
-            .stat-item {
-                padding: 12px 6px;
-            }
-        }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gray-50 min-h-screen">
 
-    <div class="container">
+    <div class="max-w-md mx-auto p-4 space-y-4">
         
         <!-- Header -->
-        <div class="header">
-            <div class="logo">A</div>
-            <h1>Teacher Alex</h1>
-            <h2>ENGLISH ACADEMY</h2>
-            <div class="beta-badge">BETA</div>
-            <h3>Portal do Estudante</h3>
-            <p class="welcome-text" id="welcomeMessage">Bem-vindo de volta!</p>
+        <div class="bg-white rounded-xl shadow-sm p-6 text-center">
+            <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span class="text-white font-bold text-lg">A</span>
+            </div>
+            <h1 class="text-lg font-semibold text-blue-600">Teacher Alex</h1>
+            <h2 class="text-xl font-bold text-red-600 mb-2">ENGLISH ACADEMY</h2>
+            <div class="inline-block bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-semibold mb-3">BETA</div>
+            <h3 class="text-lg text-red-600 font-medium mb-2">Portal do Estudante</h3>
+            <p class="text-gray-600 text-sm" id="welcomeMessage">Bem-vindo de volta!</p>
         </div>
 
-        <!-- Progress Card -->
-        <div class="card">
-            <h4>📊 Meu Progresso</h4>
+        <!-- Progress -->
+        <div class="bg-white rounded-xl shadow-sm p-6">
+            <h4 class="text-lg font-bold text-gray-800 mb-6 text-center">📊 Meu Progresso</h4>
             
-            <div class="level-section">
-                <div class="level-circle">3</div>
-                <div class="level-info">
-                    <p>Nível 3 • Beginner</p>
-                    <p class="xp-text">⭐ 650 XP</p>
+            <!-- Level -->
+            <div class="text-center mb-6">
+                <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <span class="text-white font-bold text-2xl">3</span>
                 </div>
+                <p class="text-gray-600 mb-1">Nível 3 • Beginner</p>
+                <p class="text-blue-600 font-semibold">⭐ 650 XP</p>
             </div>
 
-            <div class="progress-section">
-                <div class="progress-header">
+            <!-- Progress Bar -->
+            <div class="mb-6">
+                <div class="flex justify-between text-sm text-gray-600 mb-2">
                     <span>Progresso para Nível 4</span>
                     <span>30%</span>
                 </div>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 30%;"></div>
+                <div class="w-full bg-gray-200 rounded-full h-3">
+                    <div class="bg-gradient-to-r from-blue-500 to-purple-500 h-3 rounded-full" style="width: 30%"></div>
                 </div>
             </div>
 
-            <div class="stats-grid">
-                <div class="stat-item stat-time">
-                    <div class="stat-number">22h</div>
-                    <div class="stat-label">Tempo Total</div>
+            <!-- Stats -->
+            <div class="grid grid-cols-3 gap-3">
+                <div class="bg-blue-50 text-blue-800 p-3 rounded-lg text-center">
+                    <div class="font-bold text-xl">22h</div>
+                    <div class="text-xs">Tempo</div>
                 </div>
-                <div class="stat-item stat-streak">
-                    <div class="stat-number">5</div>
-                    <div class="stat-label">Sequência</div>
+                <div class="bg-red-50 text-red-800 p-3 rounded-lg text-center">
+                    <div class="font-bold text-xl">5</div>
+                    <div class="text-xs">Sequência</div>
                 </div>
-                <div class="stat-item stat-lessons">
-                    <div class="stat-number">12</div>
-                    <div class="stat-label">Aulas</div>
+                <div class="bg-green-50 text-green-800 p-3 rounded-lg text-center">
+                    <div class="font-bold text-xl">12</div>
+                    <div class="text-xs">Aulas</div>
                 </div>
             </div>
         </div>
 
         <!-- Actions -->
-        <div class="card">
-            <button class="btn-primary" onclick="accessLessons()">🎯 ACESSAR MINHAS AULAS</button>
-            <button class="btn-secondary" onclick="viewProgress()">📚 Ver Progresso Detalhado</button>
-            <button class="btn-tertiary" onclick="scheduleClass()">📅 Agendar Próxima Aula</button>
+        <div class="space-y-3">
+            <button class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 rounded-xl transition-colors" onclick="accessLessons()">
+                🎯 ACESSAR MINHAS AULAS
+            </button>
+            <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition-colors" onclick="viewProgress()">
+                📚 Ver Progresso Detalhado
+            </button>
         </div>
 
         <!-- Achievements -->
-        <div class="card">
-            <h4>🏆 Conquistas</h4>
+        <div class="bg-white rounded-xl shadow-sm p-6">
+            <h4 class="text-lg font-bold text-gray-800 mb-4 text-center">🏆 Conquistas</h4>
             
-            <div class="achievements-list">
-                
-                <div class="achievement-item achievement-unlocked">
-                    <div class="achievement-icon">🌟</div>
-                    <div class="achievement-info">
-                        <h5>First Steps</h5>
-                        <p>Primeira aula concluída!</p>
+            <div class="space-y-3">
+                <!-- Unlocked -->
+                <div class="flex items-center p-3 bg-green-50 border border-green-200 rounded-lg">
+                    <span class="text-2xl mr-3">🌟</span>
+                    <div class="flex-1">
+                        <h5 class="font-semibold text-green-800">First Steps</h5>
+                        <p class="text-sm text-green-600">Primeira aula concluída!</p>
                     </div>
-                    <div class="achievement-xp">+50 XP</div>
+                    <span class="text-green-700 font-bold text-sm">+50 XP</span>
                 </div>
                 
-                <div class="achievement-item">
-                    <div class="achievement-icon">🏆</div>
-                    <div class="achievement-info">
-                        <h5>Week Warrior</h5>
-                        <p>7 dias seguidos (2/7)</p>
+                <!-- In Progress -->
+                <div class="flex items-center p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                    <span class="text-2xl mr-3">🏆</span>
+                    <div class="flex-1">
+                        <h5 class="font-semibold text-blue-800">Week Warrior</h5>
+                        <p class="text-sm text-blue-600">7 dias seguidos (2/7)</p>
                     </div>
-                    <div class="achievement-xp">+100 XP</div>
+                    <span class="text-blue-700 font-bold text-sm">+100 XP</span>
                 </div>
                 
-                <div class="achievement-item achievement-locked">
-                    <div class="achievement-icon">🔥</div>
-                    <div class="achievement-info">
-                        <h5>Grammar Master</h5>
-                        <p>5 exercícios de gramática</p>
+                <!-- Locked -->
+                <div class="flex items-center p-3 bg-gray-50 border border-gray-200 rounded-lg opacity-60">
+                    <span class="text-2xl mr-3">🔥</span>
+                    <div class="flex-1">
+                        <h5 class="font-semibold text-gray-800">Grammar Master</h5>
+                        <p class="text-sm text-gray-600">5 exercícios de gramática</p>
                     </div>
-                    <div class="achievement-xp">+150 XP</div>
+                    <span class="text-gray-700 font-bold text-sm">+150 XP</span>
                 </div>
-                
             </div>
         </div>
 
         <!-- Logout -->
-        <button class="logout-btn" id="logoutBtn" onclick="handleLogout()">🚪 Sair do Portal</button>
+        <button class="w-full text-gray-500 hover:text-gray-700 py-4 text-sm transition-colors" id="logoutBtn" onclick="handleLogout()">
+            🚪 Sair do Portal
+        </button>
     </div>
 
     <script>
-        // Load student data
+        // Simple functionality
         const studentUsername = localStorage.getItem('studentUsername') || 'Estudante';
         document.getElementById('welcomeMessage').textContent = `Olá, ${studentUsername}!`;
 
         function accessLessons() {
-            alert('Redirecionando para suas aulas...');
+            alert('Acessando suas aulas...');
         }
 
         function viewProgress() {
-            alert('Visualizando progresso detalhado...');
-        }
-
-        function scheduleClass() {
-            alert('Agendando próxima aula...');
+            alert('Progresso detalhado...');
         }
 
         function handleLogout() {
-            if (confirm('Tem certeza que deseja sair?')) {
-                localStorage.removeItem('studentLoggedIn');
-                localStorage.removeItem('studentUsername');
-                alert('Logout realizado! Redirecionando...');
-                // window.location.href = '../index.html';
-            }
+            localStorage.removeItem('studentLoggedIn');
+            localStorage.removeItem('studentUsername');
+            alert('Logout realizado!');
         }
 
-        // Check if logged in
-        if (!localStorage.getItem('studentLoggedIn')) {
-            // window.location.href = '../index.html';
-        }
-
-        console.log('📚 Portal do Estudante carregado!');
+        console.log('📚 Portal carregado!');
     </script>
 
 </body>
