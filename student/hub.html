@@ -33,9 +33,9 @@
                 <div class="text-center">
                     <div class="text-5xl mb-4">🎧</div>
                     <h2 class="text-2xl font-bold text-charcoal mb-2">Learning Hub</h2>
-                    <p class="text-medium-gray mb-4">Comece pelo Foundation Course e depois explore o Gaming World!</p>
+                    <p class="text-medium-gray mb-4">Comece pelo Foundation Course, depois Gaming World e Movie Magic!</p>
                     <div class="bg-powder-blue rounded-lg p-3">
-                        <p class="text-alex-blue font-medium">🌟 Foundation Course • 🎮 Gaming World • 🚀 8 temas chegando em breve</p>
+                        <p class="text-alex-blue font-medium">🌟 Foundation Course • 🎮 Gaming World • 🎬 Movie Magic • 🚀 7 temas chegando em breve</p>
                     </div>
                 </div>
             </div>
@@ -117,34 +117,39 @@
                 </div>
             </div>
 
+            <!-- Movie Magic - TERCEIRO NÍVEL -->
+            <div class="mb-8">
+                <h3 class="text-xl font-bold text-charcoal mb-4">🎬 TERCEIRO NÍVEL - Movie Magic</h3>
+                <div class="elegant-card rounded-lg p-6 bg-gradient-to-r from-red-500 to-pink-500 text-white cursor-pointer hover:scale-105 transition-all" onclick="navigateToTheme('movies')">
+                    <div class="flex items-center justify-between">
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold mb-2">🎬 Movie Magic</h3>
+                            <p class="text-red-100 mb-3">Hollywood English and cinema conversations</p>
+                            <div class="bg-white/20 rounded-lg p-3 mb-3">
+                                <div class="flex justify-between text-sm mb-2 text-white font-medium">
+                                    <span>Progress</span>
+                                    <span id="movies-progress">0/10</span>
+                                </div>
+                                <div class="w-full bg-white/30 rounded-full h-2">
+                                    <div id="movies-bar" class="bg-white h-2 rounded-full" style="width: 0%;"></div>
+                                </div>
+                            </div>
+                            <div class="bg-white text-red-600 px-4 py-2 rounded-lg text-sm font-semibold inline-block">
+                                🎭 TERCEIRO NÍVEL - Movie Magic
+                            </div>
+                        </div>
+                        <div class="ml-6 text-4xl">🎬</div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Coming Soon Themes -->
             <div class="mb-6">
-                <h3 class="text-xl font-bold text-charcoal mb-4">🚀 Coming Soon</h3>
-                <p class="text-medium-gray mb-6">These themes are being developed and will be available soon!</p>
+                <h3 class="text-xl font-bold text-charcoal mb-4">🚀 Coming Soon (7 temas restantes)</h3>
+                <p class="text-medium-gray mb-6">Estes temas estão sendo desenvolvidos e estarão disponíveis em breve!</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 
-                <!-- Movies Theme - COMING SOON -->
-                <div class="theme-card-disabled elegant-card rounded-lg p-6">
-                    <div class="text-center">
-                        <div class="text-4xl mb-4 opacity-50">🎬</div>
-                        <h3 class="text-xl font-bold text-gray-500 mb-2">Movie Magic</h3>
-                        <p class="text-gray-400 mb-4">Hollywood English and cinema conversations</p>
-                        <div class="bg-gray-100 rounded-lg p-3 mb-4">
-                            <div class="flex justify-between text-sm text-gray-500">
-                                <span>Progress</span>
-                                <span>0/10</span>
-                            </div>
-                            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
-                                <div class="bg-gray-300 h-2 rounded-full" style="width: 0%;"></div>
-                            </div>
-                        </div>
-                        <div class="bg-gray-200 text-gray-500 px-4 py-2 rounded-lg text-sm font-semibold cursor-not-allowed">
-                            🚀 Em Breve
-                        </div>
-                    </div>
-                </div>
-
                 <!-- Business Theme - COMING SOON -->
                 <div class="theme-card-disabled elegant-card rounded-lg p-6">
                     <div class="text-center">
@@ -341,11 +346,11 @@
 
         // FIXED Navigation function - only allow working themes
         window.navigateToTheme = function(theme) {
-            const workingThemes = ['foundation', 'gaming'];
+            const workingThemes = ['foundation', 'gaming', 'movies'];
             
             if (!workingThemes.includes(theme)) {
                 // Show a friendly message for coming soon themes
-                alert('🚀 Este tema está em desenvolvimento!\n\nPor enquanto, explore:\n• Foundation Course (básicos)\n• Gaming World (vocabulário gamer)\n\nMais temas chegando em breve!');
+                alert('🚀 Este tema está em desenvolvimento!\n\nPor enquanto, explore:\n• Foundation Course (básicos)\n• Gaming World (vocabulário gamer)\n• Movie Magic (cinema)\n\nMais temas chegando em breve!');
                 return;
             }
             
@@ -353,6 +358,8 @@
                 window.location.href = 'lessons-foundation.html';
             } else if (theme === 'gaming') {
                 window.location.href = 'lessons-gaming.html';
+            } else if (theme === 'movies') {
+                window.location.href = 'lessons-movies.html';
             }
         };
 
@@ -400,6 +407,14 @@
                     document.getElementById('gaming-progress').textContent = `${gamingCompleted}/10`;
                     document.getElementById('gaming-bar').style.width = `${gamingPercentage}%`;
 
+                    // Update movies progress (from movieLessons)
+                    const movieLessons = studentData.movieLessons || {};
+                    const moviesCompleted = Object.values(movieLessons).filter(lesson => lesson.status === 'completed').length;
+                    const moviesPercentage = (moviesCompleted / 10) * 100;
+                    
+                    document.getElementById('movies-progress').textContent = `${moviesCompleted}/10`;
+                    document.getElementById('movies-bar').style.width = `${moviesPercentage}%`;
+
                     console.log('✅ Hub progress loaded from Firebase');
                 } else {
                     console.log('❌ Student not found in Firebase');
@@ -418,14 +433,18 @@
             const gamingLessons = studentData.gamingLessons || {};
             const gamingCompleted = Object.values(gamingLessons).filter(lesson => lesson.status === 'completed').length;
             
-            return foundationCompleted + gamingCompleted;
+            // Count completed movie lessons
+            const movieLessons = studentData.movieLessons || {};
+            const moviesCompleted = Object.values(movieLessons).filter(lesson => lesson.status === 'completed').length;
+            
+            return foundationCompleted + gamingCompleted + moviesCompleted;
         }
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             if (!checkAuth()) return;
             loadOverallProgress();
-            console.log('🌟 Learning Hub loaded with Coming Soon protection!');
+            console.log('🌟 Learning Hub loaded with Coming Soon protection + Movie Magic ready!');
         });
     </script>
 
