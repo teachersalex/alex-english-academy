@@ -1,5 +1,6 @@
 // Teacher Dashboard Logic - Student Management System
 // Teacher Alex - English Academy
+// FIXED: Email domain duplication and deactivation control
 
 import { auth, db } from './firebase.js';
 import { 
@@ -152,15 +153,18 @@ async function createStudentAccount() {
         createStudentBtn.textContent = '⏳ Criando...';
         createStudentBtn.disabled = true;
 
-        // Create new student in Firebase
+        // FIXED: Clean username and smart email handling
         const cleanUsername = username.toLowerCase().trim();
         const studentRef = doc(db, 'students', cleanUsername);
+        
+        // FIXED: Smart email handling - don't double-add @academy.com
+        const studentEmail = username.includes('@') ? username : `${cleanUsername}@academy.com`;
         
         const newStudentData = {
             username: cleanUsername,
             displayName: name,
             password: password, // In production, hash this
-            email: `${cleanUsername}@academy.com`,
+            email: studentEmail, // FIXED: No double domains
             level: 1,
             totalXP: 0,
             completedLessons: 0,
@@ -169,6 +173,7 @@ async function createStudentAccount() {
             joinDate: serverTimestamp(),
             lastLoginDate: null,
             isActive: true,
+            deactivatedByTeacher: false, // FIXED: New field to distinguish manual vs auto-logout
             createdBy: auth.currentUser?.email || 'teacher',
             
             // Initialize lesson progress
@@ -290,7 +295,7 @@ function renderManagedStudents() {
     managedStudentsList.innerHTML = studentsHTML;
 }
 
-// Toggle student status
+// FIXED: Toggle student status with proper deactivation flag
 window.toggleStudentStatus = async function(studentId) {
     const student = managedStudents.find(s => s.id === studentId);
     if (!student) return;
@@ -302,7 +307,8 @@ window.toggleStudentStatus = async function(studentId) {
         try {
             const studentRef = doc(db, 'students', studentId);
             await updateDoc(studentRef, {
-                isActive: newStatus === 'active'
+                isActive: newStatus === 'active',
+                deactivatedByTeacher: newStatus === 'inactive' // FIXED: Set flag when teacher deactivates
             });
             
             // Update local data
@@ -445,4 +451,4 @@ onAuthStateChanged(auth, (user) => {
     console.log('👨‍🏫 Teacher Dashboard initialized for:', user.email);
 });
 
-console.log('🎯 Teacher Dashboard with Student Management loaded!');
+console.log('🎯 Teacher Dashboard with Student Management loaded (Email & Deactivation FIXED)!');
