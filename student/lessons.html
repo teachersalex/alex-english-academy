@@ -9,29 +9,18 @@
 </head>
 <body class="sophisticated-bg min-h-screen">
 
-    <!-- Fixed Header -->
-    <div class="elegant-card sticky top-4 z-10 mx-4 rounded-lg mb-4">
-        <div class="p-4">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 logo-sophisticated rounded-full flex items-center justify-center">
-                        <span class="text-white font-bold">A</span>
-                    </div>
-                    <div>
-                        <h1 class="text-lg font-semibold text-charcoal">Audio Lessons</h1>
-                        <p class="text-sm text-medium-gray" id="courseProgress">A1 Foundation Course</p>
-                    </div>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <a href="portal.html" class="link-sophisticated text-sm">← Portal</a>
-                    <button id="logoutBtn" class="link-muted text-sm">Sair</button>
-                </div>
-            </div>
+    <!-- Professional Floating Header -->
+    <div class="lesson-floating-header">
+        <div class="brand-line">Teacher Alex English Academy</div>
+        <div class="user-course-line" id="userCourseLine">João Silva • A1 Foundation Course</div>
+        <div class="header-actions">
+            <button class="btn-portal">← Portal</button>
+            <button class="btn-sair">Sair</button>
         </div>
     </div>
 
     <!-- Main Content -->
-    <div class="max-w-4xl mx-auto px-4 pb-8">
+    <div class="max-w-4xl mx-auto px-4 pb-8" style="margin-top: 120px;">
         
         <!-- Lesson Selection View -->
         <div id="lessonSelection">
@@ -553,7 +542,19 @@
             audioPlayer = document.getElementById('audioPlayer');
             initializeEventListeners();
             loadLessonsWithProgress();
+            
+            // Initialize floating header
+            initializeFloatingHeader();
         });
+
+        // Initialize floating header functionality
+        function initializeFloatingHeader() {
+            const currentStudent = getCurrentStudent();
+            if (currentStudent) {
+                const displayName = currentStudent.displayName || 'Estudante';
+                document.getElementById('userCourseLine').textContent = `${displayName} • A1 Foundation Course`;
+            }
+        }
 
         function checkAuth() {
             if (!localStorage.getItem('studentLoggedIn')) {
@@ -661,7 +662,11 @@
             document.getElementById('lessonProgress').textContent = `Lesson ${lessonIndex} of ${LESSONS.length}`;
             document.getElementById('lessonTitle').textContent = currentLesson.title;
             document.getElementById('lessonDescription').textContent = currentLesson.description;
-            document.getElementById('courseProgress').textContent = `Lesson ${lessonIndex}: ${currentLesson.title}`;
+            
+            // Update floating header
+            const currentStudent = getCurrentStudent();
+            const displayName = currentStudent ? currentStudent.displayName : 'Estudante';
+            document.getElementById('userCourseLine').textContent = `${displayName} • Lesson ${lessonIndex}: ${currentLesson.title}`;
             
             // Setup audio
             document.getElementById('audioSource').src = `../audio/a1-foundation/${currentLesson.audioFile}`;
@@ -775,7 +780,11 @@
             document.getElementById('backToLessons').addEventListener('click', () => {
                 document.getElementById('lessonInterface').classList.add('hidden');
                 document.getElementById('lessonSelection').classList.remove('hidden');
-                document.getElementById('courseProgress').textContent = 'A1 Foundation Course';
+                
+                // Update floating header back to course view
+                const currentStudent = getCurrentStudent();
+                const displayName = currentStudent ? currentStudent.displayName : 'Estudante';
+                document.getElementById('userCourseLine').textContent = `${displayName} • A1 Foundation Course`;
             });
             
             // Results modal
@@ -791,8 +800,12 @@
                 document.getElementById('reviewModal').classList.add('hidden');
             });
             
-            // Logout
-            document.getElementById('logoutBtn').addEventListener('click', () => {
+            // Floating header actions
+            document.querySelector('.btn-portal').addEventListener('click', () => {
+                window.location.href = 'portal.html';
+            });
+            
+            document.querySelector('.btn-sair').addEventListener('click', () => {
                 localStorage.clear();
                 window.location.href = '../index.html';
             });
@@ -954,7 +967,7 @@
             if (nextLesson) {
                 startLesson(nextLesson.id);
             } else {
-                // Course completed
+                // Course completed - return to lesson list
                 document.getElementById('backToLessons').click();
                 alert('🎉 Parabéns! Você completou todas as aulas do curso A1 Foundation!');
             }
@@ -964,6 +977,101 @@
             document.getElementById('resultsModal').classList.add('hidden');
         }
     </script>
+
+    <!-- Floating Header Styles -->
+    <style>
+        /* Professional Floating Header */
+        .lesson-floating-header {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            padding: 16px 24px;
+            z-index: 1000;
+            text-align: center;
+            min-width: 320px;
+            max-width: 90vw;
+            border: 1px solid #e5e7eb;
+        }
+
+        .brand-line {
+            font-size: 12px;
+            font-weight: 600;
+            color: #3b82f6;
+            margin-bottom: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .user-course-line {
+            font-size: 14px;
+            color: #1f2937;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .btn-portal {
+            background: #3b82f6;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-portal:hover {
+            background: #2563eb;
+        }
+
+        .btn-sair {
+            background: transparent;
+            color: #6b7280;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            border: 1px solid #e5e7eb;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-sair:hover {
+            background: #f9fafb;
+            color: #374151;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 480px) {
+            .lesson-floating-header {
+                top: 10px;
+                min-width: 280px;
+                padding: 12px 16px;
+            }
+            
+            .brand-line {
+                font-size: 11px;
+            }
+            
+            .user-course-line {
+                font-size: 13px;
+            }
+            
+            .btn-portal, .btn-sair {
+                padding: 6px 12px;
+                font-size: 11px;
+            }
+        }
+    </style>
 
 </body>
 </html>
