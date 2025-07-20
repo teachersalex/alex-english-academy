@@ -3,461 +3,222 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teacher Alex - English Academy</title>
-    
-    <!-- PWA essentials -->
-    <meta name="theme-color" content="#3b82f6">
-    <meta name="description" content="Teacher Alex English Academy - Professional English Learning with Progress Tracking">
-    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiVGVhY2hlciBBbGV4IC0gRW5nbGlzaCBBY2FkZW15Iiwic2hvcnRfbmFtZSI6IlRlYWNoZXIgQWxleCIsInN0YXJ0X3VybCI6Ii8iLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsInRoZW1lX2NvbG9yIjoiIzNiODJmNiJ9">
-    
-    <!-- Tailwind CSS -->
+    <title>Portal Acadêmico - Teacher Alex</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Custom CSS Variables -->
-    <style>
-        :root {
-            --alex-blue: #3b82f6;
-            --academy-red: #ef4444;
-            --charcoal: #1f2937;
-            --medium-gray: #6b7280;
-            --light-gray: #e5e7eb;
-            --bg-gray: #f9fafb;
-            --soft-blue: #dbeafe;
-            --steel-blue: #475569;
-            --powder-blue: #f0f9ff;
-            --soft-coral: #fecaca;
-            --muted-rose: #fef2f2;
-            --smoke-white: #f8fafc;
-        }
-        
-        .sophisticated-bg {
-            background: linear-gradient(135deg, var(--smoke-white) 0%, #ffffff 50%, var(--bg-gray) 100%);
-            background-attachment: fixed;
-        }
-        
-        .elegant-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--light-gray);
-            box-shadow: 0 20px 40px rgba(31, 41, 55, 0.08);
-        }
-        
-        .text-alex-blue { color: var(--alex-blue); }
-        .text-academy-red { color: var(--academy-red); }
-        .text-charcoal { color: var(--charcoal); }
-        .text-medium-gray { color: var(--medium-gray); }
-        .bg-alex-blue { background-color: var(--alex-blue); }
-        .bg-academy-red { background-color: var(--academy-red); }
-        .bg-soft-blue { background-color: var(--soft-blue); }
-        .bg-powder-blue { background-color: var(--powder-blue); }
-        .border-light-gray { border-color: var(--light-gray); }
-        
-        .elegant-input {
-            background: var(--bg-gray);
-            border: 1px solid var(--light-gray);
-            color: var(--charcoal);
-            transition: all 0.3s ease;
-        }
-        
-        .elegant-input:focus {
-            border-color: var(--alex-blue);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-            background: white;
-            outline: none;
-        }
-        
-        .elegant-input::placeholder {
-            color: var(--medium-gray);
-        }
-        
-        .btn-primary {
-            background: var(--academy-red);
-            transition: all 0.3s ease;
-        }
-        
-        .btn-primary:hover {
-            background: #dc2626;
-            transform: translateY(-1px);
-            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.2);
-        }
-        
-        .btn-secondary {
-            background: var(--alex-blue);
-            transition: all 0.3s ease;
-        }
-        
-        .btn-secondary:hover {
-            background: #2563eb;
-            transform: translateY(-1px);
-            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.2);
-        }
-        
-        .logo-sophisticated {
-            background: linear-gradient(135deg, var(--alex-blue), #2563eb);
-            box-shadow: 0 0 30px rgba(59, 130, 246, 0.2);
-            transition: all 0.3s ease;
-        }
-        
-        .logo-sophisticated:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 40px rgba(59, 130, 246, 0.3);
-        }
-        
-        .beta-badge {
-            background: var(--alex-blue);
-            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
-        }
-        
-        .link-sophisticated {
-            color: var(--alex-blue);
-            transition: all 0.2s ease;
-        }
-        
-        .link-sophisticated:hover {
-            color: #2563eb;
-            text-decoration: underline;
-        }
-        
-        .link-muted {
-            color: var(--medium-gray);
-            transition: all 0.2s ease;
-        }
-        
-        .link-muted:hover {
-            color: var(--charcoal);
-        }
-        
-        /* Registration mode styling */
-        .registration-mode .elegant-input {
-            border-color: var(--alex-blue);
-        }
-        
-        .registration-highlight {
-            background: var(--powder-blue);
-            border-color: var(--alex-blue);
-        }
-    </style>
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body class="sophisticated-bg min-h-screen">
 
-    <!-- Main Container -->
-    <div class="min-h-screen flex items-center justify-center p-4">
-        <div class="w-full max-w-md">
-            <!-- Sophisticated Card -->
-            <div class="elegant-card rounded-3xl p-8">
-                
-                <!-- Header -->
-                <div class="text-center mb-8">
-                    <!-- Logo -->
-                    <div class="w-20 h-20 logo-sophisticated rounded-full flex items-center justify-center mx-auto mb-6">
-                        <span class="text-3xl font-bold text-white">A</span>
+    <!-- Responsive Container -->
+    <div class="min-h-screen">
+        <div class="max-w-sm mx-auto px-4 py-6 sm:max-w-md md:max-w-2xl lg:max-w-4xl">
+            
+            <!-- Fixed Header -->
+            <div class="elegant-card rounded-lg mb-6 sticky top-4 z-10">
+                <div class="p-4">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="logo-sophisticated w-8 h-8 rounded-full flex items-center justify-center">
+                                <span class="text-white font-bold text-sm">A</span>
+                            </div>
+                            <div>
+                                <h1 class="text-sm font-semibold text-charcoal">Teacher Alex Academy</h1>
+                                <p class="text-xs text-medium-gray" id="userEmail">alexmg@email.com</p>
+                            </div>
+                        </div>
+                        <button id="logoutBtn" class="link-muted text-xs">
+                            Sair
+                        </button>
                     </div>
-                    
-                    <h1 class="text-2xl font-medium text-alex-blue mb-1">Teacher Alex</h1>
-                    <h2 class="text-4xl font-bold text-academy-red mb-4">ENGLISH ACADEMY</h2>
-                    
-                    <div class="inline-flex items-center beta-badge text-white px-4 py-2 rounded-full text-sm font-semibold mb-5">
-                        <span class="w-2 h-2 bg-white rounded-full mr-2 animate-pulse"></span>
-                        BETA
-                    </div>
-                    
-                    <h3 id="formTitle" class="text-xl text-academy-red font-medium mb-2">Portal do Estudante</h3>
-                    <p class="text-medium-gray text-sm">Acesso exclusivo para alunos matriculados</p>
                 </div>
+            </div>
 
-                <!-- Login Form -->
-                <div class="space-y-5">
-                    <div>
-                        <label class="block text-charcoal text-sm font-medium mb-2">Nome de usuário</label>
-                        <input type="text" id="studentUsername" placeholder="Digite seu nome de usuário" required
-                               class="elegant-input w-full p-4 rounded-xl text-base">
+            <!-- Academic Status Section -->
+            <div class="elegant-card rounded-lg mb-6">
+                <div class="p-4 sm:p-6">
+                    <h2 class="heading-secondary text-lg mb-4">📊 Situação Acadêmica</h2>
+                    
+                    <!-- Status Overview -->
+                    <div class="stats-card rounded-lg p-4 mb-4">
+                        <div class="text-center">
+                            <h3 class="text-base font-medium mb-1 text-charcoal">Nível 3 • Beginner</h3>
+                            <p class="text-sm text-medium-gray">650 XP acumulados</p>
+                            <p class="text-sm text-medium-gray">22 horas de estudo</p>
+                        </div>
                     </div>
                     
-                    <div>
-                        <label class="block text-charcoal text-sm font-medium mb-2">Senha</label>
-                        <input type="password" id="studentPassword" placeholder="Digite sua senha" required
-                               class="elegant-input w-full p-4 rounded-xl text-base">
+                    <!-- Quick Stats - Responsive Grid -->
+                    <div class="grid grid-cols-3 gap-3 sm:gap-4 md:gap-6 mb-4">
+                        <div class="stats-card rounded-lg p-3 text-center">
+                            <div class="text-lg font-semibold text-charcoal">3</div>
+                            <div class="text-xs text-medium-gray">Nível</div>
+                        </div>
+                        <div class="stats-card rounded-lg p-3 text-center">
+                            <div class="text-lg font-semibold text-charcoal">650</div>
+                            <div class="text-xs text-medium-gray">XP Total</div>
+                        </div>
+                        <div class="stats-card rounded-lg p-3 text-center">
+                            <div class="text-lg font-semibold text-charcoal">22h</div>
+                            <div class="text-xs text-medium-gray">Estudado</div>
+                        </div>
                     </div>
                     
-                    <!-- Main Action Button -->
-                    <button id="loginBtn" class="btn-primary w-full text-white font-bold py-4 rounded-xl text-lg shadow-lg">
-                        ACESSAR MINHAS AULAS
-                    </button>
+                    <!-- Progress Bar -->
+                    <div>
+                        <div class="flex justify-between text-sm mb-2 text-medium-gray">
+                            <span>Progresso para Nível 4</span>
+                            <span>30%</span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar w-3/10"></div>
+                        </div>
+                        <p class="text-xs mt-1 text-center text-medium-gray">350 XP restantes</p>
+                    </div>
                 </div>
+            </div>
 
-                <!-- Help Section -->
-                <div class="text-center mt-8 pt-6 border-t border-light-gray">
-                    <p class="text-medium-gray text-sm mb-1">Precisa de ajuda?</p>
-                    <p class="text-charcoal text-sm font-medium mb-6">
-                        Entre em contato com <span class="text-academy-red font-semibold">Professor Alex</span>
-                    </p>
+            <!-- Action Center -->
+            <div class="elegant-card rounded-lg mb-6">
+                <div class="p-4 sm:p-6">
+                    <h2 class="heading-secondary text-lg mb-4">⚡ Centro de Ações</h2>
                     
-                    <!-- Action Links -->
+                    <!-- Responsive Button Layout -->
+                    <div class="space-y-3 sm:space-y-4 md:flex md:space-y-0 md:space-x-4">
+                        <button class="btn-primary w-full md:flex-1 py-3 rounded-lg font-semibold" onclick="accessLessons()">
+                            🎓 ACESSAR MINHAS AULAS
+                        </button>
+                        <button class="btn-secondary w-full md:flex-1 py-3 rounded-lg font-medium" onclick="viewReport()">
+                            📊 VER RELATÓRIO COMPLETO
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Achievements -->
+            <div class="elegant-card rounded-lg mb-6">
+                <div class="p-4 sm:p-6">
+                    <h2 class="heading-secondary text-lg mb-4">🏆 Conquistas Recentes</h2>
+                    
                     <div class="space-y-3">
-                        <button id="createAccountLink" class="block w-full link-sophisticated text-sm py-2 px-4 rounded-lg hover:bg-powder-blue transition-all">
-                            Criar nova conta de estudante
-                        </button>
-                        <button id="teacherAccessBtn" class="block w-full link-muted text-xs py-2 px-4 rounded-lg hover:bg-gray-50 transition-all">
-                            🎓 Acesso para Professores
-                        </button>
+                        <div class="achievement-badge bg-powder-blue border-l-4 border-alex-blue rounded-lg p-3">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h3 class="text-sm font-medium text-charcoal">First Steps</h3>
+                                    <p class="text-xs text-medium-gray">Primeira aula concluída</p>
+                                </div>
+                                <span class="text-xs font-medium text-alex-blue">+50 XP</span>
+                            </div>
+                        </div>
+                        
+                        <div class="achievement-badge bg-powder-blue border-l-4 border-alex-blue rounded-lg p-3">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h3 class="text-sm font-medium text-charcoal">Week Warrior</h3>
+                                    <p class="text-xs text-medium-gray">7 dias seguidos (2/7)</p>
+                                    <div class="progress-bar-container mt-1 h-1">
+                                        <div class="progress-bar w-1/4"></div>
+                                    </div>
+                                </div>
+                                <span class="text-xs font-medium text-medium-gray">+100 XP</span>
+                            </div>
+                        </div>
+                        
+                        <div class="achievement-badge bg-gray-50 border-l-4 border-gray-300 rounded-lg p-3 opacity-60">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h3 class="text-sm font-medium text-medium-gray">Grammar Master</h3>
+                                    <p class="text-xs text-medium-gray">5 exercícios de gramática</p>
+                                </div>
+                                <span class="text-xs font-medium text-medium-gray">+150 XP</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Messages -->
-                <div id="errorMsg" class="hidden mt-4 p-4 bg-muted-rose border border-red-200 rounded-xl text-red-700 text-sm text-center">
-                </div>
-                
-                <div id="successMsg" class="hidden mt-4 p-4 bg-green-50 border border-green-200 rounded-xl text-green-700 text-sm text-center">
+            <!-- Study Session -->
+            <div class="elegant-card rounded-lg">
+                <div class="p-4 sm:p-6">
+                    <h2 class="heading-secondary text-lg mb-4">⏱️ Sessão de Estudo</h2>
+                    
+                    <div class="stats-card rounded-lg p-4 text-center">
+                        <div class="text-2xl font-bold mb-2 text-charcoal" id="studyTimer">00:00</div>
+                        <p class="text-sm mb-3 text-medium-gray">Tempo da sessão atual</p>
+                        <button id="startStudyBtn" class="btn-secondary px-6 py-2 rounded-lg text-sm font-medium">
+                            ▶️ Iniciar Estudo
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Teacher Modal -->
-    <div id="teacherModal" class="hidden fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-        <div class="elegant-card rounded-2xl p-6 w-full max-w-sm">
-            <h3 class="text-xl font-bold text-charcoal mb-6 text-center">🎓 Acesso Professor</h3>
+    <script>
+        // Session Management
+        const studentUsername = localStorage.getItem('studentUsername') || 'Estudante';
+        document.getElementById('userEmail').textContent = `${studentUsername}@academy.com`;
+
+        // Study Timer
+        let studySeconds = 0;
+        let studyInterval = null;
+        let isStudying = false;
+
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function toggleStudy() {
+            const btn = document.getElementById('startStudyBtn');
+            const timer = document.getElementById('studyTimer');
             
-            <form id="teacherForm" class="space-y-4">
-                <input type="email" id="teacherEmail" placeholder="Email do Professor" required
-                       class="elegant-input w-full p-3 rounded-lg">
-                <input type="password" id="teacherPassword" placeholder="Senha" required
-                       class="elegant-input w-full p-3 rounded-lg">
-                <button type="submit" class="btn-secondary w-full text-white font-semibold py-3 rounded-lg">
-                    Acessar Dashboard
-                </button>
-            </form>
-            
-            <button id="closeTeacherModal" class="w-full mt-4 text-medium-gray hover:text-charcoal text-sm py-2 transition-colors">
-                Fechar
-            </button>
-        </div>
-    </div>
-
-    <!-- Firebase SDK -->
-    <script type="module" src="js/firebase.js"></script>
-    
-    <!-- Clean Auth Logic -->
-    <script type="module">
-        // Auth Logic - Teacher Alex English Academy
-        // Clean & Professional Account Creation
-
-        import { auth } from './js/firebase.js';
-        import { 
-            signInWithEmailAndPassword, 
-            createUserWithEmailAndPassword,
-            onAuthStateChanged 
-        } from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js';
-
-        // State
-        let isRegistrationMode = false;
-
-        // DOM Elements
-        const loginBtn = document.getElementById('loginBtn');
-        const createAccountLink = document.getElementById('createAccountLink');
-        const studentUsername = document.getElementById('studentUsername');
-        const studentPassword = document.getElementById('studentPassword');
-        const teacherAccessBtn = document.getElementById('teacherAccessBtn');
-        const teacherModal = document.getElementById('teacherModal');
-        const closeTeacherModal = document.getElementById('closeTeacherModal');
-        const teacherForm = document.getElementById('teacherForm');
-        const errorMsg = document.getElementById('errorMsg');
-        const successMsg = document.getElementById('successMsg');
-        const formTitle = document.getElementById('formTitle');
-
-        // Utility Functions
-        function showError(message) {
-            errorMsg.textContent = message;
-            errorMsg.classList.remove('hidden');
-            successMsg.classList.add('hidden');
-            setTimeout(() => errorMsg.classList.add('hidden'), 5000);
-        }
-
-        function showSuccess(message) {
-            successMsg.textContent = message;
-            successMsg.classList.remove('hidden');
-            errorMsg.classList.add('hidden');
-            setTimeout(() => successMsg.classList.add('hidden'), 3000);
-        }
-
-        // Student Auth - Clean Logic
-        async function handleStudentAuth(username, password) {
-            try {
-                if (!username || !password) {
-                    showError('Preencha todos os campos');
-                    return;
-                }
-
-                // Validate minimum requirements
-                if (username.length < 3) {
-                    showError('Nome de usuário deve ter pelo menos 3 caracteres');
-                    return;
-                }
-
-                if (password.length < 4) {
-                    showError('Senha deve ter pelo menos 4 caracteres');
-                    return;
-                }
-
-                if (isRegistrationMode) {
-                    // Registration Process
-                    showSuccess('Conta criada com sucesso! Redirecionando...');
-                    setTimeout(() => {
-                        localStorage.setItem('studentLoggedIn', 'true');
-                        localStorage.setItem('studentUsername', username);
-                        window.location.href = 'student/portal.html';
-                    }, 1500);
-                } else {
-                    // Login Process
-                    localStorage.setItem('studentLoggedIn', 'true');
-                    localStorage.setItem('studentUsername', username);
-                    window.location.href = 'student/portal.html';
-                }
-            } catch (error) {
-                showError('Erro no sistema. Tente novamente.');
-                console.error('Student auth error:', error);
-            }
-        }
-
-        // Teacher Auth
-        async function handleTeacherLogin(email, password) {
-            try {
-                await signInWithEmailAndPassword(auth, email, password);
-                window.location.href = 'teacher/dashboard.html';
-            } catch (error) {
-                showError('Email ou senha inválidos');
-                console.error('Teacher auth error:', error);
-            }
-        }
-
-        // Mode Toggle - Clean UX
-        function toggleMode() {
-            isRegistrationMode = !isRegistrationMode;
-            
-            if (isRegistrationMode) {
-                // Switch to Registration Mode
-                loginBtn.textContent = 'CRIAR MINHA CONTA';
-                createAccountLink.textContent = '← Voltar para login';
-                formTitle.textContent = 'Criar Conta de Estudante';
-                showSuccess('Preencha os dados para criar sua conta');
+            if (!isStudying) {
+                isStudying = true;
+                btn.textContent = '⏸️ Pausar Estudo';
+                btn.className = 'btn-primary px-6 py-2 rounded-lg text-sm font-medium';
                 
-                // Visual feedback
-                document.querySelector('.elegant-card').classList.add('registration-mode');
+                studyInterval = setInterval(() => {
+                    studySeconds++;
+                    timer.textContent = formatTime(studySeconds);
+                }, 1000);
                 
-                // Clear any previous errors
-                errorMsg.classList.add('hidden');
-                
+                console.log('📚 Sessão de estudo iniciada');
             } else {
-                // Switch to Login Mode
-                loginBtn.textContent = 'ACESSAR MINHAS AULAS';
-                createAccountLink.textContent = 'Criar nova conta de estudante';
-                formTitle.textContent = 'Portal do Estudante';
+                isStudying = false;
+                btn.textContent = '▶️ Continuar Estudo';
+                btn.className = 'btn-secondary px-6 py-2 rounded-lg text-sm font-medium';
                 
-                // Remove visual feedback
-                document.querySelector('.elegant-card').classList.remove('registration-mode');
-                
-                // Clear form
-                studentUsername.value = '';
-                studentPassword.value = '';
-                errorMsg.classList.add('hidden');
-                successMsg.classList.add('hidden');
+                clearInterval(studyInterval);
+                console.log(`📊 Sessão pausada: ${formatTime(studySeconds)}`);
             }
-            
-            // Focus on username field
-            studentUsername.focus();
         }
 
-        // Teacher Modal
-        function showTeacherModal() {
-            teacherModal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-            document.getElementById('teacherEmail').focus();
+        // Professional Actions
+        function accessLessons() {
+            console.log('🎓 Acessando sistema de aulas...');
         }
 
-        function hideTeacherModal() {
-            teacherModal.classList.add('hidden');
-            document.body.style.overflow = 'auto';
-            
-            // Clear teacher form
-            document.getElementById('teacherEmail').value = '';
-            document.getElementById('teacherPassword').value = '';
+        function viewReport() {
+            console.log('📊 Carregando relatório acadêmico...');
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('studentLoggedIn');
+            localStorage.removeItem('studentUsername');
+            window.location.href = '../index.html';
+        }
+
+        // Session Protection
+        if (!localStorage.getItem('studentLoggedIn')) {
+            window.location.href = '../index.html';
         }
 
         // Event Listeners
-        loginBtn.addEventListener('click', async (e) => {
-            e.preventDefault();
-            await handleStudentAuth(studentUsername.value.trim(), studentPassword.value);
-        });
+        document.getElementById('logoutBtn').addEventListener('click', handleLogout);
+        document.getElementById('startStudyBtn').addEventListener('click', toggleStudy);
 
-        createAccountLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            toggleMode();
-        });
-
-        teacherAccessBtn.addEventListener('click', showTeacherModal);
-        closeTeacherModal.addEventListener('click', hideTeacherModal);
-
-        teacherModal.addEventListener('click', (e) => {
-            if (e.target === teacherModal) hideTeacherModal();
-        });
-
-        teacherForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = document.getElementById('teacherEmail').value;
-            const password = document.getElementById('teacherPassword').value;
-            await handleTeacherLogin(email, password);
-        });
-
-        // Enhanced Keyboard Navigation
-        studentUsername.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                studentPassword.focus();
-            }
-        });
-
-        studentPassword.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                loginBtn.click();
-            }
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                hideTeacherModal();
-            }
-        });
-
-        // Input Validation Visual Feedback
-        studentUsername.addEventListener('input', (e) => {
-            const value = e.target.value.trim();
-            if (value.length > 0 && value.length < 3) {
-                e.target.style.borderColor = '#ef4444';
-            } else {
-                e.target.style.borderColor = '#e5e7eb';
-            }
-        });
-
-        studentPassword.addEventListener('input', (e) => {
-            const value = e.target.value;
-            if (value.length > 0 && value.length < 4) {
-                e.target.style.borderColor = '#ef4444';
-            } else {
-                e.target.style.borderColor = '#e5e7eb';
-            }
-        });
-
-        // Auth State Listener
-        onAuthStateChanged(auth, (user) => {
-            if (user && window.location.pathname === '/') {
-                window.location.href = 'teacher/dashboard.html';
-            }
-        });
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            studentUsername.focus();
-            console.log('🚀 Clean auth system initialized!');
-        });
+        console.log('🏢 Portal acadêmico responsivo carregado');
     </script>
 
 </body>
