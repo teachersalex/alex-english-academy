@@ -3,185 +3,275 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal do Estudante - Teacher Alex</title>
+    <title>Portal Acadêmico - Teacher Alex</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         :root {
-            --alex-blue: #3b82f6;
-            --academy-red: #ef4444;
-            --charcoal: #1f2937;
-            --medium-gray: #6b7280;
-            --light-gray: #e5e7eb;
-            --bg-subtle: #f9fafb;
-            --success-muted: #d1fae5;
-            --info-muted: #dbeafe;
-            --error-muted: #fef2f2;
+            --header-bg: #f8fafc;
+            --section-bg: #ffffff;
+            --section-border: #e5e7eb;
+            --primary-text: #1f2937;
+            --secondary-text: #6b7280;
+            --accent-blue: #3b82f6;
+            --action-red: #ef4444;
+            --muted-bg: #f9fafb;
         }
         
-        .sophisticated-gradient {
-            background: linear-gradient(135deg, var(--alex-blue), #2563eb);
+        .portal-header {
+            background: var(--header-bg);
+            border-bottom: 1px solid var(--section-border);
         }
         
-        .elegant-progress {
-            background: var(--light-gray);
+        .portal-section {
+            background: var(--section-bg);
+            border: 1px solid var(--section-border);
         }
         
-        .elegant-progress-fill {
-            background: var(--alex-blue);
+        .status-card {
+            background: var(--muted-bg);
+            border: 1px solid var(--section-border);
+        }
+        
+        .btn-primary-portal {
+            background: var(--action-red);
+            transition: all 0.2s ease;
+        }
+        
+        .btn-primary-portal:hover {
+            background: #dc2626;
+        }
+        
+        .btn-secondary-portal {
+            border: 1px solid var(--accent-blue);
+            color: var(--accent-blue);
+            background: transparent;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-secondary-portal:hover {
+            background: var(--accent-blue);
+            color: white;
+        }
+        
+        .achievement-item {
+            border-left: 3px solid var(--accent-blue);
+            background: var(--muted-bg);
         }
     </style>
 </head>
 <body style="background: #f8fafc;" class="min-h-screen">
 
-    <div class="max-w-md mx-auto p-4 space-y-4">
+    <!-- Fixed Header -->
+    <div class="portal-header sticky top-0 z-10">
+        <div class="max-w-md mx-auto px-4 py-3">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 rounded-full flex items-center justify-center" style="background: var(--accent-blue);">
+                        <span class="text-white font-bold text-sm">A</span>
+                    </div>
+                    <div>
+                        <h1 class="text-sm font-semibold" style="color: var(--primary-text);">Teacher Alex Academy</h1>
+                        <p class="text-xs" style="color: var(--secondary-text);" id="userEmail">alexmg@email.com</p>
+                    </div>
+                </div>
+                <button id="logoutBtn" class="text-xs" style="color: var(--secondary-text);" 
+                        onmouseover="this.style.color='var(--primary-text)'" 
+                        onmouseout="this.style.color='var(--secondary-text)'">
+                    Sair
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="max-w-md mx-auto p-4 space-y-6">
         
-        <!-- Header - Professional -->
-        <div class="bg-white rounded-xl shadow-sm p-6 text-center border border-gray-100">
-            <div class="w-12 h-12 sophisticated-gradient rounded-full flex items-center justify-center mx-auto mb-4">
-                <span class="text-white font-bold text-lg">A</span>
-            </div>
-            <h1 class="text-lg font-medium" style="color: var(--alex-blue);">Teacher Alex</h1>
-            <h2 class="text-xl font-bold mb-2" style="color: var(--academy-red);">ENGLISH ACADEMY</h2>
-            <div class="inline-block text-white px-3 py-1 rounded-full text-xs font-semibold mb-3" style="background: var(--alex-blue);">BETA</div>
-            <h3 class="text-lg font-medium mb-2" style="color: var(--academy-red);">Portal do Estudante</h3>
-            <p class="text-sm" style="color: var(--medium-gray);" id="welcomeMessage">Bem-vindo de volta!</p>
-        </div>
-
-        <!-- Progress - Sophisticated -->
-        <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-            <h4 class="text-lg font-semibold mb-6 text-center" style="color: var(--charcoal);">📊 Progresso Acadêmico</h4>
+        <!-- Academic Status Section -->
+        <div class="portal-section rounded-lg p-4">
+            <h2 class="text-lg font-semibold mb-4" style="color: var(--primary-text);">📊 Situação Acadêmica</h2>
             
-            <!-- Level Display - Elegant -->
-            <div class="text-center mb-6">
-                <div class="w-20 h-20 sophisticated-gradient rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg">
-                    <span class="text-white font-bold text-2xl">3</span>
+            <!-- Status Overview -->
+            <div class="status-card rounded-lg p-4 mb-4">
+                <div class="text-center">
+                    <h3 class="text-base font-medium mb-1" style="color: var(--primary-text);">Nível 3 • Beginner</h3>
+                    <p class="text-sm" style="color: var(--secondary-text);">650 XP acumulados</p>
+                    <p class="text-sm" style="color: var(--secondary-text);">22 horas de estudo</p>
                 </div>
-                <p class="mb-1" style="color: var(--medium-gray);">Nível 3 • Beginner</p>
-                <p class="font-semibold" style="color: var(--alex-blue);">⭐ 650 XP</p>
             </div>
-
-            <!-- Progress Bar - Professional -->
-            <div class="mb-6">
-                <div class="flex justify-between text-sm mb-2" style="color: var(--medium-gray);">
-                    <span>Progresso para Nível 4</span>
-                    <span class="font-medium">30%</span>
-                </div>
-                <div class="w-full h-3 elegant-progress rounded-full overflow-hidden">
-                    <div class="elegant-progress-fill h-3 rounded-full transition-all duration-300" style="width: 30%"></div>
-                </div>
-                <p class="text-xs mt-2 text-center" style="color: var(--medium-gray);">350 XP restantes para próximo nível</p>
-            </div>
-
-            <!-- Stats - Sophisticated -->
+            
+            <!-- Quick Stats -->
             <div class="grid grid-cols-3 gap-3">
-                <div class="p-3 rounded-lg text-center border" style="background: var(--bg-subtle); border-color: var(--light-gray);">
-                    <div class="font-bold text-xl" style="color: var(--charcoal);">22h</div>
-                    <div class="text-xs" style="color: var(--medium-gray);">Tempo</div>
+                <div class="status-card rounded-lg p-3 text-center">
+                    <div class="text-lg font-semibold" style="color: var(--primary-text);">3</div>
+                    <div class="text-xs" style="color: var(--secondary-text);">Nível</div>
                 </div>
-                <div class="p-3 rounded-lg text-center border" style="background: var(--bg-subtle); border-color: var(--light-gray);">
-                    <div class="font-bold text-xl" style="color: var(--charcoal);">5</div>
-                    <div class="text-xs" style="color: var(--medium-gray);">Sequência</div>
+                <div class="status-card rounded-lg p-3 text-center">
+                    <div class="text-lg font-semibold" style="color: var(--primary-text);">650</div>
+                    <div class="text-xs" style="color: var(--secondary-text);">XP Total</div>
                 </div>
-                <div class="p-3 rounded-lg text-center border" style="background: var(--bg-subtle); border-color: var(--light-gray);">
-                    <div class="font-bold text-xl" style="color: var(--charcoal);">12</div>
-                    <div class="text-xs" style="color: var(--medium-gray);">Aulas</div>
+                <div class="status-card rounded-lg p-3 text-center">
+                    <div class="text-lg font-semibold" style="color: var(--primary-text);">22h</div>
+                    <div class="text-xs" style="color: var(--secondary-text);">Estudado</div>
                 </div>
+            </div>
+            
+            <!-- Progress Indicator -->
+            <div class="mt-4">
+                <div class="flex justify-between text-sm mb-2" style="color: var(--secondary-text);">
+                    <span>Progresso para Nível 4</span>
+                    <span>30%</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2">
+                    <div class="h-2 rounded-full transition-all duration-300" style="width: 30%; background: var(--accent-blue);"></div>
+                </div>
+                <p class="text-xs mt-1 text-center" style="color: var(--secondary-text);">350 XP restantes</p>
             </div>
         </div>
 
-        <!-- Actions - Professional -->
-        <div class="space-y-3">
-            <button class="w-full text-white font-bold py-4 rounded-xl transition-all shadow-lg hover:shadow-xl" 
-                    style="background: var(--academy-red);" 
-                    onclick="accessLessons()">
-                🎯 ACESSAR MINHAS AULAS
-            </button>
-            <button class="w-full text-white font-semibold py-3 rounded-xl transition-all hover:shadow-lg" 
-                    style="background: var(--alex-blue);" 
-                    onclick="viewProgress()">
-                📊 Ver Progresso Detalhado
-            </button>
-        </div>
-
-        <!-- Achievements - Elegant -->
-        <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-            <h4 class="text-lg font-semibold mb-4 text-center" style="color: var(--charcoal);">🏆 Conquistas Acadêmicas</h4>
+        <!-- Action Center -->
+        <div class="portal-section rounded-lg p-4">
+            <h2 class="text-lg font-semibold mb-4" style="color: var(--primary-text);">⚡ Centro de Ações</h2>
             
             <div class="space-y-3">
-                <!-- Achievement Unlocked - Subtle -->
-                <div class="flex items-center p-3 rounded-lg border" style="background: var(--success-muted); border-color: #a7f3d0;">
-                    <span class="text-xl mr-3">🌟</span>
-                    <div class="flex-1">
-                        <h5 class="font-medium text-green-800">First Steps</h5>
-                        <p class="text-sm text-green-700">Primeira aula concluída</p>
-                    </div>
-                    <span class="text-green-800 font-medium text-sm">+50 XP</span>
-                </div>
-                
-                <!-- Achievement In Progress - Subtle -->
-                <div class="flex items-center p-3 rounded-lg border" style="background: var(--info-muted); border-color: #93c5fd;">
-                    <span class="text-xl mr-3">🏆</span>
-                    <div class="flex-1">
-                        <h5 class="font-medium text-blue-800">Week Warrior</h5>
-                        <p class="text-sm text-blue-700">7 dias seguidos (2/7)</p>
-                        <div class="w-full bg-blue-200 rounded-full h-1.5 mt-1">
-                            <div class="bg-blue-600 h-1.5 rounded-full" style="width: 28%"></div>
+                <button class="btn-primary-portal w-full text-white font-semibold py-3 rounded-lg" 
+                        onclick="accessLessons()">
+                    🎓 ACESSAR MINHAS AULAS
+                </button>
+                <button class="btn-secondary-portal w-full font-medium py-3 rounded-lg" 
+                        onclick="viewReport()">
+                    📊 VER RELATÓRIO COMPLETO
+                </button>
+            </div>
+        </div>
+
+        <!-- Recent Achievements -->
+        <div class="portal-section rounded-lg p-4">
+            <h2 class="text-lg font-semibold mb-4" style="color: var(--primary-text);">🏆 Conquistas Recentes</h2>
+            
+            <div class="space-y-3">
+                <div class="achievement-item rounded-lg p-3">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-sm font-medium" style="color: var(--primary-text);">First Steps</h3>
+                            <p class="text-xs" style="color: var(--secondary-text);">Primeira aula concluída</p>
                         </div>
+                        <span class="text-xs font-medium" style="color: var(--accent-blue);">+50 XP</span>
                     </div>
-                    <span class="text-blue-800 font-medium text-sm">+100 XP</span>
                 </div>
                 
-                <!-- Achievement Locked - Subtle -->
-                <div class="flex items-center p-3 rounded-lg border opacity-60" style="background: var(--error-muted); border-color: #fecaca;">
-                    <span class="text-xl mr-3">🔥</span>
-                    <div class="flex-1">
-                        <h5 class="font-medium" style="color: var(--medium-gray);">Grammar Master</h5>
-                        <p class="text-sm" style="color: var(--medium-gray);">5 exercícios de gramática</p>
+                <div class="achievement-item rounded-lg p-3">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-sm font-medium" style="color: var(--primary-text);">Week Warrior</h3>
+                            <p class="text-xs" style="color: var(--secondary-text);">7 dias seguidos (2/7)</p>
+                            <div class="w-full bg-gray-200 rounded-full h-1 mt-1">
+                                <div class="h-1 rounded-full" style="width: 28%; background: var(--accent-blue);"></div>
+                            </div>
+                        </div>
+                        <span class="text-xs font-medium" style="color: var(--secondary-text);">+100 XP</span>
                     </div>
-                    <span class="font-medium text-sm" style="color: var(--medium-gray);">+150 XP</span>
+                </div>
+                
+                <div class="achievement-item rounded-lg p-3 opacity-60">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-sm font-medium" style="color: var(--secondary-text);">Grammar Master</h3>
+                            <p class="text-xs" style="color: var(--secondary-text);">5 exercícios de gramática</p>
+                        </div>
+                        <span class="text-xs font-medium" style="color: var(--secondary-text);">+150 XP</span>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Logout - Discrete -->
-        <button class="w-full py-4 text-sm transition-colors" 
-                style="color: var(--medium-gray);" 
-                onmouseover="this.style.color='var(--charcoal)'" 
-                onmouseout="this.style.color='var(--medium-gray)'"
-                id="logoutBtn" onclick="handleLogout()">
-            🚪 Sair do Portal
-        </button>
+        <!-- Study Session -->
+        <div class="portal-section rounded-lg p-4">
+            <h2 class="text-lg font-semibold mb-4" style="color: var(--primary-text);">⏱️ Sessão de Estudo</h2>
+            
+            <div class="status-card rounded-lg p-4 text-center">
+                <div class="text-2xl font-bold mb-2" style="color: var(--primary-text);" id="studyTimer">00:00</div>
+                <p class="text-sm mb-3" style="color: var(--secondary-text);">Tempo da sessão atual</p>
+                <button id="startStudyBtn" class="btn-secondary-portal px-6 py-2 rounded-lg text-sm font-medium">
+                    ▶️ Iniciar Estudo
+                </button>
+            </div>
+        </div>
     </div>
 
     <script>
-        // Load student data
+        // Session Management
         const studentUsername = localStorage.getItem('studentUsername') || 'Estudante';
-        document.getElementById('welcomeMessage').textContent = `Bem-vindo, ${studentUsername}!`;
+        document.getElementById('userEmail').textContent = `${studentUsername}@academy.com`;
 
-        // Professional actions - no popups
+        // Study Timer
+        let studySeconds = 0;
+        let studyInterval = null;
+        let isStudying = false;
+
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function toggleStudy() {
+            const btn = document.getElementById('startStudyBtn');
+            const timer = document.getElementById('studyTimer');
+            
+            if (!isStudying) {
+                // Start study session
+                isStudying = true;
+                btn.textContent = '⏸️ Pausar Estudo';
+                btn.style.background = 'var(--action-red)';
+                btn.style.color = 'white';
+                btn.style.border = 'none';
+                
+                studyInterval = setInterval(() => {
+                    studySeconds++;
+                    timer.textContent = formatTime(studySeconds);
+                }, 1000);
+                
+                console.log('📚 Sessão de estudo iniciada');
+            } else {
+                // Pause study session
+                isStudying = false;
+                btn.textContent = '▶️ Continuar Estudo';
+                btn.style.background = 'transparent';
+                btn.style.color = 'var(--accent-blue)';
+                btn.style.border = '1px solid var(--accent-blue)';
+                
+                clearInterval(studyInterval);
+                console.log(`📊 Sessão pausada: ${formatTime(studySeconds)}`);
+            }
+        }
+
+        // Professional Actions
         function accessLessons() {
-            console.log('Acessando sistema de aulas...');
+            console.log('🎓 Acessando sistema de aulas...');
             // TODO: Navigate to lessons system
         }
 
-        function viewProgress() {
-            console.log('Carregando relatório de progresso...');
+        function viewReport() {
+            console.log('📊 Carregando relatório acadêmico...');
             // TODO: Show detailed analytics
         }
 
-        // Direct logout - professional UX
         function handleLogout() {
             localStorage.removeItem('studentLoggedIn');
             localStorage.removeItem('studentUsername');
             window.location.href = '../index.html';
         }
 
-        // Session protection
+        // Session Protection
         if (!localStorage.getItem('studentLoggedIn')) {
             window.location.href = '../index.html';
         }
 
-        console.log('🎓 Portal acadêmico carregado');
+        // Event Listeners
+        document.getElementById('logoutBtn').addEventListener('click', handleLogout);
+        document.getElementById('startStudyBtn').addEventListener('click', toggleStudy);
+
+        console.log('🏢 Portal acadêmico profissional carregado');
     </script>
 
 </body>
