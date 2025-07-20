@@ -37,7 +37,7 @@
                     <h2 class="text-2xl font-bold text-charcoal mb-2">Gaming World</h2>
                     <p class="text-medium-gray mb-4">Learn English through gaming vocabulary and scenarios</p>
                     <div class="bg-powder-blue rounded-lg p-3">
-                        <p class="text-alex-blue font-medium">🎯 Complete quests • 📊 Track progress • 🏆 Earn XP & achievements!</p>
+                        <p class="text-alex-blue font-medium">🎯 Complete quests • 📊 Track progress • 🏆 Earn XP & Game Master achievement!</p>
                     </div>
                 </div>
             </div>
@@ -61,10 +61,10 @@
             <div class="elegant-card rounded-lg p-6 mb-6">
                 <div class="flex items-center justify-between mb-4">
                     <button id="backToLessons" class="link-sophisticated text-sm">← Back to Gaming</button>
-                    <div id="lessonProgress" class="text-sm text-medium-gray">Lesson 1 of 10</div>
+                    <div id="lessonProgress" class="text-sm text-medium-gray">Quest 1 of 10</div>
                 </div>
                 
-                <h2 id="lessonTitle" class="text-2xl font-bold text-charcoal mb-2">PC Setup & Gaming Basics</h2>
+                <h2 id="lessonTitle" class="text-2xl font-bold text-charcoal mb-2">My Gaming PC Setup</h2>
                 <p id="lessonDescription" class="text-medium-gray mb-4">Learn essential gaming vocabulary and PC terminology</p>
                 
                 <!-- Progress Indicator -->
@@ -173,366 +173,366 @@
     <!-- Firebase SDK -->
     <script type="module" src="../js/firebase.js"></script>
 
-    <!-- Gaming Lesson System -->
+    <!-- Gaming World Series System -->
     <script type="module">
         import { db } from '../js/firebase.js';
         import { doc, getDoc, updateDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js';
 
-        // GAMING THEME LESSONS DATA
+        // 🎮 GAMING WORLD SERIES - ALEX'S GOLD STANDARD CONTENT
         const GAMING_LESSONS = [
             {
                 id: 'gaming-01',
-                title: 'PC Setup & Gaming Basics',
+                title: 'My Gaming PC Setup',
                 description: 'Learn essential gaming vocabulary and PC terminology',
-                duration: '45s',
+                duration: '38s',
                 icon: '🖥️',
-                audioFile: 'gaming-01-setup.mp3',
+                audioFile: 'audio-01-pc-setup.mp3',
                 questions: [
                     {
-                        question: "What type of computer does he prefer for gaming?",
-                        options: ["Desktop PC", "Laptop", "Console", "Mobile"],
-                        correct: 0
+                        question: "What graphics card does she have?",
+                        options: ["RTX 3070", "RTX 4070", "GTX 1080", "RX 6700"],
+                        correct: 1
                     },
                     {
-                        question: "What graphics card does he recommend?",
-                        options: ["GTX 1050", "RTX 3060", "RTX 4070", "RX 580"],
-                        correct: 2
-                    },
-                    {
-                        question: "How much RAM does he suggest?",
+                        question: "How much RAM is in her computer?",
                         options: ["8GB", "16GB", "32GB", "64GB"],
                         correct: 1
                     },
                     {
-                        question: "What's his favorite gaming peripheral?",
-                        options: ["Wireless mouse", "Mechanical keyboard", "Gaming headset", "RGB mousepad"],
+                        question: "What type of keyboard switches does she use?",
+                        options: ["Blue switches", "Brown switches", "Red switches", "Black switches"],
+                        correct: 2
+                    },
+                    {
+                        question: "How much did she spend on her setup?",
+                        options: ["$2000", "$3000", "$4000", "$5000"],
                         correct: 1
                     },
                     {
-                        question: "Which monitor size does he prefer?",
-                        options: ["24 inch", "27 inch", "32 inch", "Ultrawide"],
+                        question: "What happens to her RGB lighting during games?",
+                        options: ["Turns off", "Changes colors when she gets kills", "Stays red", "Flashes randomly"],
                         correct: 1
                     }
                 ]
             },
             {
                 id: 'gaming-02',
-                title: 'Online Gaming & Communication',
+                title: 'Online Gaming with Friends',
                 description: 'Master multiplayer gaming vocabulary and team communication',
-                duration: '42s',
+                duration: '36s',
                 icon: '🎯',
-                audioFile: 'gaming-02-online.mp3',
+                audioFile: 'audio-02-online-gaming.mp3',
                 questions: [
                     {
-                        question: "What does 'GG' mean in gaming?",
-                        options: ["Get Good", "Good Game", "Great Goal", "Go Gaming"],
+                        question: "What game do they play together?",
+                        options: ["Counter-Strike", "Valorant", "Overwatch", "Call of Duty"],
                         correct: 1
                     },
                     {
-                        question: "Which communication platform does he use?",
-                        options: ["Skype", "Discord", "TeamSpeak", "Zoom"],
+                        question: "What platform do they use to communicate?",
+                        options: ["Skype", "Discord", "TeamSpeak", "WhatsApp"],
                         correct: 1
                     },
                     {
-                        question: "What's his main gaming role?",
-                        options: ["Tank", "DPS", "Support", "Healer"],
+                        question: "What is her role in the team?",
+                        options: ["Tank", "DPS", "Support", "Sniper"],
                         correct: 2
                     },
                     {
-                        question: "How often does he play with his team?",
-                        options: ["Daily", "Weekly", "Weekends only", "Monthly"],
+                        question: "How many games did they win last week?",
+                        options: ["5", "6", "7", "8"],
                         correct: 2
                     },
                     {
-                        question: "What's the most important skill in team gaming?",
-                        options: ["Fast reflexes", "Good communication", "Expensive equipment", "Long practice"],
+                        question: "Where does her best friend live?",
+                        options: ["Rio de Janeiro", "São Paulo", "Belo Horizonte", "Brasília"],
                         correct: 1
                     }
                 ]
             },
             {
                 id: 'gaming-03',
-                title: 'Game Genres & Preferences',
+                title: 'My Favorite Game Genres',
                 description: 'Explore different game types and express gaming preferences',
-                duration: '48s',
+                duration: '40s',
                 icon: '🎲',
-                audioFile: 'gaming-03-genres.mp3',
+                audioFile: 'audio-03-game-genres.mp3',
                 questions: [
                     {
-                        question: "What's his favorite game genre?",
+                        question: "What is her favorite game genre?",
                         options: ["FPS", "RPG", "Strategy", "Racing"],
                         correct: 1
                     },
                     {
-                        question: "Which RPG does he recommend for beginners?",
-                        options: ["Dark Souls", "The Witcher 3", "Skyrim", "Final Fantasy"],
+                        question: "Which RPG is her favorite?",
+                        options: ["Skyrim", "Final Fantasy", "The Witcher 3", "Dark Souls"],
                         correct: 2
                     },
                     {
-                        question: "Why doesn't he like horror games?",
-                        options: ["Too scary", "Bad graphics", "Too expensive", "Boring story"],
-                        correct: 0
+                        question: "How many hours did she play her favorite RPG?",
+                        options: ["50 hours", "75 hours", "100 hours", "150 hours"],
+                        correct: 2
                     },
                     {
-                        question: "What platform does he prefer?",
-                        options: ["PlayStation", "Xbox", "Nintendo Switch", "PC"],
-                        correct: 3
+                        question: "Why doesn't she like horror games?",
+                        options: ["Bad graphics", "Too expensive", "Too scary", "Boring story"],
+                        correct: 2
                     },
                     {
-                        question: "How many hours per week does he game?",
-                        options: ["5-10 hours", "10-20 hours", "20-30 hours", "Over 30 hours"],
+                        question: "Where does she find indie games?",
+                        options: ["PlayStation Store", "Steam", "Epic Games", "Xbox Store"],
                         correct: 1
                     }
                 ]
             },
             {
                 id: 'gaming-04',
-                title: 'Gaming Tournament & Competition',
+                title: 'Esports Tournament',
                 description: 'Learn competitive gaming vocabulary and esports terminology',
-                duration: '50s',
+                duration: '39s',
                 icon: '🏆',
-                audioFile: 'gaming-04-tournament.mp3',
+                audioFile: 'audio-04-esports-tournament.mp3',
                 questions: [
                     {
-                        question: "What type of tournament is he participating in?",
-                        options: ["Local LAN", "Online tournament", "School competition", "Professional esports"],
-                        correct: 1
-                    },
-                    {
-                        question: "What's the prize for first place?",
-                        options: ["$100", "$500", "$1000", "$5000"],
+                        question: "What game is the tournament for?",
+                        options: ["Valorant", "Counter-Strike", "League of Legends", "FIFA"],
                         correct: 2
                     },
                     {
-                        question: "How many teams are competing?",
-                        options: ["8", "16", "32", "64"],
+                        question: "How many teams are participating?",
+                        options: ["16", "24", "32", "64"],
+                        correct: 2
+                    },
+                    {
+                        question: "How much is the entry fee per player?",
+                        options: ["25 reais", "50 reais", "75 reais", "100 reais"],
                         correct: 1
                     },
                     {
-                        question: "What's his team's biggest strength?",
-                        options: ["Individual skill", "Teamwork", "Strategy", "Experience"],
-                        correct: 1
+                        question: "How much does first place win?",
+                        options: ["3,000 reais", "4,000 reais", "5,000 reais", "6,000 reais"],
+                        correct: 2
                     },
                     {
-                        question: "When is the final match?",
-                        options: ["Tonight", "Tomorrow", "This weekend", "Next week"],
+                        question: "How many hours do they practice daily?",
+                        options: ["2 hours", "3 hours", "4 hours", "5 hours"],
                         correct: 2
                     }
                 ]
             },
             {
                 id: 'gaming-05',
-                title: 'Gaming Culture & Streaming',
+                title: 'Streaming on Twitch',
                 description: 'Understanding gaming culture, streaming, and content creation',
-                duration: '46s',
+                duration: '37s',
                 icon: '📺',
-                audioFile: 'gaming-05-streaming.mp3',
+                audioFile: 'audio-05-streaming-twitch.mp3',
                 questions: [
                     {
-                        question: "Which platform does he use for streaming?",
-                        options: ["YouTube", "Twitch", "Facebook Gaming", "TikTok"],
+                        question: "How many followers does she have on Twitch?",
+                        options: ["650", "750", "850", "950"],
+                        correct: 2
+                    },
+                    {
+                        question: "Which days does she stream?",
+                        options: ["Monday and Wednesday", "Tuesday and Thursday", "Friday and Saturday", "Sunday and Monday"],
                         correct: 1
                     },
                     {
-                        question: "How many followers does he have?",
-                        options: ["100", "500", "1000", "5000"],
-                        correct: 2
+                        question: "What time does she start streaming?",
+                        options: ["7 PM", "8 PM", "9 PM", "10 PM"],
+                        correct: 1
                     },
                     {
-                        question: "What time does he usually stream?",
-                        options: ["Morning", "Afternoon", "Evening", "Late night"],
-                        correct: 2
+                        question: "How many viewers was her personal record?",
+                        options: ["150", "200", "250", "300"],
+                        correct: 1
                     },
                     {
-                        question: "What's his most popular content?",
-                        options: ["Tutorials", "Live gameplay", "Game reviews", "Funny moments"],
-                        correct: 3
-                    },
-                    {
-                        question: "What equipment does he use for streaming?",
-                        options: ["Phone camera", "Webcam", "Professional camera", "No camera"],
+                        question: "What type of microphone does she use?",
+                        options: ["Red microphone", "Black microphone", "Blue microphone", "Silver microphone"],
                         correct: 2
                     }
                 ]
             },
             {
                 id: 'gaming-06',
-                title: 'Gaming Reviews & Recommendations',
+                title: 'Game Review Channel',
                 description: 'Learn to discuss game reviews and make recommendations',
-                duration: '44s',
+                duration: '41s',
                 icon: '⭐',
-                audioFile: 'gaming-06-reviews.mp3',
+                audioFile: 'audio-06-game-reviews.mp3',
                 questions: [
                     {
-                        question: "What's his rating for the new game?",
-                        options: ["6/10", "7/10", "8/10", "9/10"],
-                        correct: 2
-                    },
-                    {
-                        question: "What does he like most about it?",
-                        options: ["Graphics", "Story", "Gameplay", "Soundtrack"],
+                        question: "What score did she give FIFA?",
+                        options: ["6 out of 10", "7 out of 10", "8 out of 10", "9 out of 10"],
                         correct: 1
                     },
                     {
-                        question: "What's the main problem with the game?",
-                        options: ["Too short", "Too difficult", "Bugs and glitches", "Expensive DLC"],
+                        question: "What problem did she find with FIFA?",
+                        options: ["Bad graphics", "Slow gameplay", "Too many bugs", "Expensive price"],
                         correct: 2
                     },
                     {
-                        question: "Who does he recommend it to?",
-                        options: ["Casual gamers", "Hardcore gamers", "New players", "Everyone"],
-                        correct: 0
+                        question: "How many hours did she play before reviewing?",
+                        options: ["20 hours", "25 hours", "30 hours", "35 hours"],
+                        correct: 2
                     },
                     {
-                        question: "How long did it take him to finish?",
-                        options: ["10 hours", "20 hours", "30 hours", "40 hours"],
-                        correct: 1
+                        question: "How many views did her video get on the first day?",
+                        options: ["3,000", "4,000", "5,000", "6,000"],
+                        correct: 2
+                    },
+                    {
+                        question: "What type of game will she review next week?",
+                        options: ["Racing game", "Sports game", "Horror game", "Puzzle game"],
+                        correct: 2
                     }
                 ]
             },
             {
                 id: 'gaming-07',
-                title: 'Mobile Gaming & Apps',
+                title: 'Mobile Gaming Addiction',
                 description: 'Explore mobile gaming trends and smartphone gaming',
-                duration: '41s',
+                duration: '35s',
                 icon: '📱',
-                audioFile: 'gaming-07-mobile.mp3',
+                audioFile: 'audio-07-mobile-gaming.mp3',
                 questions: [
                     {
-                        question: "What's his favorite mobile game genre?",
-                        options: ["Puzzle games", "Battle royale", "RPG", "Casual games"],
+                        question: "Which mobile game does she play?",
+                        options: ["Free Fire", "PUBG Mobile", "Call of Duty Mobile", "Fortnite Mobile"],
                         correct: 1
                     },
                     {
-                        question: "How much time does he spend on mobile gaming daily?",
-                        options: ["30 minutes", "1 hour", "2 hours", "3+ hours"],
+                        question: "How many hours does she play daily?",
+                        options: ["1 hour", "2 hours", "3 hours", "4 hours"],
                         correct: 1
                     },
                     {
-                        question: "Which mobile game does he play most?",
-                        options: ["PUBG Mobile", "Call of Duty Mobile", "Free Fire", "Among Us"],
-                        correct: 0
-                    },
-                    {
-                        question: "What does he think about mobile esports?",
-                        options: ["Not real esports", "Growing fast", "Too casual", "The future"],
-                        correct: 1
-                    },
-                    {
-                        question: "Does he spend money on mobile games?",
-                        options: ["Never", "Rarely", "Sometimes", "Often"],
+                        question: "How much money has she spent this year?",
+                        options: ["100 reais", "150 reais", "200 reais", "250 reais"],
                         correct: 2
+                    },
+                    {
+                        question: "How many players are in Battle Royale mode?",
+                        options: ["50", "75", "100", "150"],
+                        correct: 2
+                    },
+                    {
+                        question: "What happens to her phone during intensive games?",
+                        options: ["Gets slow", "Gets hot", "Loses battery", "Crashes"],
+                        correct: 1
                     }
                 ]
             },
             {
                 id: 'gaming-08',
-                title: 'Gaming History & Nostalgia',
+                title: 'Gaming Nostalgia',
                 description: 'Discuss classic games and gaming evolution',
-                duration: '47s',
+                duration: '42s',
                 icon: '👾',
-                audioFile: 'gaming-08-retro.mp3',
+                audioFile: 'audio-08-gaming-nostalgia.mp3',
                 questions: [
                     {
-                        question: "What was his first gaming console?",
-                        options: ["Atari", "Nintendo NES", "PlayStation 1", "Game Boy"],
-                        correct: 2
-                    },
-                    {
-                        question: "Which classic game does he still play?",
-                        options: ["Pac-Man", "Tetris", "Super Mario", "Street Fighter"],
-                        correct: 2
-                    },
-                    {
-                        question: "How has gaming changed the most?",
-                        options: ["Better graphics", "Online multiplayer", "Longer stories", "Mobile gaming"],
+                        question: "What was her first gaming console?",
+                        options: ["Nintendo 64", "PlayStation 1", "Sega Genesis", "Game Boy"],
                         correct: 1
                     },
                     {
-                        question: "What does he miss about old games?",
-                        options: ["Simplicity", "Lower prices", "Physical copies", "Local multiplayer"],
-                        correct: 3
+                        question: "How old was she when she got her first console?",
+                        options: ["6 years old", "7 years old", "8 years old", "9 years old"],
+                        correct: 2
                     },
                     {
-                        question: "Which era was the best for gaming?",
-                        options: ["80s-90s", "2000s", "2010s", "Current era"],
+                        question: "Which classic game does she mention?",
+                        options: ["Super Mario", "Sonic", "Crash Bandicoot", "Street Fighter"],
+                        correct: 2
+                    },
+                    {
+                        question: "How often did they take turns with the controller?",
+                        options: ["Every 15 minutes", "Every 30 minutes", "Every 45 minutes", "Every hour"],
                         correct: 1
+                    },
+                    {
+                        question: "What does she use to play old games now?",
+                        options: ["Original consoles", "Remasters", "Emulators", "Mobile apps"],
+                        correct: 2
                     }
                 ]
             },
             {
                 id: 'gaming-09',
-                title: 'Gaming Setup & Workspace',
+                title: 'Perfect Gaming Setup',
                 description: 'Learn about creating the perfect gaming environment',
-                duration: '43s',
+                duration: '44s',
                 icon: '🪑',
-                audioFile: 'gaming-09-setup.mp3',
+                audioFile: 'audio-09-perfect-setup.mp3',
                 questions: [
                     {
-                        question: "What's the most important part of his setup?",
-                        options: ["Gaming chair", "Multiple monitors", "RGB lighting", "Good desk"],
-                        correct: 1
-                    },
-                    {
-                        question: "How much did he spend on his setup?",
-                        options: ["$1000", "$2000", "$3000", "$5000+"],
+                        question: "Where is her gaming room located?",
+                        options: ["Bedroom", "Living room", "Basement", "Attic"],
                         correct: 2
                     },
                     {
-                        question: "Where is his gaming room located?",
-                        options: ["Bedroom", "Living room", "Basement", "Spare room"],
+                        question: "What color are the walls painted?",
+                        options: ["White", "Blue", "Red", "Black"],
                         correct: 3
                     },
                     {
-                        question: "What lighting does he prefer?",
-                        options: ["Bright white", "RGB colors", "Dim warm", "Natural light"],
+                        question: "How many monitors fit on her desk?",
+                        options: ["2", "3", "4", "5"],
                         correct: 1
                     },
                     {
-                        question: "How often does he upgrade his setup?",
-                        options: ["Every year", "Every 2 years", "Every 3-5 years", "When something breaks"],
+                        question: "How much did her gaming chair cost?",
+                        options: ["1,500 reais", "2,000 reais", "2,500 reais", "3,000 reais"],
                         correct: 2
+                    },
+                    {
+                        question: "How often does she upgrade her setup?",
+                        options: ["Every year", "Every two years", "Every three years", "Every five years"],
+                        correct: 1
                     }
                 ]
             },
             {
                 id: 'gaming-10',
-                title: 'Future of Gaming & VR',
+                title: 'Virtual Reality Future',
                 description: 'Explore virtual reality and the future of gaming technology',
-                duration: '49s',
+                duration: '40s',
                 icon: '🥽',
-                audioFile: 'gaming-10-future.mp3',
+                audioFile: 'audio-10-virtual-reality.mp3',
                 questions: [
                     {
-                        question: "Does he own a VR headset?",
-                        options: ["Yes, Oculus", "Yes, PlayStation VR", "Yes, HTC Vive", "No, not yet"],
-                        correct: 3
+                        question: "Which VR headset did she try?",
+                        options: ["PlayStation VR", "Oculus Quest 2", "HTC Vive", "Valve Index"],
+                        correct: 1
                     },
                     {
-                        question: "What excites him most about VR?",
-                        options: ["Immersion", "Exercise games", "Social interaction", "New experiences"],
-                        correct: 0
-                    },
-                    {
-                        question: "What's the biggest problem with VR now?",
-                        options: ["Too expensive", "Limited games", "Motion sickness", "Heavy headsets"],
-                        correct: 0
-                    },
-                    {
-                        question: "When will VR become mainstream?",
-                        options: ["Already is", "In 2-3 years", "In 5-10 years", "Never"],
+                        question: "How much do VR headsets cost in Brazil?",
+                        options: ["2,000 reais", "2,500 reais", "3,000 reais", "3,500 reais"],
                         correct: 2
                     },
                     {
-                        question: "What other gaming technology interests him?",
-                        options: ["Cloud gaming", "AI opponents", "Brain interfaces", "Haptic feedback"],
-                        correct: 0
+                        question: "In how many years does she think VR will be more accessible?",
+                        options: ["3 years", "4 years", "5 years", "6 years"],
+                        correct: 2
+                    },
+                    {
+                        question: "What is still a problem with VR for some people?",
+                        options: ["High price", "Motion sickness", "Heavy weight", "Bad graphics"],
+                        correct: 1
+                    },
+                    {
+                        question: "When is she planning to buy her own VR headset?",
+                        options: ["This year", "Next year", "In 2 years", "In 3 years"],
+                        correct: 1
                     }
                 ]
             }
         ];
 
-        // State variables (copied from original lessons.html)
+        // State variables (exact copy from Foundation system)
         let currentLesson = null;
         let currentQuestionIndex = 0;
         let userAnswers = [];
@@ -542,7 +542,7 @@
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
-            console.log('🎮 Gaming Lessons Loading...');
+            console.log('🎮 Gaming World Lessons Loading...');
             if (!checkAuth()) return;
             
             audioPlayer = document.getElementById('audioPlayer');
@@ -590,7 +590,7 @@
                     renderLessons(gamingLessons);
                     
                     const completedCount = Object.values(gamingLessons).filter(lesson => lesson.status === 'completed').length;
-                    document.getElementById('firebaseStatus').innerHTML = `<span class="text-green-600 font-medium">✅ Firebase: ${completedCount}/10 gaming quests concluídas</span>`;
+                    document.getElementById('firebaseStatus').innerHTML = `<span class="text-green-600 font-medium">✅ Firebase: ${completedCount}/10 Gaming World quests concluídas</span>`;
                 } else {
                     document.getElementById('firebaseStatus').innerHTML = '<span class="text-red-600 font-medium">❌ Estudante não encontrado</span>';
                     renderLessons({});
@@ -674,8 +674,8 @@
             const displayName = currentStudent ? currentStudent.displayName : 'Estudante';
             document.getElementById('userCourseLine').textContent = `${displayName} • Quest ${lessonIndex}: ${currentLesson.title}`;
             
-            // Setup audio (placeholder path - will need actual gaming audio files)
-            document.getElementById('audioSource').src = `../audio/gaming/${currentLesson.audioFile}`;
+            // Setup audio (corrected path for a1-gaming folder)
+            document.getElementById('audioSource').src = `../audio/a1-gaming/${currentLesson.audioFile}`;
             audioPlayer.load();
             
             // Load questions
@@ -684,7 +684,7 @@
             // Reset progress
             updateProgress(0, 'Listen to Audio');
             
-            console.log('🎯 Gaming quest started:', currentLesson.title);
+            console.log('🎯 Gaming World quest started:', currentLesson.title);
         };
 
         function loadQuestions() {
@@ -748,7 +748,7 @@
         }
 
         function initializeEventListeners() {
-            // Audio controls (same as original)
+            // Audio controls (same as Foundation)
             document.getElementById('playPauseBtn').addEventListener('click', () => {
                 if (audioPlayer.paused) {
                     audioPlayer.play();
@@ -793,6 +793,36 @@
                 const displayName = currentStudent ? currentStudent.displayName : 'Estudante';
                 document.getElementById('userCourseLine').textContent = `${displayName} • Gaming World`;
             });
+
+            // Results modal
+            document.getElementById('nextLesson').addEventListener('click', goToNextLesson);
+            document.getElementById('backToLessonsList').addEventListener('click', () => {
+                closeResultsModal();
+                document.getElementById('lessonInterface').classList.add('hidden');
+                document.getElementById('lessonSelection').classList.remove('hidden');
+                
+                // ✅ SCROLL TO TOP WHEN RETURNING TO LESSON LIST
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                const currentStudent = getCurrentStudent();
+                const displayName = currentStudent ? currentStudent.displayName : 'Estudante';
+                document.getElementById('userCourseLine').textContent = `${displayName} • Gaming World`;
+            });
+            
+            // Review modal
+            document.getElementById('reviewAnswers').addEventListener('click', showReviewModal);
+            document.getElementById('closeReview').addEventListener('click', () => {
+                document.getElementById('reviewModal').classList.add('hidden');
+            });
+
+            // Audio events
+            audioPlayer.addEventListener('play', () => {
+                updateProgress(20, 'Listening to Audio...');
+            });
+            
+            audioPlayer.addEventListener('ended', () => {
+                updateProgress(20, 'Audio Complete - Answer Questions Below');
+            });
         }
 
         async function submitAnswers() {
@@ -820,8 +850,8 @@
         }
 
         function calculateXP(score) {
-            const baseXP = score * 10;
-            const bonusXP = score === 5 ? 25 : 0;
+            const baseXP = score * 10; // 10 XP per correct answer
+            const bonusXP = score === 5 ? 25 : 0; // Perfect score bonus
             return baseXP + bonusXP;
         }
 
@@ -861,7 +891,7 @@
             studentData.totalXP = newTotalXP;
             studentData.level = newLevel;
             
-            console.log(`✅ Gaming progress saved: +${xpEarned} XP, Level ${newLevel}`);
+            console.log(`✅ Gaming World progress saved: +${xpEarned} XP, Level ${newLevel}`);
         }
 
         function calculateLevelFromXP(totalXP) {
@@ -891,7 +921,7 @@
             
             if (isPerfect) {
                 document.getElementById('achievementDisplay').classList.remove('hidden');
-                document.getElementById('achievementText').textContent = '🎮 Perfect Gaming Quest!';
+                document.getElementById('achievementText').textContent = '🎮 Game Master Perfect Score!';
             }
             
             document.getElementById('resultsModal').classList.remove('hidden');
@@ -933,17 +963,22 @@
             closeResultsModal();
             
             if (nextLesson) {
+                // ✅ SCROLL TO TOP WHEN ADVANCING TO NEXT LESSON
+                window.scrollTo({ top: 0, behavior: 'smooth' });
                 startLesson(nextLesson.id);
             } else {
                 // Gaming course completed - return to gaming list
                 document.getElementById('lessonInterface').classList.add('hidden');
                 document.getElementById('lessonSelection').classList.remove('hidden');
                 
+                // ✅ SCROLL TO TOP WHEN RETURNING TO LESSON LIST
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
                 const currentStudent = getCurrentStudent();
                 const displayName = currentStudent ? currentStudent.displayName : 'Estudante';
                 document.getElementById('userCourseLine').textContent = `${displayName} • Gaming World`;
                 
-                alert('🎉 Parabéns! Você completou todas as gaming quests! Explore outros temas no Hub.');
+                alert('🎉 Parabéns! Você completou todas as Gaming World quests! 🎮 Game Master Achievement unlocked! Explore outros temas no Hub.');
             }
         }
 
