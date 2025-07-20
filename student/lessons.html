@@ -183,7 +183,7 @@
         import { db } from '../js/firebase.js';
         import { doc, getDoc, updateDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js';
 
-        // Complete lesson data with your questions
+        // Complete lesson data with ALL 10 lessons
         const LESSONS = [
             {
                 id: 'audio-01',
@@ -192,7 +192,6 @@
                 duration: '35s',
                 icon: '🌟',
                 audioFile: 'audio-01-greetings.mp3',
-                script: "Hello! My name is Sarah. I am from Canada. I am 25 years old. I work in a hospital. I am a nurse. Nice to meet you! How are you today? I am fine, thank you. What is your name? Where are you from? Have a great day!",
                 questions: [
                     {
                         question: "What is the woman's name?",
@@ -360,8 +359,182 @@
                         correct: 2
                     }
                 ]
+            },
+            {
+                id: 'audio-06',
+                title: 'Shopping',
+                description: 'Learn shopping vocabulary and store information',
+                duration: '39s',
+                icon: '🛒',
+                audioFile: 'audio-06-shopping.mp3',
+                questions: [
+                    {
+                        question: "What fruits does he want to buy?",
+                        options: ["Apples and oranges only", "Bananas only", "Apples, bananas, and oranges", "Only oranges"],
+                        correct: 2
+                    },
+                    {
+                        question: "When does the supermarket close?",
+                        options: ["9 at night", "10 at night", "11 at night", "8 at night"],
+                        correct: 1
+                    },
+                    {
+                        question: "How does he pay?",
+                        options: ["Cash", "Credit card", "Check", "Debit card"],
+                        correct: 1
+                    },
+                    {
+                        question: "What other things does he need to buy?",
+                        options: ["Milk and eggs", "Bread only", "Milk, eggs, and bread", "Just milk"],
+                        correct: 2
+                    },
+                    {
+                        question: "How long does shopping take?",
+                        options: ["20 minutes", "30 minutes", "40 minutes", "1 hour"],
+                        correct: 1
+                    }
+                ]
+            },
+            {
+                id: 'audio-07',
+                title: 'Hobbies and Free Time',
+                description: 'Learn to talk about hobbies and leisure activities',
+                duration: '35s',
+                icon: '🎸',
+                audioFile: 'audio-07-hobbies.mp3',
+                questions: [
+                    {
+                        question: "What instrument does he play?",
+                        options: ["Piano", "Guitar", "Drums", "Violin"],
+                        correct: 1
+                    },
+                    {
+                        question: "When does he play this instrument?",
+                        options: ["Every day", "Weekdays", "Weekends", "Sometimes"],
+                        correct: 2
+                    },
+                    {
+                        question: "What is his favorite hobby?",
+                        options: ["Reading", "Photography", "Singing", "Dancing"],
+                        correct: 1
+                    },
+                    {
+                        question: "What does he not like doing?",
+                        options: ["Singing", "Dancing", "Reading", "Playing guitar"],
+                        correct: 1
+                    },
+                    {
+                        question: "What does he take pictures of?",
+                        options: ["People", "Buildings", "Nature and animals", "Cars"],
+                        correct: 2
+                    }
+                ]
+            },
+            {
+                id: 'audio-08',
+                title: 'Transportation',
+                description: 'Learn about different ways to travel and get around',
+                duration: '38s',
+                icon: '🚌',
+                audioFile: 'audio-08-transportation.mp3',
+                questions: [
+                    {
+                        question: "How does he usually go to work?",
+                        options: ["By car", "Walking", "By bus", "By bike"],
+                        correct: 1
+                    },
+                    {
+                        question: "When does he drive his car?",
+                        options: ["Every day", "When it rains", "On weekends", "Never"],
+                        correct: 2
+                    },
+                    {
+                        question: "Why doesn't he like the subway?",
+                        options: ["Too expensive", "Too crowded", "Too slow", "Too far"],
+                        correct: 1
+                    },
+                    {
+                        question: "Where does he live?",
+                        options: ["Countryside", "City center", "Suburbs", "Near the park"],
+                        correct: 1
+                    },
+                    {
+                        question: "Where is the bus stop?",
+                        options: ["Near his work", "In front of his building", "At the corner", "Far from home"],
+                        correct: 1
+                    }
+                ]
+            },
+            {
+                id: 'audio-09',
+                title: 'Health and Body',
+                description: 'Learn vocabulary about health, exercise, and body care',
+                duration: '40s',
+                icon: '💪',
+                audioFile: 'audio-09-health.mp3',
+                questions: [
+                    {
+                        question: "How often does he exercise?",
+                        options: ["Every day", "Three times a week", "Once a week", "Never"],
+                        correct: 1
+                    },
+                    {
+                        question: "How many glasses of water does he drink?",
+                        options: ["6", "7", "8", "10"],
+                        correct: 2
+                    },
+                    {
+                        question: "How many hours does he sleep?",
+                        options: ["7 hours", "8 hours", "9 hours", "6 hours"],
+                        correct: 1
+                    },
+                    {
+                        question: "How often does he brush his teeth?",
+                        options: ["Once a day", "Twice a day", "Three times a day", "Never"],
+                        correct: 1
+                    },
+                    {
+                        question: "What doesn't he do?",
+                        options: ["Exercise", "Eat vegetables", "Smoke and drink alcohol", "Sleep"],
+                        correct: 2
+                    }
+                ]
+            },
+            {
+                id: 'audio-10',
+                title: 'Future Plans',
+                description: 'Learn to talk about future plans and aspirations',
+                duration: '37s',
+                icon: '🚀',
+                audioFile: 'audio-10-future.mp3',
+                questions: [
+                    {
+                        question: "Where will he travel next month?",
+                        options: ["Asia", "Europe", "America", "Africa"],
+                        correct: 1
+                    },
+                    {
+                        question: "How long will he stay?",
+                        options: ["One week", "Two weeks", "Three weeks", "One month"],
+                        correct: 1
+                    },
+                    {
+                        question: "What will he do after his trip?",
+                        options: ["Study more", "Start a new job", "Buy a house", "Move cities"],
+                        correct: 1
+                    },
+                    {
+                        question: "Which countries will he visit?",
+                        options: ["France and Italy", "Italy and Spain", "France, Italy, and Spain", "Only France"],
+                        correct: 2
+                    },
+                    {
+                        question: "What languages is he learning?",
+                        options: ["Spanish", "French", "French and Italian", "Italian"],
+                        correct: 2
+                    }
+                ]
             }
-            // Adding more lessons here for brevity... (you can add all 10)
         ];
 
         // State
