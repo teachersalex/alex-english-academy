@@ -1,5 +1,5 @@
 // Auth Logic - Teacher Alex English Academy
-// Clean & Minimal Version
+// Clean & Professional Account Creation
 
 import { auth } from './firebase.js';
 import { 
@@ -22,6 +22,7 @@ const closeTeacherModal = document.getElementById('closeTeacherModal');
 const teacherForm = document.getElementById('teacherForm');
 const errorMsg = document.getElementById('errorMsg');
 const successMsg = document.getElementById('successMsg');
+const formTitle = document.querySelector('h3'); // "Portal do Estudante"
 
 // Utility Functions
 function showError(message) {
@@ -38,7 +39,7 @@ function showSuccess(message) {
     setTimeout(() => successMsg.classList.add('hidden'), 3000);
 }
 
-// Student Auth
+// Student Auth - Clean Logic
 async function handleStudentAuth(username, password) {
     try {
         if (!username || !password) {
@@ -46,19 +47,34 @@ async function handleStudentAuth(username, password) {
             return;
         }
 
+        // Validate minimum requirements
+        if (username.length < 3) {
+            showError('Nome de usuário deve ter pelo menos 3 caracteres');
+            return;
+        }
+
+        if (password.length < 4) {
+            showError('Senha deve ter pelo menos 4 caracteres');
+            return;
+        }
+
         if (isRegistrationMode) {
-            // Registration - direct redirect
-            localStorage.setItem('studentLoggedIn', 'true');
-            localStorage.setItem('studentUsername', username);
-            window.location.href = 'student/portal.html';
+            // Registration Process
+            showSuccess('Conta criada com sucesso! Redirecionando...');
+            setTimeout(() => {
+                localStorage.setItem('studentLoggedIn', 'true');
+                localStorage.setItem('studentUsername', username);
+                window.location.href = 'student/portal.html';
+            }, 1500);
         } else {
-            // Login - direct redirect  
+            // Login Process
             localStorage.setItem('studentLoggedIn', 'true');
             localStorage.setItem('studentUsername', username);
             window.location.href = 'student/portal.html';
         }
     } catch (error) {
         showError('Erro no sistema. Tente novamente.');
+        console.error('Student auth error:', error);
     }
 }
 
@@ -69,29 +85,55 @@ async function handleTeacherLogin(email, password) {
         window.location.href = 'teacher/dashboard.html';
     } catch (error) {
         showError('Email ou senha inválidos');
+        console.error('Teacher auth error:', error);
     }
 }
 
-// Mode Toggle
+// Mode Toggle - Clean UX
 function toggleMode() {
     isRegistrationMode = !isRegistrationMode;
+    
     if (isRegistrationMode) {
-        createAccountLink.textContent = '← Voltar para login';
-        showSuccess('Modo registro ativado');
+        // Switch to Registration Mode
+        loginBtn.textContent = 'CRIAR MINHA CONTA';
+        createAccountLink.textContent = 'Voltar para login';
+        formTitle.textContent = 'Criar Conta de Estudante';
+        showSuccess('Preencha os dados para criar sua conta');
+        
+        // Clear any previous errors
+        errorMsg.classList.add('hidden');
+        
     } else {
-        createAccountLink.textContent = '✨ Criar nova conta de estudante';
+        // Switch to Login Mode
+        loginBtn.textContent = 'ACESSAR MINHAS AULAS';
+        createAccountLink.textContent = 'Criar nova conta de estudante';
+        formTitle.textContent = 'Portal do Estudante';
+        
+        // Clear form
+        studentUsername.value = '';
+        studentPassword.value = '';
+        errorMsg.classList.add('hidden');
+        successMsg.classList.add('hidden');
     }
+    
+    // Focus on username field
+    studentUsername.focus();
 }
 
 // Teacher Modal
 function showTeacherModal() {
     teacherModal.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
+    document.getElementById('teacherEmail').focus();
 }
 
 function hideTeacherModal() {
     teacherModal.classList.add('hidden');
     document.body.style.overflow = 'auto';
+    
+    // Clear teacher form
+    document.getElementById('teacherEmail').value = '';
+    document.getElementById('teacherPassword').value = '';
 }
 
 // Event Listeners
@@ -119,17 +161,42 @@ teacherForm.addEventListener('submit', async (e) => {
     await handleTeacherLogin(email, password);
 });
 
-// Keyboard Navigation
+// Enhanced Keyboard Navigation
 studentUsername.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') studentPassword.focus();
+    if (e.key === 'Enter') {
+        studentPassword.focus();
+    }
 });
 
 studentPassword.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') loginBtn.click();
+    if (e.key === 'Enter') {
+        loginBtn.click();
+    }
 });
 
 document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') hideTeacherModal();
+    if (e.key === 'Escape') {
+        hideTeacherModal();
+    }
+});
+
+// Input Validation Visual Feedback
+studentUsername.addEventListener('input', (e) => {
+    const value = e.target.value.trim();
+    if (value.length > 0 && value.length < 3) {
+        e.target.style.borderColor = '#ef4444';
+    } else {
+        e.target.style.borderColor = '#e5e7eb';
+    }
+});
+
+studentPassword.addEventListener('input', (e) => {
+    const value = e.target.value;
+    if (value.length > 0 && value.length < 4) {
+        e.target.style.borderColor = '#ef4444';
+    } else {
+        e.target.style.borderColor = '#e5e7eb';
+    }
 });
 
 // Auth State Listener
@@ -142,5 +209,5 @@ onAuthStateChanged(auth, (user) => {
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
     studentUsername.focus();
-    console.log('🚀 Auth initialized!');
+    console.log('🚀 Clean auth system initialized!');
 });
