@@ -85,7 +85,7 @@
                     🎧 ACESSAR AUDIO LESSONS
                 </a>
                 <button class="btn-secondary w-full font-medium py-2 sm:py-3 md:py-4 rounded-lg text-sm sm:text-base md:text-lg" 
-                        onclick="viewReport()">
+                        onclick="showComingSoon()">
                     📊 VER RELATÓRIO COMPLETO
                 </button>
             </div>
@@ -167,7 +167,24 @@
 
     <!-- Import Progress Sync for Real Data -->
     <script type="module">
-        import { getCurrentStudent } from '../js/auth.js';
+        // Simple auth check - avoid DOM conflicts from full auth.js
+        function getCurrentStudent() {
+            const authData = localStorage.getItem('studentAuth');
+            return authData ? JSON.parse(authData) : null;
+        }
+
+        function isStudentAuthenticated() {
+            const currentStudent = getCurrentStudent();
+            if (!currentStudent || !currentStudent.isAuthenticated) return false;
+            
+            // Check if login is still valid (24 hours)
+            const loginTime = new Date(currentStudent.loginTime);
+            const now = new Date();
+            const hoursDiff = (now - loginTime) / (1000 * 60 * 60);
+            
+            return hoursDiff < 24;
+        }
+
         import { getStudentOverallProgress, updateStudyTime } from '../js/progress-sync.js';
         import { getAchievementProgress } from '../js/achievement-system.js';
 
@@ -289,12 +306,24 @@
         }
 
         // Professional Actions
-        function viewReport() {
-            console.log('📊 Carregando relatório acadêmico...');
-            // TODO: Show detailed analytics modal
+        function showComingSoon() {
+            alert('📊 Relatório detalhado em breve! Esta funcionalidade está sendo desenvolvida.');
         }
 
-        function handleLogout() {
+        async function handleLogout() {
+            // Update session in Firestore if needed
+            try {
+                const currentStudent = getCurrentStudent();
+                if (currentStudent) {
+                    // Simple Firestore session end - import minimal function
+                    const { endCurrentSession } = await import('../js/progress-sync.js');
+                    await endCurrentSession();
+                }
+            } catch (error) {
+                console.log('Session cleanup error:', error);
+            }
+            
+            // Clear local storage
             localStorage.removeItem('studentLoggedIn');
             localStorage.removeItem('studentUsername');
             localStorage.removeItem('studentAuth');
@@ -302,7 +331,7 @@
         }
 
         // Session Protection
-        if (!localStorage.getItem('studentLoggedIn')) {
+        if (!localStorage.getItem('studentLoggedIn') && !isStudentAuthenticated()) {
             window.location.href = '../index.html';
         }
 
