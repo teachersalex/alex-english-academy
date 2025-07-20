@@ -115,8 +115,15 @@
     <!-- Firebase SDK -->
     <script type="module" src="js/firebase.js"></script>
     
-    <!-- Enhanced Authentication System -->
-    <script type="module" src="js/auth.js"></script>
+    <!-- Safe Authentication System - Wait for DOM -->
+    <script type="module">
+        // Wait for DOM to be fully loaded before importing auth
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Import auth.js only after DOM is ready
+            await import('./js/auth.js');
+            console.log('🔥 Auth system loaded safely after DOM ready');
+        });
+    </script>
 
 </body>
 </html>
