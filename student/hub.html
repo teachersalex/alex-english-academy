@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Hub - Teacher Alex Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="sophisticated-bg min-h-screen">
+
+    <!-- Professional Header Bar -->
+    <header class="lesson-header-bar">
+        <div class="header-left">
+            <div class="brand-line">Teacher Alex English Academy</div>
+            <div class="user-course-line" id="userCourseLine">Alex12345 • Learning Hub</div>
+        </div>
+        
+        <div class="header-actions">
+            <button class="btn-portal" onclick="window.location.href='portal.html'">← Portal</button>
+            <button class="btn-sair" onclick="logout()">Sair</button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="lesson-content">
+        <div class="max-w-6xl mx-auto px-4 pb-8">
+        
+            <!-- Hub Header -->
+            <div class="elegant-card rounded-lg p-6 mb-6">
+                <div class="text-center">
+                    <div class="text-5xl mb-4">🌟</div>
+                    <h2 class="text-2xl font-bold text-charcoal mb-2">Learning Hub</h2>
+                    <p class="text-medium-gray mb-4">Choose your English learning theme and start practicing!</p>
+                    <div class="bg-powder-blue rounded-lg p-3">
+                        <p class="text-alex-blue font-medium">📚 100 free lessons • 🎯 10 themes • 🎧 Audio practice</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Overview -->
+            <div class="elegant-card rounded-lg p-6 mb-6">
+                <div class="text-center">
+                    <h3 class="text-lg font-semibold text-charcoal mb-4">Your Overall Progress</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="bg-bg-gray rounded-lg p-3">
+                            <div class="text-2xl font-bold text-alex-blue" id="totalCompleted">0</div>
+                            <div class="text-sm text-medium-gray">Completed</div>
+                        </div>
+                        <div class="bg-bg-gray rounded-lg p-3">
+                            <div class="text-2xl font-bold text-academy-red" id="totalXP">0</div>
+                            <div class="text-sm text-medium-gray">Total XP</div>
+                        </div>
+                        <div class="bg-bg-gray rounded-lg p-3">
+                            <div class="text-2xl font-bold text-charcoal" id="currentLevel">1</div>
+                            <div class="text-sm text-medium-gray">Level</div>
+                        </div>
+                        <div class="bg-bg-gray rounded-lg p-3">
+                            <div class="text-2xl font-bold text-green-600" id="activeStreak">0</div>
+                            <div class="text-sm text-medium-gray">Day Streak</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Featured Foundation Theme (FIRST & PROMINENT) -->
+            <div class="mb-8">
+                <h3 class="text-xl font-bold text-charcoal mb-4">🌟 Start Your Journey</h3>
+                <div class="featured-theme-card elegant-card rounded-lg p-8 bg-gradient-to-r from-alex-blue to-academy-red text-white cursor-pointer hover:scale-105 transition-all" onclick="navigateToTheme('foundation')">
+                    <div class="text-center">
+                        <div class="text-6xl mb-4">🌟</div>
+                        <h3 class="text-2xl font-bold mb-3">A1 Foundation (Start Here!)</h3>
+                        <p class="text-blue-100 mb-4 text-lg">Perfect for beginners - build your English basics with proven lessons</p>
+                        <div class="bg-white/20 rounded-lg p-4 mb-4">
+                            <div class="flex justify-between text-sm mb-2">
+                                <span>Progress</span>
+                                <span id="foundation-progress">0/10</span>
+                            </div>
+                            <div class="w-full bg-white/30 rounded-full h-3">
+                                <div id="foundation-bar" class="bg-white h-3 rounded-full" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                        <div class="bg-white text-alex-blue px-6 py-3 rounded-lg text-lg font-bold inline-block">
+                            Start Foundation Course 🎯
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other Themes Grid -->
+            <div class="mb-6">
+                <h3 class="text-xl font-bold text-charcoal mb-4">🎮 Explore More Themes</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Gaming Theme -->
+                <div class="theme-card elegant-card rounded-lg p-6 cursor-pointer hover:scale-105 transition-all" onclick="navigateToTheme('gaming')">
+                    <div class="text-center">
+                        <div class="text-4xl mb-4">🎮</div>
+                        <h3 class="text-xl font-bold text-charcoal mb-2">Gaming World</h3>
+                        <p class="text-medium-gray mb-4">Learn English through gaming vocabulary and scenarios</p>
+                        <div class="bg-bg-gray rounded-lg p-3 mb-4">
+                            <div class="flex justify-between text-sm">
+                                <span>Progress</span>
+                                <span id="gaming-progress">0/10</span>
+                            </div>
+                            <div class="w-full bg-light-gray rounded-full h-2 mt-2">
+                                <div id="gaming-bar" class="bg-alex-blue h-2 rounded-full" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                        <div class="btn-primary px-4 py-2 rounded-lg text-sm font-semibold">
+                            Start Gaming 🎯
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Movies Theme -->
+                <div class="theme-card elegant-card rounded-lg p-6 cursor-pointer hover:scale-105 transition-all" onclick="navigateToTheme('movies')">
+                    <div class="text-center">
+                        <div class="text-4xl mb-4">🎬</div>
+                        <h3 class="text-xl font-bold text-charcoal mb-2">Movie Magic</h3>
+                        <p class="text-medium-gray mb-4">Hollywood English and cinema conversations</p>
+                        <div class="bg-bg-gray rounded-lg p-3 mb-4">
+                            <div class="flex justify-between text-sm">
+                                <span>Progress</span>
+                                <span id="movies-progress">0/10</span>
+                            </div>
+                            <div class="w-full bg-light-gray rounded-full h-2 mt-2">
+                                <div id="movies-bar" class="bg-academy-red h-2 rounded-full" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                        <div class="btn-secondary px-4 py-2 rounded-lg text-sm font-semibold">
+                            Start Movies 🎭
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Business Theme -->
+                <div class="theme-card elegant-card rounded-lg p-6 cursor-pointer hover:scale-105 transition-all" onclick="navigateToTheme('business')">
+                    <div class="text-center">
+                        <div class="text-4xl mb-4">💼</div>
+                        <h3 class="text-xl font-bold text-charcoal mb-2">Business Pro</h3>
+                        <p class="text-medium-gray mb-4">Professional English for career success</p>
+                        <div class="bg-bg-gray rounded-lg p-3 mb-4">
+                            <div class="flex justify-between text-sm">
+                                <span>Progress</span>
+                                <span id="business-progress">0/10</span>
+                            </div>
+                            <div class="w-full bg-light-gray rounded-full h-2 mt-2">
+                                <div id="business-bar" class="bg-green-600 h-2 rounded-full" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                        <div class="btn-subtle px-4 py-2 rounded-lg text-sm font-semibold">
+                            Start Business 📈
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Travel Theme -->
+                <div class="theme-card elegant-card rounded-lg p-6 cursor-pointer hover:scale-105 transition-all" onclick="navigateToTheme('travel')">
+                    <div class="text-center">
+                        <div class="text-4xl mb-4">✈️</div>
+                        <h3 class="text-xl font-bold text-charcoal mb-2">Travel Adventures</h3>
+                        <p class="text-medium-gray mb-4">Essential English for travelers and explorers</p>
+                        <div class="bg-bg-gray rounded-lg p-3 mb-4">
+                            <div class="flex justify-between text-sm">
+                                <span>Progress</span>
+                                <span id="travel-progress">0/10</span>
+                            </div>
+                            <div class="w-full bg-light-gray rounded-full h-2 mt-2">
+                                <div id="travel-bar" class="bg-blue-500 h-2 rounded-full" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                        <div class="btn-primary px-4 py-2 rounded-lg text-sm font-semibold">
+                            Start Travel 🗺️
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Conversation Theme -->
+                <div class="theme-card elegant-card rounded-lg p-6 cursor-pointer hover:scale-105 transition-all" onclick="navigateToTheme('conversation')">
+                    <div class="text-center">
+                        <div class="text-4xl mb-4">💬</div>
+                        <h3 class="text-xl font-bold text-charcoal mb-2">Daily Conversations</h3>
+                        <p class="text-medium-gray mb-4">Real-life English conversations and dialogues</p>
+                        <div class="bg-bg-gray rounded-lg p-3 mb-4">
+                            <div class="flex justify-between text-sm">
+                                <span>Progress</span>
+                                <span id="conversation-progress">0/10</span>
+                            </div>
+                            <div class="w-full bg-light-gray rounded-full h-2 mt-2">
+                                <div id="conversation-bar" class="bg-purple-600 h-2 rounded-full" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                        <div class="btn-secondary px-4 py-2 rounded-lg text-sm font-semibold">
+                            Start Talking 💭
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Food Theme -->
+                <div class="theme-card elegant-card rounded-lg p-6 cursor-pointer hover:scale-105 transition-all" onclick="navigateToTheme('food')">
+                    <div class="text-center">
+                        <div class="text-4xl mb-4">🍕</div>
+                        <h3 class="text-xl font-bold text-charcoal mb-2">Food & Cooking</h3>
+                        <p class="text-medium-gray mb-4">Culinary English and restaurant conversations</p>
+                        <div class="bg-bg-gray rounded-lg p-3 mb-4">
+                            <div class="flex justify-between text-sm">
+                                <span>Progress</span>
+                                <span id="food-progress">0/10</span>
+                            </div>
+                            <div class="w-full bg-light-gray rounded-full h-2 mt-2">
+                                <div id="food-bar" class="bg-orange-500 h-2 rounded-full" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                        <div class="btn-primary px-4 py-2 rounded-lg text-sm font-semibold">
+                            Start Cooking 👨‍🍳
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Technology Theme -->
+                <div class="theme-card elegant-card rounded-lg p-6 cursor-pointer hover:scale-105 transition-all" onclick="navigateToTheme('technology')">
+                    <div class="text-center">
+                        <div class="text-4xl mb-4">📱</div>
+                        <h3 class="text-xl font-bold text-charcoal mb-2">Tech World</h3>
+                        <p class="text-medium-gray mb-4">Modern technology and digital English</p>
+                        <div class="bg-bg-gray rounded-lg p-3 mb-4">
+                            <div class="flex justify-between text-sm">
+                                <span>Progress</span>
+                                <span id="technology-progress">0/10</span>
+                            </div>
+                            <div class="w-full bg-light-gray rounded-full h-2 mt-2">
+                                <div id="technology-bar" class="bg-indigo-500 h-2 rounded-full" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                        <div class="btn-secondary px-4 py-2 rounded-lg text-sm font-semibold">
+                            Start Tech 💻
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Culture Theme -->
+                <div class="theme-card elegant-card rounded-lg p-6 cursor-pointer hover:scale-105 transition-all" onclick="navigateToTheme('culture')">
+                    <div class="text-center">
+                        <div class="text-4xl mb-4">🇧🇷</div>
+                        <h3 class="text-xl font-bold text-charcoal mb-2">Brazilian Culture</h3>
+                        <p class="text-medium-gray mb-4">Share Brazilian culture in English</p>
+                        <div class="bg-bg-gray rounded-lg p-3 mb-4">
+                            <div class="flex justify-between text-sm">
+                                <span>Progress</span>
+                                <span id="culture-progress">0/10</span>
+                            </div>
+                            <div class="w-full bg-light-gray rounded-full h-2 mt-2">
+                                <div id="culture-bar" class="bg-yellow-500 h-2 rounded-full" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                        <div class="btn-primary px-4 py-2 rounded-lg text-sm font-semibold">
+                            Start Culture 🎉
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sports Theme -->
+                <div class="theme-card elegant-card rounded-lg p-6 cursor-pointer hover:scale-105 transition-all" onclick="navigateToTheme('sports')">
+                    <div class="text-center">
+                        <div class="text-4xl mb-4">⚽</div>
+                        <h3 class="text-xl font-bold text-charcoal mb-2">Sports Arena</h3>
+                        <p class="text-medium-gray mb-4">Football, sports, and competition English</p>
+                        <div class="bg-bg-gray rounded-lg p-3 mb-4">
+                            <div class="flex justify-between text-sm">
+                                <span>Progress</span>
+                                <span id="sports-progress">0/10</span>
+                            </div>
+                            <div class="w-full bg-light-gray rounded-full h-2 mt-2">
+                                <div id="sports-bar" class="bg-green-500 h-2 rounded-full" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                        <div class="btn-secondary px-4 py-2 rounded-lg text-sm font-semibold">
+                            Start Sports ⚽
+                        </div>
+                    </div>
+                </div>
+
+                <!-- News Theme -->
+                <div class="theme-card elegant-card rounded-lg p-6 cursor-pointer hover:scale-105 transition-all" onclick="navigateToTheme('news')">
+                    <div class="text-center">
+                        <div class="text-4xl mb-4">📰</div>
+                        <h3 class="text-xl font-bold text-charcoal mb-2">News & Media</h3>
+                        <p class="text-medium-gray mb-4">Current events and media English</p>
+                        <div class="bg-bg-gray rounded-lg p-3 mb-4">
+                            <div class="flex justify-between text-sm">
+                                <span>Progress</span>
+                                <span id="news-progress">0/10</span>
+                            </div>
+                            <div class="w-full bg-light-gray rounded-full h-2 mt-2">
+                                <div id="news-bar" class="bg-red-600 h-2 rounded-full" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                        <div class="btn-primary px-4 py-2 rounded-lg text-sm font-semibold">
+                            Start News 📺
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Firebase SDK -->
+    <script type="module" src="../js/firebase.js"></script>
+
+    <!-- Hub Logic -->
+    <script type="module">
+        import { db } from '../js/firebase.js';
+        import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js';
+
+        // Check auth
+        function checkAuth() {
+            if (!localStorage.getItem('studentLoggedIn')) {
+                window.location.href = '../index.html';
+                return false;
+            }
+            return true;
+        }
+
+        function getCurrentStudent() {
+            const authData = localStorage.getItem('studentAuth');
+            return authData ? JSON.parse(authData) : null;
+        }
+
+        // Navigation function
+        window.navigateToTheme = function(theme) {
+            if (theme === 'foundation') {
+                window.location.href = 'lessons-foundation.html';
+            } else {
+                window.location.href = `lessons-${theme}.html`;
+            }
+        };
+
+        // Logout function
+        window.logout = function() {
+            localStorage.clear();
+            window.location.href = '../index.html';
+        };
+
+        // Load overall progress from Firebase
+        async function loadOverallProgress() {
+            try {
+                const currentStudent = getCurrentStudent();
+                if (!currentStudent) return;
+
+                // Update header
+                const displayName = currentStudent.displayName || 'Estudante';
+                document.getElementById('userCourseLine').textContent = `${displayName} • Learning Hub`;
+
+                const studentRef = doc(db, 'students', currentStudent.username);
+                const studentDoc = await getDoc(studentRef);
+                
+                if (studentDoc.exists()) {
+                    const studentData = studentDoc.data();
+                    
+                    // Update overall stats
+                    document.getElementById('totalCompleted').textContent = calculateTotalCompleted(studentData);
+                    document.getElementById('totalXP').textContent = (studentData.totalXP || 0).toLocaleString('pt-BR');
+                    document.getElementById('currentLevel').textContent = studentData.level || 1;
+                    document.getElementById('activeStreak').textContent = studentData.currentStreak || 0;
+
+                    // Update foundation progress (from existing audioLessons)
+                    const audioLessons = studentData.audioLessons || {};
+                    const foundationCompleted = Object.values(audioLessons).filter(lesson => lesson.status === 'completed').length;
+                    const foundationPercentage = (foundationCompleted / 10) * 100;
+                    
+                    document.getElementById('foundation-progress').textContent = `${foundationCompleted}/10`;
+                    document.getElementById('foundation-bar').style.width = `${foundationPercentage}%`;
+
+                    // Update other theme progress (placeholder until individual themes implemented)
+                    const themes = ['gaming', 'movies', 'business', 'travel', 'conversation', 'food', 'technology', 'culture', 'sports', 'news'];
+                    themes.forEach(theme => {
+                        // For now, show foundation progress in all themes (placeholder)
+                        document.getElementById(`${theme}-progress`).textContent = `${foundationCompleted}/10`;
+                        document.getElementById(`${theme}-bar`).style.width = `${foundationPercentage}%`;
+                    });
+
+                    console.log('✅ Hub progress loaded from Firebase');
+                } else {
+                    console.log('❌ Student not found in Firebase');
+                }
+            } catch (error) {
+                console.error('❌ Error loading hub progress:', error);
+            }
+        }
+
+        function calculateTotalCompleted(studentData) {
+            // Count completed foundation lessons (audioLessons)
+            const audioLessons = studentData.audioLessons || {};
+            const foundationCompleted = Object.values(audioLessons).filter(lesson => lesson.status === 'completed').length;
+            
+            // Count completed themed lessons (when implemented)
+            const themes = ['gaming', 'movies', 'business', 'travel', 'conversation', 'food', 'technology', 'culture', 'sports', 'news'];
+            let themedCompleted = 0;
+            
+            themes.forEach(theme => {
+                const themeLessons = studentData[`${theme}Lessons`] || {};
+                themedCompleted += Object.values(themeLessons).filter(lesson => lesson.status === 'completed').length;
+            });
+            
+            return foundationCompleted + themedCompleted;
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!checkAuth()) return;
+            loadOverallProgress();
+            console.log('🌟 Learning Hub loaded!');
+        });
+    </script>
+
+    <!-- Header Bar Styles (Reuse from lessons.html) -->
+    <style>
+        /* Professional Header Bar */
+        .lesson-header-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            padding: 16px 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-left {
+            text-align: center;
+        }
+
+        .brand-line {
+            font-size: 12px;
+            font-weight: 600;
+            color: #3b82f6;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        .user-course-line {
+            font-size: 14px;
+            color: #1f2937;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .btn-portal {
+            background: #3b82f6;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-portal:hover {
+            background: #2563eb;
+        }
+
+        .btn-sair {
+            background: transparent;
+            color: #6b7280;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            border: 1px solid #e5e7eb;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-sair:hover {
+            background: #f9fafb;
+            color: #374151;
+        }
+
+        .lesson-content {
+            margin-top: 120px;
+        }
+
+        /* Theme Card Styles */
+        .theme-card {
+            transition: all 0.3s ease;
+        }
+
+        .theme-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Desktop responsive */
+        @media (min-width: 768px) {
+            .lesson-header-bar {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                padding: 12px 40px;
+            }
+            
+            .header-left {
+                text-align: left;
+            }
+            
+            .lesson-content {
+                margin-top: 80px;
+            }
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 480px) {
+            .lesson-header-bar {
+                padding: 12px 16px;
+                gap: 6px;
+            }
+            
+            .brand-line {
+                font-size: 11px;
+            }
+            
+            .user-course-line {
+                font-size: 13px;
+            }
+            
+            .btn-portal, .btn-sair {
+                padding: 6px 12px;
+                font-size: 11px;
+            }
+            
+            .lesson-content {
+                margin-top: 110px;
+            }
+        }
+    </style>
+
+</body>
+</html>

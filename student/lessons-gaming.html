@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gaming World - Teacher Alex Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="sophisticated-bg min-h-screen">
+
+    <!-- Professional Header Bar -->
+    <header class="lesson-header-bar">
+        <div class="header-left">
+            <div class="brand-line">Teacher Alex English Academy</div>
+            <div class="user-course-line" id="userCourseLine">Alex12345 • Gaming World</div>
+        </div>
+        
+        <div class="header-actions">
+            <button class="btn-portal" onclick="window.location.href='hub.html'">← Hub</button>
+            <button class="btn-sair" onclick="logout()">Sair</button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="lesson-content">
+        <div class="max-w-4xl mx-auto px-4 pb-8">
+        
+        <!-- Lesson Selection View -->
+        <div id="lessonSelection">
+            <!-- Course Header -->
+            <div class="elegant-card rounded-lg p-6 mb-6">
+                <div class="text-center">
+                    <div class="text-5xl mb-4">🎮</div>
+                    <h2 class="text-2xl font-bold text-charcoal mb-2">Gaming World</h2>
+                    <p class="text-medium-gray mb-4">Learn English through gaming vocabulary and scenarios</p>
+                    <div class="bg-powder-blue rounded-lg p-3">
+                        <p class="text-alex-blue font-medium">🎯 Complete quests • 📊 Track progress • 🏆 Earn XP & achievements!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Firebase Status -->
+            <div class="elegant-card rounded-lg p-4 mb-6 text-center">
+                <div id="firebaseStatus" class="text-sm">
+                    <span class="text-alex-blue font-medium">🔥 Carregando progresso do Firebase...</span>
+                </div>
+            </div>
+
+            <!-- Lessons Grid -->
+            <div id="lessonsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Gaming lessons will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Interactive Lesson View -->
+        <div id="lessonInterface" class="hidden">
+            <!-- Lesson Header -->
+            <div class="elegant-card rounded-lg p-6 mb-6">
+                <div class="flex items-center justify-between mb-4">
+                    <button id="backToLessons" class="link-sophisticated text-sm">← Back to Gaming</button>
+                    <div id="lessonProgress" class="text-sm text-medium-gray">Lesson 1 of 10</div>
+                </div>
+                
+                <h2 id="lessonTitle" class="text-2xl font-bold text-charcoal mb-2">PC Setup & Gaming Basics</h2>
+                <p id="lessonDescription" class="text-medium-gray mb-4">Learn essential gaming vocabulary and PC terminology</p>
+                
+                <!-- Progress Indicator -->
+                <div class="bg-bg-gray rounded-lg p-3">
+                    <div class="flex justify-between text-sm mb-2">
+                        <span>Quest Progress</span>
+                        <span id="progressText">Listen to Audio</span>
+                    </div>
+                    <div class="progress-bar-container h-2">
+                        <div id="progressBar" class="progress-bar"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Audio Player -->
+            <div class="elegant-card rounded-lg p-6 mb-6">
+                <div class="text-center mb-4">
+                    <h3 class="text-lg font-semibold text-charcoal mb-2">🎧 Listen to the Gaming Audio</h3>
+                    <p class="text-medium-gray">Listen carefully and answer the gaming questions below</p>
+                </div>
+                
+                <audio id="audioPlayer" class="w-full mb-4" controls>
+                    <source id="audioSource" src="" type="audio/mpeg">
+                    Your browser does not support audio.
+                </audio>
+                
+                <!-- Audio Controls -->
+                <div class="flex justify-center space-x-4 mb-4">
+                    <button id="playPauseBtn" class="btn-secondary px-6 py-2 rounded-lg">▶️ Play</button>
+                    <button id="rewindBtn" class="btn-subtle px-4 py-2 rounded-lg">⏪ -10s</button>
+                    <button id="forwardBtn" class="btn-subtle px-4 py-2 rounded-lg">⏩ +10s</button>
+                </div>
+                
+                <!-- Speed Controls -->
+                <div class="flex justify-center space-x-2">
+                    <button class="speed-btn px-3 py-1 text-sm rounded" data-speed="0.75">0.75x</button>
+                    <button class="speed-btn px-3 py-1 text-sm rounded active" data-speed="1">1x</button>
+                    <button class="speed-btn px-3 py-1 text-sm rounded" data-speed="1.25">1.25x</button>
+                </div>
+            </div>
+
+            <!-- Questions Section -->
+            <div id="questionsSection" class="space-y-6 mb-6">
+                <!-- Gaming questions will be loaded here -->
+            </div>
+
+            <!-- Submit Section -->
+            <div class="elegant-card rounded-lg p-6 text-center">
+                <button id="submitAnswers" class="btn-primary px-8 py-4 rounded-lg text-lg font-bold" disabled>
+                    Complete Quest (0/5 Complete)
+                </button>
+                <p class="text-medium-gray text-sm mt-2">Answer all questions to complete the quest</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Results Modal -->
+    <div id="resultsModal" class="hidden fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+        <div class="elegant-card rounded-2xl p-6 max-w-md w-full">
+            <div class="text-center">
+                <div id="resultIcon" class="text-5xl mb-4">🎉</div>
+                <h3 id="resultTitle" class="text-xl font-bold text-charcoal mb-4">Quest Complete!</h3>
+                
+                <!-- Score Display -->
+                <div class="bg-bg-gray rounded-lg p-4 mb-4">
+                    <div id="scoreDisplay" class="text-3xl font-bold text-charcoal mb-1">5/5</div>
+                    <div id="percentageDisplay" class="text-lg text-medium-gray mb-2">100% Correct</div>
+                    <div id="xpEarned" class="text-academy-red font-semibold text-lg">+75 XP Earned!</div>
+                </div>
+                
+                <!-- Achievement -->
+                <div id="achievementDisplay" class="hidden bg-powder-blue rounded-lg p-3 mb-4">
+                    <div class="text-sm font-semibold text-alex-blue mb-2">🎉 Achievement Unlocked!</div>
+                    <div id="achievementText" class="font-medium"></div>
+                </div>
+                
+                <!-- Controls -->
+                <div class="space-y-3">
+                    <button id="reviewAnswers" class="btn-secondary w-full py-3 rounded-lg font-semibold">
+                        📊 Review Answers
+                    </button>
+                    <button id="nextLesson" class="btn-primary w-full py-3 rounded-lg font-semibold">
+                        Next Quest →
+                    </button>
+                    <button id="backToLessonsList" class="link-muted text-sm py-2">
+                        Back to Gaming Hub
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Answer Review Modal -->
+    <div id="reviewModal" class="hidden fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+        <div class="elegant-card rounded-2xl p-6 max-w-2xl w-full max-h-96 overflow-y-auto">
+            <h3 class="text-lg font-bold text-charcoal mb-4 text-center">📝 Quest Review</h3>
+            <div id="reviewContent" class="space-y-4 mb-6">
+                <!-- Review content here -->
+            </div>
+            <button id="closeReview" class="btn-primary w-full py-3 rounded-lg font-semibold">
+                Close Review
+            </button>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module" src="../js/firebase.js"></script>
+
+    <!-- Gaming Lesson System -->
+    <script type="module">
+        import { db } from '../js/firebase.js';
+        import { doc, getDoc, updateDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js';
+
+        // GAMING THEME LESSONS DATA
+        const GAMING_LESSONS = [
+            {
+                id: 'gaming-01',
+                title: 'PC Setup & Gaming Basics',
+                description: 'Learn essential gaming vocabulary and PC terminology',
+                duration: '45s',
+                icon: '🖥️',
+                audioFile: 'gaming-01-setup.mp3',
+                questions: [
+                    {
+                        question: "What type of computer does he prefer for gaming?",
+                        options: ["Desktop PC", "Laptop", "Console", "Mobile"],
+                        correct: 0
+                    },
+                    {
+                        question: "What graphics card does he recommend?",
+                        options: ["GTX 1050", "RTX 3060", "RTX 4070", "RX 580"],
+                        correct: 2
+                    },
+                    {
+                        question: "How much RAM does he suggest?",
+                        options: ["8GB", "16GB", "32GB", "64GB"],
+                        correct: 1
+                    },
+                    {
+                        question: "What's his favorite gaming peripheral?",
+                        options: ["Wireless mouse", "Mechanical keyboard", "Gaming headset", "RGB mousepad"],
+                        correct: 1
+                    },
+                    {
+                        question: "Which monitor size does he prefer?",
+                        options: ["24 inch", "27 inch", "32 inch", "Ultrawide"],
+                        correct: 1
+                    }
+                ]
+            },
+            {
+                id: 'gaming-02',
+                title: 'Online Gaming & Communication',
+                description: 'Master multiplayer gaming vocabulary and team communication',
+                duration: '42s',
+                icon: '🎯',
+                audioFile: 'gaming-02-online.mp3',
+                questions: [
+                    {
+                        question: "What does 'GG' mean in gaming?",
+                        options: ["Get Good", "Good Game", "Great Goal", "Go Gaming"],
+                        correct: 1
+                    },
+                    {
+                        question: "Which communication platform does he use?",
+                        options: ["Skype", "Discord", "TeamSpeak", "Zoom"],
+                        correct: 1
+                    },
+                    {
+                        question: "What's his main gaming role?",
+                        options: ["Tank", "DPS", "Support", "Healer"],
+                        correct: 2
+                    },
+                    {
+                        question: "How often does he play with his team?",
+                        options: ["Daily", "Weekly", "Weekends only", "Monthly"],
+                        correct: 2
+                    },
+                    {
+                        question: "What's the most important skill in team gaming?",
+                        options: ["Fast reflexes", "Good communication", "Expensive equipment", "Long practice"],
+                        correct: 1
+                    }
+                ]
+            },
+            {
+                id: 'gaming-03',
+                title: 'Game Genres & Preferences',
+                description: 'Explore different game types and express gaming preferences',
+                duration: '48s',
+                icon: '🎲',
+                audioFile: 'gaming-03-genres.mp3',
+                questions: [
+                    {
+                        question: "What's his favorite game genre?",
+                        options: ["FPS", "RPG", "Strategy", "Racing"],
+                        correct: 1
+                    },
+                    {
+                        question: "Which RPG does he recommend for beginners?",
+                        options: ["Dark Souls", "The Witcher 3", "Skyrim", "Final Fantasy"],
+                        correct: 2
+                    },
+                    {
+                        question: "Why doesn't he like horror games?",
+                        options: ["Too scary", "Bad graphics", "Too expensive", "Boring story"],
+                        correct: 0
+                    },
+                    {
+                        question: "What platform does he prefer?",
+                        options: ["PlayStation", "Xbox", "Nintendo Switch", "PC"],
+                        correct: 3
+                    },
+                    {
+                        question: "How many hours per week does he game?",
+                        options: ["5-10 hours", "10-20 hours", "20-30 hours", "Over 30 hours"],
+                        correct: 1
+                    }
+                ]
+            },
+            {
+                id: 'gaming-04',
+                title: 'Gaming Tournament & Competition',
+                description: 'Learn competitive gaming vocabulary and esports terminology',
+                duration: '50s',
+                icon: '🏆',
+                audioFile: 'gaming-04-tournament.mp3',
+                questions: [
+                    {
+                        question: "What type of tournament is he participating in?",
+                        options: ["Local LAN", "Online tournament", "School competition", "Professional esports"],
+                        correct: 1
+                    },
+                    {
+                        question: "What's the prize for first place?",
+                        options: ["$100", "$500", "$1000", "$5000"],
+                        correct: 2
+                    },
+                    {
+                        question: "How many teams are competing?",
+                        options: ["8", "16", "32", "64"],
+                        correct: 1
+                    },
+                    {
+                        question: "What's his team's biggest strength?",
+                        options: ["Individual skill", "Teamwork", "Strategy", "Experience"],
+                        correct: 1
+                    },
+                    {
+                        question: "When is the final match?",
+                        options: ["Tonight", "Tomorrow", "This weekend", "Next week"],
+                        correct: 2
+                    }
+                ]
+            },
+            {
+                id: 'gaming-05',
+                title: 'Gaming Culture & Streaming',
+                description: 'Understanding gaming culture, streaming, and content creation',
+                duration: '46s',
+                icon: '📺',
+                audioFile: 'gaming-05-streaming.mp3',
+                questions: [
+                    {
+                        question: "Which platform does he use for streaming?",
+                        options: ["YouTube", "Twitch", "Facebook Gaming", "TikTok"],
+                        correct: 1
+                    },
+                    {
+                        question: "How many followers does he have?",
+                        options: ["100", "500", "1000", "5000"],
+                        correct: 2
+                    },
+                    {
+                        question: "What time does he usually stream?",
+                        options: ["Morning", "Afternoon", "Evening", "Late night"],
+                        correct: 2
+                    },
+                    {
+                        question: "What's his most popular content?",
+                        options: ["Tutorials", "Live gameplay", "Game reviews", "Funny moments"],
+                        correct: 3
+                    },
+                    {
+                        question: "What equipment does he use for streaming?",
+                        options: ["Phone camera", "Webcam", "Professional camera", "No camera"],
+                        correct: 2
+                    }
+                ]
+            },
+            {
+                id: 'gaming-06',
+                title: 'Gaming Reviews & Recommendations',
+                description: 'Learn to discuss game reviews and make recommendations',
+                duration: '44s',
+                icon: '⭐',
+                audioFile: 'gaming-06-reviews.mp3',
+                questions: [
+                    {
+                        question: "What's his rating for the new game?",
+                        options: ["6/10", "7/10", "8/10", "9/10"],
+                        correct: 2
+                    },
+                    {
+                        question: "What does he like most about it?",
+                        options: ["Graphics", "Story", "Gameplay", "Soundtrack"],
+                        correct: 1
+                    },
+                    {
+                        question: "What's the main problem with the game?",
+                        options: ["Too short", "Too difficult", "Bugs and glitches", "Expensive DLC"],
+                        correct: 2
+                    },
+                    {
+                        question: "Who does he recommend it to?",
+                        options: ["Casual gamers", "Hardcore gamers", "New players", "Everyone"],
+                        correct: 0
+                    },
+                    {
+                        question: "How long did it take him to finish?",
+                        options: ["10 hours", "20 hours", "30 hours", "40 hours"],
+                        correct: 1
+                    }
+                ]
+            },
+            {
+                id: 'gaming-07',
+                title: 'Mobile Gaming & Apps',
+                description: 'Explore mobile gaming trends and smartphone gaming',
+                duration: '41s',
+                icon: '📱',
+                audioFile: 'gaming-07-mobile.mp3',
+                questions: [
+                    {
+                        question: "What's his favorite mobile game genre?",
+                        options: ["Puzzle games", "Battle royale", "RPG", "Casual games"],
+                        correct: 1
+                    },
+                    {
+                        question: "How much time does he spend on mobile gaming daily?",
+                        options: ["30 minutes", "1 hour", "2 hours", "3+ hours"],
+                        correct: 1
+                    },
+                    {
+                        question: "Which mobile game does he play most?",
+                        options: ["PUBG Mobile", "Call of Duty Mobile", "Free Fire", "Among Us"],
+                        correct: 0
+                    },
+                    {
+                        question: "What does he think about mobile esports?",
+                        options: ["Not real esports", "Growing fast", "Too casual", "The future"],
+                        correct: 1
+                    },
+                    {
+                        question: "Does he spend money on mobile games?",
+                        options: ["Never", "Rarely", "Sometimes", "Often"],
+                        correct: 2
+                    }
+                ]
+            },
+            {
+                id: 'gaming-08',
+                title: 'Gaming History & Nostalgia',
+                description: 'Discuss classic games and gaming evolution',
+                duration: '47s',
+                icon: '👾',
+                audioFile: 'gaming-08-retro.mp3',
+                questions: [
+                    {
+                        question: "What was his first gaming console?",
+                        options: ["Atari", "Nintendo NES", "PlayStation 1", "Game Boy"],
+                        correct: 2
+                    },
+                    {
+                        question: "Which classic game does he still play?",
+                        options: ["Pac-Man", "Tetris", "Super Mario", "Street Fighter"],
+                        correct: 2
+                    },
+                    {
+                        question: "How has gaming changed the most?",
+                        options: ["Better graphics", "Online multiplayer", "Longer stories", "Mobile gaming"],
+                        correct: 1
+                    },
+                    {
+                        question: "What does he miss about old games?",
+                        options: ["Simplicity", "Lower prices", "Physical copies", "Local multiplayer"],
+                        correct: 3
+                    },
+                    {
+                        question: "Which era was the best for gaming?",
+                        options: ["80s-90s", "2000s", "2010s", "Current era"],
+                        correct: 1
+                    }
+                ]
+            },
+            {
+                id: 'gaming-09',
+                title: 'Gaming Setup & Workspace',
+                description: 'Learn about creating the perfect gaming environment',
+                duration: '43s',
+                icon: '🪑',
+                audioFile: 'gaming-09-setup.mp3',
+                questions: [
+                    {
+                        question: "What's the most important part of his setup?",
+                        options: ["Gaming chair", "Multiple monitors", "RGB lighting", "Good desk"],
+                        correct: 1
+                    },
+                    {
+                        question: "How much did he spend on his setup?",
+                        options: ["$1000", "$2000", "$3000", "$5000+"],
+                        correct: 2
+                    },
+                    {
+                        question: "Where is his gaming room located?",
+                        options: ["Bedroom", "Living room", "Basement", "Spare room"],
+                        correct: 3
+                    },
+                    {
+                        question: "What lighting does he prefer?",
+                        options: ["Bright white", "RGB colors", "Dim warm", "Natural light"],
+                        correct: 1
+                    },
+                    {
+                        question: "How often does he upgrade his setup?",
+                        options: ["Every year", "Every 2 years", "Every 3-5 years", "When something breaks"],
+                        correct: 2
+                    }
+                ]
+            },
+            {
+                id: 'gaming-10',
+                title: 'Future of Gaming & VR',
+                description: 'Explore virtual reality and the future of gaming technology',
+                duration: '49s',
+                icon: '🥽',
+                audioFile: 'gaming-10-future.mp3',
+                questions: [
+                    {
+                        question: "Does he own a VR headset?",
+                        options: ["Yes, Oculus", "Yes, PlayStation VR", "Yes, HTC Vive", "No, not yet"],
+                        correct: 3
+                    },
+                    {
+                        question: "What excites him most about VR?",
+                        options: ["Immersion", "Exercise games", "Social interaction", "New experiences"],
+                        correct: 0
+                    },
+                    {
+                        question: "What's the biggest problem with VR now?",
+                        options: ["Too expensive", "Limited games", "Motion sickness", "Heavy headsets"],
+                        correct: 0
+                    },
+                    {
+                        question: "When will VR become mainstream?",
+                        options: ["Already is", "In 2-3 years", "In 5-10 years", "Never"],
+                        correct: 2
+                    },
+                    {
+                        question: "What other gaming technology interests him?",
+                        options: ["Cloud gaming", "AI opponents", "Brain interfaces", "Haptic feedback"],
+                        correct: 0
+                    }
+                ]
+            }
+        ];
+
+        // State variables (copied from original lessons.html)
+        let currentLesson = null;
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let studentData = null;
+        let lessonStartTime = null;
+        let audioPlayer = null;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🎮 Gaming Lessons Loading...');
+            if (!checkAuth()) return;
+            
+            audioPlayer = document.getElementById('audioPlayer');
+            initializeEventListeners();
+            loadLessonsWithProgress();
+            initializeHeaderBar();
+        });
+
+        function checkAuth() {
+            if (!localStorage.getItem('studentLoggedIn')) {
+                window.location.href = '../index.html';
+                return false;
+            }
+            return true;
+        }
+
+        function getCurrentStudent() {
+            const authData = localStorage.getItem('studentAuth');
+            return authData ? JSON.parse(authData) : null;
+        }
+
+        function initializeHeaderBar() {
+            const currentStudent = getCurrentStudent();
+            if (currentStudent) {
+                const displayName = currentStudent.displayName || 'Estudante';
+                document.getElementById('userCourseLine').textContent = `${displayName} • Gaming World`;
+            }
+        }
+
+        // Load lessons with Firebase progress
+        async function loadLessonsWithProgress() {
+            try {
+                const currentStudent = getCurrentStudent();
+                if (!currentStudent) return;
+
+                document.getElementById('firebaseStatus').innerHTML = '<span class="text-alex-blue font-medium">🔍 Carregando progresso...</span>';
+
+                const studentRef = doc(db, 'students', currentStudent.username);
+                const studentDoc = await getDoc(studentRef);
+                
+                if (studentDoc.exists()) {
+                    studentData = studentDoc.data();
+                    const gamingLessons = studentData.gamingLessons || {};
+                    
+                    renderLessons(gamingLessons);
+                    
+                    const completedCount = Object.values(gamingLessons).filter(lesson => lesson.status === 'completed').length;
+                    document.getElementById('firebaseStatus').innerHTML = `<span class="text-green-600 font-medium">✅ Firebase: ${completedCount}/10 gaming quests concluídas</span>`;
+                } else {
+                    document.getElementById('firebaseStatus').innerHTML = '<span class="text-red-600 font-medium">❌ Estudante não encontrado</span>';
+                    renderLessons({});
+                }
+            } catch (error) {
+                console.error('❌ Error loading progress:', error);
+                document.getElementById('firebaseStatus').innerHTML = '<span class="text-red-600 font-medium">❌ Erro Firebase - modo offline</span>';
+                renderLessons({});
+            }
+        }
+
+        function renderLessons(gamingLessons) {
+            const grid = document.getElementById('lessonsGrid');
+            
+            grid.innerHTML = GAMING_LESSONS.map((lesson, index) => {
+                const progress = gamingLessons[lesson.id] || { status: 'not-started', score: 0, attempts: 0 };
+                const statusClass = getStatusClass(progress.status);
+                const statusText = getStatusText(progress.status);
+                
+                return `
+                    <div class="lesson-card elegant-card rounded-lg p-4 cursor-pointer hover:scale-105 transition-all" onclick="startLesson('${lesson.id}')">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="text-2xl">${lesson.icon}</div>
+                            <span class="status-badge ${statusClass}">${statusText}</span>
+                        </div>
+                        <h3 class="font-semibold text-charcoal mb-2">Quest ${index + 1}: ${lesson.title}</h3>
+                        <p class="text-sm text-medium-gray mb-3">${lesson.description}</p>
+                        <div class="flex items-center justify-between text-xs text-medium-gray">
+                            <span>🎮 ${lesson.duration}</span>
+                            <span class="font-semibold text-alex-blue">${progress.status === 'completed' ? `✅ ${progress.score}/5` : '+50 XP'}</span>
+                        </div>
+                        ${progress.attempts > 0 ? `
+                            <div class="mt-2 text-xs text-medium-gray">
+                                Tentativas: ${progress.attempts} • Score: ${progress.score || 0}/5
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function getStatusClass(status) {
+            return {
+                'completed': 'status-completed',
+                'in-progress': 'status-in-progress',
+                'not-started': 'status-not-started'
+            }[status] || 'status-not-started';
+        }
+
+        function getStatusText(status) {
+            return {
+                'completed': 'Complete',
+                'in-progress': 'In Progress', 
+                'not-started': 'Available'
+            }[status] || 'Available';
+        }
+
+        // Start lesson function
+        window.startLesson = function(lessonId) {
+            currentLesson = GAMING_LESSONS.find(l => l.id === lessonId);
+            if (!currentLesson) return;
+
+            lessonStartTime = Date.now();
+            userAnswers = new Array(currentLesson.questions.length).fill(null);
+            
+            // Setup lesson interface
+            document.getElementById('lessonSelection').classList.add('hidden');
+            document.getElementById('lessonInterface').classList.remove('hidden');
+            
+            // Update lesson info
+            const lessonIndex = GAMING_LESSONS.findIndex(l => l.id === lessonId) + 1;
+            document.getElementById('lessonProgress').textContent = `Quest ${lessonIndex} of ${GAMING_LESSONS.length}`;
+            document.getElementById('lessonTitle').textContent = currentLesson.title;
+            document.getElementById('lessonDescription').textContent = currentLesson.description;
+            
+            // Update header bar
+            const currentStudent = getCurrentStudent();
+            const displayName = currentStudent ? currentStudent.displayName : 'Estudante';
+            document.getElementById('userCourseLine').textContent = `${displayName} • Quest ${lessonIndex}: ${currentLesson.title}`;
+            
+            // Setup audio (placeholder path - will need actual gaming audio files)
+            document.getElementById('audioSource').src = `../audio/gaming/${currentLesson.audioFile}`;
+            audioPlayer.load();
+            
+            // Load questions
+            loadQuestions();
+            
+            // Reset progress
+            updateProgress(0, 'Listen to Audio');
+            
+            console.log('🎯 Gaming quest started:', currentLesson.title);
+        };
+
+        function loadQuestions() {
+            const questionsSection = document.getElementById('questionsSection');
+            
+            questionsSection.innerHTML = currentLesson.questions.map((question, index) => `
+                <div class="question-container elegant-card rounded-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-8 h-8 bg-alex-blue text-white rounded-full flex items-center justify-center font-bold text-sm mr-3">
+                            ${index + 1}
+                        </div>
+                        <div class="text-sm text-medium-gray">Question ${index + 1} of ${currentLesson.questions.length}</div>
+                    </div>
+                    
+                    <h4 class="text-lg font-semibold text-charcoal mb-4">${question.question}</h4>
+                    
+                    <div class="space-y-3">
+                        ${question.options.map((option, optionIndex) => `
+                            <div class="answer-option cursor-pointer" data-question="${index}" data-option="${optionIndex}" onclick="selectAnswer(${index}, ${optionIndex})">
+                                <div class="option-letter">${String.fromCharCode(65 + optionIndex)}</div>
+                                <div class="flex-1">${option}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        window.selectAnswer = function(questionIndex, optionIndex) {
+            // Remove previous selections
+            document.querySelectorAll(`[data-question="${questionIndex}"]`).forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Add new selection
+            document.querySelector(`[data-question="${questionIndex}"][data-option="${optionIndex}"]`)
+                .classList.add('selected');
+            
+            // Store answer
+            userAnswers[questionIndex] = optionIndex;
+            
+            // Update submit button
+            const answeredCount = userAnswers.filter(answer => answer !== null).length;
+            const submitBtn = document.getElementById('submitAnswers');
+            submitBtn.textContent = `Complete Quest (${answeredCount}/5 Complete)`;
+            submitBtn.disabled = answeredCount < 5;
+            
+            if (answeredCount === 5) {
+                submitBtn.classList.remove('opacity-50');
+                submitBtn.textContent = 'Complete Quest - Ready! 🎯';
+            }
+            
+            // Update progress
+            const progress = 20 + (answeredCount / currentLesson.questions.length) * 80;
+            updateProgress(progress, `${answeredCount}/5 Questions Answered`);
+        };
+
+        function updateProgress(percentage, text) {
+            document.getElementById('progressBar').style.width = `${percentage}%`;
+            document.getElementById('progressText').textContent = text;
+        }
+
+        function initializeEventListeners() {
+            // Audio controls (same as original)
+            document.getElementById('playPauseBtn').addEventListener('click', () => {
+                if (audioPlayer.paused) {
+                    audioPlayer.play();
+                    document.getElementById('playPauseBtn').textContent = '⏸️ Pause';
+                } else {
+                    audioPlayer.pause();
+                    document.getElementById('playPauseBtn').textContent = '▶️ Play';
+                }
+            });
+            
+            document.getElementById('rewindBtn').addEventListener('click', () => {
+                audioPlayer.currentTime = Math.max(0, audioPlayer.currentTime - 10);
+            });
+            
+            document.getElementById('forwardBtn').addEventListener('click', () => {
+                audioPlayer.currentTime = Math.min(audioPlayer.duration, audioPlayer.currentTime + 10);
+            });
+            
+            // Speed controls
+            document.querySelectorAll('.speed-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const speed = parseFloat(btn.dataset.speed);
+                    audioPlayer.playbackRate = speed;
+                    
+                    document.querySelector('.speed-btn.active').classList.remove('active');
+                    btn.classList.add('active');
+                });
+            });
+            
+            // Submit answers
+            document.getElementById('submitAnswers').addEventListener('click', submitAnswers);
+            
+            // Navigation
+            document.getElementById('backToLessons').addEventListener('click', () => {
+                document.getElementById('lessonInterface').classList.add('hidden');
+                document.getElementById('lessonSelection').classList.remove('hidden');
+                
+                const currentStudent = getCurrentStudent();
+                const displayName = currentStudent ? currentStudent.displayName : 'Estudante';
+                document.getElementById('userCourseLine').textContent = `${displayName} • Gaming World`;
+            });
+        }
+
+        async function submitAnswers() {
+            try {
+                const score = calculateScore();
+                const timeSpent = Math.floor((Date.now() - lessonStartTime) / 1000);
+                const xpEarned = calculateXP(score);
+                
+                // Save to Firebase (gaming lessons)
+                await saveLessonProgress(score, timeSpent, xpEarned);
+                
+                // Show results
+                showResultsModal(score, xpEarned);
+                
+            } catch (error) {
+                console.error('❌ Error submitting answers:', error);
+                alert('Erro ao salvar progresso. Tente novamente.');
+            }
+        }
+
+        function calculateScore() {
+            return userAnswers.reduce((score, answer, index) => {
+                return score + (answer === currentLesson.questions[index].correct ? 1 : 0);
+            }, 0);
+        }
+
+        function calculateXP(score) {
+            const baseXP = score * 10;
+            const bonusXP = score === 5 ? 25 : 0;
+            return baseXP + bonusXP;
+        }
+
+        async function saveLessonProgress(score, timeSpent, xpEarned) {
+            const currentStudent = getCurrentStudent();
+            if (!currentStudent) return;
+
+            const studentRef = doc(db, 'students', currentStudent.username);
+            const lessonPath = `gamingLessons.${currentLesson.id}`;
+            
+            const existingLesson = studentData?.gamingLessons?.[currentLesson.id];
+            const currentAttempts = existingLesson?.attempts || 0;
+            
+            const currentTotalXP = studentData?.totalXP || 0;
+            const newTotalXP = currentTotalXP + xpEarned;
+            const newLevel = calculateLevelFromXP(newTotalXP);
+            
+            const updateData = {
+                [lessonPath]: {
+                    status: 'completed',
+                    score: score,
+                    totalQuestions: 5,
+                    attempts: currentAttempts + 1,
+                    completedAt: serverTimestamp(),
+                    timeSpent: timeSpent,
+                    xpEarned: xpEarned
+                },
+                totalXP: newTotalXP,
+                level: newLevel,
+                lastLoginDate: serverTimestamp()
+            };
+
+            await updateDoc(studentRef, updateData);
+            
+            if (!studentData.gamingLessons) studentData.gamingLessons = {};
+            studentData.gamingLessons[currentLesson.id] = updateData[lessonPath];
+            studentData.totalXP = newTotalXP;
+            studentData.level = newLevel;
+            
+            console.log(`✅ Gaming progress saved: +${xpEarned} XP, Level ${newLevel}`);
+        }
+
+        function calculateLevelFromXP(totalXP) {
+            if (totalXP < 100) return 1;
+            
+            let level = 1;
+            let xpRequired = 0;
+            
+            while (totalXP >= xpRequired) {
+                level++;
+                xpRequired += (level - 1) * 150;
+                if (level > 1000) break;
+            }
+            
+            return Math.min(level - 1, 1000);
+        }
+
+        function showResultsModal(score, xpEarned) {
+            const percentage = Math.round((score / 5) * 100);
+            const isPerfect = score === 5;
+            
+            document.getElementById('resultIcon').textContent = isPerfect ? '🏆' : score >= 4 ? '🎯' : '📝';
+            document.getElementById('resultTitle').textContent = isPerfect ? 'Perfect Quest!' : score >= 4 ? 'Great Gaming!' : 'Quest Complete!';
+            document.getElementById('scoreDisplay').textContent = `${score}/5`;
+            document.getElementById('percentageDisplay').textContent = `${percentage}% Correct`;
+            document.getElementById('xpEarned').textContent = `+${xpEarned} XP Earned!`;
+            
+            if (isPerfect) {
+                document.getElementById('achievementDisplay').classList.remove('hidden');
+                document.getElementById('achievementText').textContent = '🎮 Perfect Gaming Quest!';
+            }
+            
+            document.getElementById('resultsModal').classList.remove('hidden');
+        }
+
+        // Logout function
+        window.logout = function() {
+            localStorage.clear();
+            window.location.href = '../index.html';
+        };
+    </script>
+
+    <!-- Header Bar Styles (same as hub and lessons) -->
+    <style>
+        .lesson-header-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            padding: 16px 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-left {
+            text-align: center;
+        }
+
+        .brand-line {
+            font-size: 12px;
+            font-weight: 600;
+            color: #3b82f6;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        .user-course-line {
+            font-size: 14px;
+            color: #1f2937;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .btn-portal {
+            background: #3b82f6;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-portal:hover {
+            background: #2563eb;
+        }
+
+        .btn-sair {
+            background: transparent;
+            color: #6b7280;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            border: 1px solid #e5e7eb;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-sair:hover {
+            background: #f9fafb;
+            color: #374151;
+        }
+
+        .lesson-content {
+            margin-top: 120px;
+        }
+
+        @media (min-width: 768px) {
+            .lesson-header-bar {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                padding: 12px 40px;
+            }
+            
+            .header-left {
+                text-align: left;
+            }
+            
+            .lesson-content {
+                margin-top: 80px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .lesson-header-bar {
+                padding: 12px 16px;
+                gap: 6px;
+            }
+            
+            .brand-line {
+                font-size: 11px;
+            }
+            
+            .user-course-line {
+                font-size: 13px;
+            }
+            
+            .btn-portal, .btn-sair {
+                padding: 6px 12px;
+                font-size: 11px;
+            }
+            
+            .lesson-content {
+                margin-top: 110px;
+            }
+        }
+    </style>
+
+</body>
+</html>
