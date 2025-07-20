@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal Acadêmico - Teacher Alex</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body class="sophisticated-bg min-h-screen">
 
@@ -217,12 +217,12 @@
         function handleLogout() {
             localStorage.removeItem('studentLoggedIn');
             localStorage.removeItem('studentUsername');
-            window.location.href = 'index.html';
+            window.location.href = '../index.html';
         }
 
         // Session Protection
         if (!localStorage.getItem('studentLoggedIn')) {
-            window.location.href = 'index.html';
+            window.location.href = '../index.html';
         }
 
         // Event Listeners
