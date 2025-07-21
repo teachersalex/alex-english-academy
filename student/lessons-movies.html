@@ -9,10 +9,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../css/style.css">
 </head>
-<body class="sophisticated-bg min-h-screen">
+<body class="colorful-bg min-h-screen">
 
-    <!-- Professional Full-Width Header Bar -->
-    <header class="lesson-header-bar">
+    <!-- Professional Colorful Header Bar -->
+    <header class="colorful-header-bar">
         <div class="header-left">
             <div class="brand-line">Teacher Alex English Academy</div>
             <div class="user-course-line" id="userCourseLine">Alex12345 • Movie Magic</div>
@@ -31,21 +31,21 @@
         <!-- Lesson Selection View -->
         <div id="lessonSelection">
             <!-- Course Header -->
-            <div class="elegant-card rounded-lg p-6 mb-6">
+            <div class="colorful-main-card rounded-xl p-6 mb-6">
                 <div class="text-center">
                     <div class="text-5xl mb-4">🎬</div>
-                    <h2 class="text-2xl font-bold text-charcoal mb-2">Movie Magic</h2>
-                    <p class="text-medium-gray mb-4">Hollywood English and cinema conversations</p>
-                    <div class="bg-powder-blue rounded-lg p-3">
-                        <p class="text-alex-blue font-medium">🎭 Complete movie quests • 📊 Track progress • 🏆 Earn Cinema Lover achievement!</p>
+                    <h2 class="text-2xl font-bold text-white mb-2">Movie Magic</h2>
+                    <p class="text-blue-100 mb-4">Hollywood English and cinema conversations</p>
+                    <div class="colorful-accent-card rounded-lg p-3">
+                        <p class="text-white font-medium">🎭 Complete movie quests • 📊 Track progress • 🏆 Earn Cinema Lover achievement!</p>
                     </div>
                 </div>
             </div>
 
             <!-- Firebase Status -->
-            <div class="elegant-card rounded-lg p-4 mb-6 text-center">
+            <div class="status-card rounded-lg p-4 mb-6 text-center">
                 <div id="firebaseStatus" class="text-sm">
-                    <span class="text-alex-blue font-medium">🔥 Carregando progresso do Firebase...</span>
+                    <span class="text-primary-blue font-medium">🔥 Carregando progresso do Firebase...</span>
                 </div>
             </div>
 
@@ -58,29 +58,29 @@
         <!-- Interactive Lesson View -->
         <div id="lessonInterface" class="hidden">
             <!-- Lesson Header -->
-            <div class="elegant-card rounded-lg p-6 mb-6">
+            <div class="professional-card rounded-xl p-6 mb-6">
                 <div class="flex items-center justify-between mb-4">
                     <button id="backToLessons" class="link-sophisticated text-sm">← Back to Movie Magic</button>
                     <div id="lessonProgress" class="text-sm text-medium-gray">Movie 1 of 10</div>
                 </div>
                 
-                <h2 id="lessonTitle" class="text-2xl font-bold text-charcoal mb-2">Going to the Cinema</h2>
+                <h2 id="lessonTitle" class="text-2xl font-bold text-foundation-primary mb-2">Going to the Cinema</h2>
                 <p id="lessonDescription" class="text-medium-gray mb-4">Cinema dates and movie experiences</p>
                 
                 <!-- Progress Indicator -->
-                <div class="bg-bg-gray rounded-lg p-3">
+                <div class="progress-card rounded-lg p-3">
                     <div class="flex justify-between text-sm mb-2">
                         <span>Movie Progress</span>
                         <span id="progressText">Listen to Audio</span>
                     </div>
-                    <div class="progress-bar-container h-2">
-                        <div id="progressBar" class="progress-bar"></div>
+                    <div class="progress-bar-container h-3 rounded-full">
+                        <div id="progressBar" class="progress-bar rounded-full"></div>
                     </div>
                 </div>
             </div>
 
             <!-- Audio Player -->
-            <div class="elegant-card rounded-lg p-6 mb-6">
+            <div class="audio-card rounded-xl p-6 mb-6">
                 <div class="text-center mb-4">
                     <h3 class="text-lg font-semibold text-charcoal mb-2">🎧 Listen to the Movie Audio</h3>
                     <p class="text-medium-gray">Listen carefully and answer the cinema questions below</p>
@@ -112,8 +112,8 @@
             </div>
 
             <!-- Submit Section -->
-            <div class="elegant-card rounded-lg p-6 text-center">
-                <button id="submitAnswers" class="btn-primary px-8 py-4 rounded-lg text-lg font-bold" disabled>
+            <div class="submit-card rounded-xl p-6 text-center">
+                <button id="submitAnswers" class="btn-primary px-8 py-4 rounded-xl text-lg font-bold" disabled>
                     Complete Movie (0/5 Complete)
                 </button>
                 <p class="text-medium-gray text-sm mt-2">Answer all questions to complete the movie</p>
@@ -123,21 +123,21 @@
 
     <!-- Results Modal -->
     <div id="resultsModal" class="hidden fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-        <div class="elegant-card rounded-2xl p-6 max-w-md w-full">
+        <div class="modal-card rounded-2xl p-6 max-w-md w-full">
             <div class="text-center">
                 <div id="resultIcon" class="text-5xl mb-4">🎉</div>
                 <h3 id="resultTitle" class="text-xl font-bold text-charcoal mb-4">Movie Complete!</h3>
                 
                 <!-- Score Display -->
-                <div class="bg-bg-gray rounded-lg p-4 mb-4">
+                <div class="score-card rounded-lg p-4 mb-4">
                     <div id="scoreDisplay" class="text-3xl font-bold text-charcoal mb-1">5/5</div>
                     <div id="percentageDisplay" class="text-lg text-medium-gray mb-2">100% Correct</div>
-                    <div id="xpEarned" class="text-academy-red font-semibold text-lg">+75 XP Earned!</div>
+                    <div id="xpEarned" class="text-accent-red font-semibold text-lg">+75 XP Earned!</div>
                 </div>
                 
                 <!-- Achievement -->
-                <div id="achievementDisplay" class="hidden bg-powder-blue rounded-lg p-3 mb-4">
-                    <div class="text-sm font-semibold text-alex-blue mb-2">🎉 Achievement Unlocked!</div>
+                <div id="achievementDisplay" class="hidden achievement-card rounded-lg p-3 mb-4">
+                    <div class="text-sm font-semibold text-foundation-primary mb-2">🎉 Achievement Unlocked!</div>
                     <div id="achievementText" class="font-medium"></div>
                 </div>
                 
@@ -159,7 +159,7 @@
 
     <!-- Answer Review Modal -->
     <div id="reviewModal" class="hidden fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-        <div class="elegant-card rounded-2xl p-6 max-w-2xl w-full max-h-96 overflow-y-auto">
+        <div class="modal-card rounded-2xl p-6 max-w-2xl w-full max-h-96 overflow-y-auto">
             <h3 class="text-lg font-bold text-charcoal mb-4 text-center">📝 Movie Review</h3>
             <div id="reviewContent" class="space-y-4 mb-6">
                 <!-- Review content here -->
@@ -578,7 +578,7 @@
                 const currentStudent = getCurrentStudent();
                 if (!currentStudent) return;
 
-                document.getElementById('firebaseStatus').innerHTML = '<span class="text-alex-blue font-medium">🔍 Carregando progresso...</span>';
+                document.getElementById('firebaseStatus').innerHTML = '<span class="text-foundation-primary font-bold">🔍 Carregando progresso...</span>';
 
                 const studentRef = doc(db, 'students', currentStudent.username);
                 const studentDoc = await getDoc(studentRef);
@@ -590,14 +590,14 @@
                     renderLessons(movieLessons);
                     
                     const completedCount = Object.values(movieLessons).filter(lesson => lesson.status === 'completed').length;
-                    document.getElementById('firebaseStatus').innerHTML = `<span class="text-green-600 font-medium">✅ Firebase: ${completedCount}/10 Movie Magic lessons completed</span>`;
+                    document.getElementById('firebaseStatus').innerHTML = `<span class="text-foundation-primary font-bold">✅ Firebase: ${completedCount}/10 Movie Magic lessons completed</span>`;
                 } else {
-                    document.getElementById('firebaseStatus').innerHTML = '<span class="text-red-600 font-medium">❌ Estudante não encontrado</span>';
+                    document.getElementById('firebaseStatus').innerHTML = '<span class="text-error-red font-medium">❌ Estudante não encontrado</span>';
                     renderLessons({});
                 }
             } catch (error) {
                 console.error('❌ Error loading progress:', error);
-                document.getElementById('firebaseStatus').innerHTML = '<span class="text-red-600 font-medium">❌ Erro Firebase - modo offline</span>';
+                document.getElementById('firebaseStatus').innerHTML = '<span class="text-error-red font-medium">❌ Erro Firebase - modo offline</span>';
                 renderLessons({});
             }
         }
@@ -611,7 +611,7 @@
                 const statusText = getStatusText(progress.status);
                 
                 return `
-                    <div class="lesson-card elegant-card rounded-lg p-4 cursor-pointer hover:scale-105 transition-all" onclick="startLesson('${lesson.id}')">
+                    <div class="lesson-card professional-card rounded-xl p-4 cursor-pointer hover:scale-105 transition-all" onclick="startLesson('${lesson.id}')">
                         <div class="flex items-center justify-between mb-3">
                             <div class="text-2xl">${lesson.icon}</div>
                             <span class="status-badge ${statusClass}">${statusText}</span>
@@ -620,7 +620,7 @@
                         <p class="text-sm text-medium-gray mb-3">${lesson.description}</p>
                         <div class="flex items-center justify-between text-xs text-medium-gray">
                             <span>🎬 ${lesson.duration}</span>
-                            <span class="font-semibold text-alex-blue">${progress.status === 'completed' ? `✅ ${progress.score}/5` : '+50 XP'}</span>
+                            <span class="font-semibold text-foundation-primary">${progress.status === 'completed' ? `✅ ${progress.score}/5` : '+50 XP'}</span>
                         </div>
                         ${progress.attempts > 0 ? `
                             <div class="mt-2 text-xs text-medium-gray">
@@ -642,7 +642,7 @@
 
         function getStatusText(status) {
             return {
-                'completed': 'Complete',
+                'completed': 'Completed',
                 'in-progress': 'In Progress', 
                 'not-started': 'Available'
             }[status] || 'Available';
@@ -691,9 +691,9 @@
             const questionsSection = document.getElementById('questionsSection');
             
             questionsSection.innerHTML = currentLesson.questions.map((question, index) => `
-                <div class="question-container elegant-card rounded-lg p-6">
+                <div class="question-card rounded-xl p-6">
                     <div class="flex items-center mb-4">
-                        <div class="w-8 h-8 bg-alex-blue text-white rounded-full flex items-center justify-center font-bold text-sm mr-3">
+                        <div class="w-8 h-8 bg-foundation-primary text-white rounded-full flex items-center justify-center font-bold text-sm mr-3">
                             ${index + 1}
                         </div>
                         <div class="text-sm text-medium-gray">Question ${index + 1} of ${currentLesson.questions.length}</div>
@@ -937,14 +937,14 @@
                 const userAnswerText = question.options[userAnswer];
                 
                 return `
-                    <div class="border-b border-light-gray pb-4 last:border-b-0">
+                    <div class="border-b border-soft-border pb-4 last:border-b-0">
                         <div class="font-medium text-charcoal mb-2">${index + 1}. ${question.question}</div>
                         <div class="space-y-1">
-                            <div class="${isCorrect ? 'text-green-600' : 'text-red-600'} font-medium">
+                            <div class="${isCorrect ? 'text-success-green' : 'text-error-red'} font-medium">
                                 ${isCorrect ? '✅' : '❌'} Your answer: ${userAnswerText}
                             </div>
                             ${!isCorrect ? `
-                                <div class="text-green-600 font-medium">
+                                <div class="text-success-green font-medium">
                                     ✅ Correct: ${correctAnswer}
                                 </div>
                             ` : ''}
@@ -993,17 +993,71 @@
         };
     </script>
 
-    <!-- Header Bar Styles (same as foundation and gaming) -->
+    <!-- Universal Blue/Gray Theme Styles -->
     <style>
-        .lesson-header-bar {
+        /* Universal Theme Variables */
+        :root {
+            --foundation-primary: #3b82f6;
+            --foundation-secondary: #1d4ed8;
+            --foundation-light: #93c5fd;
+            --foundation-dark: #1e40af;
+            
+            --primary-blue: #3b82f6;
+            --secondary-blue: #1e40af;
+            --accent-red: #ef4444;
+            --success-green: #10b981;
+            --error-red: #f87171;
+            --warning-orange: #f59e0b;
+            
+            --charcoal: #1f2937;
+            --medium-gray: #6b7280;
+            --light-gray: #e5e7eb;
+            --soft-border: #d1d5db;
+            
+            --bg-primary: #f8fafc;
+            --bg-secondary: #e2e8f0;
+            --bg-card: #ffffff;
+            --bg-accent: #dbeafe;
+        }
+
+        /* Clean Background - Light Gray for Desktop */
+        .colorful-bg {
+            background: #f1f5f9;
+            min-height: 100vh;
+        }
+
+        /* Mobile can keep subtle gradient */
+        @media (max-width: 768px) {
+            .colorful-bg {
+                background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f1f5f9 100%);
+                background-attachment: fixed;
+            }
+        }
+
+        /* Colorful Main Card */
+        .colorful-main-card {
+            background: linear-gradient(135deg, var(--foundation-primary), var(--foundation-secondary));
+            border: none;
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+            color: white;
+        }
+
+        .colorful-accent-card {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Colorful Header Bar */
+        .colorful-header-bar {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             width: 100%;
-            background: white;
-            border-bottom: 1px solid #e5e7eb;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            background: linear-gradient(135deg, var(--foundation-primary), var(--foundation-secondary));
+            border-bottom: 2px solid var(--foundation-dark);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
             padding: 16px 20px;
             z-index: 1000;
             display: flex;
@@ -1012,69 +1066,267 @@
             gap: 8px;
         }
 
-        .header-left {
-            text-align: center;
-        }
-
-        .brand-line {
+        .colorful-header-bar .brand-line {
             font-size: 12px;
             font-weight: 600;
-            color: #3b82f6;
+            color: white;
             text-align: center;
             letter-spacing: 0.5px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
         }
 
-        .user-course-line {
+        .colorful-header-bar .user-course-line {
             font-size: 14px;
-            color: #1f2937;
+            color: #e2e8f0;
             font-weight: 500;
             text-align: center;
         }
 
-        .header-actions {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-        }
-
-        .btn-portal {
-            background: #3b82f6;
-            color: white;
+        .colorful-header-bar .btn-portal {
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--foundation-secondary);
             padding: 8px 16px;
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 12px;
-            font-weight: 500;
+            font-weight: 600;
             border: none;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        .btn-portal:hover {
-            background: #2563eb;
+        .colorful-header-bar .btn-portal:hover {
+            background: white;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
         }
 
-        .btn-sair {
-            background: transparent;
-            color: #6b7280;
+        .colorful-header-bar .btn-sair {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
             padding: 8px 16px;
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 12px;
-            border: 1px solid #e5e7eb;
+            border: 1px solid rgba(255, 255, 255, 0.3);
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s ease;
         }
 
-        .btn-sair:hover {
-            background: #f9fafb;
-            color: #374151;
+        .colorful-header-bar .btn-sair:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
         }
 
+        /* Card Styles */
+        .professional-card {
+            background: var(--bg-card);
+            border: 2px solid var(--bg-accent);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .professional-card:hover {
+            box-shadow: 0 12px 35px rgba(59, 130, 246, 0.25);
+            transform: translateY(-3px);
+            border-color: var(--foundation-primary);
+        }
+
+        .status-card {
+            background: linear-gradient(135deg, var(--bg-accent), var(--bg-secondary));
+            border: 2px solid var(--foundation-light);
+            color: var(--foundation-dark);
+        }
+
+        .progress-card {
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-accent));
+            border: 2px solid var(--foundation-light);
+        }
+
+        .audio-card {
+            background: var(--bg-card);
+            border: 2px solid var(--foundation-light);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.15);
+        }
+
+        .question-card {
+            background: var(--bg-card);
+            border: 2px solid var(--bg-accent);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.1);
+        }
+
+        .submit-card {
+            background: linear-gradient(135deg, var(--bg-accent), var(--foundation-light));
+            border: 2px solid var(--foundation-primary);
+        }
+
+        .modal-card {
+            background: var(--bg-card);
+            border: 2px solid var(--foundation-primary);
+            box-shadow: 0 25px 50px rgba(59, 130, 246, 0.25);
+        }
+
+        .score-card {
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-accent));
+            border: 2px solid var(--foundation-primary);
+        }
+
+        .achievement-card {
+            background: linear-gradient(135deg, var(--foundation-light), var(--bg-accent));
+            border: 2px solid var(--foundation-primary);
+        }
+
+        /* Enhanced Colors */
+        .text-primary-blue { color: var(--primary-blue); }
+        .text-accent-red { color: var(--accent-red); }
+        .text-success-green { color: var(--success-green); }
+        .text-error-red { color: var(--error-red); }
+        .text-foundation-primary { color: var(--foundation-primary); }
+
+        /* Progress Bar */
+        .progress-bar-container {
+            background: var(--bg-secondary);
+            overflow: hidden;
+            border: 1px solid var(--foundation-light);
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, var(--foundation-primary), var(--foundation-light));
+            transition: width 0.8s ease;
+            box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Answer Options - MUCH MORE VISIBLE SELECTION */
+        .answer-option {
+            background: var(--bg-secondary);
+            border: 2px solid var(--foundation-light);
+            transition: all 0.3s ease;
+        }
+
+        .answer-option:hover {
+            border-color: var(--foundation-primary);
+            background: var(--bg-accent);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+        }
+
+        .answer-option.selected {
+            border-color: var(--foundation-primary);
+            background: var(--foundation-primary) !important;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+            transform: translateY(-1px);
+        }
+
+        /* Selected Answer Text - WHITE for contrast */
+        .answer-option.selected {
+            color: white !important;
+        }
+
+        .answer-option.selected .option-letter {
+            background: white;
+            color: var(--foundation-primary);
+            border: 2px solid white;
+        }
+
+        .answer-option.selected div {
+            color: white !important;
+        }
+
+        .option-letter {
+            background: var(--foundation-primary);
+            color: white;
+        }
+
+        /* Status Badges */
+        .status-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border: 1px solid;
+        }
+
+        .status-completed {
+            background: var(--foundation-primary);
+            color: white;
+            border-color: var(--foundation-secondary);
+        }
+
+        .status-in-progress {
+            background: var(--primary-blue);
+            color: white;
+            border-color: var(--secondary-blue);
+        }
+
+        .status-not-started {
+            background: var(--bg-accent);
+            color: var(--foundation-dark);
+            border-color: var(--foundation-light);
+        }
+
+        /* Enhanced Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-red), #dc2626);
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--foundation-primary), var(--foundation-secondary));
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, var(--foundation-secondary), var(--foundation-dark));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-subtle {
+            background: var(--bg-accent);
+            color: var(--foundation-dark);
+            border: 2px solid var(--foundation-light);
+            transition: all 0.3s ease;
+        }
+
+        .btn-subtle:hover {
+            background: var(--foundation-light);
+            border-color: var(--foundation-primary);
+            transform: translateY(-1px);
+        }
+
+        /* Speed Controls */
+        .speed-btn {
+            background: var(--bg-accent);
+            color: var(--foundation-dark);
+            border: 2px solid var(--foundation-light);
+            transition: all 0.3s ease;
+        }
+
+        .speed-btn:hover,
+        .speed-btn.active {
+            background: var(--foundation-primary);
+            color: white;
+            border-color: var(--foundation-secondary);
+            transform: translateY(-1px);
+        }
+
+        /* Add top margin to main content */
         .lesson-content {
             margin-top: 120px;
         }
 
+        /* Desktop responsive */
         @media (min-width: 768px) {
-            .lesson-header-bar {
+            .colorful-header-bar {
                 flex-direction: row;
                 justify-content: space-between;
                 align-items: center;
@@ -1090,21 +1342,23 @@
             }
         }
 
+        /* Mobile adjustments */
         @media (max-width: 480px) {
-            .lesson-header-bar {
+            .colorful-header-bar {
                 padding: 12px 16px;
                 gap: 6px;
             }
             
-            .brand-line {
+            .colorful-header-bar .brand-line {
                 font-size: 11px;
             }
             
-            .user-course-line {
+            .colorful-header-bar .user-course-line {
                 font-size: 13px;
             }
             
-            .btn-portal, .btn-sair {
+            .colorful-header-bar .btn-portal, 
+            .colorful-header-bar .btn-sair {
                 padding: 6px 12px;
                 font-size: 11px;
             }
@@ -1112,6 +1366,36 @@
             .lesson-content {
                 margin-top: 110px;
             }
+        }
+
+        /* Professional Background */
+        .professional-bg {
+            background: linear-gradient(135deg, var(--bg-primary) 0%, #ffffff 50%, var(--bg-secondary) 100%);
+            background-attachment: fixed;
+        }
+
+        .bg-primary-blue { background-color: var(--primary-blue); }
+        .bg-accent-red { background-color: var(--accent-red); }
+        .bg-foundation-primary { background-color: var(--foundation-primary); }
+        .text-blue-100 { color: #dbeafe; }
+        
+        /* Link Styles */
+        .link-sophisticated {
+            color: var(--foundation-primary);
+            transition: color 0.2s ease;
+        }
+        
+        .link-sophisticated:hover {
+            color: var(--foundation-secondary);
+        }
+        
+        .link-muted {
+            color: var(--medium-gray);
+            transition: color 0.2s ease;
+        }
+        
+        .link-muted:hover {
+            color: var(--charcoal);
         }
     </style>
 
