@@ -1208,7 +1208,7 @@
             box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
         }
 
-        /* Answer Options */
+        /* Answer Options - MUCH MORE VISIBLE SELECTION */
         .answer-option {
             background: var(--bg-secondary);
             border: 2px solid var(--foundation-light);
@@ -1224,8 +1224,24 @@
 
         .answer-option.selected {
             border-color: var(--foundation-primary);
-            background: var(--bg-accent);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+            background: var(--foundation-primary) !important;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+            transform: translateY(-1px);
+        }
+
+        /* Selected Answer Text - WHITE for contrast */
+        .answer-option.selected {
+            color: white !important;
+        }
+
+        .answer-option.selected .option-letter {
+            background: white;
+            color: var(--foundation-primary);
+            border: 2px solid white;
+        }
+
+        .answer-option.selected div {
+            color: white !important;
         }
 
         .option-letter {
