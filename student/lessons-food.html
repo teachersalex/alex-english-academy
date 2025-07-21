@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Adventures - Teacher Alex Academy</title>
+    <!-- PRODUCTION NOTE: Replace Tailwind CDN with local build -->
+    <!-- See: https://tailwindcss.com/docs/installation -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="sophisticated-bg min-h-screen">
+
+    <!-- Professional Full-Width Header Bar -->
+    <header class="lesson-header-bar">
+        <div class="header-left">
+            <div class="brand-line">Teacher Alex English Academy</div>
+            <div class="user-course-line" id="userCourseLine">Alex12345 • Food Adventures</div>
+        </div>
+        
+        <div class="header-actions">
+            <button class="btn-portal" onclick="window.location.href='hub.html'">← Hub</button>
+            <button class="btn-sair" onclick="logout()">Sair</button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="lesson-content">
+        <div class="max-w-4xl mx-auto px-4 pb-8">
+        
+        <!-- Lesson Selection View -->
+        <div id="lessonSelection">
+            <!-- Course Header -->
+            <div class="elegant-card rounded-lg p-6 mb-6">
+                <div class="text-center">
+                    <div class="text-5xl mb-4">🍕</div>
+                    <h2 class="text-2xl font-bold text-charcoal mb-2">Food Adventures</h2>
+                    <p class="text-medium-gray mb-4">Explore delicious food stories with 10 interactive audio lessons</p>
+                    <div class="bg-powder-blue rounded-lg p-3">
+                        <p class="text-alex-blue font-medium">🍴 Brazilian cuisine • 🌮 International food • 🏆 Earn Food Explorer achievement!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Firebase Status -->
+            <div class="elegant-card rounded-lg p-4 mb-6 text-center">
+                <div id="firebaseStatus" class="text-sm">
+                    <span class="text-alex-blue font-medium">🔥 Carregando progresso do Firebase...</span>
+                </div>
+            </div>
+
+            <!-- Lessons Grid -->
+            <div id="lessonsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Lessons will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Interactive Lesson View -->
+        <div id="lessonInterface" class="hidden">
+            <!-- Lesson Header -->
+            <div class="elegant-card rounded-lg p-6 mb-6">
+                <div class="flex items-center justify-between mb-4">
+                    <button id="backToLessons" class="link-sophisticated text-sm">← Back to Food Adventures</button>
+                    <div id="lessonProgress" class="text-sm text-medium-gray">Lesson 1 of 10</div>
+                </div>
+                
+                <h2 id="lessonTitle" class="text-2xl font-bold text-charcoal mb-2">Cooking Pasta at Home</h2>
+                <p id="lessonDescription" class="text-medium-gray mb-4">First time cooking Italian pasta with homemade sauce</p>
+                
+                <!-- Progress Indicator -->
+                <div class="bg-bg-gray rounded-lg p-3">
+                    <div class="flex justify-between text-sm mb-2">
+                        <span>Lesson Progress</span>
+                        <span id="progressText">Listen to Audio</span>
+                    </div>
+                    <div class="progress-bar-container h-2">
+                        <div id="progressBar" class="progress-bar"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Audio Player -->
+            <div class="elegant-card rounded-lg p-6 mb-6">
+                <div class="text-center mb-4">
+                    <h3 class="text-lg font-semibold text-charcoal mb-2">🎧 Listen to the Audio</h3>
+                    <p class="text-medium-gray">Listen carefully and answer the questions below</p>
+                </div>
+                
+                <audio id="audioPlayer" class="w-full mb-4" controls>
+                    <source id="audioSource" src="" type="audio/mpeg">
+                    Your browser does not support audio.
+                </audio>
+                
+                <!-- Audio Controls -->
+                <div class="flex justify-center space-x-4 mb-4">
+                    <button id="playPauseBtn" class="btn-secondary px-6 py-2 rounded-lg">▶️ Play</button>
+                    <button id="rewindBtn" class="btn-subtle px-4 py-2 rounded-lg">⏪ -10s</button>
+                    <button id="forwardBtn" class="btn-subtle px-4 py-2 rounded-lg">⏩ +10s</button>
+                </div>
+                
+                <!-- Speed Controls -->
+                <div class="flex justify-center space-x-2">
+                    <button class="speed-btn px-3 py-1 text-sm rounded" data-speed="0.75">0.75x</button>
+                    <button class="speed-btn px-3 py-1 text-sm rounded active" data-speed="1">1x</button>
+                    <button class="speed-btn px-3 py-1 text-sm rounded" data-speed="1.25">1.25x</button>
+                </div>
+            </div>
+
+            <!-- Questions Section -->
+            <div id="questionsSection" class="space-y-6 mb-6">
+                <!-- Questions will be loaded here -->
+            </div>
+
+            <!-- Submit Section -->
+            <div class="elegant-card rounded-lg p-6 text-center">
+                <button id="submitAnswers" class="btn-primary px-8 py-4 rounded-lg text-lg font-bold" disabled>
+                    Submit Answers (0/5 Complete)
+                </button>
+                <p class="text-medium-gray text-sm mt-2">Answer all questions to continue</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Results Modal -->
+    <div id="resultsModal" class="hidden fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+        <div class="elegant-card rounded-2xl p-6 max-w-md w-full">
+            <div class="text-center">
+                <div id="resultIcon" class="text-5xl mb-4">🎉</div>
+                <h3 id="resultTitle" class="text-xl font-bold text-charcoal mb-4">Lesson Complete!</h3>
+                
+                <!-- Score Display -->
+                <div class="bg-bg-gray rounded-lg p-4 mb-4">
+                    <div id="scoreDisplay" class="text-3xl font-bold text-charcoal mb-1">5/5</div>
+                    <div id="percentageDisplay" class="text-lg text-medium-gray mb-2">100% Correct</div>
+                    <div id="xpEarned" class="text-academy-red font-semibold text-lg">+75 XP Earned!</div>
+                </div>
+                
+                <!-- Achievement -->
+                <div id="achievementDisplay" class="hidden bg-powder-blue rounded-lg p-3 mb-4">
+                    <div class="text-sm font-semibold text-alex-blue mb-2">🎉 Achievement Unlocked!</div>
+                    <div id="achievementText" class="font-medium"></div>
+                </div>
+                
+                <!-- Controls -->
+                <div class="space-y-3">
+                    <button id="reviewAnswers" class="btn-secondary w-full py-3 rounded-lg font-semibold">
+                        📊 Review Answers
+                    </button>
+                    <button id="nextLesson" class="btn-primary w-full py-3 rounded-lg font-semibold">
+                        Next Lesson →
+                    </button>
+                    <button id="backToLessonsList" class="link-muted text-sm py-2">
+                        Back to Food Adventures
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Answer Review Modal -->
+    <div id="reviewModal" class="hidden fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+        <div class="elegant-card rounded-2xl p-6 max-w-2xl w-full max-h-96 overflow-y-auto">
+            <h3 class="text-lg font-bold text-charcoal mb-4 text-center">📝 Answer Review</h3>
+            <div id="reviewContent" class="space-y-4 mb-6">
+                <!-- Review content here -->
+            </div>
+            <button id="closeReview" class="btn-primary w-full py-3 rounded-lg font-semibold">
+                Close Review
+            </button>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module" src="../js/firebase.js"></script>
+
+    <!-- Complete Interactive Lesson System -->
+    <script type="module">
+        import { db } from '../js/firebase.js';
+        import { doc, getDoc, updateDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js';
+
+        // Complete Food Adventures lesson data with ALL 10 lessons
+        const LESSONS = [
+            {
+                id: 'food-01',
+                title: 'Cooking Pasta at Home',
+                description: 'First time cooking Italian pasta with homemade sauce',
+                duration: '38s',
+                icon: '🍝',
+                audioFile: 'audio-01-cooking-pasta.mp3',
+                questions: [
+                    {
+                        question: "How long was the pasta supposed to boil?",
+                        options: ["10 minutes", "12 minutes", "15 minutes", "20 minutes"],
+                        correct: 1
+                    },
+                    {
+                        question: "What herb did she use from her garden?",
+                        options: ["Oregano", "Rosemary", "Basil", "Thyme"],
+                        correct: 2
+                    },
+                    {
+                        question: "Who helped her grate the cheese?",
+                        options: ["Her sister", "Her mom", "Maria", "Her boyfriend"],
+                        correct: 2
+                    },
+                    {
+                        question: "How long did she accidentally cook the pasta?",
+                        options: ["15 minutes", "18 minutes", "20 minutes", "25 minutes"],
+                        correct: 2
+                    },
+                    {
+                        question: "What does she think about cooking at home?",
+                        options: ["It's too difficult", "It's too expensive", "It's better than delivery", "It's too time-consuming"],
+                        correct: 2
+                    }
+                ]
+            },
+            {
+                id: 'food-02',
+                title: 'Brazilian BBQ Weekend',
+                description: 'Traditional churrasco with family in the backyard',
+                duration: '36s',
+                icon: '🥩',
+                audioFile: 'audio-02-brazilian-bbq.mp3',
+                questions: [
+                    {
+                        question: "Who was the grillmaster?",
+                        options: ["Her father", "Uncle João", "Her brother", "Her cousin"],
+                        correct: 1
+                    },
+                    {
+                        question: "What time did they start eating?",
+                        options: ["1 PM", "2 PM", "3 PM", "4 PM"],
+                        correct: 1
+                    },
+                    {
+                        question: "What did she make with bacon?",
+                        options: ["Salad", "Farofa", "Rice", "Beans"],
+                        correct: 1
+                    },
+                    {
+                        question: "How many people attended the barbecue?",
+                        options: ["12", "13", "15", "18"],
+                        correct: 2
+                    },
+                    {
+                        question: "What type of music did they listen to?",
+                        options: ["Rock", "Pop", "Sertanejo", "Funk"],
+                        correct: 2
+                    }
+                ]
+            },
+            {
+                id: 'food-03',
+                title: 'Pizza Delivery Disaster',
+                description: 'Waiting too long for cold pizza delivery',
+                duration: '40s',
+                icon: '🍕',
+                audioFile: 'audio-03-pizza-delivery.mp3',
+                questions: [
+                    {
+                        question: "How much did the pizza cost?",
+                        options: ["30 reais", "35 reais", "40 reais", "45 reais"],
+                        correct: 1
+                    },
+                    {
+                        question: "How long was the pizza supposed to take?",
+                        options: ["20 minutes", "25 minutes", "30 minutes", "45 minutes"],
+                        correct: 2
+                    },
+                    {
+                        question: "How long did she actually wait?",
+                        options: ["45 minutes", "1 hour", "1 hour 15 minutes", "1 hour 30 minutes"],
+                        correct: 2
+                    },
+                    {
+                        question: "Why was the delivery late?",
+                        options: ["Traffic jam", "Wrong order", "Delivery guy got lost", "Restaurant was busy"],
+                        correct: 2
+                    },
+                    {
+                        question: "What will she make next time instead?",
+                        options: ["Soup", "Salad", "Pasta", "Sandwich"],
+                        correct: 3
+                    }
+                ]
+            },
+            {
+                id: 'food-04',
+                title: 'Fancy Restaurant Date',
+                description: 'Anniversary dinner at expensive Italian restaurant',
+                duration: '39s',
+                icon: '🍷',
+                audioFile: 'audio-04-fancy-restaurant.mp3',
+                questions: [
+                    {
+                        question: "What language was the menu written in?",
+                        options: ["Portuguese", "English", "Italian", "Spanish"],
+                        correct: 2
+                    },
+                    {
+                        question: "What did they order as the main course?",
+                        options: ["Pasta and pizza", "Risotto and salmon", "Steak and chicken", "Soup and salad"],
+                        correct: 1
+                    },
+                    {
+                        question: "How much did the wine cost?",
+                        options: ["60 reais", "70 reais", "80 reais", "90 reais"],
+                        correct: 2
+                    },
+                    {
+                        question: "How much did they spend in total?",
+                        options: ["200 reais", "220 reais", "240 reais", "260 reais"],
+                        correct: 2
+                    },
+                    {
+                        question: "How did she feel about the portion sizes?",
+                        options: ["Perfect", "Too big", "Too tiny", "Just right"],
+                        correct: 2
+                    }
+                ]
+            },
+            {
+                id: 'food-05',
+                title: 'Learning to Bake Bread',
+                description: 'Pandemic bread baking with grandmother\'s recipe',
+                duration: '37s',
+                icon: '🍞',
+                audioFile: 'audio-05-baking-bread.mp3',
+                questions: [
+                    {
+                        question: "How many YouTube videos did she watch?",
+                        options: ["3", "4", "5", "6"],
+                        correct: 2
+                    },
+                    {
+                        question: "How was her first bread attempt?",
+                        options: ["Perfect", "Good", "Okay", "Hard as a rock"],
+                        correct: 3
+                    },
+                    {
+                        question: "How long did it take to perfect the recipe?",
+                        options: ["2 weeks", "3 weeks", "4 weeks", "1 month"],
+                        correct: 1
+                    },
+                    {
+                        question: "When does she bake bread now?",
+                        options: ["Every day", "Every Sunday morning", "Every weekend", "Once a month"],
+                        correct: 1
+                    },
+                    {
+                        question: "Who gave her the recipe?",
+                        options: ["Her mother", "Her aunt", "Her grandmother", "Her sister"],
+                        correct: 2
+                    }
+                ]
+            },
+            {
+                id: 'food-06',
+                title: 'Street Food Adventure',
+                description: 'Exploring São Paulo neighborhoods for local food',
+                duration: '41s',
+                icon: '🌮',
+                audioFile: 'audio-06-street-food.mp3',
+                questions: [
+                    {
+                        question: "Which district did she visit first?",
+                        options: ["Vila Madalena", "Liberdade", "Centro", "Moema"],
+                        correct: 1
+                    },
+                    {
+                        question: "What did takoyaki contain?",
+                        options: ["Shrimp", "Octopus", "Fish", "Chicken"],
+                        correct: 1
+                    },
+                    {
+                        question: "How much did 6 pieces of takoyaki cost?",
+                        options: ["12 reais", "15 reais", "18 reais", "20 reais"],
+                        correct: 1
+                    },
+                    {
+                        question: "How much was the gourmet hot dog?",
+                        options: ["15 reais", "16 reais", "18 reais", "20 reais"],
+                        correct: 2
+                    },
+                    {
+                        question: "What does she think about street food compared to fast food chains?",
+                        options: ["It's more expensive", "It's fresher and more interesting", "It's less healthy", "It's the same quality"],
+                        correct: 1
+                    }
+                ]
+            },
+            {
+                id: 'food-07',
+                title: 'Healthy Eating Journey',
+                description: 'Three months of lifestyle changes and meal prep',
+                duration: '35s',
+                icon: '🥗',
+                audioFile: 'audio-07-healthy-eating.mp3',
+                questions: [
+                    {
+                        question: "When did she start her healthy eating journey?",
+                        options: ["2 months ago", "3 months ago", "4 months ago", "6 months ago"],
+                        correct: 1
+                    },
+                    {
+                        question: "What vegetables does she put in her smoothie?",
+                        options: ["Carrots", "Broccoli", "Spinach", "Cucumber"],
+                        correct: 2
+                    },
+                    {
+                        question: "When does she do meal prep?",
+                        options: ["Saturdays", "Sundays", "Mondays", "Daily"],
+                        correct: 1
+                    },
+                    {
+                        question: "How much weight has she lost?",
+                        options: ["6 kilos", "7 kilos", "8 kilos", "10 kilos"],
+                        correct: 2
+                    },
+                    {
+                        question: "How often does she eat dark chocolate now?",
+                        options: ["Once a week", "Twice a week", "Every day", "Never"],
+                        correct: 1
+                    }
+                ]
+            },
+            {
+                id: 'food-08',
+                title: 'Family Recipe Secrets',
+                description: 'Learning great-grandmother\'s secret brigadeiro recipe',
+                duration: '42s',
+                icon: '🍫',
+                audioFile: 'audio-08-family-recipe.mp3',
+                questions: [
+                    {
+                        question: "Who originally had the secret recipe?",
+                        options: ["Her grandmother", "Her great-grandmother", "Her mother", "Her aunt"],
+                        correct: 1
+                    },
+                    {
+                        question: "When did her mother teach her the recipe?",
+                        options: ["Last Easter", "Last Christmas", "Her birthday", "New Year"],
+                        correct: 1
+                    },
+                    {
+                        question: "What is the secret ingredient?",
+                        options: ["Vanilla", "Cinnamon", "Sea salt", "Lemon"],
+                        correct: 2
+                    },
+                    {
+                        question: "How many brigadeiros did she make for her birthday?",
+                        options: ["30", "40", "50", "60"],
+                        correct: 2
+                    },
+                    {
+                        question: "What makes the secret ingredient special?",
+                        options: ["Makes it sweeter", "Makes it softer", "Makes chocolate flavor more intense", "Makes it last longer"],
+                        correct: 2
+                    }
+                ]
+            },
+            {
+                id: 'food-09',
+                title: 'International Food Festival',
+                description: 'Trying foods from 15 countries at Ibirapuera Park',
+                duration: '44s',
+                icon: '🌍',
+                audioFile: 'audio-09-food-festival.mp3',
+                questions: [
+                    {
+                        question: "Where was the food festival located?",
+                        options: ["Ibirapuera Park", "Vila Madalena", "Centro", "Paulista Avenue"],
+                        correct: 0
+                    },
+                    {
+                        question: "How many countries were represented?",
+                        options: ["12", "15", "18", "20"],
+                        correct: 1
+                    },
+                    {
+                        question: "How much did the Mexican tacos cost?",
+                        options: ["15 reais", "18 reais", "20 reais", "22 reais"],
+                        correct: 1
+                    },
+                    {
+                        question: "Which stands had the longest lines?",
+                        options: ["Thai and Mexican", "Indian and Thai", "Japanese and Italian", "Mexican and Indian"],
+                        correct: 2
+                    },
+                    {
+                        question: "How long did they spend at the festival?",
+                        options: ["4 hours", "5 hours", "6 hours", "7 hours"],
+                        correct: 1
+                    }
+                ]
+            },
+            {
+                id: 'food-10',
+                title: 'Opening My Own Restaurant',
+                description: 'Dream of Brazilian comfort food restaurant with modern twist',
+                duration: '40s',
+                icon: '🏪',
+                audioFile: 'audio-10-own-restaurant.mp3',
+                questions: [
+                    {
+                        question: "How long has she been saving money?",
+                        options: ["1 year", "2 years", "3 years", "4 years"],
+                        correct: 1
+                    },
+                    {
+                        question: "How much money has she saved?",
+                        options: ["40,000 reais", "45,000 reais", "50,000 reais", "60,000 reais"],
+                        correct: 2
+                    },
+                    {
+                        question: "How much is the monthly rent?",
+                        options: ["6,000 reais", "7,000 reais", "8,000 reais", "9,000 reais"],
+                        correct: 2
+                    },
+                    {
+                        question: "When is she planning to open?",
+                        options: ["Next October", "Next November", "Next December", "Next January"],
+                        correct: 2
+                    },
+                    {
+                        question: "What type of food will she serve?",
+                        options: ["International fusion", "Italian classics", "Asian street food", "Brazilian comfort food with modern twist"],
+                        correct: 3
+                    }
+                ]
+            }
+        ];
+
+        // State
+        let currentLesson = null;
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let studentData = null;
+        let lessonStartTime = null;
+        let audioPlayer = null;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🍕 Food Adventures Loading...');
+            if (!checkAuth()) return;
+            
+            audioPlayer = document.getElementById('audioPlayer');
+            initializeEventListeners();
+            loadLessonsWithProgress();
+            
+            // Initialize header bar
+            initializeHeaderBar();
+        });
+
+        // Initialize header bar functionality
+        function initializeHeaderBar() {
+            const currentStudent = getCurrentStudent();
+            if (currentStudent) {
+                const displayName = currentStudent.displayName || 'Estudante';
+                document.getElementById('userCourseLine').textContent = `${displayName} • Food Adventures`;
+            }
+        }
+
+        function checkAuth() {
+            if (!localStorage.getItem('studentLoggedIn')) {
+                window.location.href = '../index.html';
+                return false;
+            }
+            return true;
+        }
+
+        function getCurrentStudent() {
+            const authData = localStorage.getItem('studentAuth');
+            return authData ? JSON.parse(authData) : null;
+        }
+
+        // Load lessons with Firebase progress
+        async function loadLessonsWithProgress() {
+            try {
+                const currentStudent = getCurrentStudent();
+                if (!currentStudent) return;
+
+                document.getElementById('firebaseStatus').innerHTML = '<span class="text-alex-blue font-medium">🔍 Carregando progresso...</span>';
+
+                const studentRef = doc(db, 'students', currentStudent.username);
+                const studentDoc = await getDoc(studentRef);
+                
+                if (studentDoc.exists()) {
+                    studentData = studentDoc.data();
+                    const foodLessons = studentData.foodLessons || {};
+                    
+                    renderLessons(foodLessons);
+                    
+                    const completedCount = Object.values(foodLessons).filter(lesson => lesson.status === 'completed').length;
+                    document.getElementById('firebaseStatus').innerHTML = `<span class="text-green-600 font-medium">✅ Firebase: ${completedCount}/10 Food Adventures completed</span>`;
+                } else {
+                    document.getElementById('firebaseStatus').innerHTML = '<span class="text-red-600 font-medium">❌ Estudante não encontrado</span>';
+                    renderLessons({});
+                }
+            } catch (error) {
+                console.error('❌ Error loading progress:', error);
+                document.getElementById('firebaseStatus').innerHTML = '<span class="text-red-600 font-medium">❌ Erro Firebase - modo offline</span>';
+                renderLessons({});
+            }
+        }
+
+        function renderLessons(foodLessons) {
+            const grid = document.getElementById('lessonsGrid');
+            
+            grid.innerHTML = LESSONS.map((lesson, index) => {
+                const progress = foodLessons[lesson.id] || { status: 'not-started', score: 0, attempts: 0 };
+                const statusClass = getStatusClass(progress.status);
+                const statusText = getStatusText(progress.status);
+                
+                return `
+                    <div class="lesson-card elegant-card rounded-lg p-4 cursor-pointer hover:scale-105 transition-all" onclick="startLesson('${lesson.id}')">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="text-2xl">${lesson.icon}</div>
+                            <span class="status-badge ${statusClass}">${statusText}</span>
+                        </div>
+                        <h3 class="font-semibold text-charcoal mb-2">Lesson ${index + 1}: ${lesson.title}</h3>
+                        <p class="text-sm text-medium-gray mb-3">${lesson.description}</p>
+                        <div class="flex items-center justify-between text-xs text-medium-gray">
+                            <span>🎧 ${lesson.duration}</span>
+                            <span class="font-semibold text-alex-blue">${progress.status === 'completed' ? `✅ ${progress.score}/5` : '+50 XP'}</span>
+                        </div>
+                        ${progress.attempts > 0 ? `
+                            <div class="mt-2 text-xs text-medium-gray">
+                                Tentativas: ${progress.attempts} • Score: ${progress.score || 0}/5
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function getStatusClass(status) {
+            return {
+                'completed': 'status-completed',
+                'in-progress': 'status-in-progress',
+                'not-started': 'status-not-started'
+            }[status] || 'status-not-started';
+        }
+
+        function getStatusText(status) {
+            return {
+                'completed': 'Completed',
+                'in-progress': 'In Progress', 
+                'not-started': 'Available'
+            }[status] || 'Available';
+        }
+
+        // Start lesson
+        window.startLesson = function(lessonId) {
+            currentLesson = LESSONS.find(l => l.id === lessonId);
+            if (!currentLesson) return;
+
+            lessonStartTime = Date.now();
+            userAnswers = new Array(currentLesson.questions.length).fill(null);
+            
+            // Setup lesson interface
+            document.getElementById('lessonSelection').classList.add('hidden');
+            document.getElementById('lessonInterface').classList.remove('hidden');
+            
+            // ✅ SCROLL TO TOP FOR BETTER UX
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Update lesson info
+            const lessonIndex = LESSONS.findIndex(l => l.id === lessonId) + 1;
+            document.getElementById('lessonProgress').textContent = `Lesson ${lessonIndex} of ${LESSONS.length}`;
+            document.getElementById('lessonTitle').textContent = currentLesson.title;
+            document.getElementById('lessonDescription').textContent = currentLesson.description;
+            
+            // Update header bar
+            const currentStudent = getCurrentStudent();
+            const displayName = currentStudent ? currentStudent.displayName : 'Estudante';
+            document.getElementById('userCourseLine').textContent = `${displayName} • Food ${lessonIndex}: ${currentLesson.title}`;
+            
+            // Setup audio
+            document.getElementById('audioSource').src = `../audio/a1-food/${currentLesson.audioFile}`;
+            audioPlayer.load();
+            
+            // Load questions
+            loadQuestions();
+            
+            // Reset progress
+            updateProgress(0, 'Listen to Audio');
+            
+            console.log('🍕 Food lesson started:', currentLesson.title);
+        };
+
+        function loadQuestions() {
+            const questionsSection = document.getElementById('questionsSection');
+            
+            questionsSection.innerHTML = currentLesson.questions.map((question, index) => `
+                <div class="question-container elegant-card rounded-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-8 h-8 bg-alex-blue text-white rounded-full flex items-center justify-center font-bold text-sm mr-3">
+                            ${index + 1}
+                        </div>
+                        <div class="text-sm text-medium-gray">Question ${index + 1} of ${currentLesson.questions.length}</div>
+                    </div>
+                    
+                    <h4 class="text-lg font-semibold text-charcoal mb-4">${question.question}</h4>
+                    
+                    <div class="space-y-3">
+                        ${question.options.map((option, optionIndex) => `
+                            <div class="answer-option cursor-pointer" data-question="${index}" data-option="${optionIndex}" onclick="selectAnswer(${index}, ${optionIndex})">
+                                <div class="option-letter">${String.fromCharCode(65 + optionIndex)}</div>
+                                <div class="flex-1">${option}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        window.selectAnswer = function(questionIndex, optionIndex) {
+            // Remove previous selections
+            document.querySelectorAll(`[data-question="${questionIndex}"]`).forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Add new selection
+            document.querySelector(`[data-question="${questionIndex}"][data-option="${optionIndex}"]`)
+                .classList.add('selected');
+            
+            // Store answer
+            userAnswers[questionIndex] = optionIndex;
+            
+            // Update submit button
+            const answeredCount = userAnswers.filter(answer => answer !== null).length;
+            const submitBtn = document.getElementById('submitAnswers');
+            submitBtn.textContent = `Submit Answers (${answeredCount}/5 Complete)`;
+            submitBtn.disabled = answeredCount < 5;
+            
+            if (answeredCount === 5) {
+                submitBtn.classList.remove('opacity-50');
+                submitBtn.textContent = 'Submit Answers - Ready! 🍕';
+            }
+            
+            // Update progress
+            const progress = 20 + (answeredCount / currentLesson.questions.length) * 80;
+            updateProgress(progress, `${answeredCount}/5 Questions Answered`);
+        };
+
+        function updateProgress(percentage, text) {
+            document.getElementById('progressBar').style.width = `${percentage}%`;
+            document.getElementById('progressText').textContent = text;
+        }
+
+        // Audio controls
+        function initializeEventListeners() {
+            // Audio controls
+            document.getElementById('playPauseBtn').addEventListener('click', () => {
+                if (audioPlayer.paused) {
+                    audioPlayer.play();
+                    document.getElementById('playPauseBtn').textContent = '⏸️ Pause';
+                } else {
+                    audioPlayer.pause();
+                    document.getElementById('playPauseBtn').textContent = '▶️ Play';
+                }
+            });
+            
+            document.getElementById('rewindBtn').addEventListener('click', () => {
+                audioPlayer.currentTime = Math.max(0, audioPlayer.currentTime - 10);
+            });
+            
+            document.getElementById('forwardBtn').addEventListener('click', () => {
+                audioPlayer.currentTime = Math.min(audioPlayer.duration, audioPlayer.currentTime + 10);
+            });
+            
+            // Speed controls
+            document.querySelectorAll('.speed-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const speed = parseFloat(btn.dataset.speed);
+                    audioPlayer.playbackRate = speed;
+                    
+                    document.querySelector('.speed-btn.active').classList.remove('active');
+                    btn.classList.add('active');
+                });
+            });
+            
+            // Submit answers
+            document.getElementById('submitAnswers').addEventListener('click', submitAnswers);
+            
+            // Navigation
+            document.getElementById('backToLessons').addEventListener('click', () => {
+                document.getElementById('lessonInterface').classList.add('hidden');
+                document.getElementById('lessonSelection').classList.remove('hidden');
+                
+                // ✅ SCROLL TO TOP WHEN RETURNING TO LESSON LIST
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // Update header bar back to course view
+                const currentStudent = getCurrentStudent();
+                const displayName = currentStudent ? currentStudent.displayName : 'Estudante';
+                document.getElementById('userCourseLine').textContent = `${displayName} • Food Adventures`;
+            });
+            
+            // Results modal
+            document.getElementById('nextLesson').addEventListener('click', goToNextLesson);
+            document.getElementById('backToLessonsList').addEventListener('click', () => {
+                closeResultsModal();
+                document.getElementById('lessonInterface').classList.add('hidden');
+                document.getElementById('lessonSelection').classList.remove('hidden');
+                
+                // ✅ SCROLL TO TOP WHEN RETURNING TO LESSON LIST
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                const currentStudent = getCurrentStudent();
+                const displayName = currentStudent ? currentStudent.displayName : 'Estudante';
+                document.getElementById('userCourseLine').textContent = `${displayName} • Food Adventures`;
+            });
+            
+            // Review modal
+            document.getElementById('reviewAnswers').addEventListener('click', showReviewModal);
+            document.getElementById('closeReview').addEventListener('click', () => {
+                document.getElementById('reviewModal').classList.add('hidden');
+            });
+
+            // Audio events
+            audioPlayer.addEventListener('play', () => {
+                updateProgress(20, 'Listening to Audio...');
+            });
+            
+            audioPlayer.addEventListener('ended', () => {
+                updateProgress(20, 'Audio Complete - Answer Questions Below');
+            });
+        }
+
+        // Logout function
+        window.logout = function() {
+            localStorage.clear();
+            window.location.href = '../index.html';
+        };
+
+        async function submitAnswers() {
+            try {
+                const score = calculateScore();
+                const timeSpent = Math.floor((Date.now() - lessonStartTime) / 1000);
+                const xpEarned = calculateXP(score);
+                
+                // Save to Firebase
+                await saveLessonProgress(score, timeSpent, xpEarned);
+                
+                // Show results
+                showResultsModal(score, xpEarned);
+                
+            } catch (error) {
+                console.error('❌ Error submitting answers:', error);
+                alert('Erro ao salvar progresso. Tente novamente.');
+            }
+        }
+
+        function calculateScore() {
+            return userAnswers.reduce((score, answer, index) => {
+                return score + (answer === currentLesson.questions[index].correct ? 1 : 0);
+            }, 0);
+        }
+
+        function calculateXP(score) {
+            const baseXP = score * 10; // 10 XP per correct answer
+            const bonusXP = score === 5 ? 25 : 0; // Perfect score bonus
+            return baseXP + bonusXP;
+        }
+
+        // CORRECTED: Complete lesson saving with level calculation and foodLessons
+        async function saveLessonProgress(score, timeSpent, xpEarned) {
+            const currentStudent = getCurrentStudent();
+            if (!currentStudent) return;
+
+            const studentRef = doc(db, 'students', currentStudent.username);
+            const lessonPath = `foodLessons.${currentLesson.id}`;
+            
+            // Get existing lesson data for attempts increment
+            const existingLesson = studentData?.foodLessons?.[currentLesson.id];
+            const currentAttempts = existingLesson?.attempts || 0;
+            
+            // Calculate new total XP and level
+            const currentTotalXP = studentData?.totalXP || 0;
+            const newTotalXP = currentTotalXP + xpEarned;
+            const newLevel = calculateLevelFromXP(newTotalXP);
+            
+            const updateData = {
+                [lessonPath]: {
+                    status: 'completed',
+                    score: score,
+                    totalQuestions: 5,
+                    attempts: currentAttempts + 1, // ✅ CORRECT: Increment attempts
+                    completedAt: serverTimestamp(),
+                    timeSpent: timeSpent,
+                    xpEarned: xpEarned
+                },
+                totalXP: newTotalXP,           // ✅ CORRECT: Update total XP
+                level: newLevel,               // ✅ CORRECT: Update level too!
+                lastLoginDate: serverTimestamp() // ✅ CORRECT: Match Firebase field name
+            };
+
+            await updateDoc(studentRef, updateData);
+            
+            // Update local data
+            if (!studentData.foodLessons) studentData.foodLessons = {};
+            studentData.foodLessons[currentLesson.id] = updateData[lessonPath];
+            studentData.totalXP = newTotalXP;
+            studentData.level = newLevel; // ✅ CORRECT: Update local level too
+            
+            console.log(`✅ Food Adventures progress saved: +${xpEarned} XP, Level ${newLevel}`);
+        }
+
+        // Add level calculation function (matches portal system)
+        function calculateLevelFromXP(totalXP) {
+            if (totalXP < 100) return 1;
+            
+            // Exponential scaling: Level 2 = 100 XP, Level 3 = 250 XP, etc.
+            let level = 1;
+            let xpRequired = 0;
+            
+            while (totalXP >= xpRequired) {
+                level++;
+                xpRequired += (level - 1) * 150; // Exponential increase
+                if (level > 1000) break;
+            }
+            
+            return Math.min(level - 1, 1000);
+        }
+
+        function showResultsModal(score, xpEarned) {
+            const percentage = Math.round((score / 5) * 100);
+            const isPerfect = score === 5;
+            
+            document.getElementById('resultIcon').textContent = isPerfect ? '🏆' : score >= 4 ? '🍽️' : '📝';
+            document.getElementById('resultTitle').textContent = isPerfect ? 'Perfect Food Score!' : score >= 4 ? 'Delicious Work!' : 'Lesson Complete!';
+            document.getElementById('scoreDisplay').textContent = `${score}/5`;
+            document.getElementById('percentageDisplay').textContent = `${percentage}% Correct`;
+            document.getElementById('xpEarned').textContent = `+${xpEarned} XP Earned!`;
+            
+            // Check for achievements
+            if (isPerfect) {
+                document.getElementById('achievementDisplay').classList.remove('hidden');
+                document.getElementById('achievementText').textContent = '🍴 Perfect Food Explorer Score!';
+            }
+            
+            document.getElementById('resultsModal').classList.remove('hidden');
+        }
+
+        function showReviewModal() {
+            const reviewContent = document.getElementById('reviewContent');
+            
+            reviewContent.innerHTML = currentLesson.questions.map((question, index) => {
+                const userAnswer = userAnswers[index];
+                const isCorrect = userAnswer === question.correct;
+                const correctAnswer = question.options[question.correct];
+                const userAnswerText = question.options[userAnswer];
+                
+                return `
+                    <div class="border-b border-light-gray pb-4 last:border-b-0">
+                        <div class="font-medium text-charcoal mb-2">${index + 1}. ${question.question}</div>
+                        <div class="space-y-1">
+                            <div class="${isCorrect ? 'text-green-600' : 'text-red-600'} font-medium">
+                                ${isCorrect ? '✅' : '❌'} Your answer: ${userAnswerText}
+                            </div>
+                            ${!isCorrect ? `
+                                <div class="text-green-600 font-medium">
+                                    ✅ Correct: ${correctAnswer}
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            document.getElementById('reviewModal').classList.remove('hidden');
+        }
+
+        function goToNextLesson() {
+            const currentIndex = LESSONS.findIndex(l => l.id === currentLesson.id);
+            const nextLesson = LESSONS[currentIndex + 1];
+            
+            closeResultsModal();
+            
+            if (nextLesson) {
+                // ✅ SCROLL TO TOP WHEN ADVANCING TO NEXT LESSON
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                startLesson(nextLesson.id);
+            } else {
+                // Food Adventures completed - return to lesson list
+                document.getElementById('lessonInterface').classList.add('hidden');
+                document.getElementById('lessonSelection').classList.remove('hidden');
+                
+                // ✅ SCROLL TO TOP WHEN RETURNING TO LESSON LIST
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                const currentStudent = getCurrentStudent();
+                const displayName = currentStudent ? currentStudent.displayName : 'Estudante';
+                document.getElementById('userCourseLine').textContent = `${displayName} • Food Adventures`;
+                
+                alert('🎉 Parabéns! Você completou todas as aulas do Food Adventures! 🍴 Food Explorer Achievement Unlocked! Explore outros temas no Hub.');
+            }
+        }
+
+        function closeResultsModal() {
+            document.getElementById('resultsModal').classList.add('hidden');
+        }
+    </script>
+
+    <!-- Professional Full-Width Header Bar Styles -->
+    <style>
+        /* Professional Full-Width Header Bar */
+        .lesson-header-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            padding: 16px 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-left {
+            text-align: center;
+        }
+
+        .brand-line {
+            font-size: 12px;
+            font-weight: 600;
+            color: #3b82f6;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        .user-course-line {
+            font-size: 14px;
+            color: #1f2937;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .btn-portal {
+            background: #3b82f6;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-portal:hover {
+            background: #2563eb;
+        }
+
+        .btn-sair {
+            background: transparent;
+            color: #6b7280;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            border: 1px solid #e5e7eb;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-sair:hover {
+            background: #f9fafb;
+            color: #374151;
+        }
+
+        /* Add top margin to main content */
+        .lesson-content {
+            margin-top: 120px;
+        }
+
+        /* Desktop responsive */
+        @media (min-width: 768px) {
+            .lesson-header-bar {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                padding: 12px 40px;
+            }
+            
+            .header-left {
+                text-align: left;
+            }
+            
+            .lesson-content {
+                margin-top: 80px;
+            }
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 480px) {
+            .lesson-header-bar {
+                padding: 12px 16px;
+                gap: 6px;
+            }
+            
+            .brand-line {
+                font-size: 11px;
+            }
+            
+            .user-course-line {
+                font-size: 13px;
+            }
+            
+            .btn-portal, .btn-sair {
+                padding: 6px 12px;
+                font-size: 11px;
+            }
+            
+            .lesson-content {
+                margin-top: 110px;
+            }
+        }
+    </style>
+
+</body>
+</html>
