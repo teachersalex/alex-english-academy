@@ -9,7 +9,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../css/style.css">
 </head>
-<body class="sophisticated-bg min-h-screen">
+<body class="professional-bg min-h-screen">
 
     <!-- Professional Full-Width Header Bar -->
     <header class="lesson-header-bar">
@@ -31,21 +31,21 @@
         <!-- Lesson Selection View -->
         <div id="lessonSelection">
             <!-- Course Header -->
-            <div class="elegant-card rounded-lg p-6 mb-6">
+            <div class="professional-card rounded-xl p-6 mb-6">
                 <div class="text-center">
                     <div class="text-5xl mb-4">🌟</div>
                     <h2 class="text-2xl font-bold text-charcoal mb-2">A1 Foundation Course</h2>
                     <p class="text-medium-gray mb-4">Complete English basics with 10 interactive audio lessons</p>
-                    <div class="bg-powder-blue rounded-lg p-3">
-                        <p class="text-alex-blue font-medium">🎯 Complete questions • 📊 Track progress • 🏆 Earn XP & achievements!</p>
+                    <div class="accent-card rounded-lg p-3">
+                        <p class="text-primary-blue font-medium">🎯 Complete questions • 📊 Track progress • 🏆 Earn XP & achievements!</p>
                     </div>
                 </div>
             </div>
 
             <!-- Firebase Status -->
-            <div class="elegant-card rounded-lg p-4 mb-6 text-center">
+            <div class="status-card rounded-lg p-4 mb-6 text-center">
                 <div id="firebaseStatus" class="text-sm">
-                    <span class="text-alex-blue font-medium">🔥 Carregando progresso do Firebase...</span>
+                    <span class="text-primary-blue font-medium">🔥 Carregando progresso do Firebase...</span>
                 </div>
             </div>
 
@@ -58,7 +58,7 @@
         <!-- Interactive Lesson View -->
         <div id="lessonInterface" class="hidden">
             <!-- Lesson Header -->
-            <div class="elegant-card rounded-lg p-6 mb-6">
+            <div class="professional-card rounded-xl p-6 mb-6">
                 <div class="flex items-center justify-between mb-4">
                     <button id="backToLessons" class="link-sophisticated text-sm">← Back to Foundation</button>
                     <div id="lessonProgress" class="text-sm text-medium-gray">Lesson 1 of 10</div>
@@ -68,19 +68,19 @@
                 <p id="lessonDescription" class="text-medium-gray mb-4">Learn essential greeting phrases and introductions</p>
                 
                 <!-- Progress Indicator -->
-                <div class="bg-bg-gray rounded-lg p-3">
+                <div class="progress-card rounded-lg p-3">
                     <div class="flex justify-between text-sm mb-2">
                         <span>Lesson Progress</span>
                         <span id="progressText">Listen to Audio</span>
                     </div>
-                    <div class="progress-bar-container h-2">
-                        <div id="progressBar" class="progress-bar"></div>
+                    <div class="progress-bar-container h-3 rounded-full">
+                        <div id="progressBar" class="progress-bar rounded-full"></div>
                     </div>
                 </div>
             </div>
 
             <!-- Audio Player -->
-            <div class="elegant-card rounded-lg p-6 mb-6">
+            <div class="audio-card rounded-xl p-6 mb-6">
                 <div class="text-center mb-4">
                     <h3 class="text-lg font-semibold text-charcoal mb-2">🎧 Listen to the Audio</h3>
                     <p class="text-medium-gray">Listen carefully and answer the questions below</p>
@@ -112,8 +112,8 @@
             </div>
 
             <!-- Submit Section -->
-            <div class="elegant-card rounded-lg p-6 text-center">
-                <button id="submitAnswers" class="btn-primary px-8 py-4 rounded-lg text-lg font-bold" disabled>
+            <div class="submit-card rounded-xl p-6 text-center">
+                <button id="submitAnswers" class="btn-primary px-8 py-4 rounded-xl text-lg font-bold" disabled>
                     Submit Answers (0/5 Complete)
                 </button>
                 <p class="text-medium-gray text-sm mt-2">Answer all questions to continue</p>
@@ -124,21 +124,21 @@
 
     <!-- Results Modal -->
     <div id="resultsModal" class="hidden fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-        <div class="elegant-card rounded-2xl p-6 max-w-md w-full">
+        <div class="modal-card rounded-2xl p-6 max-w-md w-full">
             <div class="text-center">
                 <div id="resultIcon" class="text-5xl mb-4">🎉</div>
                 <h3 id="resultTitle" class="text-xl font-bold text-charcoal mb-4">Lesson Complete!</h3>
                 
                 <!-- Score Display -->
-                <div class="bg-bg-gray rounded-lg p-4 mb-4">
+                <div class="score-card rounded-lg p-4 mb-4">
                     <div id="scoreDisplay" class="text-3xl font-bold text-charcoal mb-1">5/5</div>
                     <div id="percentageDisplay" class="text-lg text-medium-gray mb-2">100% Correct</div>
-                    <div id="xpEarned" class="text-academy-red font-semibold text-lg">+75 XP Earned!</div>
+                    <div id="xpEarned" class="text-accent-red font-semibold text-lg">+75 XP Earned!</div>
                 </div>
                 
                 <!-- Achievement -->
-                <div id="achievementDisplay" class="hidden bg-powder-blue rounded-lg p-3 mb-4">
-                    <div class="text-sm font-semibold text-alex-blue mb-2">🎉 Achievement Unlocked!</div>
+                <div id="achievementDisplay" class="hidden achievement-card rounded-lg p-3 mb-4">
+                    <div class="text-sm font-semibold text-primary-blue mb-2">🎉 Achievement Unlocked!</div>
                     <div id="achievementText" class="font-medium"></div>
                 </div>
                 
@@ -160,7 +160,7 @@
 
     <!-- Answer Review Modal -->
     <div id="reviewModal" class="hidden fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-        <div class="elegant-card rounded-2xl p-6 max-w-2xl w-full max-h-96 overflow-y-auto">
+        <div class="modal-card rounded-2xl p-6 max-w-2xl w-full max-h-96 overflow-y-auto">
             <h3 class="text-lg font-bold text-charcoal mb-4 text-center">📝 Answer Review</h3>
             <div id="reviewContent" class="space-y-4 mb-6">
                 <!-- Review content here -->
@@ -179,7 +179,7 @@
         import { db } from '../js/firebase.js';
         import { doc, getDoc, updateDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js';
 
-        // Complete lesson data with ALL 10 Foundation lessons
+        // Complete lesson data with ALL 10 Foundation lessons - FIXED FOR FEMALE VOICE
         const LESSONS = [
             {
                 id: 'audio-01',
@@ -217,7 +217,7 @@
                 ]
             },
             {
-                id: 'audio-02',
+                id: 'audio-02', 
                 title: 'Family Introduction',
                 description: 'Learn to talk about family members and relationships',
                 duration: '38s',
@@ -253,34 +253,34 @@
             },
             {
                 id: 'audio-03',
-                title: 'Daily Routine',
+                title: 'Daily Routine', 
                 description: 'Learn to describe daily activities and time expressions',
                 duration: '40s',
                 icon: '⏰',
                 audioFile: 'audio-03-routine.mp3',
                 questions: [
                     {
-                        question: "What time does he wake up?",
+                        question: "What time does she wake up?",
                         options: ["6 o'clock", "7 o'clock", "8 o'clock", "9 o'clock"],
                         correct: 1
                     },
                     {
-                        question: "How does he go to work?",
+                        question: "How does she go to work?",
                         options: ["By car", "By bus", "Walking", "By bike"],
                         correct: 1
                     },
                     {
-                        question: "What time does he go to bed?",
+                        question: "What time does she go to bed?",
                         options: ["9 o'clock", "10 o'clock", "11 o'clock", "12 o'clock"],
                         correct: 1
                     },
                     {
-                        question: "What does he eat for breakfast?",
+                        question: "What does she eat for breakfast?",
                         options: ["Cereal", "Eggs", "Bread with butter", "Fruit"],
                         correct: 2
                     },
                     {
-                        question: "What time does he start work?",
+                        question: "What time does she start work?",
                         options: ["8 o'clock", "9 o'clock", "8:30", "9:30"],
                         correct: 1
                     }
@@ -292,25 +292,25 @@
                 description: 'Learn vocabulary for food, drinks, and restaurant experiences',
                 duration: '36s',
                 icon: '🍔',
-                audioFile: 'audio-04-food.mp3',
+                audioFile: 'audio-04-food.mp3', 
                 questions: [
                     {
-                        question: "What is his favorite drink?",
+                        question: "What is her favorite drink?",
                         options: ["Coffee", "Tea", "Orange juice", "Water"],
                         correct: 2
                     },
                     {
-                        question: "What dessert does he want?",
+                        question: "What dessert does she want?",
                         options: ["Ice cream", "Chocolate cake", "Apple pie", "Cookies"],
                         correct: 1
                     },
                     {
-                        question: "When does he come to the restaurant?",
+                        question: "When does she come to the restaurant?",
                         options: ["Every day", "Every weekend", "Every month", "Every week"],
                         correct: 1
                     },
                     {
-                        question: "What food does he like?",
+                        question: "What food does she like?",
                         options: ["Pizza only", "Hamburgers only", "Pizza and hamburgers", "Salad"],
                         correct: 2
                     },
@@ -335,17 +335,17 @@
                         correct: 1
                     },
                     {
-                        question: "What did he wear yesterday?",
+                        question: "What did she wear yesterday?",
                         options: ["T-shirt and shorts", "Jacket and boots", "Jeans and sweater", "Dress"],
                         correct: 1
                     },
                     {
-                        question: "Why does he love summer?",
+                        question: "Why does she love summer?",
                         options: ["No school", "Nice weather", "Long days", "Vacation time"],
                         correct: 1
                     },
                     {
-                        question: "What is he wearing today?",
+                        question: "What is she wearing today?",
                         options: ["Jacket and boots", "Blue t-shirt and white shorts", "Jeans and sweater", "Black pants"],
                         correct: 1
                     },
@@ -365,7 +365,7 @@
                 audioFile: 'audio-06-shopping.mp3',
                 questions: [
                     {
-                        question: "What fruits does he want to buy?",
+                        question: "What fruits does she want to buy?",
                         options: ["Apples and oranges only", "Bananas only", "Apples, bananas, and oranges", "Only oranges"],
                         correct: 2
                     },
@@ -375,12 +375,12 @@
                         correct: 1
                     },
                     {
-                        question: "How does he pay?",
+                        question: "How does she pay?",
                         options: ["Cash", "Credit card", "Check", "Debit card"],
                         correct: 1
                     },
                     {
-                        question: "What other things does he need to buy?",
+                        question: "What other things does she need to buy?",
                         options: ["Milk and eggs", "Bread only", "Milk, eggs, and bread", "Just milk"],
                         correct: 2
                     },
@@ -400,27 +400,27 @@
                 audioFile: 'audio-07-hobbies.mp3',
                 questions: [
                     {
-                        question: "What instrument does he play?",
+                        question: "What instrument does she play?",
                         options: ["Piano", "Guitar", "Drums", "Violin"],
                         correct: 1
                     },
                     {
-                        question: "When does he play this instrument?",
+                        question: "When does she play this instrument?",
                         options: ["Every day", "Weekdays", "Weekends", "Sometimes"],
                         correct: 2
                     },
                     {
-                        question: "What is his favorite hobby?",
+                        question: "What is her favorite hobby?",
                         options: ["Reading", "Photography", "Singing", "Dancing"],
                         correct: 1
                     },
                     {
-                        question: "What does he not like doing?",
+                        question: "What does she not like doing?",
                         options: ["Singing", "Dancing", "Reading", "Playing guitar"],
                         correct: 1
                     },
                     {
-                        question: "What does he take pictures of?",
+                        question: "What does she take pictures of?",
                         options: ["People", "Buildings", "Nature and animals", "Cars"],
                         correct: 2
                     }
@@ -435,28 +435,28 @@
                 audioFile: 'audio-08-transportation.mp3',
                 questions: [
                     {
-                        question: "How does he usually go to work?",
+                        question: "How does she usually go to work?",
                         options: ["By car", "Walking", "By bus", "By bike"],
                         correct: 1
                     },
                     {
-                        question: "When does he drive his car?",
+                        question: "When does she drive her car?",
                         options: ["Every day", "When it rains", "On weekends", "Never"],
                         correct: 2
                     },
                     {
-                        question: "Why doesn't he like the subway?",
+                        question: "Why doesn't she like the subway?",
                         options: ["Too expensive", "Too crowded", "Too slow", "Too far"],
                         correct: 1
                     },
                     {
-                        question: "Where does he live?",
+                        question: "Where does she live?",
                         options: ["Countryside", "City center", "Suburbs", "Near the park"],
                         correct: 1
                     },
                     {
                         question: "Where is the bus stop?",
-                        options: ["Near his work", "In front of his building", "At the corner", "Far from home"],
+                        options: ["Near her work", "In front of her building", "At the corner", "Far from home"],
                         correct: 1
                     }
                 ]
@@ -470,27 +470,27 @@
                 audioFile: 'audio-09-health.mp3',
                 questions: [
                     {
-                        question: "How often does he exercise?",
+                        question: "How often does she exercise?",
                         options: ["Every day", "Three times a week", "Once a week", "Never"],
                         correct: 1
                     },
                     {
-                        question: "How many glasses of water does he drink?",
+                        question: "How many glasses of water does she drink?",
                         options: ["6", "7", "8", "10"],
                         correct: 2
                     },
                     {
-                        question: "How many hours does he sleep?",
+                        question: "How many hours does she sleep?",
                         options: ["7 hours", "8 hours", "9 hours", "6 hours"],
                         correct: 1
                     },
                     {
-                        question: "How often does he brush his teeth?",
+                        question: "How often does she brush her teeth?",
                         options: ["Once a day", "Twice a day", "Three times a day", "Never"],
                         correct: 1
                     },
                     {
-                        question: "What doesn't he do?",
+                        question: "What doesn't she do?",
                         options: ["Exercise", "Eat vegetables", "Smoke and drink alcohol", "Sleep"],
                         correct: 2
                     }
@@ -505,27 +505,27 @@
                 audioFile: 'audio-10-future.mp3',
                 questions: [
                     {
-                        question: "Where will he travel next month?",
+                        question: "Where will she travel next month?",
                         options: ["Asia", "Europe", "America", "Africa"],
                         correct: 1
                     },
                     {
-                        question: "How long will he stay?",
+                        question: "How long will she stay?",
                         options: ["One week", "Two weeks", "Three weeks", "One month"],
                         correct: 1
                     },
                     {
-                        question: "What will he do after his trip?",
+                        question: "What will she do after her trip?",
                         options: ["Study more", "Start a new job", "Buy a house", "Move cities"],
                         correct: 1
                     },
                     {
-                        question: "Which countries will he visit?",
+                        question: "Which countries will she visit?",
                         options: ["France and Italy", "Italy and Spain", "France, Italy, and Spain", "Only France"],
                         correct: 2
                     },
                     {
-                        question: "What languages is he learning?",
+                        question: "What languages is she learning?",
                         options: ["Spanish", "French", "French and Italian", "Italian"],
                         correct: 2
                     }
@@ -582,7 +582,7 @@
                 const currentStudent = getCurrentStudent();
                 if (!currentStudent) return;
 
-                document.getElementById('firebaseStatus').innerHTML = '<span class="text-alex-blue font-medium">🔍 Carregando progresso...</span>';
+                document.getElementById('firebaseStatus').innerHTML = '<span class="text-primary-blue font-medium">🔍 Carregando progresso...</span>';
 
                 const studentRef = doc(db, 'students', currentStudent.username);
                 const studentDoc = await getDoc(studentRef);
@@ -594,14 +594,14 @@
                     renderLessons(audioLessons);
                     
                     const completedCount = Object.values(audioLessons).filter(lesson => lesson.status === 'completed').length;
-                    document.getElementById('firebaseStatus').innerHTML = `<span class="text-green-600 font-medium">✅ Firebase: ${completedCount}/10 Foundation lessons completed</span>`;
+                    document.getElementById('firebaseStatus').innerHTML = `<span class="text-success-green font-medium">✅ Firebase: ${completedCount}/10 Foundation lessons completed</span>`;
                 } else {
-                    document.getElementById('firebaseStatus').innerHTML = '<span class="text-red-600 font-medium">❌ Estudante não encontrado</span>';
+                    document.getElementById('firebaseStatus').innerHTML = '<span class="text-error-red font-medium">❌ Estudante não encontrado</span>';
                     renderLessons({});
                 }
             } catch (error) {
                 console.error('❌ Error loading progress:', error);
-                document.getElementById('firebaseStatus').innerHTML = '<span class="text-red-600 font-medium">❌ Erro Firebase - modo offline</span>';
+                document.getElementById('firebaseStatus').innerHTML = '<span class="text-error-red font-medium">❌ Erro Firebase - modo offline</span>';
                 renderLessons({});
             }
         }
@@ -615,7 +615,7 @@
                 const statusText = getStatusText(progress.status);
                 
                 return `
-                    <div class="lesson-card elegant-card rounded-lg p-4 cursor-pointer hover:scale-105 transition-all" onclick="startLesson('${lesson.id}')">
+                    <div class="lesson-card professional-card rounded-xl p-4 cursor-pointer hover:scale-105 transition-all" onclick="startLesson('${lesson.id}')">
                         <div class="flex items-center justify-between mb-3">
                             <div class="text-2xl">${lesson.icon}</div>
                             <span class="status-badge ${statusClass}">${statusText}</span>
@@ -624,7 +624,7 @@
                         <p class="text-sm text-medium-gray mb-3">${lesson.description}</p>
                         <div class="flex items-center justify-between text-xs text-medium-gray">
                             <span>🎧 ${lesson.duration}</span>
-                            <span class="font-semibold text-alex-blue">${progress.status === 'completed' ? `✅ ${progress.score}/5` : '+50 XP'}</span>
+                            <span class="font-semibold text-primary-blue">${progress.status === 'completed' ? `✅ ${progress.score}/5` : '+50 XP'}</span>
                         </div>
                         ${progress.attempts > 0 ? `
                             <div class="mt-2 text-xs text-medium-gray">
@@ -695,9 +695,9 @@
             const questionsSection = document.getElementById('questionsSection');
             
             questionsSection.innerHTML = currentLesson.questions.map((question, index) => `
-                <div class="question-container elegant-card rounded-lg p-6">
+                <div class="question-card rounded-xl p-6">
                     <div class="flex items-center mb-4">
-                        <div class="w-8 h-8 bg-alex-blue text-white rounded-full flex items-center justify-center font-bold text-sm mr-3">
+                        <div class="w-8 h-8 bg-primary-blue text-white rounded-full flex items-center justify-center font-bold text-sm mr-3">
                             ${index + 1}
                         </div>
                         <div class="text-sm text-medium-gray">Question ${index + 1} of ${currentLesson.questions.length}</div>
@@ -956,14 +956,14 @@
                 const userAnswerText = question.options[userAnswer];
                 
                 return `
-                    <div class="border-b border-light-gray pb-4 last:border-b-0">
+                    <div class="border-b border-soft-border pb-4 last:border-b-0">
                         <div class="font-medium text-charcoal mb-2">${index + 1}. ${question.question}</div>
                         <div class="space-y-1">
-                            <div class="${isCorrect ? 'text-green-600' : 'text-red-600'} font-medium">
+                            <div class="${isCorrect ? 'text-success-green' : 'text-error-red'} font-medium">
                                 ${isCorrect ? '✅' : '❌'} Your answer: ${userAnswerText}
                             </div>
                             ${!isCorrect ? `
-                                <div class="text-green-600 font-medium">
+                                <div class="text-success-green font-medium">
                                     ✅ Correct: ${correctAnswer}
                                 </div>
                             ` : ''}
@@ -1006,17 +1006,221 @@
         }
     </script>
 
-    <!-- Professional Full-Width Header Bar Styles -->
+    <!-- Professional Color Scheme Styles -->
     <style>
-        /* Professional Full-Width Header Bar */
+        /* Professional Color Variables */
+        :root {
+            --primary-blue: #3b82f6;
+            --secondary-blue: #1e40af;
+            --accent-red: #ef4444;
+            --success-green: #10b981;
+            --error-red: #f87171;
+            --warning-orange: #f59e0b;
+            
+            --charcoal: #1f2937;
+            --medium-gray: #6b7280;
+            --light-gray: #e5e7eb;
+            --soft-border: #d1d5db;
+            
+            --bg-primary: #f8fafc;
+            --bg-secondary: #f1f5f9;
+            --bg-card: #ffffff;
+            --bg-accent: #dbeafe;
+        }
+
+        /* Professional Background */
+        .professional-bg {
+            background: linear-gradient(135deg, var(--bg-primary) 0%, #ffffff 50%, var(--bg-secondary) 100%);
+            background-attachment: fixed;
+        }
+
+        /* Card Styles */
+        .professional-card {
+            background: var(--bg-card);
+            border: 1px solid var(--light-gray);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+        }
+
+        .professional-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .status-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--soft-border);
+        }
+
+        .accent-card {
+            background: var(--bg-accent);
+            border: 1px solid var(--primary-blue);
+        }
+
+        .progress-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--soft-border);
+        }
+
+        .audio-card {
+            background: var(--bg-card);
+            border: 1px solid var(--light-gray);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .question-card {
+            background: var(--bg-card);
+            border: 1px solid var(--light-gray);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .submit-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--soft-border);
+        }
+
+        .modal-card {
+            background: var(--bg-card);
+            border: 1px solid var(--light-gray);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .score-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--soft-border);
+        }
+
+        .achievement-card {
+            background: var(--bg-accent);
+            border: 1px solid var(--primary-blue);
+        }
+
+        /* Professional Colors */
+        .text-primary-blue { color: var(--primary-blue); }
+        .text-accent-red { color: var(--accent-red); }
+        .text-success-green { color: var(--success-green); }
+        .text-error-red { color: var(--error-red); }
+        .text-warning-orange { color: var(--warning-orange); }
+
+        .bg-primary-blue { background-color: var(--primary-blue); }
+        .bg-accent-red { background-color: var(--accent-red); }
+
+        /* Progress Bar */
+        .progress-bar-container {
+            background: var(--light-gray);
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, var(--primary-blue), var(--secondary-blue));
+            transition: width 0.8s ease;
+        }
+
+        /* Answer Options */
+        .answer-option {
+            background: var(--bg-secondary);
+            border: 2px solid var(--light-gray);
+            transition: all 0.2s ease;
+        }
+
+        .answer-option:hover {
+            border-color: var(--primary-blue);
+            background: var(--bg-accent);
+        }
+
+        .answer-option.selected {
+            border-color: var(--primary-blue);
+            background: var(--bg-accent);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .option-letter {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        /* Status Badges */
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .status-completed {
+            background: #dcfce7;
+            color: var(--success-green);
+        }
+
+        .status-in-progress {
+            background: var(--bg-accent);
+            color: var(--primary-blue);
+        }
+
+        .status-not-started {
+            background: var(--bg-secondary);
+            color: var(--medium-gray);
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: var(--accent-red);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #dc2626;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: var(--primary-blue);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: var(--secondary-blue);
+            transform: translateY(-1px);
+        }
+
+        .btn-subtle {
+            background: var(--bg-secondary);
+            color: var(--charcoal);
+            border: 1px solid var(--light-gray);
+            transition: all 0.3s ease;
+        }
+
+        .btn-subtle:hover {
+            background: var(--bg-card);
+            border-color: var(--primary-blue);
+        }
+
+        /* Speed Controls */
+        .speed-btn {
+            background: var(--bg-secondary);
+            color: var(--charcoal);
+            border: 1px solid var(--light-gray);
+            transition: all 0.2s ease;
+        }
+
+        .speed-btn:hover,
+        .speed-btn.active {
+            background: var(--primary-blue);
+            color: white;
+            border-color: var(--primary-blue);
+        }
+
+        /* Header Bar */
         .lesson-header-bar {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             width: 100%;
-            background: white;
-            border-bottom: 1px solid #e5e7eb;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--light-gray);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
             padding: 16px 20px;
             z-index: 1000;
@@ -1033,14 +1237,14 @@
         .brand-line {
             font-size: 12px;
             font-weight: 600;
-            color: #3b82f6;
+            color: var(--primary-blue);
             text-align: center;
             letter-spacing: 0.5px;
         }
 
         .user-course-line {
             font-size: 14px;
-            color: #1f2937;
+            color: var(--charcoal);
             font-weight: 500;
             text-align: center;
         }
@@ -1052,7 +1256,7 @@
         }
 
         .btn-portal {
-            background: #3b82f6;
+            background: var(--primary-blue);
             color: white;
             padding: 8px 16px;
             border-radius: 6px;
@@ -1064,23 +1268,23 @@
         }
 
         .btn-portal:hover {
-            background: #2563eb;
+            background: var(--secondary-blue);
         }
 
         .btn-sair {
             background: transparent;
-            color: #6b7280;
+            color: var(--medium-gray);
             padding: 8px 16px;
             border-radius: 6px;
             font-size: 12px;
-            border: 1px solid #e5e7eb;
+            border: 1px solid var(--light-gray);
             cursor: pointer;
             transition: all 0.2s;
         }
 
         .btn-sair:hover {
-            background: #f9fafb;
-            color: #374151;
+            background: var(--bg-secondary);
+            color: var(--charcoal);
         }
 
         /* Add top margin to main content */
