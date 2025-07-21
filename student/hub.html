@@ -33,9 +33,9 @@
                 <div class="text-center">
                     <div class="text-6xl mb-4">🎧</div>
                     <h2 class="text-3xl font-bold mb-3">Learning Hub</h2>
-                    <p class="text-indigo-100 text-lg mb-4">Comece pelo Foundation Course, depois Gaming World e Movie Magic!</p>
+                    <p class="text-indigo-100 text-lg mb-4">Foundation → Gaming → Movies → Food Adventures!</p>
                     <div class="bg-white/20 backdrop-blur-sm rounded-lg p-4 border border-white/30">
-                        <p class="text-white font-semibold text-lg">🌟 Foundation Course • 🎮 Gaming World • 🎬 Movie Magic • 🚀 7 temas chegando em breve</p>
+                        <p class="text-white font-semibold text-lg">🌟 Foundation • 🎮 Gaming • 🎬 Movies • 🍕 Food Adventures • 🚀 6 temas chegando em breve</p>
                     </div>
                 </div>
             </div>
@@ -125,33 +125,65 @@
 
             <!-- Movie Magic - TERCEIRO NÍVEL -->
             <div class="mb-8">
-                <h3 class="text-xl font-bold text-charcoal mb-4">🎬 TERCEIRO NÍVEL - Movie Magic</h3>
-                <div class="elegant-card rounded-lg p-6 bg-gradient-to-r from-red-500 to-pink-500 text-white cursor-pointer hover:scale-105 transition-all" onclick="navigateToTheme('movies')">
+                <h3 class="text-2xl font-bold text-charcoal mb-4 flex items-center">
+                    <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-semibold mr-3">3º PASSO</span>
+                    🎬 TERCEIRO NÍVEL - Movie Magic
+                </h3>
+                <div class="elegant-card rounded-lg p-6 bg-gradient-to-r from-red-500 to-pink-500 text-white cursor-pointer hover:scale-105 transition-all shadow-lg" onclick="navigateToTheme('movies')">
                     <div class="flex items-center justify-between">
                         <div class="flex-1">
-                            <h3 class="text-xl font-bold mb-2">🎬 Movie Magic</h3>
-                            <p class="text-red-100 mb-3">Hollywood English and cinema conversations</p>
-                            <div class="bg-white/20 rounded-lg p-3 mb-3">
+                            <h3 class="text-2xl font-bold mb-3">🎬 Movie Magic</h3>
+                            <p class="text-red-100 text-lg mb-4">Hollywood English and cinema conversations</p>
+                            <div class="bg-white/20 rounded-lg p-3 mb-4">
                                 <div class="flex justify-between text-sm mb-2 text-white font-medium">
                                     <span>Progress</span>
                                     <span id="movies-progress">0/10</span>
                                 </div>
-                                <div class="w-full bg-white/30 rounded-full h-2">
-                                    <div id="movies-bar" class="bg-white h-2 rounded-full" style="width: 0%;"></div>
+                                <div class="w-full bg-white/30 rounded-full h-3">
+                                    <div id="movies-bar" class="bg-white h-3 rounded-full" style="width: 0%;"></div>
                                 </div>
                             </div>
-                            <div class="bg-white text-red-600 px-4 py-2 rounded-lg text-sm font-semibold inline-block">
+                            <div class="bg-white text-red-600 px-6 py-3 rounded-lg text-base font-bold inline-block">
                                 🎭 TERCEIRO NÍVEL - Movie Magic
                             </div>
                         </div>
-                        <div class="ml-6 text-4xl">🎬</div>
+                        <div class="ml-6 text-5xl">🎬</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Coming Soon Themes -->
+            <!-- Food Adventures - QUARTO NÍVEL - NEW ACTIVE THEME! -->
+            <div class="mb-8">
+                <h3 class="text-2xl font-bold text-charcoal mb-4 flex items-center">
+                    <span class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm font-semibold mr-3">4º PASSO</span>
+                    🍕 QUARTO NÍVEL - Food Adventures
+                </h3>
+                <div class="elegant-card rounded-lg p-6 bg-gradient-to-r from-orange-500 to-yellow-500 text-white cursor-pointer hover:scale-105 transition-all shadow-lg" onclick="navigateToTheme('food')">
+                    <div class="flex items-center justify-between">
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold mb-3">🍕 Food Adventures</h3>
+                            <p class="text-orange-100 text-lg mb-4">Explore delicious food stories and Brazilian cuisine</p>
+                            <div class="bg-white/20 rounded-lg p-3 mb-4">
+                                <div class="flex justify-between text-sm mb-2 text-white font-medium">
+                                    <span>Progress</span>
+                                    <span id="food-progress">0/10</span>
+                                </div>
+                                <div class="w-full bg-white/30 rounded-full h-3">
+                                    <div id="food-bar" class="bg-white h-3 rounded-full" style="width: 0%;"></div>
+                                </div>
+                            </div>
+                            <div class="bg-white text-orange-600 px-6 py-3 rounded-lg text-base font-bold inline-block">
+                                🍴 QUARTO NÍVEL - Food Adventures
+                            </div>
+                        </div>
+                        <div class="ml-6 text-5xl">🍕</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coming Soon Themes - UPDATED (6 remaining) -->
             <div class="mb-6">
-                <h3 class="text-xl font-bold text-charcoal mb-4">🚀 Coming Soon (7 temas restantes)</h3>
+                <h3 class="text-xl font-bold text-charcoal mb-4">🚀 Coming Soon (6 temas restantes)</h3>
                 <p class="text-medium-gray mb-6">Estes temas estão sendo desenvolvidos e estarão disponíveis em breve!</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -204,27 +236,6 @@
                         <div class="text-4xl mb-4 opacity-50">💬</div>
                         <h3 class="text-xl font-bold text-gray-500 mb-2">Daily Conversations</h3>
                         <p class="text-gray-400 mb-4">Real-life English conversations and dialogues</p>
-                        <div class="bg-gray-100 rounded-lg p-3 mb-4">
-                            <div class="flex justify-between text-sm text-gray-500">
-                                <span>Progress</span>
-                                <span>0/10</span>
-                            </div>
-                            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
-                                <div class="bg-gray-300 h-2 rounded-full" style="width: 0%;"></div>
-                            </div>
-                        </div>
-                        <div class="bg-gray-200 text-gray-500 px-4 py-2 rounded-lg text-sm font-semibold cursor-not-allowed">
-                            🚀 Em Breve
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Food Theme - COMING SOON -->
-                <div class="theme-card-disabled elegant-card rounded-lg p-6">
-                    <div class="text-center">
-                        <div class="text-4xl mb-4 opacity-50">🍕</div>
-                        <h3 class="text-xl font-bold text-gray-500 mb-2">Food & Cooking</h3>
-                        <p class="text-gray-400 mb-4">Culinary English and restaurant conversations</p>
                         <div class="bg-gray-100 rounded-lg p-3 mb-4">
                             <div class="flex justify-between text-sm text-gray-500">
                                 <span>Progress</span>
@@ -303,27 +314,6 @@
                     </div>
                 </div>
 
-                <!-- News Theme - COMING SOON -->
-                <div class="theme-card-disabled elegant-card rounded-lg p-6">
-                    <div class="text-center">
-                        <div class="text-4xl mb-4 opacity-50">📰</div>
-                        <h3 class="text-xl font-bold text-gray-500 mb-2">News & Media</h3>
-                        <p class="text-gray-400 mb-4">Current events and media English</p>
-                        <div class="bg-gray-100 rounded-lg p-3 mb-4">
-                            <div class="flex justify-between text-sm text-gray-500">
-                                <span>Progress</span>
-                                <span>0/10</span>
-                            </div>
-                            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
-                                <div class="bg-gray-300 h-2 rounded-full" style="width: 0%;"></div>
-                            </div>
-                        </div>
-                        <div class="bg-gray-200 text-gray-500 px-4 py-2 rounded-lg text-sm font-semibold cursor-not-allowed">
-                            🚀 Em Breve
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </main>
@@ -350,13 +340,13 @@
             return authData ? JSON.parse(authData) : null;
         }
 
-        // FIXED Navigation function - only allow working themes
+        // UPDATED Navigation function - now includes 'food'
         window.navigateToTheme = function(theme) {
-            const workingThemes = ['foundation', 'gaming', 'movies'];
+            const workingThemes = ['foundation', 'gaming', 'movies', 'food'];
             
             if (!workingThemes.includes(theme)) {
                 // Show a friendly message for coming soon themes
-                alert('🚀 Este tema está em desenvolvimento!\n\nPor enquanto, explore:\n• Foundation Course (básicos)\n• Gaming World (vocabulário gamer)\n• Movie Magic (cinema)\n\nMais temas chegando em breve!');
+                alert('🚀 Este tema está em desenvolvimento!\n\nPor enquanto, explore:\n• Foundation Course (básicos)\n• Gaming World (vocabulário gamer)\n• Movie Magic (cinema)\n• Food Adventures (culinária)\n\nMais temas chegando em breve!');
                 return;
             }
             
@@ -366,6 +356,8 @@
                 window.location.href = 'lessons-gaming.html';
             } else if (theme === 'movies') {
                 window.location.href = 'lessons-movies.html';
+            } else if (theme === 'food') {
+                window.location.href = 'lessons-food.html';
             }
         };
 
@@ -375,7 +367,7 @@
             window.location.href = '../index.html';
         };
 
-        // Load overall progress from Firebase
+        // Load overall progress from Firebase - UPDATED to include Food
         async function loadOverallProgress() {
             try {
                 const currentStudent = getCurrentStudent();
@@ -421,7 +413,15 @@
                     document.getElementById('movies-progress').textContent = `${moviesCompleted}/10`;
                     document.getElementById('movies-bar').style.width = `${moviesPercentage}%`;
 
-                    console.log('✅ Hub progress loaded from Firebase');
+                    // NEW: Update food progress (from foodLessons)
+                    const foodLessons = studentData.foodLessons || {};
+                    const foodCompleted = Object.values(foodLessons).filter(lesson => lesson.status === 'completed').length;
+                    const foodPercentage = (foodCompleted / 10) * 100;
+                    
+                    document.getElementById('food-progress').textContent = `${foodCompleted}/10`;
+                    document.getElementById('food-bar').style.width = `${foodPercentage}%`;
+
+                    console.log('✅ Hub progress loaded from Firebase with Food Adventures!');
                 } else {
                     console.log('❌ Student not found in Firebase');
                 }
@@ -430,6 +430,7 @@
             }
         }
 
+        // UPDATED: Calculate total completed including Food Adventures
         function calculateTotalCompleted(studentData) {
             // Count completed foundation lessons (audioLessons)
             const audioLessons = studentData.audioLessons || {};
@@ -443,14 +444,18 @@
             const movieLessons = studentData.movieLessons || {};
             const moviesCompleted = Object.values(movieLessons).filter(lesson => lesson.status === 'completed').length;
             
-            return foundationCompleted + gamingCompleted + moviesCompleted;
+            // NEW: Count completed food lessons
+            const foodLessons = studentData.foodLessons || {};
+            const foodCompleted = Object.values(foodLessons).filter(lesson => lesson.status === 'completed').length;
+            
+            return foundationCompleted + gamingCompleted + moviesCompleted + foodCompleted;
         }
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             if (!checkAuth()) return;
             loadOverallProgress();
-            console.log('🌟 Learning Hub loaded with Coming Soon protection + Movie Magic ready!');
+            console.log('🍕 Learning Hub loaded with Food Adventures as active theme!');
         });
     </script>
 
