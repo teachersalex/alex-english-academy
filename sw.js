@@ -1,5 +1,5 @@
-// Teacher Alex English Academy - Service Worker (Fixed Paths)
-// Guaranteed working version for GitHub Pages
+// Teacher Alex English Academy - Service Worker (FIXED Cache Error)
+// FIXED: Partial response (206) cache error
 
 const CACHE_NAME = 'alex-english-v1';
 
@@ -58,7 +58,7 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch event - serve from cache when possible
+// FIXED: Fetch event - handle partial responses properly
 self.addEventListener('fetch', (event) => {
   // Skip non-GET requests and external APIs
   if (event.request.method !== 'GET' || 
@@ -73,11 +73,16 @@ self.addEventListener('fetch', (event) => {
         // Return cached version or fetch from network
         return response || fetch(event.request)
           .then((fetchResponse) => {
-            // Cache successful responses
-            if (fetchResponse.ok) {
+            // FIXED: Only cache complete responses (status 200)
+            // Don't cache partial responses (status 206) that cause errors
+            if (fetchResponse.ok && fetchResponse.status === 200) {
               const responseClone = fetchResponse.clone();
               caches.open(CACHE_NAME)
-                .then((cache) => cache.put(event.request, responseClone));
+                .then((cache) => cache.put(event.request, responseClone))
+                .catch((error) => {
+                  // FIXED: Silent fail for cache errors - don't break the app
+                  console.log('⚠️ Cache failed (non-critical):', error);
+                });
             }
             return fetchResponse;
           });
@@ -91,4 +96,4 @@ self.addEventListener('fetch', (event) => {
   );
 });
 
-console.log('🎯 Service Worker: Alex English Academy PWA Ready!');
+console.log('🎯 Service Worker: Alex English Academy PWA Ready (Cache Error FIXED)!');
