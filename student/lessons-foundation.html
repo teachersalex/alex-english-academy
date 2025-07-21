@@ -9,10 +9,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../css/style.css">
 </head>
-<body class="professional-bg min-h-screen">
+<body class="colorful-bg min-h-screen">
 
-    <!-- Professional Full-Width Header Bar -->
-    <header class="lesson-header-bar">
+    <!-- Professional Colorful Header Bar -->
+    <header class="colorful-header-bar">
         <div class="header-left">
             <div class="brand-line">Teacher Alex English Academy</div>
             <div class="user-course-line" id="userCourseLine">Alex12345 • A1 Foundation Course</div>
@@ -31,13 +31,13 @@
         <!-- Lesson Selection View -->
         <div id="lessonSelection">
             <!-- Course Header -->
-            <div class="professional-card rounded-xl p-6 mb-6">
+            <div class="colorful-main-card rounded-xl p-6 mb-6">
                 <div class="text-center">
                     <div class="text-5xl mb-4">🌟</div>
-                    <h2 class="text-2xl font-bold text-charcoal mb-2">A1 Foundation Course</h2>
-                    <p class="text-medium-gray mb-4">Complete English basics with 10 interactive audio lessons</p>
-                    <div class="accent-card rounded-lg p-3">
-                        <p class="text-primary-blue font-medium">🎯 Complete questions • 📊 Track progress • 🏆 Earn XP & achievements!</p>
+                    <h2 class="text-2xl font-bold text-white mb-2">A1 Foundation Course</h2>
+                    <p class="text-blue-100 mb-4">Complete English basics with 10 interactive audio lessons</p>
+                    <div class="colorful-accent-card rounded-lg p-3">
+                        <p class="text-white font-medium">🎯 Complete questions • 📊 Track progress • 🏆 Earn XP & achievements!</p>
                     </div>
                 </div>
             </div>
@@ -64,7 +64,7 @@
                     <div id="lessonProgress" class="text-sm text-medium-gray">Lesson 1 of 10</div>
                 </div>
                 
-                <h2 id="lessonTitle" class="text-2xl font-bold text-charcoal mb-2">Basic Greetings</h2>
+                <h2 id="lessonTitle" class="text-2xl font-bold text-foundation-primary mb-2">Basic Greetings</h2>
                 <p id="lessonDescription" class="text-medium-gray mb-4">Learn essential greeting phrases and introductions</p>
                 
                 <!-- Progress Indicator -->
@@ -138,7 +138,7 @@
                 
                 <!-- Achievement -->
                 <div id="achievementDisplay" class="hidden achievement-card rounded-lg p-3 mb-4">
-                    <div class="text-sm font-semibold text-primary-blue mb-2">🎉 Achievement Unlocked!</div>
+                    <div class="text-sm font-semibold text-foundation-primary mb-2">🎉 Achievement Unlocked!</div>
                     <div id="achievementText" class="font-medium"></div>
                 </div>
                 
@@ -582,7 +582,7 @@
                 const currentStudent = getCurrentStudent();
                 if (!currentStudent) return;
 
-                document.getElementById('firebaseStatus').innerHTML = '<span class="text-primary-blue font-medium">🔍 Carregando progresso...</span>';
+                document.getElementById('firebaseStatus').innerHTML = '<span class="text-foundation-primary font-bold">🔍 Carregando progresso...</span>';
 
                 const studentRef = doc(db, 'students', currentStudent.username);
                 const studentDoc = await getDoc(studentRef);
@@ -594,7 +594,7 @@
                     renderLessons(audioLessons);
                     
                     const completedCount = Object.values(audioLessons).filter(lesson => lesson.status === 'completed').length;
-                    document.getElementById('firebaseStatus').innerHTML = `<span class="text-success-green font-medium">✅ Firebase: ${completedCount}/10 Foundation lessons completed</span>`;
+                    document.getElementById('firebaseStatus').innerHTML = `<span class="text-foundation-primary font-bold">✅ Firebase: ${completedCount}/10 Foundation lessons completed</span>`;
                 } else {
                     document.getElementById('firebaseStatus').innerHTML = '<span class="text-error-red font-medium">❌ Estudante não encontrado</span>';
                     renderLessons({});
@@ -624,7 +624,7 @@
                         <p class="text-sm text-medium-gray mb-3">${lesson.description}</p>
                         <div class="flex items-center justify-between text-xs text-medium-gray">
                             <span>🎧 ${lesson.duration}</span>
-                            <span class="font-semibold text-primary-blue">${progress.status === 'completed' ? `✅ ${progress.score}/5` : '+50 XP'}</span>
+                            <span class="font-semibold text-foundation-primary">${progress.status === 'completed' ? `✅ ${progress.score}/5` : '+50 XP'}</span>
                         </div>
                         ${progress.attempts > 0 ? `
                             <div class="mt-2 text-xs text-medium-gray">
@@ -697,7 +697,7 @@
             questionsSection.innerHTML = currentLesson.questions.map((question, index) => `
                 <div class="question-card rounded-xl p-6">
                     <div class="flex items-center mb-4">
-                        <div class="w-8 h-8 bg-primary-blue text-white rounded-full flex items-center justify-center font-bold text-sm mr-3">
+                        <div class="w-8 h-8 bg-foundation-primary text-white rounded-full flex items-center justify-center font-bold text-sm mr-3">
                             ${index + 1}
                         </div>
                         <div class="text-sm text-medium-gray">Question ${index + 1} of ${currentLesson.questions.length}</div>
@@ -1006,10 +1006,15 @@
         }
     </script>
 
-    <!-- Professional Color Scheme Styles -->
+    <!-- Colorful Professional Styles -->
     <style>
-        /* Professional Color Variables */
+        /* Colorful Professional Variables */
         :root {
+            --foundation-primary: #3b82f6;
+            --foundation-secondary: #1d4ed8;
+            --foundation-light: #93c5fd;
+            --foundation-dark: #1e40af;
+            
             --primary-blue: #3b82f6;
             --secondary-blue: #1e40af;
             --accent-red: #ef4444;
@@ -1023,205 +1028,42 @@
             --soft-border: #d1d5db;
             
             --bg-primary: #f8fafc;
-            --bg-secondary: #f1f5f9;
+            --bg-secondary: #e2e8f0;
             --bg-card: #ffffff;
             --bg-accent: #dbeafe;
         }
 
-        /* Professional Background */
-        .professional-bg {
-            background: linear-gradient(135deg, var(--bg-primary) 0%, #ffffff 50%, var(--bg-secondary) 100%);
+        /* Colorful Background */
+        .colorful-bg {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 25%, #cbd5e1 50%, #94a3b8 75%, #64748b 100%);
             background-attachment: fixed;
+            min-height: 100vh;
         }
 
-        /* Card Styles */
-        .professional-card {
-            background: var(--bg-card);
-            border: 1px solid var(--light-gray);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            transition: all 0.3s ease;
-        }
-
-        .professional-card:hover {
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            transform: translateY(-2px);
-        }
-
-        .status-card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--soft-border);
-        }
-
-        .accent-card {
-            background: var(--bg-accent);
-            border: 1px solid var(--primary-blue);
-        }
-
-        .progress-card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--soft-border);
-        }
-
-        .audio-card {
-            background: var(--bg-card);
-            border: 1px solid var(--light-gray);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .question-card {
-            background: var(--bg-card);
-            border: 1px solid var(--light-gray);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-        }
-
-        .submit-card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--soft-border);
-        }
-
-        .modal-card {
-            background: var(--bg-card);
-            border: 1px solid var(--light-gray);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-
-        .score-card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--soft-border);
-        }
-
-        .achievement-card {
-            background: var(--bg-accent);
-            border: 1px solid var(--primary-blue);
-        }
-
-        /* Professional Colors */
-        .text-primary-blue { color: var(--primary-blue); }
-        .text-accent-red { color: var(--accent-red); }
-        .text-success-green { color: var(--success-green); }
-        .text-error-red { color: var(--error-red); }
-        .text-warning-orange { color: var(--warning-orange); }
-
-        .bg-primary-blue { background-color: var(--primary-blue); }
-        .bg-accent-red { background-color: var(--accent-red); }
-
-        /* Progress Bar */
-        .progress-bar-container {
-            background: var(--light-gray);
-            overflow: hidden;
-        }
-
-        .progress-bar {
-            background: linear-gradient(90deg, var(--primary-blue), var(--secondary-blue));
-            transition: width 0.8s ease;
-        }
-
-        /* Answer Options */
-        .answer-option {
-            background: var(--bg-secondary);
-            border: 2px solid var(--light-gray);
-            transition: all 0.2s ease;
-        }
-
-        .answer-option:hover {
-            border-color: var(--primary-blue);
-            background: var(--bg-accent);
-        }
-
-        .answer-option.selected {
-            border-color: var(--primary-blue);
-            background: var(--bg-accent);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-        }
-
-        .option-letter {
-            background: var(--primary-blue);
+        /* Colorful Main Card */
+        .colorful-main-card {
+            background: linear-gradient(135deg, var(--foundation-primary), var(--foundation-secondary));
+            border: none;
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
             color: white;
         }
 
-        /* Status Badges */
-        .status-badge {
-            padding: 0.25rem 0.75rem;
-            border-radius: 0.5rem;
-            font-size: 0.75rem;
-            font-weight: 500;
+        .colorful-accent-card {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
         }
 
-        .status-completed {
-            background: #dcfce7;
-            color: var(--success-green);
-        }
-
-        .status-in-progress {
-            background: var(--bg-accent);
-            color: var(--primary-blue);
-        }
-
-        .status-not-started {
-            background: var(--bg-secondary);
-            color: var(--medium-gray);
-        }
-
-        /* Buttons */
-        .btn-primary {
-            background: var(--accent-red);
-            color: white;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary:hover {
-            background: #dc2626;
-            transform: translateY(-1px);
-        }
-
-        .btn-secondary {
-            background: var(--primary-blue);
-            color: white;
-            transition: all 0.3s ease;
-        }
-
-        .btn-secondary:hover {
-            background: var(--secondary-blue);
-            transform: translateY(-1px);
-        }
-
-        .btn-subtle {
-            background: var(--bg-secondary);
-            color: var(--charcoal);
-            border: 1px solid var(--light-gray);
-            transition: all 0.3s ease;
-        }
-
-        .btn-subtle:hover {
-            background: var(--bg-card);
-            border-color: var(--primary-blue);
-        }
-
-        /* Speed Controls */
-        .speed-btn {
-            background: var(--bg-secondary);
-            color: var(--charcoal);
-            border: 1px solid var(--light-gray);
-            transition: all 0.2s ease;
-        }
-
-        .speed-btn:hover,
-        .speed-btn.active {
-            background: var(--primary-blue);
-            color: white;
-            border-color: var(--primary-blue);
-        }
-
-        /* Header Bar */
-        .lesson-header-bar {
+        /* Colorful Header Bar */
+        .colorful-header-bar {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             width: 100%;
-            background: var(--bg-card);
-            border-bottom: 1px solid var(--light-gray);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            background: linear-gradient(135deg, var(--foundation-primary), var(--foundation-secondary));
+            border-bottom: 2px solid var(--foundation-dark);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
             padding: 16px 20px;
             z-index: 1000;
             display: flex;
@@ -1230,61 +1072,241 @@
             gap: 8px;
         }
 
-        .header-left {
-            text-align: center;
-        }
-
-        .brand-line {
+        .colorful-header-bar .brand-line {
             font-size: 12px;
             font-weight: 600;
-            color: var(--primary-blue);
+            color: white;
             text-align: center;
             letter-spacing: 0.5px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
         }
 
-        .user-course-line {
+        .colorful-header-bar .user-course-line {
             font-size: 14px;
-            color: var(--charcoal);
+            color: #e2e8f0;
             font-weight: 500;
             text-align: center;
         }
 
-        .header-actions {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-        }
-
-        .btn-portal {
-            background: var(--primary-blue);
-            color: white;
+        .colorful-header-bar .btn-portal {
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--foundation-secondary);
             padding: 8px 16px;
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 12px;
-            font-weight: 500;
+            font-weight: 600;
             border: none;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        .btn-portal:hover {
-            background: var(--secondary-blue);
+        .colorful-header-bar .btn-portal:hover {
+            background: white;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
         }
 
-        .btn-sair {
-            background: transparent;
-            color: var(--medium-gray);
+        .colorful-header-bar .btn-sair {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
             padding: 8px 16px;
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 12px;
-            border: 1px solid var(--light-gray);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s ease;
         }
 
-        .btn-sair:hover {
+        .colorful-header-bar .btn-sair:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Card Styles */
+        .professional-card {
+            background: var(--bg-card);
+            border: 2px solid var(--bg-accent);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .professional-card:hover {
+            box-shadow: 0 12px 35px rgba(59, 130, 246, 0.25);
+            transform: translateY(-3px);
+            border-color: var(--foundation-primary);
+        }
+
+        .status-card {
+            background: linear-gradient(135deg, var(--bg-accent), var(--bg-secondary));
+            border: 2px solid var(--foundation-light);
+            color: var(--foundation-dark);
+        }
+
+        .progress-card {
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-accent));
+            border: 2px solid var(--foundation-light);
+        }
+
+        .audio-card {
+            background: var(--bg-card);
+            border: 2px solid var(--foundation-light);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.15);
+        }
+
+        .question-card {
+            background: var(--bg-card);
+            border: 2px solid var(--bg-accent);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.1);
+        }
+
+        .submit-card {
+            background: linear-gradient(135deg, var(--bg-accent), var(--foundation-light));
+            border: 2px solid var(--foundation-primary);
+        }
+
+        .modal-card {
+            background: var(--bg-card);
+            border: 2px solid var(--foundation-primary);
+            box-shadow: 0 25px 50px rgba(59, 130, 246, 0.25);
+        }
+
+        .score-card {
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-accent));
+            border: 2px solid var(--foundation-primary);
+        }
+
+        .achievement-card {
+            background: linear-gradient(135deg, var(--foundation-light), var(--bg-accent));
+            border: 2px solid var(--foundation-primary);
+        }
+
+        /* Enhanced Colors */
+        .text-primary-blue { color: var(--primary-blue); }
+        .text-accent-red { color: var(--accent-red); }
+        .text-success-green { color: var(--success-green); }
+        .text-error-red { color: var(--error-red); }
+        .text-foundation-primary { color: var(--foundation-primary); }
+
+        /* Progress Bar */
+        .progress-bar-container {
             background: var(--bg-secondary);
-            color: var(--charcoal);
+            overflow: hidden;
+            border: 1px solid var(--foundation-light);
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, var(--foundation-primary), var(--foundation-light));
+            transition: width 0.8s ease;
+            box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Answer Options */
+        .answer-option {
+            background: var(--bg-secondary);
+            border: 2px solid var(--foundation-light);
+            transition: all 0.3s ease;
+        }
+
+        .answer-option:hover {
+            border-color: var(--foundation-primary);
+            background: var(--bg-accent);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+        }
+
+        .answer-option.selected {
+            border-color: var(--foundation-primary);
+            background: var(--bg-accent);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+
+        .option-letter {
+            background: var(--foundation-primary);
+            color: white;
+        }
+
+        /* Status Badges */
+        .status-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border: 1px solid;
+        }
+
+        .status-completed {
+            background: var(--foundation-primary);
+            color: white;
+            border-color: var(--foundation-secondary);
+        }
+
+        .status-in-progress {
+            background: var(--primary-blue);
+            color: white;
+            border-color: var(--secondary-blue);
+        }
+
+        .status-not-started {
+            background: var(--bg-accent);
+            color: var(--foundation-dark);
+            border-color: var(--foundation-light);
+        }
+
+        /* Enhanced Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-red), #dc2626);
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--foundation-primary), var(--foundation-secondary));
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, var(--foundation-secondary), var(--foundation-dark));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-subtle {
+            background: var(--bg-accent);
+            color: var(--foundation-dark);
+            border: 2px solid var(--foundation-light);
+            transition: all 0.3s ease;
+        }
+
+        .btn-subtle:hover {
+            background: var(--foundation-light);
+            border-color: var(--foundation-primary);
+            transform: translateY(-1px);
+        }
+
+        /* Speed Controls */
+        .speed-btn {
+            background: var(--bg-accent);
+            color: var(--foundation-dark);
+            border: 2px solid var(--foundation-light);
+            transition: all 0.3s ease;
+        }
+
+        .speed-btn:hover,
+        .speed-btn.active {
+            background: var(--foundation-primary);
+            color: white;
+            border-color: var(--foundation-secondary);
+            transform: translateY(-1px);
         }
 
         /* Add top margin to main content */
@@ -1294,7 +1316,7 @@
 
         /* Desktop responsive */
         @media (min-width: 768px) {
-            .lesson-header-bar {
+            .colorful-header-bar {
                 flex-direction: row;
                 justify-content: space-between;
                 align-items: center;
@@ -1312,20 +1334,21 @@
 
         /* Mobile adjustments */
         @media (max-width: 480px) {
-            .lesson-header-bar {
+            .colorful-header-bar {
                 padding: 12px 16px;
                 gap: 6px;
             }
             
-            .brand-line {
+            .colorful-header-bar .brand-line {
                 font-size: 11px;
             }
             
-            .user-course-line {
+            .colorful-header-bar .user-course-line {
                 font-size: 13px;
             }
             
-            .btn-portal, .btn-sair {
+            .colorful-header-bar .btn-portal, 
+            .colorful-header-bar .btn-sair {
                 padding: 6px 12px;
                 font-size: 11px;
             }
@@ -1334,6 +1357,17 @@
                 margin-top: 110px;
             }
         }
+
+        /* Professional Background */
+        .professional-bg {
+            background: linear-gradient(135deg, var(--bg-primary) 0%, #ffffff 50%, var(--bg-secondary) 100%);
+            background-attachment: fixed;
+        }
+
+        .bg-primary-blue { background-color: var(--primary-blue); }
+        .bg-accent-red { background-color: var(--accent-red); }
+        .bg-foundation-primary { background-color: var(--foundation-primary); }
+        .text-blue-100 { color: #dbeafe; }
     </style>
 
 </body>
