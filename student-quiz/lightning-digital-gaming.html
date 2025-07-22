@@ -189,13 +189,7 @@
                         options: ["Instagram", "WhatsApp", "TikTok", "Facebook"],
                         correct: 1,
                         explanation: "99% of Brazilians use WhatsApp daily - more than any other app!"
-                    }
-        
-        // Logout function
-        window.logout = function() {
-            localStorage.clear();
-            window.location.href = '../index.html';
-        };
+                    },
                     {
                         question: "How much can top Brazilian influencers earn per sponsored post?",
                         options: ["R$ 5,000", "R$ 15,000", "R$ 50,000", "R$ 100,000"],
@@ -375,6 +369,12 @@
                 ]
             }
         ];
+
+        // ✅ LOGOUT FUNCTION - PROPERLY PLACED OUTSIDE DATA STRUCTURE
+        window.logout = function() {
+            localStorage.clear();
+            window.location.href = '../index.html';
+        };
 
         // State
         let currentQuiz = null;
