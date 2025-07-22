@@ -4,53 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A1 Foundation - Teacher Alex Academy</title>
-    <!-- PRODUCTION NOTE: Replace Tailwind CDN with local build -->
-    <!-- See: https://tailwindcss.com/docs/installation -->
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../css/style.css">
 </head>
-<body class="colorful-bg min-h-screen">
+<body class="sophisticated-bg">
 
-    <!-- Professional Colorful Header Bar -->
-    <header class="colorful-header-bar">
-        <div class="header-left">
-            <div class="brand-line">Teacher Alex English Academy</div>
-            <div class="user-course-line" id="userCourseLine">Alex12345 • A1 Foundation Course</div>
-        </div>
-        
-        <div class="header-actions">
-            <button class="btn-portal" onclick="window.location.href='hub.html'">← Hub</button>
-            <button class="btn-sair" onclick="logout()">Sair</button>
+    <!-- Professional Header Bar -->
+    <header class="fixed w-full top-0 left-0 right-0 bg-primary z-50">
+        <div class="header-container">
+            <div class="header-left">
+                <div class="brand-line">Teacher Alex English Academy</div>
+                <div class="user-course-line" id="userCourseLine">Alex12345 • A1 Foundation Course</div>
+            </div>
+            
+            <div class="header-actions">
+                <button class="btn-portal" onclick="window.location.href='hub.html'">← Hub</button>
+                <button class="btn-logout" onclick="logout()">Sair</button>
+            </div>
         </div>
     </header>
 
     <!-- Main Content -->
-    <main class="lesson-content">
-        <div class="max-w-4xl mx-auto px-4 pb-8">
+    <main class="lesson-container">
+        <div class="content-wrapper">
         
         <!-- Lesson Selection View -->
-        <div id="lessonSelection">
+        <div id="lessonSelection" class="fade-in">
             <!-- Course Header -->
-            <div class="colorful-main-card rounded-xl p-6 mb-6">
+            <div class="elegant-card lesson-header mb-6">
                 <div class="text-center">
-                    <div class="text-5xl mb-4">🌟</div>
-                    <h2 class="text-2xl font-bold text-white mb-2">A1 Foundation Course</h2>
-                    <p class="text-blue-100 mb-4">Complete English basics with 10 interactive audio lessons</p>
-                    <div class="colorful-accent-card rounded-lg p-3">
-                        <p class="text-white font-medium">🎯 Complete questions • 📊 Track progress • 🏆 Earn XP & achievements!</p>
+                    <div class="course-icon mb-4">🌟</div>
+                    <h2 class="heading-primary mb-2">A1 Foundation Course</h2>
+                    <p class="text-muted mb-4">Complete English basics with 10 interactive audio lessons</p>
+                    <div class="glass-card rounded-lg p-3">
+                        <p class="course-features">🎯 Complete questions • 📊 Track progress • 🏆 Earn XP & achievements!</p>
                     </div>
                 </div>
             </div>
 
             <!-- Firebase Status -->
-            <div class="status-card rounded-lg p-4 mb-6 text-center">
+            <div class="stats-card rounded-lg p-4 mb-6 text-center">
                 <div id="firebaseStatus" class="text-sm">
-                    <span class="text-primary-blue font-medium">🔥 Carregando progresso do Firebase...</span>
+                    <span class="text-alex-blue font-medium">🔥 Carregando progresso do Firebase...</span>
                 </div>
             </div>
 
             <!-- Lessons Grid -->
-            <div id="lessonsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div id="lessonsGrid" class="lessons-grid">
                 <!-- Lessons will be loaded here -->
             </div>
         </div>
@@ -58,100 +57,99 @@
         <!-- Interactive Lesson View -->
         <div id="lessonInterface" class="hidden">
             <!-- Lesson Header -->
-            <div class="professional-card rounded-xl p-6 mb-6">
-                <div class="flex items-center justify-between mb-4">
+            <div class="elegant-card rounded-xl p-6 mb-6 slide-up">
+                <div class="lesson-nav mb-4">
                     <button id="backToLessons" class="link-sophisticated text-sm">← Back to Foundation</button>
-                    <div id="lessonProgress" class="text-sm text-medium-gray">Lesson 1 of 10</div>
+                    <div id="lessonProgress" class="text-muted">Lesson 1 of 10</div>
                 </div>
                 
-                <h2 id="lessonTitle" class="text-2xl font-bold text-foundation-primary mb-2">Basic Greetings</h2>
-                <p id="lessonDescription" class="text-medium-gray mb-4">Learn essential greeting phrases and introductions</p>
+                <h2 id="lessonTitle" class="heading-secondary mb-2">Basic Greetings</h2>
+                <p id="lessonDescription" class="text-muted mb-4">Learn essential greeting phrases and introductions</p>
                 
-                <!-- Progress Indicator -->
-                <div class="progress-card rounded-lg p-3">
-                    <div class="flex justify-between text-sm mb-2">
+                <!-- Enhanced Progress Indicator -->
+                <div class="progress-container">
+                    <div class="progress-header mb-2">
                         <span>Lesson Progress</span>
                         <span id="progressText">Listen to Audio</span>
                     </div>
-                    <div class="progress-bar-container h-3 rounded-full">
-                        <div id="progressBar" class="progress-bar rounded-full"></div>
+                    <div class="progress-bar-container">
+                        <div id="progressBar" class="progress-bar"></div>
                     </div>
                 </div>
             </div>
 
             <!-- Audio Player -->
-            <div class="audio-card rounded-xl p-6 mb-6">
+            <div class="audio-player-container mb-6 slide-up">
                 <div class="text-center mb-4">
-                    <h3 class="text-lg font-semibold text-charcoal mb-2">🎧 Listen to the Audio</h3>
-                    <p class="text-medium-gray">Listen carefully and answer the questions below</p>
+                    <h3 class="heading-secondary mb-2">🎧 Listen to the Audio</h3>
+                    <p class="text-muted">Listen carefully and answer the questions below</p>
                 </div>
                 
-                <audio id="audioPlayer" class="w-full mb-4" controls>
+                <audio id="audioPlayer" class="audio-enhanced w-full mb-4" controls>
                     <source id="audioSource" src="" type="audio/mpeg">
                     Your browser does not support audio.
                 </audio>
                 
                 <!-- Audio Controls -->
-                <div class="flex justify-center space-x-4 mb-4">
-                    <button id="playPauseBtn" class="btn-secondary px-6 py-2 rounded-lg">▶️ Play</button>
-                    <button id="rewindBtn" class="btn-subtle px-4 py-2 rounded-lg">⏪ -10s</button>
-                    <button id="forwardBtn" class="btn-subtle px-4 py-2 rounded-lg">⏩ +10s</button>
+                <div class="audio-controls mb-4">
+                    <button id="playPauseBtn" class="btn-secondary audio-control-btn play-btn">▶️ Play</button>
+                    <button id="rewindBtn" class="btn-subtle audio-control-btn">⏪ -10s</button>
+                    <button id="forwardBtn" class="btn-subtle audio-control-btn">⏩ +10s</button>
                 </div>
                 
                 <!-- Speed Controls -->
-                <div class="flex justify-center space-x-2">
-                    <button class="speed-btn px-3 py-1 text-sm rounded" data-speed="0.75">0.75x</button>
-                    <button class="speed-btn px-3 py-1 text-sm rounded active" data-speed="1">1x</button>
-                    <button class="speed-btn px-3 py-1 text-sm rounded" data-speed="1.25">1.25x</button>
+                <div class="speed-controls">
+                    <button class="speed-btn active" data-speed="0.75">0.75x</button>
+                    <button class="speed-btn active" data-speed="1">1x</button>
+                    <button class="speed-btn" data-speed="1.25">1.25x</button>
                 </div>
             </div>
 
             <!-- Questions Section -->
-            <div id="questionsSection" class="space-y-6 mb-6">
+            <div id="questionsSection" class="questions-container mb-6">
                 <!-- Questions will be loaded here -->
             </div>
 
             <!-- Submit Section -->
-            <div class="submit-card rounded-xl p-6 text-center">
-                <button id="submitAnswers" class="btn-primary px-8 py-4 rounded-xl text-lg font-bold" disabled>
+            <div class="elegant-card rounded-xl p-6 text-center slide-up">
+                <button id="submitAnswers" class="btn-primary submit-btn" disabled>
                     Submit Answers (0/5 Complete)
                 </button>
-                <p class="text-medium-gray text-sm mt-2">Answer all questions to continue</p>
-                </div>
+                <p class="text-muted text-sm mt-2">Answer all questions to continue</p>
             </div>
+        </div>
         </div>
     </main>
 
     <!-- Results Modal -->
-    <div id="resultsModal" class="hidden fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-        <div class="modal-card rounded-2xl p-6 max-w-md w-full">
+    <div id="resultsModal" class="modal-overlay hidden">
+        <div class="modal-content results-modal">
             <div class="text-center">
-                <div id="resultIcon" class="text-5xl mb-4">🎉</div>
-                <h3 id="resultTitle" class="text-xl font-bold text-charcoal mb-4">Lesson Complete!</h3>
+                <div id="resultIcon" class="result-icon mb-4">🎉</div>
+                <h3 id="resultTitle" class="heading-primary mb-4">Lesson Complete!</h3>
                 
                 <!-- Score Display -->
-                <div class="score-card rounded-lg p-4 mb-4">
-                    <div id="scoreDisplay" class="text-3xl font-bold text-charcoal mb-1">5/5</div>
-                    <div id="percentageDisplay" class="text-lg text-medium-gray mb-2">100% Correct</div>
-                    <div id="xpEarned" class="text-accent-red font-semibold text-lg">+75 XP Earned!</div>
+                <div class="results-score mb-4">
+                    <div id="scoreDisplay" class="score-display mb-1">5/5</div>
+                    <div id="percentageDisplay" class="percentage-display mb-2">100% Correct</div>
+                    <div id="xpEarned" class="xp-display">+75 XP Earned!</div>
                 </div>
                 
                 <!-- Achievement -->
-                <div id="achievementDisplay" class="hidden achievement-card rounded-lg p-3 mb-4">
-                    <div class="text-sm font-semibold text-foundation-primary mb-2">🎉 Achievement Unlocked!</div>
+                <div id="achievementDisplay" class="hidden results-achievements mb-4">
+                    <div class="achievement-header mb-2">🎉 Achievement Unlocked!</div>
                     <div id="achievementText" class="font-medium"></div>
                 </div>
                 
                 <!-- Controls -->
-                <div class="space-y-3">
-                    <button id="reviewAnswers" class="btn-secondary w-full py-3 rounded-lg font-semibold">
+                <div class="modal-actions">
+                    <button id="reviewAnswers" class="btn-secondary w-full py-3 mb-3">
                         📊 Review Answers
                     </button>
-                    <!-- 🔄 NEW: Try Again Button (appears when score < 5) -->
-                    <button id="tryAgainBtn" class="btn-subtle w-full py-3 rounded-lg font-semibold hidden">
+                    <button id="tryAgainBtn" class="btn-subtle w-full py-3 mb-3 hidden">
                         🔄 Tentar Novamente
                     </button>
-                    <button id="nextLesson" class="btn-primary w-full py-3 rounded-lg font-semibold">
+                    <button id="nextLesson" class="btn-primary w-full py-3 mb-3">
                         Next Lesson →
                     </button>
                     <button id="backToLessonsList" class="link-muted text-sm py-2">
@@ -163,13 +161,13 @@
     </div>
 
     <!-- Answer Review Modal -->
-    <div id="reviewModal" class="hidden fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-        <div class="modal-card rounded-2xl p-6 max-w-2xl w-full max-h-96 overflow-y-auto">
-            <h3 class="text-lg font-bold text-charcoal mb-4 text-center">📝 Answer Review</h3>
-            <div id="reviewContent" class="space-y-4 mb-6">
+    <div id="reviewModal" class="modal-overlay hidden">
+        <div class="modal-content review-modal">
+            <h3 class="heading-primary mb-4 text-center">📝 Answer Review</h3>
+            <div id="reviewContent" class="review-content mb-6">
                 <!-- Review content here -->
             </div>
-            <button id="closeReview" class="btn-primary w-full py-3 rounded-lg font-semibold">
+            <button id="closeReview" class="btn-primary w-full py-3">
                 Close Review
             </button>
         </div>
@@ -183,7 +181,7 @@
         import { db } from '../js/firebase.js';
         import { doc, getDoc, updateDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js';
 
-        // Complete lesson data with ALL 10 Foundation lessons - FIXED FOR FEMALE VOICE
+        // Complete lesson data with ALL 10 Foundation lessons
         const LESSONS = [
             {
                 id: 'audio-01',
@@ -586,7 +584,7 @@
                 const currentStudent = getCurrentStudent();
                 if (!currentStudent) return;
 
-                document.getElementById('firebaseStatus').innerHTML = '<span class="text-foundation-primary font-bold">🔍 Carregando progresso...</span>';
+                document.getElementById('firebaseStatus').innerHTML = '<span class="text-alex-blue font-medium">🔍 Carregando progresso...</span>';
 
                 const studentRef = doc(db, 'students', currentStudent.username);
                 const studentDoc = await getDoc(studentRef);
@@ -598,14 +596,14 @@
                     renderLessons(audioLessons);
                     
                     const completedCount = Object.values(audioLessons).filter(lesson => lesson.status === 'completed').length;
-                    document.getElementById('firebaseStatus').innerHTML = `<span class="text-foundation-primary font-bold">✅ Firebase: ${completedCount}/10 Foundation lessons completed</span>`;
+                    document.getElementById('firebaseStatus').innerHTML = `<span class="text-alex-blue font-bold">✅ Firebase: ${completedCount}/10 Foundation lessons completed</span>`;
                 } else {
-                    document.getElementById('firebaseStatus').innerHTML = '<span class="text-error-red font-medium">❌ Estudante não encontrado</span>';
+                    document.getElementById('firebaseStatus').innerHTML = '<span class="text-academy-red font-medium">❌ Estudante não encontrado</span>';
                     renderLessons({});
                 }
             } catch (error) {
                 console.error('❌ Error loading progress:', error);
-                document.getElementById('firebaseStatus').innerHTML = '<span class="text-error-red font-medium">❌ Erro Firebase - modo offline</span>';
+                document.getElementById('firebaseStatus').innerHTML = '<span class="text-academy-red font-medium">❌ Erro Firebase - modo offline</span>';
                 renderLessons({});
             }
         }
@@ -619,19 +617,19 @@
                 const statusText = getStatusText(progress.status);
                 
                 return `
-                    <div class="lesson-card professional-card rounded-xl p-4 cursor-pointer hover:scale-105 transition-all" onclick="startLesson('${lesson.id}')">
-                        <div class="flex items-center justify-between mb-3">
-                            <div class="text-2xl">${lesson.icon}</div>
+                    <div class="lesson-card elegant-card rounded-xl p-4 cursor-pointer fade-in" onclick="startLesson('${lesson.id}')" style="animation-delay: ${index * 0.1}s">
+                        <div class="lesson-card-header mb-3">
+                            <div class="lesson-icon">${lesson.icon}</div>
                             <span class="status-badge ${statusClass}">${statusText}</span>
                         </div>
-                        <h3 class="font-semibold text-charcoal mb-2">Lesson ${index + 1}: ${lesson.title}</h3>
-                        <p class="text-sm text-medium-gray mb-3">${lesson.description}</p>
-                        <div class="flex items-center justify-between text-xs text-medium-gray">
-                            <span>🎧 ${lesson.duration}</span>
-                            <span class="font-semibold text-foundation-primary">${progress.status === 'completed' ? `✅ ${progress.score}/5` : '+50 XP'}</span>
+                        <h3 class="heading-secondary mb-2">Lesson ${index + 1}: ${lesson.title}</h3>
+                        <p class="text-muted mb-3">${lesson.description}</p>
+                        <div class="lesson-card-footer">
+                            <span class="lesson-duration">🎧 ${lesson.duration}</span>
+                            <span class="lesson-reward text-alex-blue font-medium">${progress.status === 'completed' ? `✅ ${progress.score}/5` : '+50 XP'}</span>
                         </div>
                         ${progress.attempts > 0 ? `
-                            <div class="mt-2 text-xs text-medium-gray">
+                            <div class="lesson-attempts text-muted">
                                 Tentativas: ${progress.attempts} • Score: ${progress.score || 0}/5
                             </div>
                         ` : ''}
@@ -668,7 +666,7 @@
             document.getElementById('lessonSelection').classList.add('hidden');
             document.getElementById('lessonInterface').classList.remove('hidden');
             
-            // ✅ SCROLL TO TOP FOR BETTER UX
+            // Smooth scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
             
             // Update lesson info
@@ -699,21 +697,19 @@
             const questionsSection = document.getElementById('questionsSection');
             
             questionsSection.innerHTML = currentLesson.questions.map((question, index) => `
-                <div class="question-card rounded-xl p-6">
-                    <div class="flex items-center mb-4">
-                        <div class="w-8 h-8 bg-foundation-primary text-white rounded-full flex items-center justify-center font-bold text-sm mr-3">
-                            ${index + 1}
-                        </div>
-                        <div class="text-sm text-medium-gray">Question ${index + 1} of ${currentLesson.questions.length}</div>
+                <div class="question-container slide-up" style="animation-delay: ${index * 0.1}s">
+                    <div class="question-header mb-4">
+                        <div class="question-number">${index + 1}</div>
+                        <div class="text-muted">Question ${index + 1} of ${currentLesson.questions.length}</div>
                     </div>
                     
-                    <h4 class="text-lg font-semibold text-charcoal mb-4">${question.question}</h4>
+                    <h4 class="question-text mb-4">${question.question}</h4>
                     
-                    <div class="space-y-3">
+                    <div class="answer-options">
                         ${question.options.map((option, optionIndex) => `
-                            <div class="answer-option cursor-pointer" data-question="${index}" data-option="${optionIndex}" onclick="selectAnswer(${index}, ${optionIndex})">
+                            <div class="answer-option" data-question="${index}" data-option="${optionIndex}" onclick="selectAnswer(${index}, ${optionIndex})">
                                 <div class="option-letter">${String.fromCharCode(65 + optionIndex)}</div>
-                                <div class="flex-1">${option}</div>
+                                <div class="option-text">${option}</div>
                             </div>
                         `).join('')}
                     </div>
@@ -728,8 +724,9 @@
             });
             
             // Add new selection
-            document.querySelector(`[data-question="${questionIndex}"][data-option="${optionIndex}"]`)
-                .classList.add('selected');
+            const selectedOption = document.querySelector(`[data-question="${questionIndex}"][data-option="${optionIndex}"]`);
+            selectedOption.classList.add('selected');
+            selectedOption.classList.add('bounce-in');
             
             // Store answer
             userAnswers[questionIndex] = optionIndex;
@@ -741,8 +738,9 @@
             submitBtn.disabled = answeredCount < 5;
             
             if (answeredCount === 5) {
-                submitBtn.classList.remove('opacity-50');
+                submitBtn.disabled = false;
                 submitBtn.textContent = 'Submit Answers - Ready! 🎯';
+                submitBtn.classList.add('pulse-gentle');
             }
             
             // Update progress
@@ -751,7 +749,8 @@
         };
 
         function updateProgress(percentage, text) {
-            document.getElementById('progressBar').style.width = `${percentage}%`;
+            const progressBar = document.getElementById('progressBar');
+            progressBar.style.width = `${percentage}%`;
             document.getElementById('progressText').textContent = text;
         }
 
@@ -795,7 +794,6 @@
                 document.getElementById('lessonInterface').classList.add('hidden');
                 document.getElementById('lessonSelection').classList.remove('hidden');
                 
-                // ✅ SCROLL TO TOP WHEN RETURNING TO LESSON LIST
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 
                 const currentStudent = getCurrentStudent();
@@ -810,10 +808,10 @@
                 returnToLessonsList();
             });
             
-            // 🔄 NEW: Try Again Button
+            // Try Again Button
             document.getElementById('tryAgainBtn').addEventListener('click', restartLesson);
             
-            // 🔄 NEW: Backdrop click to close modal
+            // Backdrop click to close modal
             document.getElementById('resultsModal').addEventListener('click', (e) => {
                 if (e.target === document.getElementById('resultsModal')) {
                     closeResultsModal();
@@ -821,7 +819,6 @@
                 }
             });
             
-            // 🔄 NEW: Backdrop click for review modal too
             document.getElementById('reviewModal').addEventListener('click', (e) => {
                 if (e.target === document.getElementById('reviewModal')) {
                     document.getElementById('reviewModal').classList.add('hidden');
@@ -880,7 +877,7 @@
             return baseXP + bonusXP;
         }
 
-        // FIXED: Complete lesson saving with level calculation
+        // Complete lesson saving with level calculation
         async function saveLessonProgress(score, timeSpent, xpEarned) {
             const currentStudent = getCurrentStudent();
             if (!currentStudent) return;
@@ -902,14 +899,14 @@
                     status: 'completed',
                     score: score,
                     totalQuestions: 5,
-                    attempts: currentAttempts + 1, // ✅ FIXED: Increment attempts
+                    attempts: currentAttempts + 1,
                     completedAt: serverTimestamp(),
                     timeSpent: timeSpent,
                     xpEarned: xpEarned
                 },
-                totalXP: newTotalXP,           // ✅ CORRECT: Update total XP
-                level: newLevel,               // ✅ FIXED: Update level too!
-                lastLoginDate: serverTimestamp() // ✅ FIXED: Match your Firebase field name
+                totalXP: newTotalXP,
+                level: newLevel,
+                lastLoginDate: serverTimestamp()
             };
 
             await updateDoc(studentRef, updateData);
@@ -918,22 +915,21 @@
             if (!studentData.audioLessons) studentData.audioLessons = {};
             studentData.audioLessons[currentLesson.id] = updateData[lessonPath];
             studentData.totalXP = newTotalXP;
-            studentData.level = newLevel; // ✅ FIXED: Update local level too
+            studentData.level = newLevel;
             
             console.log(`✅ Foundation progress saved: +${xpEarned} XP, Level ${newLevel}`);
         }
 
-        // Add level calculation function (matches portal system)
+        // Level calculation function
         function calculateLevelFromXP(totalXP) {
             if (totalXP < 100) return 1;
             
-            // Exponential scaling: Level 2 = 100 XP, Level 3 = 250 XP, etc.
             let level = 1;
             let xpRequired = 0;
             
             while (totalXP >= xpRequired) {
                 level++;
-                xpRequired += (level - 1) * 150; // Exponential increase
+                xpRequired += (level - 1) * 150;
                 if (level > 1000) break;
             }
             
@@ -950,7 +946,7 @@
             document.getElementById('percentageDisplay').textContent = `${percentage}% Correct`;
             document.getElementById('xpEarned').textContent = `+${xpEarned} XP Earned!`;
             
-            // 🔄 NEW: Show/hide Try Again button based on score
+            // Show/hide Try Again button based on score
             const tryAgainBtn = document.getElementById('tryAgainBtn');
             if (score < 5) {
                 tryAgainBtn.classList.remove('hidden');
@@ -977,14 +973,14 @@
                 const userAnswerText = question.options[userAnswer];
                 
                 return `
-                    <div class="border-b border-soft-border pb-4 last:border-b-0">
-                        <div class="font-medium text-charcoal mb-2">${index + 1}. ${question.question}</div>
-                        <div class="space-y-1">
-                            <div class="${isCorrect ? 'text-success-green' : 'text-error-red'} font-medium">
+                    <div class="review-item">
+                        <div class="heading-secondary mb-2">${index + 1}. ${question.question}</div>
+                        <div class="review-answers">
+                            <div class="${isCorrect ? 'text-success' : 'text-error'} font-medium">
                                 ${isCorrect ? '✅' : '❌'} Your answer: ${userAnswerText}
                             </div>
                             ${!isCorrect ? `
-                                <div class="text-success-green font-medium">
+                                <div class="text-success font-medium">
                                     ✅ Correct: ${correctAnswer}
                                 </div>
                             ` : ''}
@@ -1003,7 +999,6 @@
             closeResultsModal();
             
             if (nextLesson) {
-                // ✅ SCROLL TO TOP WHEN ADVANCING TO NEXT LESSON
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 startLesson(nextLesson.id);
             } else {
@@ -1017,7 +1012,7 @@
             document.getElementById('resultsModal').classList.add('hidden');
         }
 
-        // 🔄 NEW: Restart current lesson function
+        // Restart current lesson function
         function restartLesson() {
             if (!currentLesson) return;
             
@@ -1042,7 +1037,7 @@
             const submitBtn = document.getElementById('submitAnswers');
             submitBtn.textContent = 'Submit Answers (0/5 Complete)';
             submitBtn.disabled = true;
-            submitBtn.classList.add('opacity-50');
+            submitBtn.classList.remove('pulse-gentle');
             
             // Reset progress
             updateProgress(0, 'Listen to Audio');
@@ -1053,7 +1048,7 @@
             console.log('🔄 Foundation lesson restarted:', currentLesson.title);
         }
 
-        // 🔄 NEW: Return to lessons list helper
+        // Return to lessons list helper
         function returnToLessonsList() {
             document.getElementById('lessonInterface').classList.add('hidden');
             document.getElementById('lessonSelection').classList.remove('hidden');
@@ -1066,81 +1061,28 @@
         }
     </script>
 
-    <!-- Colorful Professional Styles -->
+    <!-- Enhanced Styles Using Your Sophisticated Design System -->
     <style>
-        /* Colorful Professional Variables */
-        :root {
-            --foundation-primary: #3b82f6;
-            --foundation-secondary: #1d4ed8;
-            --foundation-light: #93c5fd;
-            --foundation-dark: #1e40af;
-            
-            --primary-blue: #3b82f6;
-            --secondary-blue: #1e40af;
-            --accent-red: #ef4444;
-            --success-green: #10b981;
-            --error-red: #f87171;
-            --warning-orange: #f59e0b;
-            
-            --charcoal: #1f2937;
-            --medium-gray: #6b7280;
-            --light-gray: #e5e7eb;
-            --soft-border: #d1d5db;
-            
-            --bg-primary: #f8fafc;
-            --bg-secondary: #e2e8f0;
-            --bg-card: #ffffff;
-            --bg-accent: #dbeafe;
+        /* ========================================================================
+           LAYOUT FOUNDATION - Using Your Sophisticated System
+           ======================================================================== */
+
+        /* Header */
+        .bg-primary {
+            background: var(--gradient-primary);
+            box-shadow: var(--shadow-blue);
         }
 
-        /* Clean Background - Light Gray for Desktop */
-        .colorful-bg {
-            background: #f1f5f9;
-            min-height: 100vh;
-        }
-
-        /* Mobile can keep subtle gradient */
-        @media (max-width: 768px) {
-            .colorful-bg {
-                background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f1f5f9 100%);
-                background-attachment: fixed;
-            }
-        }
-
-        /* Colorful Main Card */
-        .colorful-main-card {
-            background: linear-gradient(135deg, var(--foundation-primary), var(--foundation-secondary));
-            border: none;
-            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
-            color: white;
-        }
-
-        .colorful-accent-card {
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(10px);
-        }
-
-        /* Colorful Header Bar */
-        .colorful-header-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            width: 100%;
-            background: linear-gradient(135deg, var(--foundation-primary), var(--foundation-secondary));
-            border-bottom: 2px solid var(--foundation-dark);
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-            padding: 16px 20px;
-            z-index: 1000;
+        .header-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
+            gap: 0.5rem;
+            padding: 1rem 1.25rem;
         }
 
-        .colorful-header-bar .brand-line {
-            font-size: 12px;
+        .brand-line {
+            font-size: 0.75rem;
             font-weight: 600;
             color: white;
             text-align: center;
@@ -1148,327 +1090,330 @@
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
         }
 
-        .colorful-header-bar .user-course-line {
-            font-size: 14px;
-            color: #e2e8f0;
+        .user-course-line {
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.9);
             font-weight: 500;
             text-align: center;
         }
 
-        .colorful-header-bar .btn-portal {
+        .header-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-portal {
             background: rgba(255, 255, 255, 0.9);
-            color: var(--foundation-secondary);
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-size: 12px;
+            color: var(--alex-blue);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-lg);
+            font-size: 0.75rem;
             font-weight: 600;
             border: none;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        .colorful-header-bar .btn-portal:hover {
+        .btn-portal:hover {
             background: white;
             transform: translateY(-1px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            box-shadow: var(--shadow-soft);
         }
 
-        .colorful-header-bar .btn-sair {
+        .btn-logout {
             background: rgba(255, 255, 255, 0.1);
             color: white;
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-size: 12px;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-lg);
+            font-size: 0.75rem;
             border: 1px solid rgba(255, 255, 255, 0.3);
             cursor: pointer;
             transition: all 0.3s ease;
         }
 
-        .colorful-header-bar .btn-sair:hover {
+        .btn-logout:hover {
             background: rgba(255, 255, 255, 0.2);
             border-color: rgba(255, 255, 255, 0.5);
         }
 
-        /* Card Styles */
-        .professional-card {
-            background: var(--bg-card);
-            border: 2px solid var(--bg-accent);
-            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
-            transition: all 0.3s ease;
+        /* Main Layout */
+        .lesson-container {
+            padding-top: 5rem;
+            min-height: 100vh;
         }
 
-        .professional-card:hover {
-            box-shadow: 0 12px 35px rgba(59, 130, 246, 0.25);
-            transform: translateY(-3px);
-            border-color: var(--foundation-primary);
+        .content-wrapper {
+            max-width: 64rem;
+            margin: 0 auto;
+            padding: 0 1rem 2rem;
         }
 
-        .status-card {
-            background: linear-gradient(135deg, var(--bg-accent), var(--bg-secondary));
-            border: 2px solid var(--foundation-light);
-            color: var(--foundation-dark);
+        /* Course Header */
+        .course-icon {
+            font-size: 3rem;
         }
 
-        .progress-card {
-            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-accent));
-            border: 2px solid var(--foundation-light);
+        .course-features {
+            color: white;
+            font-weight: 500;
         }
 
-        .audio-card {
-            background: var(--bg-card);
-            border: 2px solid var(--foundation-light);
-            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.15);
+        /* Lessons Grid */
+        .lessons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1rem;
         }
 
-        .question-card {
-            background: var(--bg-card);
-            border: 2px solid var(--bg-accent);
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.1);
+        .lesson-card {
+            cursor: pointer;
         }
 
-        .submit-card {
-            background: linear-gradient(135deg, var(--bg-accent), var(--foundation-light));
-            border: 2px solid var(--foundation-primary);
+        .lesson-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .modal-card {
-            background: var(--bg-card);
-            border: 2px solid var(--foundation-primary);
-            box-shadow: 0 25px 50px rgba(59, 130, 246, 0.25);
+        .lesson-icon {
+            font-size: 1.5rem;
         }
 
-        .score-card {
-            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-accent));
-            border: 2px solid var(--foundation-primary);
+        .lesson-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
         }
 
-        .achievement-card {
-            background: linear-gradient(135deg, var(--foundation-light), var(--bg-accent));
-            border: 2px solid var(--foundation-primary);
+        .lesson-attempts {
+            margin-top: 0.5rem;
+            font-size: 0.75rem;
         }
 
-        /* Enhanced Colors */
-        .text-primary-blue { color: var(--primary-blue); }
-        .text-accent-red { color: var(--accent-red); }
-        .text-success-green { color: var(--success-green); }
-        .text-error-red { color: var(--error-red); }
-        .text-foundation-primary { color: var(--foundation-primary); }
-
-        /* Progress Bar */
-        .progress-bar-container {
-            background: var(--bg-secondary);
-            overflow: hidden;
-            border: 1px solid var(--foundation-light);
+        /* Lesson Interface */
+        .lesson-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .progress-bar {
-            background: linear-gradient(90deg, var(--foundation-primary), var(--foundation-light));
-            transition: width 0.8s ease;
-            box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
+        .progress-container {
+            background: rgba(59, 130, 246, 0.05);
+            border-radius: var(--radius-lg);
+            padding: 0.75rem;
         }
 
-        /* Answer Options - MUCH MORE VISIBLE SELECTION */
-        .answer-option {
-            background: var(--bg-secondary);
-            border: 2px solid var(--foundation-light);
-            transition: all 0.3s ease;
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.875rem;
+        }
+
+        /* Audio Player Enhancements */
+        .audio-enhanced {
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-soft);
+        }
+
+        /* Question Interface */
+        .questions-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .question-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .option-text {
+            flex: 1;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            padding: 1rem 2rem;
+            border-radius: var(--radius-xl);
+            font-size: 1.125rem;
+            font-weight: bold;
+        }
+
+        /* Results Modal Enhancements */
+        .result-icon {
+            font-size: 3rem;
+        }
+
+        .score-display {
+            font-size: 1.875rem;
+            font-weight: bold;
+            color: var(--charcoal);
+        }
+
+        .percentage-display {
+            font-size: 1.125rem;
+            color: var(--medium-gray);
+        }
+
+        .xp-display {
+            color: var(--academy-red);
+            font-weight: 600;
+            font-size: 1.125rem;
+        }
+
+        .achievement-header {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--alex-blue);
+        }
+
+        .modal-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        /* Review Modal */
+        .review-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .review-item {
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .review-item:last-child {
+            border-bottom: none;
+        }
+
+        .review-answers {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            margin-top: 0.5rem;
+        }
+
+        .text-success {
+            color: var(--sage-green);
+        }
+
+        .text-error {
+            color: var(--academy-red);
+        }
+
+        /* Utility Classes */
+        .w-full { width: 100%; }
+        .text-center { text-align: center; }
+        .text-sm { font-size: 0.875rem; }
+        .font-medium { font-weight: 500; }
+        .font-bold { font-weight: 700; }
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mb-3 { margin-bottom: 0.75rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .mt-2 { margin-top: 0.5rem; }
+        .py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+        .py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+        .cursor-pointer { cursor: pointer; }
+        .hidden { display: none !important; }
+        .z-50 { z-index: 50; }
+        .fixed { position: fixed; }
+
+        /* Desktop Responsive */
+        @media (min-width: 768px) {
+            .header-container {
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 0.75rem 2.5rem;
+            }
+
+            .brand-line {
+                text-align: left;
+            }
+
+            .lesson-container {
+                padding-top: 4rem;
+            }
+
+            .lessons-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 480px) {
+            .content-wrapper {
+                padding: 0 0.5rem 1rem;
+            }
+
+            .lessons-grid {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+
+            .lesson-card {
+                padding: 1rem;
+            }
+
+            .header-container {
+                padding: 0.75rem 1rem;
+                gap: 0.375rem;
+            }
+
+            .brand-line {
+                font-size: 0.6875rem;
+            }
+
+            .user-course-line {
+                font-size: 0.8125rem;
+            }
+
+            .btn-portal, .btn-logout {
+                padding: 0.375rem 0.75rem;
+                font-size: 0.6875rem;
+            }
+
+            .lesson-container {
+                padding-top: 4.5rem;
+            }
+        }
+
+        /* Enhanced Interactions */
+        .lesson-card:hover {
+            transform: translateY(-2px);
         }
 
         .answer-option:hover {
-            border-color: var(--foundation-primary);
-            background: var(--bg-accent);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
-        }
-
-        .answer-option.selected {
-            border-color: var(--foundation-primary);
-            background: var(--foundation-primary) !important;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
             transform: translateY(-1px);
         }
 
-        /* Selected Answer Text - WHITE for contrast */
         .answer-option.selected {
+            background: var(--alex-blue) !important;
             color: white !important;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
         }
 
         .answer-option.selected .option-letter {
             background: white;
-            color: var(--foundation-primary);
-            border: 2px solid white;
+            color: var(--alex-blue);
         }
 
-        .answer-option.selected div {
+        .answer-option.selected .option-text {
             color: white !important;
         }
 
-        .option-letter {
-            background: var(--foundation-primary);
-            color: white;
+        .submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
 
-        /* Status Badges */
-        .status-badge {
-            padding: 0.3rem 0.8rem;
-            border-radius: 1rem;
-            font-size: 0.75rem;
-            font-weight: 600;
-            border: 1px solid;
-        }
-
-        .status-completed {
-            background: var(--foundation-primary);
-            color: white;
-            border-color: var(--foundation-secondary);
-        }
-
-        .status-in-progress {
-            background: var(--primary-blue);
-            color: white;
-            border-color: var(--secondary-blue);
-        }
-
-        .status-not-started {
-            background: var(--bg-accent);
-            color: var(--foundation-dark);
-            border-color: var(--foundation-light);
-        }
-
-        /* Enhanced Buttons */
-        .btn-primary {
-            background: linear-gradient(135deg, var(--accent-red), #dc2626);
-            color: white;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
-        }
-
-        .btn-primary:hover {
-            background: linear-gradient(135deg, #dc2626, #b91c1c);
+        .submit-btn:not(:disabled):hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
-        }
-
-        .btn-secondary {
-            background: linear-gradient(135deg, var(--foundation-primary), var(--foundation-secondary));
-            color: white;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-        }
-
-        .btn-secondary:hover {
-            background: linear-gradient(135deg, var(--foundation-secondary), var(--foundation-dark));
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
-        }
-
-        .btn-subtle {
-            background: var(--bg-accent);
-            color: var(--foundation-dark);
-            border: 2px solid var(--foundation-light);
-            transition: all 0.3s ease;
-        }
-
-        .btn-subtle:hover {
-            background: var(--foundation-light);
-            border-color: var(--foundation-primary);
-            transform: translateY(-1px);
-        }
-
-        /* Speed Controls */
-        .speed-btn {
-            background: var(--bg-accent);
-            color: var(--foundation-dark);
-            border: 2px solid var(--foundation-light);
-            transition: all 0.3s ease;
-        }
-
-        .speed-btn:hover,
-        .speed-btn.active {
-            background: var(--foundation-primary);
-            color: white;
-            border-color: var(--foundation-secondary);
-            transform: translateY(-1px);
-        }
-
-        /* Add top margin to main content */
-        .lesson-content {
-            margin-top: 120px;
-        }
-
-        /* Desktop responsive */
-        @media (min-width: 768px) {
-            .colorful-header-bar {
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: center;
-                padding: 12px 40px;
-            }
-            
-            .header-left {
-                text-align: left;
-            }
-            
-            .lesson-content {
-                margin-top: 80px;
-            }
-        }
-
-        /* Mobile adjustments */
-        @media (max-width: 480px) {
-            .colorful-header-bar {
-                padding: 12px 16px;
-                gap: 6px;
-            }
-            
-            .colorful-header-bar .brand-line {
-                font-size: 11px;
-            }
-            
-            .colorful-header-bar .user-course-line {
-                font-size: 13px;
-            }
-            
-            .colorful-header-bar .btn-portal, 
-            .colorful-header-bar .btn-sair {
-                padding: 6px 12px;
-                font-size: 11px;
-            }
-            
-            .lesson-content {
-                margin-top: 110px;
-            }
-        }
-
-        /* Professional Background */
-        .professional-bg {
-            background: linear-gradient(135deg, var(--bg-primary) 0%, #ffffff 50%, var(--bg-secondary) 100%);
-            background-attachment: fixed;
-        }
-
-        .bg-primary-blue { background-color: var(--primary-blue); }
-        .bg-accent-red { background-color: var(--accent-red); }
-        .bg-foundation-primary { background-color: var(--foundation-primary); }
-        .text-blue-100 { color: #dbeafe; }
-        
-        /* Link Styles */
-        .link-sophisticated {
-            color: var(--foundation-primary);
-            transition: color 0.2s ease;
-        }
-        
-        .link-sophisticated:hover {
-            color: var(--foundation-secondary);
-        }
-        
-        .link-muted {
-            color: var(--medium-gray);
-            transition: color 0.2s ease;
-        }
-        
-        .link-muted:hover {
-            color: var(--charcoal);
         }
     </style>
 
