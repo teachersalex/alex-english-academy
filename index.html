@@ -67,10 +67,20 @@
                                class="elegant-input w-full p-4 rounded-xl text-base">
                     </div>
                     
+                    <!-- PASSWORD WITH TOGGLE -->
                     <div>
                         <label class="block text-charcoal text-base font-medium mb-2">Senha</label>
-                        <input type="password" id="studentPassword" placeholder="Digite sua senha" required
-                               class="elegant-input w-full p-4 rounded-xl text-base">
+                        <div class="relative">
+                            <input type="password" id="studentPassword" placeholder="Digite sua senha" required
+                                   class="elegant-input w-full p-4 rounded-xl text-base pr-12">
+                            <button type="button" id="togglePassword" 
+                                    class="absolute right-3 top-1/2 transform -translate-y-1/2 text-medium-gray hover:text-charcoal transition-colors cursor-pointer"
+                                    aria-label="Mostrar senha"
+                                    style="background: none; border: none; font-size: 18px;">
+                                <span id="eyeOpen">👁️</span>
+                                <span id="eyeClosed" class="hidden">👁️‍🗨️</span>
+                            </button>
+                        </div>
                     </div>
                     
                     <!-- Main Action Button -->
@@ -115,8 +125,17 @@
             <form id="teacherForm" class="space-y-4">
                 <input type="email" id="teacherEmail" placeholder="Email do Professor" required
                        class="elegant-input w-full p-3 rounded-lg">
-                <input type="password" id="teacherPassword" placeholder="Senha" required
-                       class="elegant-input w-full p-3 rounded-lg">
+                <div class="relative">
+                    <input type="password" id="teacherPassword" placeholder="Senha" required
+                           class="elegant-input w-full p-3 rounded-lg pr-12">
+                    <button type="button" id="toggleTeacherPassword" 
+                            class="absolute right-3 top-1/2 transform -translate-y-1/2 text-medium-gray hover:text-charcoal transition-colors cursor-pointer"
+                            aria-label="Mostrar senha"
+                            style="background: none; border: none; font-size: 16px;">
+                        <span id="teacherEyeOpen">👁️</span>
+                        <span id="teacherEyeClosed" class="hidden">👁️‍🗨️</span>
+                    </button>
+                </div>
                 <button type="submit" class="btn-secondary w-full text-white font-semibold py-3 rounded-lg">
                     Acessar Dashboard
                 </button>
