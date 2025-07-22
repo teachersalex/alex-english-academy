@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚡ Lightning Quiz - Teacher Alex English Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="sophisticated-bg min-h-screen">
+
+    <!-- Header matching portal style -->
+    <div style="background: linear-gradient(135deg, #3b82f6, #1d4ed8); text-align: center; padding: 2rem 1rem; border-bottom: 2px solid #1e40af; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);">
+        <div class="max-w-sm mx-auto px-4 sm:max-w-md md:max-w-lg lg:max-w-2xl xl:max-w-4xl sm:px-6 md:px-8">
+            <div style="font-size: 1.25rem; font-weight: 800; color: white; letter-spacing: 0.5px; margin-bottom: 0.75rem; text-transform: uppercase; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);">
+                ⚡ LIGHTNING QUIZ TEST
+            </div>
+            <div style="font-size: 1rem; font-weight: 600; color: #e2e8f0; margin-bottom: 0.5rem;">
+                Teste o Sistema Mais Viciante do Teacher Alex
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Quiz Container -->
+    <div class="max-w-2xl mx-auto px-4 py-6">
+        
+        <!-- Quiz Status Card -->
+        <div class="elegant-card rounded-xl p-6 mb-6">
+            <div class="text-center mb-4">
+                <h2 class="text-2xl font-bold text-charcoal mb-2">🎯 Quiz Status</h2>
+                <div class="flex justify-center items-center space-x-6 text-lg">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-alex-blue" id="streakCounter">0</div>
+                        <div class="text-sm text-medium-gray">Sequência</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-academy-red" id="scoreCounter">0/5</div>
+                        <div class="text-sm text-medium-gray">Pontuação</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-steel-blue" id="timeCounter">10</div>
+                        <div class="text-sm text-medium-gray">Segundos</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Progress Bar -->
+            <div class="progress-bar-container mb-4">
+                <div class="progress-bar" id="progressBar" style="width: 0%;"></div>
+            </div>
+            
+            <!-- Start Button -->
+            <div class="text-center" id="startSection">
+                <button class="btn-primary btn-base text-lg px-8 py-4" id="startBtn">
+                    🚀 COMEÇAR LIGHTNING QUIZ
+                </button>
+                <p class="text-medium-gray text-sm mt-2">5 perguntas • 10 segundos cada • Vamos ver se você consegue!</p>
+            </div>
+        </div>
+
+        <!-- Quiz Question Card (Hidden initially) -->
+        <div class="elegant-card rounded-xl p-6 mb-6 hidden" id="questionCard">
+            <div class="question-header mb-4">
+                <div class="flex justify-between items-center">
+                    <div class="question-number" id="questionNumber">1</div>
+                    <div class="text-lg font-semibold text-charcoal">Pergunta <span id="questionCount">1</span> de 5</div>
+                    <div class="text-2xl font-bold text-academy-red" id="timeLeft">10</div>
+                </div>
+            </div>
+            
+            <div class="question-text text-xl mb-6 text-center" id="questionText">
+                Loading question...
+            </div>
+            
+            <div class="answer-options">
+                <button class="answer-option" id="trueBtn">
+                    <div class="option-letter">T</div>
+                    <span class="text-lg font-semibold">TRUE (Verdadeiro)</span>
+                </button>
+                <button class="answer-option" id="falseBtn">
+                    <div class="option-letter">F</div>
+                    <span class="text-lg font-semibold">FALSE (Falso)</span>
+                </button>
+            </div>
+            
+            <!-- Feedback Section -->
+            <div class="hidden mt-4 p-4 rounded-lg text-center" id="feedbackSection">
+                <div class="text-lg font-semibold mb-2" id="feedbackText"></div>
+                <div class="text-medium-gray" id="explanationText"></div>
+            </div>
+        </div>
+
+        <!-- Results Card (Hidden initially) -->
+        <div class="elegant-card rounded-xl p-6 mb-6 hidden" id="resultsCard">
+            <div class="text-center">
+                <div class="text-4xl mb-4" id="resultEmoji">🎉</div>
+                <h2 class="text-3xl font-bold text-charcoal mb-4" id="resultTitle">Quiz Completed!</h2>
+                <div class="text-6xl font-bold text-alex-blue mb-4" id="finalScore">5/5</div>
+                <div class="text-lg text-medium-gray mb-6" id="resultMessage">Perfect score!</div>
+                
+                <!-- Streak Achievement -->
+                <div class="achievement-badge bg-achievement-gold text-white mb-4" id="streakAchievement">
+                    🔥 Sequência de <span id="finalStreak">0</span>!
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button class="btn-primary btn-base" id="playAgainBtn">
+                        🔄 Jogar Novamente
+                    </button>
+                    <button class="btn-secondary btn-base" id="backToPortalBtn">
+                        🏠 Voltar ao Portal
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Back Button -->
+        <div class="text-center">
+            <a href="portal.html" class="btn-subtle btn-base">
+                ← Voltar ao Portal
+            </a>
+        </div>
+    </div>
+
+    <!-- Brazilian Food Questions Data -->
+    <script>
+        const QUIZ_QUESTIONS = [
+            {
+                question: "Brazilians typically eat rice and beans together every day",
+                answer: true,
+                explanation: "Rice and beans (arroz e feijão) is the foundation of Brazilian cuisine!"
+            },
+            {
+                question: "Churrasco originated in Argentina, not Brazil",
+                answer: false,
+                explanation: "Churrasco is a traditional Brazilian barbecue style from the south!"
+            },
+            {
+                question: "Brigadeiro is made with condensed milk and chocolate",
+                answer: true,
+                explanation: "This sweet Brazilian treat is perfect with condensed milk and cocoa!"
+            },
+            {
+                question: "Açaí is originally from the Amazon rainforest",
+                answer: true,
+                explanation: "This superfruit comes from the Amazon and is now popular worldwide!"
+            },
+            {
+                question: "Coxinha is a type of Brazilian pasta dish",
+                answer: false,
+                explanation: "Coxinha is a delicious fried snack filled with chicken, not pasta!"
+            },
+            {
+                question: "Feijoada is typically served on Wednesdays in Brazil",
+                answer: false,
+                explanation: "Feijoada is traditionally served on Saturdays for lunch!"
+            },
+            {
+                question: "Pão de açúcar means 'sugar bread' in English",
+                answer: true,
+                explanation: "Though it refers to the famous mountain, it literally means sugar loaf!"
+            },
+            {
+                question: "Guaraná soda was invented in Brazil",
+                answer: true,
+                explanation: "This refreshing soda made from guaraná fruit is 100% Brazilian!"
+            },
+            {
+                question: "Caipirinha is made with vodka as the main ingredient",
+                answer: false,
+                explanation: "Caipirinha is made with cachaça, a Brazilian spirit from sugarcane!"
+            },
+            {
+                question: "Pastel is always filled with sweet ingredients",
+                answer: false,
+                explanation: "Pastel can be filled with cheese, meat, hearts of palm, or sweet fillings!"
+            }
+        ];
+
+        // Game State
+        let currentQuestions = [];
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let streak = 0;
+        let timeLeft = 10;
+        let timer = null;
+        let isAnswered = false;
+
+        // DOM Elements
+        const startSection = document.getElementById('startSection');
+        const questionCard = document.getElementById('questionCard');
+        const resultsCard = document.getElementById('resultsCard');
+        const startBtn = document.getElementById('startBtn');
+        const playAgainBtn = document.getElementById('playAgainBtn');
+        const backToPortalBtn = document.getElementById('backToPortalBtn');
+        const questionNumber = document.getElementById('questionNumber');
+        const questionCount = document.getElementById('questionCount');
+        const questionText = document.getElementById('questionText');
+        const timeLeftDisplay = document.getElementById('timeLeft');
+        const timeCounter = document.getElementById('timeCounter');
+        const trueBtn = document.getElementById('trueBtn');
+        const falseBtn = document.getElementById('falseBtn');
+        const feedbackSection = document.getElementById('feedbackSection');
+        const feedbackText = document.getElementById('feedbackText');
+        const explanationText = document.getElementById('explanationText');
+        const progressBar = document.getElementById('progressBar');
+        const streakCounter = document.getElementById('streakCounter');
+        const scoreCounter = document.getElementById('scoreCounter');
+
+        // Initialize Quiz
+        function initQuiz() {
+            // Select 5 random questions
+            currentQuestions = QUIZ_QUESTIONS.sort(() => 0.5 - Math.random()).slice(0, 5);
+            currentQuestionIndex = 0;
+            score = 0;
+            streak = 0;
+            updateDisplays();
+        }
+
+        // Start Quiz
+        function startQuiz() {
+            initQuiz();
+            startSection.classList.add('hidden');
+            questionCard.classList.remove('hidden');
+            resultsCard.classList.add('hidden');
+            showQuestion();
+        }
+
+        // Show Current Question
+        function showQuestion() {
+            if (currentQuestionIndex >= currentQuestions.length) {
+                showResults();
+                return;
+            }
+
+            const question = currentQuestions[currentQuestionIndex];
+            isAnswered = false;
+            timeLeft = 10;
+
+            // Update question display
+            questionNumber.textContent = currentQuestionIndex + 1;
+            questionCount.textContent = currentQuestionIndex + 1;
+            questionText.textContent = question.question;
+            timeLeftDisplay.textContent = timeLeft;
+            timeCounter.textContent = timeLeft;
+
+            // Reset button states
+            trueBtn.classList.remove('correct', 'incorrect');
+            falseBtn.classList.remove('correct', 'incorrect');
+            trueBtn.disabled = false;
+            falseBtn.disabled = false;
+            feedbackSection.classList.add('hidden');
+
+            // Update progress
+            const progress = ((currentQuestionIndex) / currentQuestions.length) * 100;
+            progressBar.style.width = `${progress}%`;
+
+            // Start timer
+            startTimer();
+        }
+
+        // Start Timer
+        function startTimer() {
+            timer = setInterval(() => {
+                timeLeft--;
+                timeLeftDisplay.textContent = timeLeft;
+                timeCounter.textContent = timeLeft;
+
+                // Add urgency styling when time is low
+                if (timeLeft <= 3) {
+                    timeLeftDisplay.style.color = '#ef4444';
+                    timeLeftDisplay.style.transform = 'scale(1.2)';
+                } else {
+                    timeLeftDisplay.style.color = '#ef4444';
+                    timeLeftDisplay.style.transform = 'scale(1)';
+                }
+
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    if (!isAnswered) {
+                        handleTimeout();
+                    }
+                }
+            }, 1000);
+        }
+
+        // Handle Answer
+        function handleAnswer(userAnswer) {
+            if (isAnswered) return;
+            
+            isAnswered = true;
+            clearInterval(timer);
+
+            const question = currentQuestions[currentQuestionIndex];
+            const isCorrect = userAnswer === question.answer;
+
+            // Update score and streak
+            if (isCorrect) {
+                score++;
+                streak++;
+                // Add correct styling
+                if (userAnswer) {
+                    trueBtn.classList.add('correct');
+                } else {
+                    falseBtn.classList.add('correct');
+                }
+                feedbackText.textContent = '🎉 Correto!';
+                feedbackSection.style.background = '#d1fae5';
+                feedbackSection.style.color = '#059669';
+            } else {
+                streak = 0; // Reset streak on wrong answer
+                // Add incorrect styling to selected answer
+                if (userAnswer) {
+                    trueBtn.classList.add('incorrect');
+                    falseBtn.classList.add('correct'); // Show correct answer
+                } else {
+                    falseBtn.classList.add('incorrect');
+                    trueBtn.classList.add('correct'); // Show correct answer
+                }
+                feedbackText.textContent = '❌ Incorreto!';
+                feedbackSection.style.background = '#fef2f2';
+                feedbackSection.style.color = '#dc2626';
+            }
+
+            // Show explanation
+            explanationText.textContent = question.explanation;
+            feedbackSection.classList.remove('hidden');
+
+            // Disable buttons
+            trueBtn.disabled = true;
+            falseBtn.disabled = true;
+
+            // Update displays with animation
+            updateDisplays();
+
+            // Next question after delay
+            setTimeout(() => {
+                currentQuestionIndex++;
+                showQuestion();
+            }, 2500);
+        }
+
+        // Handle Timeout
+        function handleTimeout() {
+            isAnswered = true;
+            streak = 0; // Reset streak on timeout
+            
+            const question = currentQuestions[currentQuestionIndex];
+            
+            // Show correct answer
+            if (question.answer) {
+                trueBtn.classList.add('correct');
+            } else {
+                falseBtn.classList.add('correct');
+            }
+
+            feedbackText.textContent = '⏰ Tempo Esgotado!';
+            explanationText.textContent = question.explanation;
+            feedbackSection.style.background = '#fef2f2';
+            feedbackSection.style.color = '#dc2626';
+            feedbackSection.classList.remove('hidden');
+
+            trueBtn.disabled = true;
+            falseBtn.disabled = true;
+
+            updateDisplays();
+
+            setTimeout(() => {
+                currentQuestionIndex++;
+                showQuestion();
+            }, 2500);
+        }
+
+        // Update Displays with Animation
+        function updateDisplays() {
+            // Animate streak counter
+            animateNumber(streakCounter, streak);
+            
+            // Animate score counter
+            scoreCounter.textContent = `${score}/5`;
+            
+            // Add celebration effect for high streaks
+            if (streak >= 3) {
+                streakCounter.classList.add('celebration');
+                setTimeout(() => {
+                    streakCounter.classList.remove('celebration');
+                }, 800);
+            }
+        }
+
+        // Animate Number
+        function animateNumber(element, finalValue, duration = 500) {
+            const startValue = parseInt(element.textContent) || 0;
+            const startTime = Date.now();
+            
+            function updateNumber() {
+                const elapsed = Date.now() - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const easeOut = 1 - Math.pow(1 - progress, 3);
+                const currentValue = Math.floor(startValue + (finalValue - startValue) * easeOut);
+                
+                element.textContent = currentValue;
+                
+                if (progress < 1) {
+                    requestAnimationFrame(updateNumber);
+                } else {
+                    element.textContent = finalValue;
+                    // Bounce effect
+                    element.style.transform = 'scale(1.2)';
+                    setTimeout(() => {
+                        element.style.transform = 'scale(1)';
+                    }, 200);
+                }
+            }
+            
+            updateNumber();
+        }
+
+        // Show Results
+        function showResults() {
+            questionCard.classList.add('hidden');
+            resultsCard.classList.remove('hidden');
+            
+            // Update final displays
+            const percentage = (score / 5) * 100;
+            document.getElementById('finalScore').textContent = `${score}/5`;
+            document.getElementById('finalStreak').textContent = streak;
+            
+            // Result messages and emojis based on score
+            const resultEmoji = document.getElementById('resultEmoji');
+            const resultTitle = document.getElementById('resultTitle');
+            const resultMessage = document.getElementById('resultMessage');
+            
+            if (score === 5) {
+                resultEmoji.textContent = '🏆';
+                resultTitle.textContent = 'PERFEITO!';
+                resultMessage.textContent = 'Você é um Lightning Master! 5/5 corretas!';
+            } else if (score >= 4) {
+                resultEmoji.textContent = '🎉';
+                resultTitle.textContent = 'EXCELENTE!';
+                resultMessage.textContent = 'Quase perfeito! Você domina o Lightning Quiz!';
+            } else if (score >= 3) {
+                resultEmoji.textContent = '👏';
+                resultTitle.textContent = 'BOM TRABALHO!';
+                resultMessage.textContent = 'Bom resultado! Tente novamente para melhorar!';
+            } else {
+                resultEmoji.textContent = '💪';
+                resultTitle.textContent = 'CONTINUE TENTANDO!';
+                resultMessage.textContent = 'Prática leva à perfeição! Vamos tentar de novo?';
+            }
+            
+            // Show/hide streak achievement
+            const streakAchievement = document.getElementById('streakAchievement');
+            if (streak >= 3) {
+                streakAchievement.classList.remove('hidden');
+            } else {
+                streakAchievement.classList.add('hidden');
+            }
+            
+            // Update final progress
+            progressBar.style.width = '100%';
+        }
+
+        // Event Listeners
+        startBtn.addEventListener('click', startQuiz);
+        playAgainBtn.addEventListener('click', startQuiz);
+        backToPortalBtn.addEventListener('click', () => {
+            window.location.href = 'portal.html';
+        });
+        trueBtn.addEventListener('click', () => handleAnswer(true));
+        falseBtn.addEventListener('click', () => handleAnswer(false));
+
+        // Keyboard support
+        document.addEventListener('keydown', (e) => {
+            if (questionCard.classList.contains('hidden')) return;
+            if (isAnswered) return;
+            
+            if (e.key === 'ArrowLeft' || e.key === 't' || e.key === 'T') {
+                handleAnswer(true);
+            } else if (e.key === 'ArrowRight' || e.key === 'f' || e.key === 'F') {
+                handleAnswer(false);
+            }
+        });
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('⚡ Lightning Quiz loaded - Brazilian Food Edition!');
+            console.log('🎯 10 questions available, 5 per game');
+            console.log('⏱️ 10 seconds per question - PAU NA MÁQUINA!');
+        });
+    </script>
+
+    <!-- Custom Styles -->
+    <style>
+        /* Lightning Quiz specific animations */
+        .celebration {
+            animation: celebration 0.8s ease-out;
+        }
+
+        @keyframes celebration {
+            0% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.2) rotate(5deg); }
+            50% { transform: scale(1.3) rotate(-5deg); }
+            75% { transform: scale(1.2) rotate(3deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+
+        /* Timer urgency effect */
+        .timer-urgent {
+            animation: pulse 0.5s infinite;
+            color: #ef4444 !important;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Button disabled state */
+        .answer-option:disabled {
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
+
+        /* Answer feedback animations */
+        .answer-option.correct {
+            animation: correctPulse 0.6s ease-out;
+        }
+
+        .answer-option.incorrect {
+            animation: incorrectShake 0.5s ease-out;
+        }
+
+        @keyframes correctPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes incorrectShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 640px) {
+            .question-text {
+                font-size: 1.125rem;
+            }
+            
+            .answer-option {
+                padding: 1rem 0.75rem;
+            }
+        }
+    </style>
+
+</body>
+</html>
