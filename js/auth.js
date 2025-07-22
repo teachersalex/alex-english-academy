@@ -1,6 +1,7 @@
 // Firebase Working Auth - js/auth.js
 // LOGIN ONLY - REGISTRATION DISABLED BUT CODE PRESERVED
 // FIXED: Logout trap removed
+// NEW: Password toggle + Day streak features
 
 import { auth, db } from './firebase.js';
 import { 
@@ -53,7 +54,104 @@ function showSuccess(msg) {
     }
 }
 
-// Firebase Student Auth - LOGIN ONLY (Registration Disabled)
+// ========================================================================
+// DAY STREAK CALCULATION
+// ========================================================================
+
+function calculateDayStreak(lastLoginDate, currentStreak = 0) {
+    const today = new Date();
+    const todayString = today.toDateString();
+    
+    if (!lastLoginDate) {
+        // First time login
+        console.log('🔥 First login - starting streak at 1');
+        return { currentStreak: 1, longestStreak: 1, isNewStreak: true };
+    }
+    
+    const lastLogin = lastLoginDate.toDate ? lastLoginDate.toDate() : new Date(lastLoginDate);
+    const lastLoginString = lastLogin.toDateString();
+    const daysDiff = Math.floor((today - lastLogin) / (1000 * 60 * 60 * 24));
+    
+    console.log(`🔥 Streak calculation: Last login ${lastLoginString}, Today ${todayString}, Days diff: ${daysDiff}`);
+    
+    if (todayString === lastLoginString) {
+        // Same day login - no change
+        console.log(`🔥 Same day login - streak remains ${currentStreak}`);
+        return { currentStreak: currentStreak, longestStreak: currentStreak, isNewStreak: false };
+    } else if (daysDiff === 1) {
+        // Consecutive day - increment streak
+        const newStreak = currentStreak + 1;
+        console.log(`🔥 Consecutive day! Streak: ${currentStreak} → ${newStreak}`);
+        return { currentStreak: newStreak, longestStreak: Math.max(newStreak, currentStreak), isNewStreak: true };
+    } else {
+        // Streak broken - reset to 1
+        console.log(`🔥 Streak broken after ${daysDiff} days. Resetting to 1`);
+        return { currentStreak: 1, longestStreak: Math.max(1, currentStreak), isNewStreak: true };
+    }
+}
+
+// ========================================================================
+// PASSWORD TOGGLE FUNCTIONALITY
+// ========================================================================
+
+function setupPasswordToggle() {
+    // Student password toggle
+    const passwordInput = getEl('studentPassword');
+    const toggleButton = getEl('togglePassword');
+    const eyeOpen = getEl('eyeOpen');
+    const eyeClosed = getEl('eyeClosed');
+    
+    if (toggleButton && passwordInput && eyeOpen && eyeClosed) {
+        toggleButton.addEventListener('click', () => {
+            const isPassword = passwordInput.type === 'password';
+            
+            if (isPassword) {
+                passwordInput.type = 'text';
+                eyeOpen.classList.add('hidden');
+                eyeClosed.classList.remove('hidden');
+                console.log('👁️ Student password visible');
+            } else {
+                passwordInput.type = 'password';
+                eyeOpen.classList.remove('hidden');
+                eyeClosed.classList.add('hidden');
+                console.log('🙈 Student password hidden');
+            }
+        });
+        
+        console.log('✅ Student password toggle ready');
+    }
+    
+    // Teacher password toggle
+    const teacherPasswordInput = getEl('teacherPassword');
+    const teacherToggleButton = getEl('toggleTeacherPassword');
+    const teacherEyeOpen = getEl('teacherEyeOpen');
+    const teacherEyeClosed = getEl('teacherEyeClosed');
+    
+    if (teacherToggleButton && teacherPasswordInput && teacherEyeOpen && teacherEyeClosed) {
+        teacherToggleButton.addEventListener('click', () => {
+            const isPassword = teacherPasswordInput.type === 'password';
+            
+            if (isPassword) {
+                teacherPasswordInput.type = 'text';
+                teacherEyeOpen.classList.add('hidden');
+                teacherEyeClosed.classList.remove('hidden');
+                console.log('👁️ Teacher password visible');
+            } else {
+                teacherPasswordInput.type = 'password';
+                teacherEyeOpen.classList.remove('hidden');
+                teacherEyeClosed.classList.add('hidden');
+                console.log('🙈 Teacher password hidden');
+            }
+        });
+        
+        console.log('✅ Teacher password toggle ready');
+    }
+}
+
+// ========================================================================
+// FIREBASE STUDENT AUTH - LOGIN ONLY WITH STREAK CALCULATION
+// ========================================================================
+
 async function handleStudentAuth(username, password) {
     try {
         if (!username || !password) {
@@ -101,12 +199,22 @@ async function handleStudentAuth(username, password) {
                     return;
                 }
 
-                // FIXED: Always reactivate account on successful login (removes logout trap)
-                await updateDoc(studentRef, {
+                // NEW: Calculate day streak
+                const streakData = calculateDayStreak(
+                    studentData.lastLoginDate, 
+                    studentData.currentStreak || 0
+                );
+
+                // ENHANCED: Always reactivate account on successful login + update streak
+                const updateData = {
                     lastLoginDate: serverTimestamp(),
                     isActive: true,
-                    deactivatedByTeacher: false // Clear any previous deactivation
-                });
+                    deactivatedByTeacher: false,
+                    currentStreak: streakData.currentStreak,
+                    longestStreak: streakData.longestStreak || streakData.currentStreak
+                };
+
+                await updateDoc(studentRef, updateData);
 
                 // Store auth locally
                 const authData = {
@@ -120,7 +228,15 @@ async function handleStudentAuth(username, password) {
                 localStorage.setItem('studentLoggedIn', 'true');
                 localStorage.setItem('studentUsername', studentData.displayName);
 
-                showSuccess('Login realizado! Redirecionando...');
+                // Show success with streak info
+                if (streakData.isNewStreak && streakData.currentStreak > 1) {
+                    showSuccess(`Login realizado! 🔥 Sequência de ${streakData.currentStreak} dias! Redirecionando...`);
+                } else if (streakData.currentStreak === 1 && streakData.isNewStreak) {
+                    showSuccess('Login realizado! 🌟 Começando nova sequência! Redirecionando...');
+                } else {
+                    showSuccess('Login realizado! Redirecionando...');
+                }
+
                 setTimeout(() => {
                     window.location.href = 'student/portal.html';
                 }, 1500);
@@ -130,8 +246,6 @@ async function handleStudentAuth(username, password) {
                 showError('Usuário não encontrado. Entre em contato com Professor Alex para criar sua conta.');
                 resetButton();
                 return;
-                
-                // OLD REGISTRATION CODE REMOVED - Now handled by teacher dashboard
             }
 
         } catch (firestoreError) {
@@ -163,33 +277,6 @@ function toggleMode() {
     // Registration mode is disabled - show contact message instead
     showError('Criação de conta desabilitada. Entre em contato com Professor Alex para criar sua conta.');
     return;
-    
-    // OLD TOGGLE CODE PRESERVED BUT DISABLED
-    /*
-    isRegistrationMode = !isRegistrationMode;
-    
-    if (isRegistrationMode) {
-        if (loginBtn) {
-            loginBtn.textContent = 'CRIAR MINHA CONTA';
-            loginBtn.className = 'btn-secondary w-full text-white font-bold py-4 rounded-xl text-lg shadow-lg';
-        }
-        if (createAccountLink) createAccountLink.textContent = '← Voltar para login';
-        if (formTitle) formTitle.textContent = 'Criar Conta de Estudante';
-        showSuccess('Digite os dados para criar conta no Firebase');
-    } else {
-        resetButton();
-        if (createAccountLink) createAccountLink.textContent = 'Criar nova conta de estudante';
-        if (formTitle) formTitle.textContent = 'Portal do Estudante';
-        
-        // Clear form
-        if (studentUsername) studentUsername.value = '';
-        if (studentPassword) studentPassword.value = '';
-        if (errorMsg) errorMsg.classList.add('hidden');
-        if (successMsg) successMsg.classList.add('hidden');
-    }
-    
-    if (studentUsername) studentUsername.focus();
-    */
 }
 
 function resetButton() {
@@ -282,6 +369,9 @@ function init() {
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') hideTeacherModal();
     });
+
+    // NEW: Initialize password toggle functionality
+    setupPasswordToggle();
 }
 
 // Auth listener
@@ -319,5 +409,5 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('🔥 Firebase Auth Loading...');
     init();
     if (studentUsername) studentUsername.focus();
-    console.log('✅ Firebase Auth Ready - Login Only (Logout Trap FIXED)!');
+    console.log('✅ Firebase Auth Ready - Login Only with Password Toggle & Day Streak!');
 });
