@@ -31,19 +31,19 @@
         <!-- Lesson Selection View -->
         <div id="lessonSelection">
             <!-- Course Header -->
-            <div class="colorful-main-card rounded-xl p-6 mb-6 magical-glow">
+            <div class="colorful-main-card rounded-xl p-6 mb-6">
                 <div class="text-center">
-                    <div class="text-5xl mb-4 floating-icon">🌟</div>
+                    <div class="text-5xl mb-4">🌟</div>
                     <h2 class="text-2xl font-bold text-white mb-2">A1 Foundation Course</h2>
                     <p class="text-blue-100 mb-4">Complete English basics with 10 interactive audio lessons</p>
-                    <div class="colorful-accent-card rounded-lg p-3 pulse-glow">
+                    <div class="colorful-accent-card rounded-lg p-3">
                         <p class="text-white font-medium">🎯 Complete questions • 📊 Track progress • 🏆 Earn XP & achievements!</p>
                     </div>
                 </div>
             </div>
 
             <!-- Firebase Status -->
-            <div class="status-card rounded-lg p-4 mb-6 text-center status-pulse">
+            <div class="status-card rounded-lg p-4 mb-6 text-center">
                 <div id="firebaseStatus" class="text-sm">
                     <span class="text-primary-blue font-medium">🔥 Carregando progresso do Firebase...</span>
                 </div>
@@ -58,69 +58,51 @@
         <!-- Interactive Lesson View -->
         <div id="lessonInterface" class="hidden">
             <!-- Lesson Header -->
-            <div class="professional-card rounded-xl p-6 mb-6 magical-glow">
+            <div class="professional-card rounded-xl p-6 mb-6">
                 <div class="flex items-center justify-between mb-4">
-                    <button id="backToLessons" class="link-sophisticated text-sm hover-lift">← Back to Foundation</button>
+                    <button id="backToLessons" class="link-sophisticated text-sm">← Back to Foundation</button>
                     <div id="lessonProgress" class="text-sm text-medium-gray">Lesson 1 of 10</div>
                 </div>
                 
                 <h2 id="lessonTitle" class="text-2xl font-bold text-foundation-primary mb-2">Basic Greetings</h2>
                 <p id="lessonDescription" class="text-medium-gray mb-4">Learn essential greeting phrases and introductions</p>
                 
-                <!-- Enhanced Progress Indicator -->
-                <div class="progress-card rounded-lg p-3 magical-glow">
+                <!-- Progress Indicator -->
+                <div class="progress-card rounded-lg p-3">
                     <div class="flex justify-between text-sm mb-2">
                         <span>Lesson Progress</span>
                         <span id="progressText">Listen to Audio</span>
                     </div>
-                    <div class="progress-bar-container h-4 rounded-full relative overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-r from-blue-100 to-blue-200 opacity-50"></div>
-                        <div id="progressBar" class="progress-bar rounded-full relative z-10 h-full"></div>
-                        <div class="progress-shimmer absolute inset-0 opacity-30"></div>
+                    <div class="progress-bar-container h-3 rounded-full">
+                        <div id="progressBar" class="progress-bar rounded-full"></div>
                     </div>
                 </div>
             </div>
 
-            <!-- Enhanced Audio Player -->
-            <div class="audio-card rounded-xl p-6 mb-6 magical-glow">
+            <!-- Audio Player -->
+            <div class="audio-card rounded-xl p-6 mb-6">
                 <div class="text-center mb-4">
                     <h3 class="text-lg font-semibold text-charcoal mb-2">🎧 Listen to the Audio</h3>
                     <p class="text-medium-gray">Listen carefully and answer the questions below</p>
                 </div>
                 
-                <!-- Audio Visualization Container -->
-                <div class="audio-visualization-container mb-4 relative">
-                    <div class="audio-waveform hidden">
-                        <div class="wave-bars">
-                            <div class="wave-bar"></div>
-                            <div class="wave-bar"></div>
-                            <div class="wave-bar"></div>
-                            <div class="wave-bar"></div>
-                            <div class="wave-bar"></div>
-                            <div class="wave-bar"></div>
-                            <div class="wave-bar"></div>
-                            <div class="wave-bar"></div>
-                        </div>
-                    </div>
-                    
-                    <audio id="audioPlayer" class="w-full audio-enhanced" controls>
-                        <source id="audioSource" src="" type="audio/mpeg">
-                        Your browser does not support audio.
-                    </audio>
-                </div>
+                <audio id="audioPlayer" class="w-full mb-4" controls>
+                    <source id="audioSource" src="" type="audio/mpeg">
+                    Your browser does not support audio.
+                </audio>
                 
-                <!-- Enhanced Audio Controls -->
+                <!-- Audio Controls -->
                 <div class="flex justify-center space-x-4 mb-4">
-                    <button id="playPauseBtn" class="btn-secondary px-6 py-2 rounded-lg magnetic-hover">▶️ Play</button>
-                    <button id="rewindBtn" class="btn-subtle px-4 py-2 rounded-lg magnetic-hover">⏪ -10s</button>
-                    <button id="forwardBtn" class="btn-subtle px-4 py-2 rounded-lg magnetic-hover">⏩ +10s</button>
+                    <button id="playPauseBtn" class="btn-secondary px-6 py-2 rounded-lg">▶️ Play</button>
+                    <button id="rewindBtn" class="btn-subtle px-4 py-2 rounded-lg">⏪ -10s</button>
+                    <button id="forwardBtn" class="btn-subtle px-4 py-2 rounded-lg">⏩ +10s</button>
                 </div>
                 
-                <!-- Enhanced Speed Controls -->
+                <!-- Speed Controls -->
                 <div class="flex justify-center space-x-2">
-                    <button class="speed-btn px-3 py-1 text-sm rounded magnetic-hover" data-speed="0.75">0.75x</button>
-                    <button class="speed-btn px-3 py-1 text-sm rounded active magnetic-hover" data-speed="1">1x</button>
-                    <button class="speed-btn px-3 py-1 text-sm rounded magnetic-hover" data-speed="1.25">1.25x</button>
+                    <button class="speed-btn px-3 py-1 text-sm rounded" data-speed="0.75">0.75x</button>
+                    <button class="speed-btn px-3 py-1 text-sm rounded active" data-speed="1">1x</button>
+                    <button class="speed-btn px-3 py-1 text-sm rounded" data-speed="1.25">1.25x</button>
                 </div>
             </div>
 
@@ -130,8 +112,8 @@
             </div>
 
             <!-- Submit Section -->
-            <div class="submit-card rounded-xl p-6 text-center magical-glow">
-                <button id="submitAnswers" class="btn-primary px-8 py-4 rounded-xl text-lg font-bold magnetic-hover pulse-ready" disabled>
+            <div class="submit-card rounded-xl p-6 text-center">
+                <button id="submitAnswers" class="btn-primary px-8 py-4 rounded-xl text-lg font-bold" disabled>
                     Submit Answers (0/5 Complete)
                 </button>
                 <p class="text-medium-gray text-sm mt-2">Answer all questions to continue</p>
@@ -141,38 +123,38 @@
     </main>
 
     <!-- Results Modal -->
-    <div id="resultsModal" class="hidden fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center p-4 z-50 modal-backdrop">
-        <div class="modal-card rounded-2xl p-6 max-w-md w-full modal-entrance">
+    <div id="resultsModal" class="hidden fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+        <div class="modal-card rounded-2xl p-6 max-w-md w-full">
             <div class="text-center">
-                <div id="resultIcon" class="text-5xl mb-4 result-bounce">🎉</div>
+                <div id="resultIcon" class="text-5xl mb-4">🎉</div>
                 <h3 id="resultTitle" class="text-xl font-bold text-charcoal mb-4">Lesson Complete!</h3>
                 
                 <!-- Score Display -->
-                <div class="score-card rounded-lg p-4 mb-4 magical-glow">
-                    <div id="scoreDisplay" class="text-3xl font-bold text-charcoal mb-1 score-counter">5/5</div>
+                <div class="score-card rounded-lg p-4 mb-4">
+                    <div id="scoreDisplay" class="text-3xl font-bold text-charcoal mb-1">5/5</div>
                     <div id="percentageDisplay" class="text-lg text-medium-gray mb-2">100% Correct</div>
-                    <div id="xpEarned" class="text-accent-red font-semibold text-lg xp-shimmer">+75 XP Earned!</div>
+                    <div id="xpEarned" class="text-accent-red font-semibold text-lg">+75 XP Earned!</div>
                 </div>
                 
                 <!-- Achievement -->
-                <div id="achievementDisplay" class="hidden achievement-card rounded-lg p-3 mb-4 achievement-glow">
+                <div id="achievementDisplay" class="hidden achievement-card rounded-lg p-3 mb-4">
                     <div class="text-sm font-semibold text-foundation-primary mb-2">🎉 Achievement Unlocked!</div>
                     <div id="achievementText" class="font-medium"></div>
                 </div>
                 
                 <!-- Controls -->
                 <div class="space-y-3">
-                    <button id="reviewAnswers" class="btn-secondary w-full py-3 rounded-lg font-semibold magnetic-hover">
+                    <button id="reviewAnswers" class="btn-secondary w-full py-3 rounded-lg font-semibold">
                         📊 Review Answers
                     </button>
                     <!-- 🔄 NEW: Try Again Button (appears when score < 5) -->
-                    <button id="tryAgainBtn" class="btn-subtle w-full py-3 rounded-lg font-semibold hidden magnetic-hover">
+                    <button id="tryAgainBtn" class="btn-subtle w-full py-3 rounded-lg font-semibold hidden">
                         🔄 Tentar Novamente
                     </button>
-                    <button id="nextLesson" class="btn-primary w-full py-3 rounded-lg font-semibold magnetic-hover">
+                    <button id="nextLesson" class="btn-primary w-full py-3 rounded-lg font-semibold">
                         Next Lesson →
                     </button>
-                    <button id="backToLessonsList" class="link-muted text-sm py-2 hover-lift">
+                    <button id="backToLessonsList" class="link-muted text-sm py-2">
                         Back to Foundation
                     </button>
                 </div>
@@ -181,13 +163,13 @@
     </div>
 
     <!-- Answer Review Modal -->
-    <div id="reviewModal" class="hidden fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center p-4 z-50 modal-backdrop">
-        <div class="modal-card rounded-2xl p-6 max-w-2xl w-full max-h-96 overflow-y-auto modal-entrance">
+    <div id="reviewModal" class="hidden fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+        <div class="modal-card rounded-2xl p-6 max-w-2xl w-full max-h-96 overflow-y-auto">
             <h3 class="text-lg font-bold text-charcoal mb-4 text-center">📝 Answer Review</h3>
             <div id="reviewContent" class="space-y-4 mb-6">
                 <!-- Review content here -->
             </div>
-            <button id="closeReview" class="btn-primary w-full py-3 rounded-lg font-semibold magnetic-hover">
+            <button id="closeReview" class="btn-primary w-full py-3 rounded-lg font-semibold">
                 Close Review
             </button>
         </div>
@@ -562,7 +544,6 @@
         let studentData = null;
         let lessonStartTime = null;
         let audioPlayer = null;
-        let waveformBars = null;
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
@@ -575,86 +556,7 @@
             
             // Initialize header bar
             initializeHeaderBar();
-            
-            // Initialize visual enhancements
-            initializeVisualEnhancements();
         });
-
-        // NEW: Initialize visual enhancements (production safe)
-        function initializeVisualEnhancements() {
-            // Get waveform bars for audio visualization
-            waveformBars = document.querySelectorAll('.wave-bar');
-            
-            // Add enhanced interactions to existing elements
-            addMagneticEffects();
-            addProgressEnhancements();
-            addModalEnhancements();
-            
-            console.log('✨ Visual enhancements initialized safely');
-        }
-
-        // NEW: Add magnetic hover effects (additive only)
-        function addMagneticEffects() {
-            document.querySelectorAll('.magnetic-hover').forEach(element => {
-                element.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-2px) scale(1.02)';
-                });
-                
-                element.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0) scale(1)';
-                });
-            });
-        }
-
-        // NEW: Enhanced progress animations (additive only)
-        function addProgressEnhancements() {
-            const progressBar = document.getElementById('progressBar');
-            if (progressBar) {
-                // Add shimmer effect when progress updates
-                const observer = new MutationObserver(() => {
-                    progressBar.classList.add('progress-pulse');
-                    setTimeout(() => progressBar.classList.remove('progress-pulse'), 300);
-                });
-                
-                observer.observe(progressBar, { attributes: true, attributeFilter: ['style'] });
-            }
-        }
-
-        // NEW: Modal entrance animations (additive only)
-        function addModalEnhancements() {
-            const resultsModal = document.getElementById('resultsModal');
-            const reviewModal = document.getElementById('reviewModal');
-            
-            // Add entrance animation when modals become visible
-            [resultsModal, reviewModal].forEach(modal => {
-                const observer = new MutationObserver((mutations) => {
-                    mutations.forEach((mutation) => {
-                        if (mutation.attributeName === 'class') {
-                            const isVisible = !modal.classList.contains('hidden');
-                            if (isVisible) {
-                                modal.style.animation = 'modalEnter 0.4s ease-out';
-                                triggerCelebration();
-                            }
-                        }
-                    });
-                });
-                
-                observer.observe(modal, { attributes: true });
-            });
-        }
-
-        // NEW: Celebration effects (additive only)
-        function triggerCelebration() {
-            const resultIcon = document.getElementById('resultIcon');
-            if (resultIcon && resultIcon.textContent === '🏆') {
-                resultIcon.style.animation = 'bounce 0.6s ease-in-out';
-                
-                // Add sparkle effect
-                setTimeout(() => {
-                    resultIcon.style.textShadow = '0 0 20px rgba(239, 68, 68, 0.5)';
-                }, 200);
-            }
-        }
 
         // Initialize header bar functionality
         function initializeHeaderBar() {
@@ -696,7 +598,7 @@
                     renderLessons(audioLessons);
                     
                     const completedCount = Object.values(audioLessons).filter(lesson => lesson.status === 'completed').length;
-                    document.getElementById('firebaseStatus').innerHTML = `<span class="text-foundation-primary font-bold">✅ Firebase: ${completedCount}/10 Foundation lessons completed</span>';
+                    document.getElementById('firebaseStatus').innerHTML = `<span class="text-foundation-primary font-bold">✅ Firebase: ${completedCount}/10 Foundation lessons completed</span>`;
                 } else {
                     document.getElementById('firebaseStatus').innerHTML = '<span class="text-error-red font-medium">❌ Estudante não encontrado</span>';
                     renderLessons({});
@@ -717,10 +619,10 @@
                 const statusText = getStatusText(progress.status);
                 
                 return `
-                    <div class="lesson-card professional-card rounded-xl p-4 cursor-pointer magnetic-hover lesson-card-enhanced transition-all" onclick="startLesson('${lesson.id}')">
+                    <div class="lesson-card professional-card rounded-xl p-4 cursor-pointer hover:scale-105 transition-all" onclick="startLesson('${lesson.id}')">
                         <div class="flex items-center justify-between mb-3">
-                            <div class="text-2xl floating-icon">${lesson.icon}</div>
-                            <span class="status-badge ${statusClass} status-glow">${statusText}</span>
+                            <div class="text-2xl">${lesson.icon}</div>
+                            <span class="status-badge ${statusClass}">${statusText}</span>
                         </div>
                         <h3 class="font-semibold text-charcoal mb-2">Lesson ${index + 1}: ${lesson.title}</h3>
                         <p class="text-sm text-medium-gray mb-3">${lesson.description}</p>
@@ -736,9 +638,6 @@
                     </div>
                 `;
             }).join('');
-            
-            // Re-apply magnetic effects to new lesson cards
-            addMagneticEffects();
         }
 
         function getStatusClass(status) {
@@ -800,9 +699,9 @@
             const questionsSection = document.getElementById('questionsSection');
             
             questionsSection.innerHTML = currentLesson.questions.map((question, index) => `
-                <div class="question-card rounded-xl p-6 magical-glow question-entrance" style="animation-delay: ${index * 0.1}s">
+                <div class="question-card rounded-xl p-6">
                     <div class="flex items-center mb-4">
-                        <div class="w-8 h-8 bg-foundation-primary text-white rounded-full flex items-center justify-center font-bold text-sm mr-3 question-number-glow">
+                        <div class="w-8 h-8 bg-foundation-primary text-white rounded-full flex items-center justify-center font-bold text-sm mr-3">
                             ${index + 1}
                         </div>
                         <div class="text-sm text-medium-gray">Question ${index + 1} of ${currentLesson.questions.length}</div>
@@ -812,8 +711,8 @@
                     
                     <div class="space-y-3">
                         ${question.options.map((option, optionIndex) => `
-                            <div class="answer-option cursor-pointer answer-option-enhanced" data-question="${index}" data-option="${optionIndex}" onclick="selectAnswer(${index}, ${optionIndex})">
-                                <div class="option-letter option-letter-enhanced">${String.fromCharCode(65 + optionIndex)}</div>
+                            <div class="answer-option cursor-pointer" data-question="${index}" data-option="${optionIndex}" onclick="selectAnswer(${index}, ${optionIndex})">
+                                <div class="option-letter">${String.fromCharCode(65 + optionIndex)}</div>
                                 <div class="flex-1">${option}</div>
                             </div>
                         `).join('')}
@@ -828,15 +727,14 @@
                 option.classList.remove('selected');
             });
             
-            // Add new selection with animation
-            const selectedOption = document.querySelector(`[data-question="${questionIndex}"][data-option="${optionIndex}"]`);
-            selectedOption.classList.add('selected');
-            selectedOption.style.animation = 'selectPulse 0.4s ease-out';
+            // Add new selection
+            document.querySelector(`[data-question="${questionIndex}"][data-option="${optionIndex}"]`)
+                .classList.add('selected');
             
             // Store answer
             userAnswers[questionIndex] = optionIndex;
             
-            // Update submit button with enhanced feedback
+            // Update submit button
             const answeredCount = userAnswers.filter(answer => answer !== null).length;
             const submitBtn = document.getElementById('submitAnswers');
             submitBtn.textContent = `Submit Answers (${answeredCount}/5 Complete)`;
@@ -845,47 +743,37 @@
             if (answeredCount === 5) {
                 submitBtn.classList.remove('opacity-50');
                 submitBtn.textContent = 'Submit Answers - Ready! 🎯';
-                submitBtn.classList.add('ready-pulse');
             }
             
-            // Update progress with animation
+            // Update progress
             const progress = 20 + (answeredCount / currentLesson.questions.length) * 80;
             updateProgress(progress, `${answeredCount}/5 Questions Answered`);
         };
 
         function updateProgress(percentage, text) {
-            const progressBar = document.getElementById('progressBar');
-            progressBar.style.width = `${percentage}%`;
+            document.getElementById('progressBar').style.width = `${percentage}%`;
             document.getElementById('progressText').textContent = text;
-            
-            // NEW: Add shimmer effect
-            progressBar.classList.add('progress-shimmer-active');
-            setTimeout(() => progressBar.classList.remove('progress-shimmer-active'), 500);
         }
 
         // Audio controls
         function initializeEventListeners() {
-            // Audio controls with enhanced feedback
+            // Audio controls
             document.getElementById('playPauseBtn').addEventListener('click', () => {
                 if (audioPlayer.paused) {
                     audioPlayer.play();
                     document.getElementById('playPauseBtn').textContent = '⏸️ Pause';
-                    startWaveformAnimation();
                 } else {
                     audioPlayer.pause();
                     document.getElementById('playPauseBtn').textContent = '▶️ Play';
-                    stopWaveformAnimation();
                 }
             });
             
             document.getElementById('rewindBtn').addEventListener('click', () => {
                 audioPlayer.currentTime = Math.max(0, audioPlayer.currentTime - 10);
-                triggerButtonFeedback(document.getElementById('rewindBtn'));
             });
             
             document.getElementById('forwardBtn').addEventListener('click', () => {
                 audioPlayer.currentTime = Math.min(audioPlayer.duration, audioPlayer.currentTime + 10);
-                triggerButtonFeedback(document.getElementById('forwardBtn'));
             });
             
             // Speed controls
@@ -896,8 +784,6 @@
                     
                     document.querySelector('.speed-btn.active').classList.remove('active');
                     btn.classList.add('active');
-                    
-                    triggerButtonFeedback(btn);
                 });
             });
             
@@ -948,45 +834,14 @@
                 document.getElementById('reviewModal').classList.add('hidden');
             });
 
-            // Audio events with enhancements
+            // Audio events
             audioPlayer.addEventListener('play', () => {
                 updateProgress(20, 'Listening to Audio...');
-                startWaveformAnimation();
             });
             
             audioPlayer.addEventListener('ended', () => {
                 updateProgress(20, 'Audio Complete - Answer Questions Below');
-                stopWaveformAnimation();
             });
-            
-            audioPlayer.addEventListener('pause', () => {
-                stopWaveformAnimation();
-            });
-        }
-
-        // NEW: Waveform animation functions (production safe)
-        function startWaveformAnimation() {
-            const waveform = document.querySelector('.audio-waveform');
-            if (waveform) {
-                waveform.classList.remove('hidden');
-                waveform.classList.add('waveform-active');
-            }
-        }
-
-        function stopWaveformAnimation() {
-            const waveform = document.querySelector('.audio-waveform');
-            if (waveform) {
-                waveform.classList.remove('waveform-active');
-                setTimeout(() => waveform.classList.add('hidden'), 300);
-            }
-        }
-
-        // NEW: Button feedback animation (production safe)
-        function triggerButtonFeedback(button) {
-            button.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                button.style.transform = '';
-            }, 100);
         }
 
         // Logout function
@@ -1004,7 +859,7 @@
                 // Save to Firebase
                 await saveLessonProgress(score, timeSpent, xpEarned);
                 
-                // Show results with enhanced animation
+                // Show results
                 showResultsModal(score, xpEarned);
                 
             } catch (error) {
@@ -1110,27 +965,6 @@
             }
             
             document.getElementById('resultsModal').classList.remove('hidden');
-            
-            // NEW: Animate XP counter
-            animateXPCounter(xpEarned);
-        }
-
-        // NEW: Animate XP counter (production safe)
-        function animateXPCounter(finalXP) {
-            const xpElement = document.getElementById('xpEarned');
-            let currentXP = 0;
-            const duration = 1000;
-            const increment = finalXP / (duration / 50);
-            
-            const timer = setInterval(() => {
-                currentXP += increment;
-                if (currentXP >= finalXP) {
-                    currentXP = finalXP;
-                    clearInterval(timer);
-                    xpElement.style.animation = 'bounce 0.5s ease-in-out';
-                }
-                xpElement.textContent = `+${Math.floor(currentXP)} XP Earned!`;
-            }, 50);
         }
 
         function showReviewModal() {
@@ -1143,7 +977,7 @@
                 const userAnswerText = question.options[userAnswer];
                 
                 return `
-                    <div class="border-b border-soft-border pb-4 last:border-b-0 review-item" style="animation-delay: ${index * 0.1}s">
+                    <div class="border-b border-soft-border pb-4 last:border-b-0">
                         <div class="font-medium text-charcoal mb-2">${index + 1}. ${question.question}</div>
                         <div class="space-y-1">
                             <div class="${isCorrect ? 'text-success-green' : 'text-error-red'} font-medium">
@@ -1209,7 +1043,6 @@
             submitBtn.textContent = 'Submit Answers (0/5 Complete)';
             submitBtn.disabled = true;
             submitBtn.classList.add('opacity-50');
-            submitBtn.classList.remove('ready-pulse');
             
             // Reset progress
             updateProgress(0, 'Listen to Audio');
@@ -1233,7 +1066,7 @@
         }
     </script>
 
-    <!-- STATE OF THE ART Styles - Production Safe -->
+    <!-- Colorful Professional Styles -->
     <style>
         /* Colorful Professional Variables */
         :root {
@@ -1259,312 +1092,6 @@
             --bg-card: #ffffff;
             --bg-accent: #dbeafe;
         }
-
-        /* ✨ STATE OF THE ART ANIMATIONS */
-        
-        @keyframes floating {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-6px); }
-        }
-        
-        @keyframes pulse-glow {
-            0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
-            50% { box-shadow: 0 0 30px rgba(59, 130, 246, 0.5); }
-        }
-        
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-        
-        @keyframes selectPulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1.02); }
-        }
-        
-        @keyframes modalEnter {
-            0% { 
-                opacity: 0; 
-                transform: scale(0.8) translateY(-50px); 
-            }
-            100% { 
-                opacity: 1; 
-                transform: scale(1) translateY(0); 
-            }
-        }
-        
-        @keyframes bounce {
-            0%, 100% { transform: scale(1); }
-            25% { transform: scale(1.1); }
-            75% { transform: scale(0.95); }
-        }
-        
-        @keyframes waveAnimation {
-            0%, 100% { height: 20%; }
-            25% { height: 60%; }
-            50% { height: 100%; }
-            75% { height: 40%; }
-        }
-        
-        @keyframes questionEntrance {
-            0% {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* ✨ ENHANCED VISUAL ELEMENTS */
-        
-        .floating-icon {
-            animation: floating 3s ease-in-out infinite;
-        }
-        
-        .magical-glow {
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .magical-glow::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transition: left 0.8s ease;
-            pointer-events: none;
-        }
-        
-        .magical-glow:hover::before {
-            left: 100%;
-        }
-        
-        .pulse-glow {
-            animation: pulse-glow 2s ease-in-out infinite;
-        }
-        
-        .status-pulse {
-            animation: pulse-glow 1.5s ease-in-out infinite;
-        }
-
-        /* ✨ ENHANCED PROGRESS BAR */
-        
-        .progress-shimmer {
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255, 255, 255, 0.3),
-                transparent
-            );
-            animation: shimmer 2s infinite;
-        }
-        
-        .progress-shimmer-active {
-            animation: shimmer 0.8s ease-out;
-        }
-        
-        .progress-pulse {
-            animation: bounce 0.3s ease-out;
-        }
-
-        /* ✨ AUDIO WAVEFORM VISUALIZATION */
-        
-        .audio-waveform {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-            z-index: 1;
-        }
-        
-        .wave-bars {
-            display: flex;
-            align-items: end;
-            height: 40px;
-            gap: 3px;
-        }
-        
-        .wave-bar {
-            width: 4px;
-            background: linear-gradient(to top, var(--foundation-primary), var(--foundation-light));
-            border-radius: 2px;
-            opacity: 0.7;
-            height: 20%;
-            transition: height 0.3s ease;
-        }
-        
-        .waveform-active .wave-bar:nth-child(1) {
-            animation: waveAnimation 1.2s ease-in-out infinite;
-            animation-delay: 0s;
-        }
-        
-        .waveform-active .wave-bar:nth-child(2) {
-            animation: waveAnimation 1.1s ease-in-out infinite;
-            animation-delay: 0.1s;
-        }
-        
-        .waveform-active .wave-bar:nth-child(3) {
-            animation: waveAnimation 1.3s ease-in-out infinite;
-            animation-delay: 0.2s;
-        }
-        
-        .waveform-active .wave-bar:nth-child(4) {
-            animation: waveAnimation 1.0s ease-in-out infinite;
-            animation-delay: 0.3s;
-        }
-        
-        .waveform-active .wave-bar:nth-child(5) {
-            animation: waveAnimation 1.4s ease-in-out infinite;
-            animation-delay: 0.4s;
-        }
-        
-        .waveform-active .wave-bar:nth-child(6) {
-            animation: waveAnimation 1.1s ease-in-out infinite;
-            animation-delay: 0.5s;
-        }
-        
-        .waveform-active .wave-bar:nth-child(7) {
-            animation: waveAnimation 1.2s ease-in-out infinite;
-            animation-delay: 0.6s;
-        }
-        
-        .waveform-active .wave-bar:nth-child(8) {
-            animation: waveAnimation 1.3s ease-in-out infinite;
-            animation-delay: 0.7s;
-        }
-
-        /* ✨ ENHANCED INTERACTIONS */
-        
-        .magnetic-hover {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            transform-origin: center;
-        }
-        
-        .hover-lift:hover {
-            transform: translateY(-2px);
-            text-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
-        }
-        
-        .lesson-card-enhanced:hover {
-            transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.25);
-        }
-        
-        .question-entrance {
-            animation: questionEntrance 0.6s ease-out;
-        }
-        
-        .question-number-glow {
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
-        }
-
-        /* ✨ ENHANCED ANSWER SELECTIONS */
-        
-        .answer-option-enhanced {
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .answer-option-enhanced::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
-            transition: left 0.5s ease;
-        }
-        
-        .answer-option-enhanced:hover::before {
-            left: 100%;
-        }
-        
-        .answer-option-enhanced.selected {
-            animation: selectPulse 0.4s ease-out;
-            box-shadow: 0 0 25px rgba(59, 130, 246, 0.4);
-        }
-        
-        .option-letter-enhanced {
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
-        }
-
-        /* ✨ ENHANCED BUTTONS */
-        
-        .ready-pulse {
-            animation: pulse-glow 1s ease-in-out infinite;
-        }
-        
-        .status-glow {
-            transition: all 0.3s ease;
-        }
-        
-        .status-completed {
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
-        }
-        
-        .status-in-progress {
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
-        }
-
-        /* ✨ MODAL ENHANCEMENTS */
-        
-        .modal-entrance {
-            animation: modalEnter 0.4s ease-out;
-        }
-        
-        .modal-backdrop {
-            backdrop-filter: blur(8px);
-        }
-        
-        .result-bounce {
-            animation: bounce 0.6s ease-in-out;
-        }
-        
-        .score-counter {
-            transition: all 0.3s ease;
-        }
-        
-        .xp-shimmer {
-            background: linear-gradient(90deg, var(--accent-red), #dc2626, var(--accent-red));
-            background-size: 200% 100%;
-            animation: shimmer 2s ease-in-out infinite;
-            -webkit-background-clip: text;
-            background-clip: text;
-        }
-        
-        .achievement-glow {
-            animation: pulse-glow 1.5s ease-in-out infinite;
-            background: linear-gradient(135deg, var(--foundation-light), var(--bg-accent));
-        }
-        
-        .review-item {
-            animation: questionEntrance 0.4s ease-out;
-        }
-
-        /* ✨ AUDIO PLAYER ENHANCEMENTS */
-        
-        .audio-enhanced {
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
-            transition: all 0.3s ease;
-        }
-        
-        .audio-enhanced:hover {
-            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
-            transform: translateY(-1px);
-        }
-
-        /* ===== EXISTING STYLES (PRESERVED) ===== */
 
         /* Clean Background - Light Gray for Desktop */
         .colorful-bg {
