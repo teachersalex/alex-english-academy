@@ -183,144 +183,144 @@
         import { db } from '../js/firebase.js';
         import { doc, getDoc, updateDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js';
 
-        // Complete Gaming lesson data with ALL 10 lessons - Brazilian Gaming Culture
+        // 🎮 GAMING WORLD - FIXED LESSONS ARRAY - All questions now match the original audio scripts!
         const LESSONS = [
             {
                 id: 'gaming-01',
-                title: 'PC Gaming Setup',
+                title: 'My Gaming PC Setup',
                 description: 'Building the perfect gaming computer setup',
-                duration: '42s',
+                duration: '38s',
                 icon: '🖥️',
                 audioFile: 'audio-01-pc-setup.mp3',
                 questions: [
                     {
-                        question: "What graphics card does he want?",
-                        options: ["RTX 3060", "RTX 4070", "GTX 1660", "RTX 4090"],
+                        question: "What graphics card does she have?",
+                        options: ["RTX 3070", "RTX 4070", "GTX 1080", "RX 6700"],
                         correct: 1
                     },
                     {
-                        question: "How much did he spend on his monitor?",
-                        options: ["800 reais", "1200 reais", "1500 reais", "2000 reais"],
+                        question: "How much RAM is in her computer?",
+                        options: ["8GB", "16GB", "32GB", "64GB"],
                         correct: 1
                     },
                     {
-                        question: "What size is his monitor?",
-                        options: ["24 inches", "27 inches", "32 inches", "34 inches"],
-                        correct: 1
-                    },
-                    {
-                        question: "What game does he play the most?",
-                        options: ["CS:GO", "Valorant", "League of Legends", "Fortnite"],
+                        question: "What type of keyboard switches does she use?",
+                        options: ["Blue switches", "Brown switches", "Red switches", "Black switches"],
                         correct: 2
                     },
                     {
-                        question: "Where does he buy computer parts?",
-                        options: ["Amazon", "Kabum", "Pichau", "Mercado Livre"],
+                        question: "How much did she spend on her setup?",
+                        options: ["$2000", "$3000", "$4000", "$5000"],
+                        correct: 1
+                    },
+                    {
+                        question: "What happens to her RGB lighting during games?",
+                        options: ["Turns off", "Changes colors when she gets kills", "Stays red", "Flashes randomly"],
                         correct: 1
                     }
                 ]
             },
             {
                 id: 'gaming-02',
-                title: 'Online Gaming Friends',
-                description: 'Making friends while playing online games',
-                duration: '38s',
+                title: 'Online Gaming with Friends',
+                description: 'Playing with friends and communicating online',
+                duration: '36s',
                 icon: '🎮',
                 audioFile: 'audio-02-online-gaming.mp3',
                 questions: [
                     {
-                        question: "How many friends does he play with regularly?",
-                        options: ["3", "5", "7", "10"],
+                        question: "What game do they play together?",
+                        options: ["Counter-Strike", "Valorant", "Overwatch", "Call of Duty"],
                         correct: 1
                     },
                     {
-                        question: "What voice chat do they use?",
-                        options: ["Skype", "Discord", "TeamSpeak", "Steam"],
+                        question: "What platform do they use to communicate?",
+                        options: ["Skype", "Discord", "TeamSpeak", "WhatsApp"],
                         correct: 1
                     },
                     {
-                        question: "What time do they usually play?",
-                        options: ["Morning", "Afternoon", "Evening", "Late night"],
+                        question: "What is her role in the team?",
+                        options: ["Tank", "DPS", "Support", "Sniper"],
                         correct: 2
                     },
                     {
-                        question: "Where is his best gaming friend from?",
-                        options: ["São Paulo", "Rio de Janeiro", "Minas Gerais", "Bahia"],
-                        correct: 0
+                        question: "How many games did they win last week?",
+                        options: ["5", "6", "7", "8"],
+                        correct: 2
                     },
                     {
-                        question: "How long have they been friends?",
-                        options: ["6 months", "2 years", "3 years", "5 years"],
+                        question: "Where does her best friend live?",
+                        options: ["Rio de Janeiro", "São Paulo", "Belo Horizonte", "Brasília"],
                         correct: 1
                     }
                 ]
             },
             {
                 id: 'gaming-03',
-                title: 'Game Genres',
+                title: 'My Favorite Game Genres',
                 description: 'Different types of games and preferences',
                 duration: '40s',
                 icon: '🕹️',
                 audioFile: 'audio-03-game-genres.mp3',
                 questions: [
                     {
-                        question: "What's his favorite game genre?",
-                        options: ["FPS", "RPG", "Strategy", "Sports"],
-                        correct: 0
-                    },
-                    {
-                        question: "Which RPG does he recommend?",
-                        options: ["Skyrim", "The Witcher 3", "Final Fantasy", "Cyberpunk"],
+                        question: "What is her favorite game genre?",
+                        options: ["FPS", "RPG", "Strategy", "Racing"],
                         correct: 1
                     },
                     {
-                        question: "Why doesn't he like horror games?",
-                        options: ["Too violent", "Too scary", "Too difficult", "Too boring"],
-                        correct: 1
-                    },
-                    {
-                        question: "What sports game does he play?",
-                        options: ["FIFA", "NBA 2K", "Rocket League", "PES"],
-                        correct: 0
-                    },
-                    {
-                        question: "How many hours per day does he game?",
-                        options: ["2 hours", "3 hours", "4 hours", "6 hours"],
+                        question: "Which RPG is her favorite?",
+                        options: ["Skyrim", "Final Fantasy", "The Witcher 3", "Dark Souls"],
                         correct: 2
+                    },
+                    {
+                        question: "How many hours did she play her favorite RPG?",
+                        options: ["50 hours", "75 hours", "100 hours", "150 hours"],
+                        correct: 2
+                    },
+                    {
+                        question: "Why doesn't she like horror games?",
+                        options: ["Bad graphics", "Too expensive", "Too scary", "Boring story"],
+                        correct: 2
+                    },
+                    {
+                        question: "Where does she find indie games?",
+                        options: ["PlayStation Store", "Steam", "Epic Games", "Xbox Store"],
+                        correct: 1
                     }
                 ]
             },
             {
                 id: 'gaming-04',
                 title: 'Esports Tournament',
-                description: 'Watching and participating in esports competitions',
-                duration: '45s',
+                description: 'Participating in competitive gaming tournaments',
+                duration: '39s',
                 icon: '🏆',
                 audioFile: 'audio-04-esports-tournament.mp3',
                 questions: [
                     {
-                        question: "What tournament did he watch?",
-                        options: ["CS:GO Major", "Valorant Champions", "LoL Worlds", "Free Fire World Series"],
-                        correct: 3
+                        question: "What game is the tournament for?",
+                        options: ["Valorant", "Counter-Strike", "League of Legends", "FIFA"],
+                        correct: 2
                     },
                     {
-                        question: "Where was the tournament held?",
-                        options: ["São Paulo", "Rio de Janeiro", "Belo Horizonte", "Salvador"],
-                        correct: 0
+                        question: "How many teams are participating?",
+                        options: ["16", "24", "32", "64"],
+                        correct: 2
                     },
                     {
-                        question: "How much was the prize pool?",
-                        options: ["1 million reais", "2 million reais", "5 million reais", "10 million reais"],
+                        question: "How much is the entry fee per player?",
+                        options: ["25 reais", "50 reais", "75 reais", "100 reais"],
                         correct: 1
                     },
                     {
-                        question: "Which Brazilian team won?",
-                        options: ["LOUD", "paiN Gaming", "FURIA", "Imperial"],
-                        correct: 0
+                        question: "How much does first place win?",
+                        options: ["3,000 reais", "4,000 reais", "5,000 reais", "6,000 reais"],
+                        correct: 2
                     },
                     {
-                        question: "How many people watched online?",
-                        options: ["500 thousand", "1 million", "2 million", "5 million"],
+                        question: "How many hours do they practice daily?",
+                        options: ["2 hours", "3 hours", "4 hours", "5 hours"],
                         correct: 2
                     }
                 ]
@@ -328,105 +328,105 @@
             {
                 id: 'gaming-05',
                 title: 'Streaming on Twitch',
-                description: 'Starting a gaming channel and streaming',
-                duration: '41s',
+                description: 'Starting a gaming stream and building audience',
+                duration: '37s',
                 icon: '📺',
                 audioFile: 'audio-05-streaming-twitch.mp3',
                 questions: [
                     {
-                        question: "How many followers does he have?",
-                        options: ["150", "350", "500", "1000"],
-                        correct: 1
-                    },
-                    {
-                        question: "What time does he stream?",
-                        options: ["Morning", "Afternoon", "Evening", "Late night"],
+                        question: "How many followers does she have on Twitch?",
+                        options: ["650", "750", "850", "950"],
                         correct: 2
                     },
                     {
-                        question: "What game does he stream most?",
-                        options: ["Valorant", "CS:GO", "League of Legends", "GTA RP"],
-                        correct: 3
-                    },
-                    {
-                        question: "How much money did he make last month?",
-                        options: ["200 reais", "500 reais", "800 reais", "1200 reais"],
-                        correct: 2
-                    },
-                    {
-                        question: "What's his streaming goal?",
-                        options: ["1000 followers", "Partner status", "Full-time streamer", "Sponsor deals"],
+                        question: "Which days does she stream?",
+                        options: ["Monday and Wednesday", "Tuesday and Thursday", "Friday and Saturday", "Sunday and Monday"],
                         correct: 1
+                    },
+                    {
+                        question: "What time does she start streaming?",
+                        options: ["7 PM", "8 PM", "9 PM", "10 PM"],
+                        correct: 1
+                    },
+                    {
+                        question: "How many viewers was her personal record?",
+                        options: ["150", "200", "250", "300"],
+                        correct: 1
+                    },
+                    {
+                        question: "What type of microphone does she use?",
+                        options: ["Red microphone", "Black microphone", "Blue microphone", "Silver microphone"],
+                        correct: 2
                     }
                 ]
             },
             {
                 id: 'gaming-06',
-                title: 'Game Reviews',
-                description: 'Reading and writing video game reviews',
-                duration: '39s',
+                title: 'Game Review Channel',
+                description: 'Reviewing new games and sharing opinions',
+                duration: '41s',
                 icon: '⭐',
                 audioFile: 'audio-06-game-reviews.mp3',
                 questions: [
                     {
-                        question: "What game did he review recently?",
-                        options: ["Spider-Man 2", "God of War", "Baldur's Gate 3", "Hogwarts Legacy"],
-                        correct: 2
-                    },
-                    {
-                        question: "What score did he give it?",
-                        options: ["8/10", "9/10", "10/10", "7/10"],
+                        question: "What score did she give FIFA?",
+                        options: ["6 out of 10", "7 out of 10", "8 out of 10", "9 out of 10"],
                         correct: 1
                     },
                     {
-                        question: "Where does he post his reviews?",
-                        options: ["YouTube", "Steam", "Metacritic", "Personal blog"],
-                        correct: 3
+                        question: "What problem did she find with FIFA?",
+                        options: ["Bad graphics", "Slow gameplay", "Too many bugs", "Expensive price"],
+                        correct: 2
                     },
                     {
-                        question: "How long does he play before reviewing?",
-                        options: ["10 hours", "20 hours", "50 hours", "Complete the game"],
-                        correct: 3
+                        question: "How many hours did she play before reviewing?",
+                        options: ["20 hours", "25 hours", "30 hours", "35 hours"],
+                        correct: 2
                     },
                     {
-                        question: "What's most important in a game for him?",
-                        options: ["Graphics", "Story", "Gameplay", "Music"],
+                        question: "How many views did her video get on the first day?",
+                        options: ["3,000", "4,000", "5,000", "6,000"],
+                        correct: 2
+                    },
+                    {
+                        question: "What type of game will she review next week?",
+                        options: ["Racing game", "Sports game", "Horror game", "Puzzle game"],
                         correct: 2
                     }
                 ]
             },
             {
                 id: 'gaming-07',
-                title: 'Mobile Gaming',
+                title: 'Mobile Gaming Addiction',
                 description: 'Playing games on smartphone and tablets',
-                duration: '37s',
+                duration: '35s',
                 icon: '📱',
                 audioFile: 'audio-07-mobile-gaming.mp3',
                 questions: [
                     {
-                        question: "What mobile game does he play most?",
-                        options: ["Free Fire", "PUBG Mobile", "Call of Duty Mobile", "Clash Royale"],
-                        correct: 0
-                    },
-                    {
-                        question: "How much does he spend monthly on mobile games?",
-                        options: ["50 reais", "100 reais", "200 reais", "Nothing"],
+                        question: "Which mobile game does she play?",
+                        options: ["Free Fire", "PUBG Mobile", "Call of Duty Mobile", "Fortnite Mobile"],
                         correct: 1
                     },
                     {
-                        question: "When does he play mobile games?",
-                        options: ["At home", "On the bus", "At work breaks", "All of the above"],
-                        correct: 3
+                        question: "How many hours does she play daily?",
+                        options: ["1 hour", "2 hours", "3 hours", "4 hours"],
+                        correct: 1
                     },
                     {
-                        question: "What rank did he achieve in Free Fire?",
-                        options: ["Bronze", "Silver", "Gold", "Diamond"],
+                        question: "How much money has she spent this year?",
+                        options: ["100 reais", "150 reais", "200 reais", "250 reais"],
                         correct: 2
                     },
                     {
-                        question: "Does he prefer PC or mobile gaming?",
-                        options: ["PC gaming", "Mobile gaming", "Both equally", "Depends on the game"],
-                        correct: 0
+                        question: "How many players are in Battle Royale mode?",
+                        options: ["50", "75", "100", "150"],
+                        correct: 2
+                    },
+                    {
+                        question: "What happens to her phone during intensive games?",
+                        options: ["Gets slow", "Gets hot", "Loses battery", "Crashes"],
+                        correct: 1
                     }
                 ]
             },
@@ -434,34 +434,34 @@
                 id: 'gaming-08',
                 title: 'Gaming Nostalgia',
                 description: 'Remembering classic games from childhood',
-                duration: '43s',
+                duration: '42s',
                 icon: '🕹️',
                 audioFile: 'audio-08-gaming-nostalgia.mp3',
                 questions: [
                     {
-                        question: "What was his first video game console?",
-                        options: ["Atari", "Nintendo", "PlayStation 1", "Super Nintendo"],
+                        question: "What was her first gaming console?",
+                        options: ["Nintendo 64", "PlayStation 1", "Sega Genesis", "Game Boy"],
+                        correct: 1
+                    },
+                    {
+                        question: "How old was she when she got her first console?",
+                        options: ["6 years old", "7 years old", "8 years old", "9 years old"],
                         correct: 2
                     },
                     {
-                        question: "What classic game does he miss most?",
+                        question: "Which classic game does she mention?",
                         options: ["Super Mario", "Sonic", "Crash Bandicoot", "Street Fighter"],
                         correct: 2
                     },
                     {
-                        question: "Where did he play arcade games?",
-                        options: ["Shopping mall", "Arcade center", "School", "Friend's house"],
-                        correct: 0
-                    },
-                    {
-                        question: "How much did arcade games cost?",
-                        options: ["25 centavos", "50 centavos", "1 real", "2 reais"],
+                        question: "How often did they take turns with the controller?",
+                        options: ["Every 15 minutes", "Every 30 minutes", "Every 45 minutes", "Every hour"],
                         correct: 1
                     },
                     {
-                        question: "What does he think about modern games?",
-                        options: ["Better graphics but less fun", "More complex but less challenging", "Great but expensive", "Perfect evolution"],
-                        correct: 0
+                        question: "What does she use to play old games now?",
+                        options: ["Original consoles", "Remasters", "Emulators", "Mobile apps"],
+                        correct: 2
                     }
                 ]
             },
@@ -474,29 +474,29 @@
                 audioFile: 'audio-09-perfect-setup.mp3',
                 questions: [
                     {
-                        question: "What's the most expensive part of his setup?",
-                        options: ["Graphics card", "Monitor", "Chair", "Keyboard"],
-                        correct: 0
-                    },
-                    {
-                        question: "What brand keyboard does he use?",
-                        options: ["Logitech", "Razer", "Corsair", "HyperX"],
-                        correct: 1
-                    },
-                    {
-                        question: "How many monitors does he have?",
-                        options: ["1", "2", "3", "4"],
-                        correct: 1
-                    },
-                    {
-                        question: "What color is his LED lighting?",
-                        options: ["Blue", "Red", "RGB (multiple colors)", "White"],
+                        question: "Where is her gaming room located?",
+                        options: ["Bedroom", "Living room", "Basement", "Attic"],
                         correct: 2
                     },
                     {
-                        question: "How much did his entire setup cost?",
-                        options: ["5000 reais", "8000 reais", "12000 reais", "15000 reais"],
+                        question: "What color are the walls painted?",
+                        options: ["White", "Blue", "Red", "Black"],
+                        correct: 3
+                    },
+                    {
+                        question: "How many monitors fit on her desk?",
+                        options: ["2", "3", "4", "5"],
+                        correct: 1
+                    },
+                    {
+                        question: "How much did her gaming chair cost?",
+                        options: ["1,500 reais", "2,000 reais", "2,500 reais", "3,000 reais"],
                         correct: 2
+                    },
+                    {
+                        question: "How often does she upgrade her setup?",
+                        options: ["Every year", "Every two years", "Every three years", "Every five years"],
+                        correct: 1
                     }
                 ]
             },
@@ -504,34 +504,34 @@
                 id: 'gaming-10',
                 title: 'Virtual Reality Future',
                 description: 'Exploring VR gaming and future technology',
-                duration: '46s',
+                duration: '40s',
                 icon: '🥽',
                 audioFile: 'audio-10-virtual-reality.mp3',
                 questions: [
                     {
-                        question: "What VR headset does he want to buy?",
-                        options: ["Oculus Quest", "PlayStation VR", "HTC Vive", "Meta Quest 3"],
-                        correct: 3
-                    },
-                    {
-                        question: "What VR game excites him most?",
-                        options: ["Beat Saber", "Half-Life Alyx", "VRChat", "Superhot VR"],
+                        question: "Which VR headset did she try?",
+                        options: ["PlayStation VR", "Oculus Quest 2", "HTC Vive", "Valve Index"],
                         correct: 1
                     },
                     {
-                        question: "How much does a good VR headset cost?",
-                        options: ["1500 reais", "2500 reais", "3500 reais", "5000 reais"],
+                        question: "How much do VR headsets cost in Brazil?",
+                        options: ["2,000 reais", "2,500 reais", "3,000 reais", "3,500 reais"],
                         correct: 2
                     },
                     {
-                        question: "What's his biggest concern about VR?",
-                        options: ["Motion sickness", "High price", "Limited games", "Space requirements"],
-                        correct: 3
+                        question: "In how many years does she think VR will be more accessible?",
+                        options: ["3 years", "4 years", "5 years", "6 years"],
+                        correct: 2
                     },
                     {
-                        question: "When does he plan to buy VR?",
-                        options: ["This year", "Next year", "In 2 years", "When prices drop"],
-                        correct: 3
+                        question: "What is still a problem with VR for some people?",
+                        options: ["High price", "Motion sickness", "Heavy weight", "Bad graphics"],
+                        correct: 1
+                    },
+                    {
+                        question: "When is she planning to buy her own VR headset?",
+                        options: ["This year", "Next year", "In 2 years", "In 3 years"],
+                        correct: 1
                     }
                 ]
             }
