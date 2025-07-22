@@ -686,20 +686,33 @@
             const averageTime = Math.round(timePerQuestion.reduce((a, b) => a + b, 0) / timePerQuestion.length);
             const xpEarned = score * 5; // 5 XP per correct answer
             
-            // SAFE: Save Lightning Quiz progress to Firebase
-            await saveLightningProgress(score, percentage, averageTime, xpEarned);
+            // 🔥 CRITICAL: Save Lightning Quiz progress + UPDATE MAIN XP SYSTEM
+            const saveResult = await saveLightningProgress(score, percentage, averageTime, xpEarned);
             
+            // Update result display with REAL XP impact
             document.getElementById('resultIcon').textContent = percentage >= 80 ? '🏆' : percentage >= 60 ? '⚡' : '📝';
             document.getElementById('resultTitle').textContent = 
                 percentage >= 80 ? 'Lightning Master!' : percentage >= 60 ? 'Good Lightning!' : 'Lightning Complete!';
             document.getElementById('scoreDisplay').textContent = `${score}/${currentQuiz.questions.length}`;
             document.getElementById('percentageDisplay').textContent = `${percentage}% Correct`;
             document.getElementById('timeDisplay').textContent = `Tempo médio: ${averageTime}s por pergunta`;
-            document.getElementById('xpEarned').textContent = `+${xpEarned} XP Earned!`;
+            
+            // 🎯 Show REAL XP impact if main system updated successfully
+            if (saveResult && saveResult.success) {
+                document.getElementById('xpEarned').innerHTML = `
+                    <div>+${xpEarned} XP Earned!</div>
+                    <div class="text-sm mt-1">Total XP: ${saveResult.newTotalXP.toLocaleString('pt-BR')} • Level ${saveResult.newLevel}</div>
+                `;
+                console.log(`🎉 Lightning Quiz XP successfully added to main system: ${saveResult.newTotalXP} total XP`);
+            } else {
+                // Fallback display if XP integration failed
+                document.getElementById('xpEarned').textContent = `+${xpEarned} XP Earned!`;
+                console.log('⚠️ Lightning Quiz XP may not have synced to main system');
+            }
             
             document.getElementById('resultsModal').classList.remove('hidden');
             
-            console.log(`⚡ Lightning Quiz completed: ${score}/${currentQuiz.questions.length} (${percentage}%)`);
+            console.log(`⚡ Lightning Quiz completed: ${score}/${currentQuiz.questions.length} (${percentage}%) → +${xpEarned} XP`);
         }
 
         function showReviewModal() {
@@ -762,10 +775,10 @@
         }
 
         // ========================================================================
-        // LIGHTNING PROGRESS SAVING SYSTEM (BULLETPROOF & SAFE)
+        // LIGHTNING PROGRESS SAVING SYSTEM (BULLETPROOF & SAFE) - FIXED XP INTEGRATION
         // ========================================================================
         
-        // SAFE: Save Lightning Quiz progress following Alex's flat Firebase structure
+        // CRITICAL FIX: Save Lightning Quiz progress + PROPERLY UPDATE MAIN XP SYSTEM
         async function saveLightningProgress(score, percentage, averageTime, xpEarned) {
             try {
                 const currentStudent = getCurrentStudent();
@@ -774,8 +787,11 @@
                     return;
                 }
 
-                // Import Firebase functions
+                // Import BOTH Firebase + Progress Sync functions
                 const { doc, getDoc, updateDoc, serverTimestamp } = await import('https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js');
+                
+                // 🔥 CRITICAL: Import Alex's main XP system
+                const { updateStudentStats } = await import('../js/progress-sync.js');
                 
                 const studentRef = doc(db, 'students', currentStudent.username);
                 const studentDoc = await getDoc(studentRef);
@@ -783,48 +799,80 @@
                 if (studentDoc.exists()) {
                     const studentData = studentDoc.data();
                     
-                    // Calculate new total XP and level using Alex's system
-                    const currentTotalXP = studentData.totalXP || 0;
-                    const newTotalXP = currentTotalXP + xpEarned;
-                    const newLevel = calculateLevelFromXP(newTotalXP);
+                    // 🔥 STEP 1: Update main XP system (CRITICAL for student attachment!)
+                    const statsResult = await updateStudentStats(xpEarned);
                     
-                    // SAFE: Create Lightning Quiz progress field (flat structure)
-                    const quizProgressKey = `lightningQuizzes.digitalGaming.${currentQuiz.id}`;
-                    
-                    const updateData = {
-                        [quizProgressKey]: {
-                            score: score,
-                            percentage: percentage,
-                            averageTime: averageTime,
-                            xpEarned: xpEarned,
-                            completedAt: serverTimestamp(),
-                            attempts: (studentData.lightningQuizzes?.digitalGaming?.[currentQuiz.id]?.attempts || 0) + 1
-                        },
-                        totalXP: newTotalXP,              // Update total XP (FLAT)
-                        level: newLevel,                  // Update level (FLAT) 
-                        lastLoginDate: serverTimestamp()  // Update activity (FLAT)
-                    };
+                    if (statsResult.success) {
+                        console.log(`🎯 MAIN XP SYSTEM UPDATED: +${xpEarned} XP → Level ${statsResult.newLevel}`);
+                        
+                        // 🔥 STEP 2: Save Lightning Quiz specific progress
+                        const quizProgressKey = `lightningQuizzes.digitalGaming.${currentQuiz.id}`;
+                        
+                        const lightningData = {
+                            [quizProgressKey]: {
+                                score: score,
+                                percentage: percentage,
+                                averageTime: averageTime,
+                                xpEarned: xpEarned,
+                                completedAt: serverTimestamp(),
+                                attempts: (studentData.lightningQuizzes?.digitalGaming?.[currentQuiz.id]?.attempts || 0) + 1
+                            }
+                        };
 
-                    await updateDoc(studentRef, updateData);
-                    
-                    console.log(`✅ Lightning Quiz progress saved: +${xpEarned} XP, Level ${newLevel}`);
-                    
-                    // Show level up notification if applicable
-                    const oldLevel = calculateLevelFromXP(currentTotalXP);
-                    if (newLevel > oldLevel) {
-                        setTimeout(() => {
-                            alert(`🎉 LEVEL UP! Você chegou ao Nível ${newLevel}!`);
-                        }, 1000);
+                        await updateDoc(studentRef, lightningData);
+                        
+                        console.log(`✅ Lightning Quiz progress saved: +${xpEarned} XP → TOTAL XP: ${statsResult.newTotalXP}`);
+                        
+                        // Show level up notification if applicable
+                        const currentLevel = calculateLevelFromXP(studentData.totalXP || 0);
+                        if (statsResult.newLevel > currentLevel) {
+                            setTimeout(() => {
+                                alert(`🎉 LEVEL UP! Você chegou ao Nível ${statsResult.newLevel}!`);
+                            }, 1000);
+                        }
+                        
+                        return { success: true, newLevel: statsResult.newLevel, newTotalXP: statsResult.newTotalXP };
+                        
+                    } else {
+                        throw new Error('Failed to update main XP system');
                     }
                     
                 } else {
                     console.warn('⚠️ Student document not found');
+                    return { success: false };
                 }
                 
             } catch (error) {
                 console.error('❌ Error saving Lightning progress:', error);
-                // SAFE: Never break user experience - fail silently
+                
+                // 🚨 FALLBACK: Manual XP update to protect student progress
+                try {
+                    const { doc, getDoc, updateDoc, serverTimestamp } = await import('https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js');
+                    const currentStudent = getCurrentStudent();
+                    const studentRef = doc(db, 'students', currentStudent.username);
+                    const studentDoc = await getDoc(studentRef);
+                    
+                    if (studentDoc.exists()) {
+                        const studentData = studentDoc.data();
+                        const currentTotalXP = studentData.totalXP || 0;
+                        const newTotalXP = currentTotalXP + xpEarned;
+                        const newLevel = calculateLevelFromXP(newTotalXP);
+                        
+                        await updateDoc(studentRef, {
+                            totalXP: newTotalXP,
+                            level: newLevel,
+                            lastLoginDate: serverTimestamp()
+                        });
+                        
+                        console.log(`🚨 FALLBACK XP UPDATE SUCCESSFUL: +${xpEarned} XP → ${newTotalXP} Total`);
+                        return { success: true, newLevel, newTotalXP };
+                    }
+                } catch (fallbackError) {
+                    console.error('🚨 FALLBACK XP UPDATE FAILED:', fallbackError);
+                }
+                
                 console.log('💾 Progress will be tracked locally for this session');
+                return { success: false };
             }
         }
         
