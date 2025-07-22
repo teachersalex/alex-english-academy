@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learning Hub - Teacher Alex Academy</title>
-    <!-- PRODUCTION NOTE: Replace Tailwind CDN with local build -->
-    <!-- See: https://tailwindcss.com/docs/installation -->
+    <title>Seu Hub de Aprendizagem - Teacher Alex Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../css/style.css">
 </head>
@@ -15,7 +13,7 @@
     <header class="lesson-header-bar">
         <div class="header-left">
             <div class="brand-line">Teacher Alex English Academy</div>
-            <div class="user-course-line" id="userCourseLine">Alex12345 • Learning Hub</div>
+            <div class="user-course-line" id="userCourseLine">Alex12345 • Seu Hub de Aprendizagem</div>
         </div>
         
         <div class="header-actions">
@@ -28,65 +26,70 @@
     <main class="lesson-content">
         <div class="max-w-6xl mx-auto px-4 pb-8">
         
-            <!-- Hub Header -->
+            <!-- Hub Header with Brazilian Touch -->
             <div class="elegant-card rounded-lg p-6 mb-6 bg-gradient-to-br from-indigo-600 via-purple-600 to-blue-700 text-white">
                 <div class="text-center">
                     <div class="text-6xl mb-4">🎧</div>
-                    <h2 class="text-3xl font-bold mb-3">Learning Hub</h2>
-                    <p class="text-indigo-100 text-lg mb-4">Foundation → Gaming → Movies → Food Adventures!</p>
+                    <h1 class="text-3xl font-bold mb-3">Seu Hub de Aprendizagem</h1>
+                    <p class="text-indigo-100 text-lg mb-4">🌟 Foundation • 🎮 Gaming • 🎬 Movies • 🍕 Food Adventures!</p>
                     <div class="bg-white/20 backdrop-blur-sm rounded-lg p-4 border border-white/30">
-                        <p class="text-white font-semibold text-lg">🌟 Foundation • 🎮 Gaming • 🎬 Movies • 🍕 Food Adventures • 🚀 6 temas chegando em breve</p>
+                        <p class="text-white font-semibold text-base sm:text-lg">🚀 4 temas ativos • 6 temas chegando em breve</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Progress Overview -->
-            <div class="elegant-card rounded-lg p-6 mb-6 bg-gradient-to-r from-slate-50 to-gray-100 border border-gray-200">
+            <!-- Clean XP Progress Bar -->
+            <div class="elegant-card rounded-lg p-4 sm:p-6 mb-6 bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-100">
                 <div class="text-center">
-                    <h3 class="text-xl font-bold text-gray-800 mb-6">📊 Your Overall Progress</h3>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
-                            <div class="text-3xl font-bold text-blue-600 mb-2" id="totalCompleted">0</div>
-                            <div class="text-sm text-gray-600 font-medium">Completed</div>
+                    <!-- User Info Line -->
+                    <div class="flex items-center justify-center space-x-4 text-sm sm:text-base text-charcoal mb-3">
+                        <span class="font-semibold" id="userDisplayName">Estudante</span>
+                        <span class="text-light-gray">•</span>
+                        <span class="font-medium text-blue-600" id="currentLevelDisplay">Nível 1</span>
+                        <span class="text-light-gray">•</span>
+                        <span class="font-medium text-purple-600" id="currentXPDisplay">0 XP</span>
+                    </div>
+                    
+                    <!-- XP Progress Bar -->
+                    <div class="max-w-md mx-auto">
+                        <div class="flex justify-between text-xs sm:text-sm text-medium-gray mb-2">
+                            <span>Seu Progresso</span>
+                            <span id="xpProgressText">0 / 100 XP</span>
                         </div>
-                        <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
-                            <div class="text-3xl font-bold text-red-500 mb-2" id="totalXP">0</div>
-                            <div class="text-sm text-gray-600 font-medium">Total XP</div>
+                        <div class="w-full bg-gray-200 rounded-full h-3 sm:h-4">
+                            <div id="xpProgressBar" 
+                                 class="bg-gradient-to-r from-blue-500 to-purple-600 h-3 sm:h-4 rounded-full transition-all duration-700 shadow-sm" 
+                                 style="width: 0%;">
+                                <div class="h-full w-full rounded-full bg-gradient-to-r from-white/20 to-transparent"></div>
+                            </div>
                         </div>
-                        <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
-                            <div class="text-3xl font-bold text-purple-600 mb-2" id="currentLevel">1</div>
-                            <div class="text-sm text-gray-600 font-medium">Level</div>
-                        </div>
-                        <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
-                            <div class="text-3xl font-bold text-green-600 mb-2" id="activeStreak">0</div>
-                            <div class="text-sm text-gray-600 font-medium">Day Streak</div>
-                        </div>
+                        <p class="text-xs sm:text-sm text-medium-gray mt-2" id="nextLevelText">Próximo Nível: 100 XP</p>
                     </div>
                 </div>
             </div>
 
             <!-- Featured Foundation Theme - COMECE AQUI -->
             <div class="mb-8">
-                <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
                     <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold mr-3">1º PASSO</span>
-                    🌟 COMECE AQUI - Seu Primeiro Passo
-                </h3>
+                    🌟 COMECE AQUI - Foundation Course
+                </h2>
                 <div class="elegant-card rounded-lg p-6 bg-gradient-to-r from-green-500 to-emerald-600 text-white cursor-pointer hover:scale-105 transition-all shadow-lg" onclick="navigateToTheme('foundation')">
                     <div class="flex items-center justify-between">
                         <div class="flex-1">
-                            <h3 class="text-2xl font-bold mb-3">🌟 A1 Foundation Course</h3>
+                            <h3 class="text-2xl font-bold mb-3">🌟 Foundation Course</h3>
                             <p class="text-green-100 text-lg mb-4">Perfect for beginners - build your English basics</p>
                             <div class="bg-white/20 rounded-lg p-3 mb-4">
                                 <div class="flex justify-between text-sm mb-2 text-white font-medium">
-                                    <span>Progress</span>
-                                    <span id="foundation-progress">0/10</span>
+                                    <span>Progresso</span>
+                                    <span id="foundation-progress">0/10 completas</span>
                                 </div>
                                 <div class="w-full bg-white/30 rounded-full h-3">
-                                    <div id="foundation-bar" class="bg-white h-3 rounded-full" style="width: 0%;"></div>
+                                    <div id="foundation-bar" class="bg-white h-3 rounded-full transition-all duration-500" style="width: 0%;"></div>
                                 </div>
                             </div>
                             <div class="bg-white text-green-600 px-6 py-3 rounded-lg text-base font-bold inline-block">
-                                🚀 COMECE AQUI - Foundation Course
+                                🚀 COMECE AQUI
                             </div>
                         </div>
                         <div class="ml-6 text-5xl">🌟</div>
@@ -96,10 +99,10 @@
 
             <!-- Gaming World - PRÓXIMO NÍVEL -->
             <div class="mb-8">
-                <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
                     <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-semibold mr-3">2º PASSO</span>
                     🎮 PRÓXIMO NÍVEL - Gaming World
-                </h3>
+                </h2>
                 <div class="elegant-card rounded-lg p-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white cursor-pointer hover:scale-105 transition-all shadow-lg" onclick="navigateToTheme('gaming')">
                     <div class="flex items-center justify-between">
                         <div class="flex-1">
@@ -107,15 +110,15 @@
                             <p class="text-purple-100 text-lg mb-4">Learn English through gaming vocabulary and scenarios</p>
                             <div class="bg-white/20 rounded-lg p-3 mb-4">
                                 <div class="flex justify-between text-sm mb-2 text-white font-medium">
-                                    <span>Progress</span>
-                                    <span id="gaming-progress">0/10</span>
+                                    <span>Progresso</span>
+                                    <span id="gaming-progress">0/10 completas</span>
                                 </div>
                                 <div class="w-full bg-white/30 rounded-full h-3">
-                                    <div id="gaming-bar" class="bg-white h-3 rounded-full" style="width: 0%;"></div>
+                                    <div id="gaming-bar" class="bg-white h-3 rounded-full transition-all duration-500" style="width: 0%;"></div>
                                 </div>
                             </div>
                             <div class="bg-white text-purple-600 px-6 py-3 rounded-lg text-base font-bold inline-block">
-                                🎮 PRÓXIMO NÍVEL - Gaming World
+                                🎮 EXPLORAR TEMA
                             </div>
                         </div>
                         <div class="ml-6 text-5xl">🎮</div>
@@ -125,10 +128,10 @@
 
             <!-- Movie Magic - TERCEIRO NÍVEL -->
             <div class="mb-8">
-                <h3 class="text-2xl font-bold text-charcoal mb-4 flex items-center">
+                <h2 class="text-2xl font-bold text-charcoal mb-4 flex items-center">
                     <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-semibold mr-3">3º PASSO</span>
                     🎬 TERCEIRO NÍVEL - Movie Magic
-                </h3>
+                </h2>
                 <div class="elegant-card rounded-lg p-6 bg-gradient-to-r from-red-500 to-pink-500 text-white cursor-pointer hover:scale-105 transition-all shadow-lg" onclick="navigateToTheme('movies')">
                     <div class="flex items-center justify-between">
                         <div class="flex-1">
@@ -136,15 +139,15 @@
                             <p class="text-red-100 text-lg mb-4">Hollywood English and cinema conversations</p>
                             <div class="bg-white/20 rounded-lg p-3 mb-4">
                                 <div class="flex justify-between text-sm mb-2 text-white font-medium">
-                                    <span>Progress</span>
-                                    <span id="movies-progress">0/10</span>
+                                    <span>Progresso</span>
+                                    <span id="movies-progress">0/10 completas</span>
                                 </div>
                                 <div class="w-full bg-white/30 rounded-full h-3">
-                                    <div id="movies-bar" class="bg-white h-3 rounded-full" style="width: 0%;"></div>
+                                    <div id="movies-bar" class="bg-white h-3 rounded-full transition-all duration-500" style="width: 0%;"></div>
                                 </div>
                             </div>
                             <div class="bg-white text-red-600 px-6 py-3 rounded-lg text-base font-bold inline-block">
-                                🎭 TERCEIRO NÍVEL - Movie Magic
+                                🎭 EXPLORAR TEMA
                             </div>
                         </div>
                         <div class="ml-6 text-5xl">🎬</div>
@@ -152,12 +155,12 @@
                 </div>
             </div>
 
-            <!-- Food Adventures - QUARTO NÍVEL - NEW ACTIVE THEME! -->
+            <!-- Food Adventures - QUARTO NÍVEL -->
             <div class="mb-8">
-                <h3 class="text-2xl font-bold text-charcoal mb-4 flex items-center">
+                <h2 class="text-2xl font-bold text-charcoal mb-4 flex items-center">
                     <span class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm font-semibold mr-3">4º PASSO</span>
                     🍕 QUARTO NÍVEL - Food Adventures
-                </h3>
+                </h2>
                 <div class="elegant-card rounded-lg p-6 bg-gradient-to-r from-orange-500 to-yellow-500 text-white cursor-pointer hover:scale-105 transition-all shadow-lg" onclick="navigateToTheme('food')">
                     <div class="flex items-center justify-between">
                         <div class="flex-1">
@@ -165,15 +168,15 @@
                             <p class="text-orange-100 text-lg mb-4">Explore delicious food stories and Brazilian cuisine</p>
                             <div class="bg-white/20 rounded-lg p-3 mb-4">
                                 <div class="flex justify-between text-sm mb-2 text-white font-medium">
-                                    <span>Progress</span>
-                                    <span id="food-progress">0/10</span>
+                                    <span>Progresso</span>
+                                    <span id="food-progress">0/10 completas</span>
                                 </div>
                                 <div class="w-full bg-white/30 rounded-full h-3">
-                                    <div id="food-bar" class="bg-white h-3 rounded-full" style="width: 0%;"></div>
+                                    <div id="food-bar" class="bg-white h-3 rounded-full transition-all duration-500" style="width: 0%;"></div>
                                 </div>
                             </div>
                             <div class="bg-white text-orange-600 px-6 py-3 rounded-lg text-base font-bold inline-block">
-                                🍴 QUARTO NÍVEL - Food Adventures
+                                🍴 EXPLORAR TEMA
                             </div>
                         </div>
                         <div class="ml-6 text-5xl">🍕</div>
@@ -181,10 +184,10 @@
                 </div>
             </div>
 
-            <!-- Coming Soon Themes - UPDATED (6 remaining) -->
+            <!-- Coming Soon Themes -->
             <div class="mb-6">
-                <h3 class="text-xl font-bold text-charcoal mb-4">🚀 Coming Soon (6 temas restantes)</h3>
-                <p class="text-medium-gray mb-6">Estes temas estão sendo desenvolvidos e estarão disponíveis em breve!</p>
+                <h2 class="text-xl font-bold text-charcoal mb-4">🚀 Chegando em Breve (6 temas restantes)</h2>
+                <p class="text-medium-gray mb-6">Estes temas estão sendo desenvolvidos e estarão disponíveis em breve no seu hub!</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 
@@ -195,11 +198,11 @@
                         <h3 class="text-xl font-bold text-gray-500 mb-2">Business Pro</h3>
                         <p class="text-gray-400 mb-4">Professional English for career success</p>
                         <div class="bg-gray-100 rounded-lg p-3 mb-4">
-                            <div class="flex justify-between text-sm text-gray-500">
-                                <span>Progress</span>
-                                <span>0/10</span>
+                            <div class="flex justify-between text-sm text-gray-500 mb-2">
+                                <span>Progresso</span>
+                                <span>0/10 completas</span>
                             </div>
-                            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                            <div class="w-full bg-gray-200 rounded-full h-2">
                                 <div class="bg-gray-300 h-2 rounded-full" style="width: 0%;"></div>
                             </div>
                         </div>
@@ -216,11 +219,11 @@
                         <h3 class="text-xl font-bold text-gray-500 mb-2">Travel Adventures</h3>
                         <p class="text-gray-400 mb-4">Essential English for travelers and explorers</p>
                         <div class="bg-gray-100 rounded-lg p-3 mb-4">
-                            <div class="flex justify-between text-sm text-gray-500">
-                                <span>Progress</span>
-                                <span>0/10</span>
+                            <div class="flex justify-between text-sm text-gray-500 mb-2">
+                                <span>Progresso</span>
+                                <span>0/10 completas</span>
                             </div>
-                            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                            <div class="w-full bg-gray-200 rounded-full h-2">
                                 <div class="bg-gray-300 h-2 rounded-full" style="width: 0%;"></div>
                             </div>
                         </div>
@@ -237,11 +240,11 @@
                         <h3 class="text-xl font-bold text-gray-500 mb-2">Daily Conversations</h3>
                         <p class="text-gray-400 mb-4">Real-life English conversations and dialogues</p>
                         <div class="bg-gray-100 rounded-lg p-3 mb-4">
-                            <div class="flex justify-between text-sm text-gray-500">
-                                <span>Progress</span>
-                                <span>0/10</span>
+                            <div class="flex justify-between text-sm text-gray-500 mb-2">
+                                <span>Progresso</span>
+                                <span>0/10 completas</span>
                             </div>
-                            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                            <div class="w-full bg-gray-200 rounded-full h-2">
                                 <div class="bg-gray-300 h-2 rounded-full" style="width: 0%;"></div>
                             </div>
                         </div>
@@ -258,11 +261,11 @@
                         <h3 class="text-xl font-bold text-gray-500 mb-2">Tech World</h3>
                         <p class="text-gray-400 mb-4">Modern technology and digital English</p>
                         <div class="bg-gray-100 rounded-lg p-3 mb-4">
-                            <div class="flex justify-between text-sm text-gray-500">
-                                <span>Progress</span>
-                                <span>0/10</span>
+                            <div class="flex justify-between text-sm text-gray-500 mb-2">
+                                <span>Progresso</span>
+                                <span>0/10 completas</span>
                             </div>
-                            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                            <div class="w-full bg-gray-200 rounded-full h-2">
                                 <div class="bg-gray-300 h-2 rounded-full" style="width: 0%;"></div>
                             </div>
                         </div>
@@ -279,11 +282,11 @@
                         <h3 class="text-xl font-bold text-gray-500 mb-2">Brazilian Culture</h3>
                         <p class="text-gray-400 mb-4">Share Brazilian culture in English</p>
                         <div class="bg-gray-100 rounded-lg p-3 mb-4">
-                            <div class="flex justify-between text-sm text-gray-500">
-                                <span>Progress</span>
-                                <span>0/10</span>
+                            <div class="flex justify-between text-sm text-gray-500 mb-2">
+                                <span>Progresso</span>
+                                <span>0/10 completas</span>
                             </div>
-                            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                            <div class="w-full bg-gray-200 rounded-full h-2">
                                 <div class="bg-gray-300 h-2 rounded-full" style="width: 0%;"></div>
                             </div>
                         </div>
@@ -300,11 +303,11 @@
                         <h3 class="text-xl font-bold text-gray-500 mb-2">Sports Arena</h3>
                         <p class="text-gray-400 mb-4">Football, sports, and competition English</p>
                         <div class="bg-gray-100 rounded-lg p-3 mb-4">
-                            <div class="flex justify-between text-sm text-gray-500">
-                                <span>Progress</span>
-                                <span>0/10</span>
+                            <div class="flex justify-between text-sm text-gray-500 mb-2">
+                                <span>Progresso</span>
+                                <span>0/10 completas</span>
                             </div>
-                            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                            <div class="w-full bg-gray-200 rounded-full h-2">
                                 <div class="bg-gray-300 h-2 rounded-full" style="width: 0%;"></div>
                             </div>
                         </div>
@@ -321,7 +324,7 @@
     <!-- Firebase SDK -->
     <script type="module" src="../js/firebase.js"></script>
 
-    <!-- Hub Logic -->
+    <!-- Hub Logic with Brazilian Enhancements -->
     <script type="module">
         import { db } from '../js/firebase.js';
         import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js';
@@ -340,13 +343,48 @@
             return authData ? JSON.parse(authData) : null;
         }
 
-        // UPDATED Navigation function - now includes 'food'
+        // Level calculation (same as portal)
+        function calculateLevelFromXP(totalXP) {
+            if (totalXP < 100) return 1;
+            
+            let level = 1;
+            let xpRequired = 0;
+            
+            while (totalXP >= xpRequired) {
+                level++;
+                xpRequired += (level - 1) * 150;
+                if (level > 1000) break;
+            }
+            
+            return Math.min(level - 1, 1000);
+        }
+
+        function getXPForNextLevel(currentLevel) {
+            if (currentLevel >= 1000) return 0;
+            
+            let totalXPNeeded = 0;
+            for (let i = 2; i <= currentLevel + 1; i++) {
+                totalXPNeeded += (i - 1) * 150;
+            }
+            return totalXPNeeded;
+        }
+
+        function getXPForCurrentLevel(currentLevel) {
+            if (currentLevel <= 1) return 0;
+            
+            let totalXPNeeded = 0;
+            for (let i = 2; i <= currentLevel; i++) {
+                totalXPNeeded += (i - 1) * 150;
+            }
+            return totalXPNeeded;
+        }
+
+        // Navigation function - updated with food theme
         window.navigateToTheme = function(theme) {
             const workingThemes = ['foundation', 'gaming', 'movies', 'food'];
             
             if (!workingThemes.includes(theme)) {
-                // Show a friendly message for coming soon themes
-                alert('🚀 Este tema está em desenvolvimento!\n\nPor enquanto, explore:\n• Foundation Course (básicos)\n• Gaming World (vocabulário gamer)\n• Movie Magic (cinema)\n• Food Adventures (culinária)\n\nMais temas chegando em breve!');
+                alert('🚀 Este tema está em desenvolvimento!\n\nPor enquanto, explore:\n• Foundation Course (básicos)\n• Gaming World (vocabulário gamer)\n• Movie Magic (cinema)\n• Food Adventures (culinária)\n\nMais temas chegando em breve no seu hub!');
                 return;
             }
             
@@ -367,15 +405,16 @@
             window.location.href = '../index.html';
         };
 
-        // Load overall progress from Firebase - UPDATED to include Food
-        async function loadOverallProgress() {
+        // Load progress with Brazilian Portuguese
+        async function loadHubProgress() {
             try {
                 const currentStudent = getCurrentStudent();
                 if (!currentStudent) return;
 
-                // Update header
+                // Update header with Brazilian touch
                 const displayName = currentStudent.displayName || 'Estudante';
-                document.getElementById('userCourseLine').textContent = `${displayName} • Learning Hub`;
+                document.getElementById('userCourseLine').textContent = `${displayName} • Seu Hub de Aprendizagem`;
+                document.getElementById('userDisplayName').textContent = displayName;
 
                 const studentRef = doc(db, 'students', currentStudent.username);
                 const studentDoc = await getDoc(studentRef);
@@ -383,79 +422,73 @@
                 if (studentDoc.exists()) {
                     const studentData = studentDoc.data();
                     
-                    // Update overall stats
-                    document.getElementById('totalCompleted').textContent = calculateTotalCompleted(studentData);
-                    document.getElementById('totalXP').textContent = (studentData.totalXP || 0).toLocaleString('pt-BR');
-                    document.getElementById('currentLevel').textContent = studentData.level || 1;
-                    document.getElementById('activeStreak').textContent = studentData.currentStreak || 0;
+                    // Calculate level and XP progress
+                    const totalXP = studentData.totalXP || 0;
+                    const currentLevel = calculateLevelFromXP(totalXP);
+                    const currentLevelXP = getXPForCurrentLevel(currentLevel);
+                    const nextLevelXP = getXPForNextLevel(currentLevel);
+                    const progressInLevel = totalXP - currentLevelXP;
+                    const xpNeededForNextLevel = nextLevelXP - currentLevelXP;
+                    const progressPercentage = xpNeededForNextLevel > 0 ? (progressInLevel / xpNeededForNextLevel) * 100 : 100;
 
-                    // Update foundation progress (from existing audioLessons)
+                    // Update XP progress bar with Brazilian Portuguese
+                    document.getElementById('currentLevelDisplay').textContent = `Nível ${currentLevel}`;
+                    document.getElementById('currentXPDisplay').textContent = `${totalXP.toLocaleString('pt-BR')} XP`;
+                    document.getElementById('xpProgressText').textContent = `${progressInLevel} / ${xpNeededForNextLevel} XP`;
+                    document.getElementById('xpProgressBar').style.width = `${Math.min(progressPercentage, 100)}%`;
+                    
+                    if (currentLevel >= 1000) {
+                        document.getElementById('nextLevelText').textContent = '🏆 Nível Máximo Alcançado!';
+                    } else {
+                        document.getElementById('nextLevelText').textContent = `Próximo Nível: ${nextLevelXP.toLocaleString('pt-BR')} XP`;
+                    }
+
+                    // Update foundation progress
                     const audioLessons = studentData.audioLessons || {};
                     const foundationCompleted = Object.values(audioLessons).filter(lesson => lesson.status === 'completed').length;
                     const foundationPercentage = (foundationCompleted / 10) * 100;
                     
-                    document.getElementById('foundation-progress').textContent = `${foundationCompleted}/10`;
+                    document.getElementById('foundation-progress').textContent = `${foundationCompleted}/10 completas`;
                     document.getElementById('foundation-bar').style.width = `${foundationPercentage}%`;
 
-                    // Update gaming progress (from gamingLessons)
+                    // Update gaming progress
                     const gamingLessons = studentData.gamingLessons || {};
                     const gamingCompleted = Object.values(gamingLessons).filter(lesson => lesson.status === 'completed').length;
                     const gamingPercentage = (gamingCompleted / 10) * 100;
                     
-                    document.getElementById('gaming-progress').textContent = `${gamingCompleted}/10`;
+                    document.getElementById('gaming-progress').textContent = `${gamingCompleted}/10 completas`;
                     document.getElementById('gaming-bar').style.width = `${gamingPercentage}%`;
 
-                    // Update movies progress (from movieLessons)
+                    // Update movies progress
                     const movieLessons = studentData.movieLessons || {};
                     const moviesCompleted = Object.values(movieLessons).filter(lesson => lesson.status === 'completed').length;
                     const moviesPercentage = (moviesCompleted / 10) * 100;
                     
-                    document.getElementById('movies-progress').textContent = `${moviesCompleted}/10`;
+                    document.getElementById('movies-progress').textContent = `${moviesCompleted}/10 completas`;
                     document.getElementById('movies-bar').style.width = `${moviesPercentage}%`;
 
-                    // NEW: Update food progress (from foodLessons)
+                    // Update food progress
                     const foodLessons = studentData.foodLessons || {};
                     const foodCompleted = Object.values(foodLessons).filter(lesson => lesson.status === 'completed').length;
                     const foodPercentage = (foodCompleted / 10) * 100;
                     
-                    document.getElementById('food-progress').textContent = `${foodCompleted}/10`;
+                    document.getElementById('food-progress').textContent = `${foodCompleted}/10 completas`;
                     document.getElementById('food-bar').style.width = `${foodPercentage}%`;
 
-                    console.log('✅ Hub progress loaded from Firebase with Food Adventures!');
+                    console.log('✅ Seu Hub de Aprendizagem carregado com sucesso!');
                 } else {
-                    console.log('❌ Student not found in Firebase');
+                    console.log('❌ Estudante não encontrado no Firebase');
                 }
             } catch (error) {
-                console.error('❌ Error loading hub progress:', error);
+                console.error('❌ Erro ao carregar progresso do hub:', error);
             }
-        }
-
-        // UPDATED: Calculate total completed including Food Adventures
-        function calculateTotalCompleted(studentData) {
-            // Count completed foundation lessons (audioLessons)
-            const audioLessons = studentData.audioLessons || {};
-            const foundationCompleted = Object.values(audioLessons).filter(lesson => lesson.status === 'completed').length;
-            
-            // Count completed gaming lessons
-            const gamingLessons = studentData.gamingLessons || {};
-            const gamingCompleted = Object.values(gamingLessons).filter(lesson => lesson.status === 'completed').length;
-            
-            // Count completed movie lessons
-            const movieLessons = studentData.movieLessons || {};
-            const moviesCompleted = Object.values(movieLessons).filter(lesson => lesson.status === 'completed').length;
-            
-            // NEW: Count completed food lessons
-            const foodLessons = studentData.foodLessons || {};
-            const foodCompleted = Object.values(foodLessons).filter(lesson => lesson.status === 'completed').length;
-            
-            return foundationCompleted + gamingCompleted + moviesCompleted + foodCompleted;
         }
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             if (!checkAuth()) return;
-            loadOverallProgress();
-            console.log('🍕 Learning Hub loaded with Food Adventures as active theme!');
+            loadHubProgress();
+            console.log('🇧🇷 Seu Hub de Aprendizagem carregado com attachement brasileiro!');
         });
     </script>
 
