@@ -1,4 +1,4 @@
-// Teacher Alex English Academy - Service Worker (FIXED Cache Error)
+// Teacher Alex English Academy - Service Worker (FIX Cache Error)
 // FIXED: Partial response (206) cache error
 const CACHE_NAME = 'alex-english-v1';
 
