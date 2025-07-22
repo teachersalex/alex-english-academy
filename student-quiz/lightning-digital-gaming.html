@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚡ Digital Life & Gaming - Lightning Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="colorful-bg min-h-screen">
+
+    <!-- Professional Header Bar (EXACT COPY from Alex's system) -->
+    <header class="colorful-header-bar">
+        <div class="header-left">
+            <div class="brand-line">Teacher Alex English Academy</div>
+            <div class="user-course-line" id="userCourseLine">Alex12345 • ⚡ Digital Life & Gaming</div>
+        </div>
+        
+        <div class="header-actions">
+            <button class="btn-portal" onclick="window.location.href='lightning-quiz-hub.html'">← Quiz Hub</button>
+            <button class="btn-sair" onclick="logout()">Sair</button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="lesson-content">
+        <div class="max-w-4xl mx-auto px-4 pb-8">
+        
+        <!-- Lightning Quiz Selection View -->
+        <div id="quizSelection">
+            <!-- Course Header -->
+            <div class="colorful-main-card rounded-xl p-6 mb-6">
+                <div class="text-center">
+                    <div class="text-5xl mb-4">🎮</div>
+                    <h2 class="text-2xl font-bold text-white mb-2">⚡ Digital Life & Gaming</h2>
+                    <p class="text-blue-100 mb-4">5 lições • 25 perguntas • 15 segundos cada • Cultura digital brasileira</p>
+                    <div class="colorful-accent-card rounded-lg p-3">
+                        <p class="text-white font-medium">📱 Instagram • 🎮 Free Fire • 💬 WhatsApp • 📺 YouTube!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lightning Status -->
+            <div class="status-card rounded-lg p-4 mb-6 text-center">
+                <div id="lightningStatus" class="text-sm">
+                    <span class="text-primary-blue font-medium">⚡ Sistema Lightning Quiz - Pronto para começar!</span>
+                </div>
+            </div>
+
+            <!-- Quiz Lessons Grid -->
+            <div id="lessonsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Lessons will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Interactive Lightning Quiz View -->
+        <div id="quizInterface" class="hidden">
+            <!-- Quiz Header -->
+            <div class="professional-card rounded-xl p-6 mb-6">
+                <div class="flex items-center justify-between mb-4">
+                    <button id="backToQuizzes" class="link-sophisticated text-sm">← Voltar para Digital Gaming</button>
+                    <div id="quizProgress" class="text-sm text-medium-gray">Pergunta 1 de 5</div>
+                </div>
+                
+                <h2 id="quizTitle" class="text-2xl font-bold text-foundation-primary mb-2">Social Media Basics</h2>
+                <p id="quizDescription" class="text-medium-gray mb-4">Instagram, WhatsApp, TikTok - o mundo digital brasileiro</p>
+                
+                <!-- Lightning Timer -->
+                <div class="lightning-timer-card rounded-lg p-4 mb-4">
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm font-medium text-charcoal">⚡ Lightning Timer</span>
+                        <div class="flex items-center space-x-3">
+                            <div id="timerDisplay" class="text-2xl font-bold text-accent-red">15</div>
+                            <div class="timer-circle">
+                                <svg class="timer-svg" viewBox="0 0 36 36">
+                                    <path class="timer-bg" d="M18 2.0845
+                                        a 15.9155 15.9155 0 0 1 0 31.831
+                                        a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                    <path id="timerProgress" class="timer-progress" d="M18 2.0845
+                                        a 15.9155 15.9155 0 0 1 0 31.831
+                                        a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Progress Indicator -->
+                <div class="progress-card rounded-lg p-3">
+                    <div class="flex justify-between text-sm mb-2">
+                        <span>Progresso da Lição</span>
+                        <span id="progressText">Pergunta 1/5</span>
+                    </div>
+                    <div class="progress-bar-container h-3 rounded-full">
+                        <div id="progressBar" class="progress-bar rounded-full"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question Display -->
+            <div id="questionSection" class="question-card rounded-xl p-6 mb-6">
+                <div class="text-center mb-6">
+                    <div class="text-4xl mb-4" id="questionIcon">📱</div>
+                    <h3 id="questionText" class="text-xl font-bold text-charcoal mb-4">
+                        What's the most used app in Brazil?
+                    </h3>
+                </div>
+                
+                <!-- Answer Options -->
+                <div id="answerOptions" class="space-y-3">
+                    <!-- Options will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Lightning Controls -->
+            <div class="submit-card rounded-xl p-6 text-center">
+                <button id="nextQuestion" class="btn-primary px-8 py-4 rounded-xl text-lg font-bold" disabled>
+                    ⚡ Próxima Pergunta
+                </button>
+                <p class="text-medium-gray text-sm mt-2" id="controlText">Selecione uma resposta</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Lightning Results Modal -->
+    <div id="resultsModal" class="hidden fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+        <div class="modal-card rounded-2xl p-6 max-w-md w-full">
+            <div class="text-center">
+                <div id="resultIcon" class="text-5xl mb-4">⚡</div>
+                <h3 id="resultTitle" class="text-xl font-bold text-charcoal mb-4">Lightning Quiz Complete!</h3>
+                
+                <!-- Lightning Score Display -->
+                <div class="score-card rounded-lg p-4 mb-4">
+                    <div id="scoreDisplay" class="text-3xl font-bold text-charcoal mb-1">5/5</div>
+                    <div id="percentageDisplay" class="text-lg text-medium-gray mb-2">100% Correct</div>
+                    <div id="timeDisplay" class="text-sm text-medium-gray mb-2">Tempo médio: 8s por pergunta</div>
+                    <div id="xpEarned" class="text-accent-red font-semibold text-lg">+25 XP Earned!</div>
+                </div>
+                
+                <!-- Controls -->
+                <div class="space-y-3">
+                    <button id="reviewAnswers" class="btn-secondary w-full py-3 rounded-lg font-semibold">
+                        📊 Review Answers
+                    </button>
+                    <button id="tryAgainBtn" class="btn-subtle w-full py-3 rounded-lg font-semibold">
+                        🔄 Tentar Novamente
+                    </button>
+                    <button id="nextLightningQuiz" class="btn-primary w-full py-3 rounded-lg font-semibold">
+                        ⚡ Próximo Lightning Quiz
+                    </button>
+                    <button id="backToHub" class="link-muted text-sm py-2">
+                        Voltar ao Lightning Hub
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Answer Review Modal -->
+    <div id="reviewModal" class="hidden fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+        <div class="modal-card rounded-2xl p-6 max-w-2xl w-full max-h-96 overflow-y-auto">
+            <h3 class="text-lg font-bold text-charcoal mb-4 text-center">📝 Lightning Review</h3>
+            <div id="reviewContent" class="space-y-4 mb-6">
+                <!-- Review content here -->
+            </div>
+            <button id="closeReview" class="btn-primary w-full py-3 rounded-lg font-semibold">
+                Close Review
+            </button>
+        </div>
+    </div>
+
+    <!-- Firebase SDK (Safe) -->
+    <script type="module" src="../js/firebase.js"></script>
+
+    <!-- Lightning Quiz System -->
+    <script type="module">
+        import { db } from '../js/firebase.js';
+        
+        // 🎮 DIGITAL LIFE & GAMING - COMPLETE LIGHTNING QUIZ DATA
+        const LIGHTNING_QUIZZES = [
+            {
+                id: 'social-media',
+                title: 'Social Media Basics', 
+                description: 'Instagram, WhatsApp, TikTok - o mundo digital brasileiro',
+                icon: '📱',
+                questions: [
+                    {
+                        question: "What's the most used app in Brazil?",
+                        options: ["Instagram", "WhatsApp", "TikTok", "Facebook"],
+                        correct: 1,
+                        explanation: "99% of Brazilians use WhatsApp daily - more than any other app!"
+                    }
+        
+        // Logout function
+        window.logout = function() {
+            localStorage.clear();
+            window.location.href = '../index.html';
+        };,
+                    {
+                        question: "How much can top Brazilian influencers earn per sponsored post?",
+                        options: ["R$ 5,000", "R$ 15,000", "R$ 50,000", "R$ 100,000"],
+                        correct: 2,
+                        explanation: "Top Brazilian influencers like Whindersson Nunes earn around R$ 50,000!"
+                    },
+                    {
+                        question: "Which platform do Brazilian creators use to go viral worldwide?",
+                        options: ["YouTube", "Instagram", "TikTok", "Twitter"],
+                        correct: 2,
+                        explanation: "TikTok is where Brazilian creators become global sensations!"
+                    },
+                    {
+                        question: "How long do Instagram Stories last?",
+                        options: ["12 hours", "24 hours", "48 hours", "1 week"],
+                        correct: 1,
+                        explanation: "Stories disappear after 24 hours - that's why people post daily!"
+                    },
+                    {
+                        question: "What do Brazilians love posting photos of most?",
+                        options: ["Cars", "Pets", "Food", "Work"],
+                        correct: 2,
+                        explanation: "Brazilians LOVE sharing food pics - especially churrasco and açaí!"
+                    }
+                ]
+            },
+            {
+                id: 'gaming-culture',
+                title: 'Gaming Culture',
+                description: 'Free Fire, esports, e a revolução gamer brasileira',
+                icon: '🎮',
+                questions: [
+                    {
+                        question: "Which country has the largest gaming market in Latin America?",
+                        options: ["Mexico", "Argentina", "Brazil", "Colombia"],
+                        correct: 2,
+                        explanation: "Brazil has 100+ million gamers - largest gaming market in Latin America!"
+                    },
+                    {
+                        question: "What's the most popular mobile game in Brazil?",
+                        options: ["PUBG", "Fortnite", "Free Fire", "Call of Duty Mobile"],
+                        correct: 2,
+                        explanation: "Free Fire dominates Brazilian mobile gaming scene completely!"
+                    },
+                    {
+                        question: "What are gaming cafés called in Brazil?",
+                        options: ["Cyber cafés", "Game centers", "Lan houses", "Gaming lounges"],
+                        correct: 2,
+                        explanation: "Lan houses are still popular, especially for competitive gaming!"
+                    },
+                    {
+                        question: "What do most Brazilian gamers prefer to play on?",
+                        options: ["PC", "PlayStation", "Xbox", "Mobile phones"],
+                        correct: 3,
+                        explanation: "Mobile gaming is HUGE! Most Brazilians game on smartphones."
+                    },
+                    {
+                        question: "How much can top Brazilian esports players earn monthly?",
+                        options: ["R$ 5,000", "R$ 10,000", "R$ 20,000+", "R$ 50,000+"],
+                        correct: 2,
+                        explanation: "Top Brazilian esports players earn R$ 20,000+ from tournaments!"
+                    }
+                ]
+            },
+            {
+                id: 'online-communication',
+                title: 'Online Communication',
+                description: 'Emojis, áudios longos, e o jeito brasileiro de conversar',
+                icon: '💬',
+                questions: [
+                    {
+                        question: "Which nationality uses the most emojis in messages?",
+                        options: ["Americans", "Japanese", "Brazilians", "British"],
+                        correct: 2,
+                        explanation: "Brazilians are emoji champions! 😂❤️🇧🇷 everywhere!"
+                    },
+                    {
+                        question: "What's a typical length for Brazilian voice messages?",
+                        options: ["30 seconds", "1 minute", "3 minutes", "5+ minutes"],
+                        correct: 3,
+                        explanation: "Brazilians LOVE long voice messages - sometimes 5+ minutes!"
+                    },
+                    {
+                        question: "Which dating app is most popular in Brazil?",
+                        options: ["Bumble", "Tinder", "Happn", "Badoo"],
+                        correct: 1,
+                        explanation: "Tinder dominates Brazilian dating scene across all ages!"
+                    },
+                    {
+                        question: "When did Zoom become popular in Brazil?",
+                        options: ["2018", "2019", "2020 (pandemic)", "2021"],
+                        correct: 2,
+                        explanation: "COVID-19 made Zoom explode in Brazil - now everyone knows it!"
+                    },
+                    {
+                        question: "What do Brazilians prefer for online conversations?",
+                        options: ["Only typing", "Voice calls", "Video calls", "Emojis only"],
+                        correct: 1,
+                        explanation: "Brazilians are social! They love talking, not just texting."
+                    }
+                ]
+            },
+            {
+                id: 'streaming-content',
+                title: 'Streaming & Content',
+                description: 'Netflix, YouTube, Twitch - entretenimento digital brasileiro',
+                icon: '📺',
+                questions: [
+                    {
+                        question: "How much does basic Netflix cost in Brazil?",
+                        options: ["R$ 15", "R$ 25", "R$ 50", "R$ 80"],
+                        correct: 1,
+                        explanation: "Basic Netflix is around R$ 25 - affordable for many Brazilians!"
+                    },
+                    {
+                        question: "What's the most popular free video platform in Brazil?",
+                        options: ["Netflix", "YouTube", "Amazon Prime", "Disney+"],
+                        correct: 1,
+                        explanation: "Free YouTube works great! Most Brazilians don't pay for Premium."
+                    },
+                    {
+                        question: "What language do successful Brazilian YouTubers use?",
+                        options: ["Only Portuguese", "Only English", "Both Portuguese and English", "Spanish"],
+                        correct: 2,
+                        explanation: "Many Brazilian creators make English content for global audience!"
+                    },
+                    {
+                        question: "Which streaming platform is growing fastest for gaming in Brazil?",
+                        options: ["YouTube Gaming", "Facebook Gaming", "Twitch", "TikTok Live"],
+                        correct: 2,
+                        explanation: "Brazilian streamers are booming on Twitch! Gaming culture exploding."
+                    },
+                    {
+                        question: "What's the most popular music streaming app in Brazil?",
+                        options: ["Apple Music", "Spotify", "Deezer", "YouTube Music"],
+                        correct: 1,
+                        explanation: "Spotify dominates! Brazilians love discovering new music there."
+                    }
+                ]
+            },
+            {
+                id: 'digital-safety',
+                title: 'Digital Safety & Trends',
+                description: 'Segurança online, criptomoedas, e bancos digitais',
+                icon: '🔐',
+                questions: [
+                    {
+                        question: "Is using public WiFi completely safe in Brazil?",
+                        options: ["Yes, always safe", "Safe only in malls", "Safe with antivirus", "Not completely safe"],
+                        correct: 3,
+                        explanation: "Public WiFi can be risky! Better use mobile data for important stuff."
+                    },
+                    {
+                        question: "Does WhatsApp have end-to-end encryption?",
+                        options: ["No", "Yes", "Only for calls", "Only for photos"],
+                        correct: 1,
+                        explanation: "WhatsApp messages are encrypted - that's why it's trusted in Brazil!"
+                    },
+                    {
+                        question: "What's the legal status of cryptocurrency in Brazil?",
+                        options: ["Completely illegal", "Legal to buy/sell", "Only Bitcoin is legal", "Legal only for businesses"],
+                        correct: 1,
+                        explanation: "Crypto is legal! Many Brazilians invest in Bitcoin and others."
+                    },
+                    {
+                        question: "Where do Brazilians find the best online shopping deals?",
+                        options: ["Amazon", "Americanas", "Mercado Livre", "Magazine Luiza"],
+                        correct: 2,
+                        explanation: "Mercado Livre dominates Brazilian e-commerce with great deals!"
+                    },
+                    {
+                        question: "Which type of bank is growing fastest in Brazil?",
+                        options: ["Traditional banks", "International banks", "Digital banks", "Credit unions"],
+                        correct: 2,
+                        explanation: "Nubank, Inter, PicPay are revolutionizing Brazilian banking!"
+                    }
+                ]
+            }
+        ];
+
+        // State
+        let currentQuiz = null;
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let questionStartTime = null;
+        let timer = null;
+        let timePerQuestion = [];
+        let timerInterval = null;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('⚡ Digital Life & Gaming Lightning Quiz Loading...');
+            if (!checkAuth()) return;
+            
+            initializeEventListeners();
+            loadQuizzesGrid();
+            initializeHeaderBar();
+        });
+
+        function checkAuth() {
+            if (!localStorage.getItem('studentLoggedIn')) {
+                window.location.href = '../index.html';
+                return false;
+            }
+            return true;
+        }
+
+        function getCurrentStudent() {
+            const authData = localStorage.getItem('studentAuth');
+            return authData ? JSON.parse(authData) : null;
+        }
+
+        function initializeHeaderBar() {
+            const currentStudent = getCurrentStudent();
+            if (currentStudent) {
+                const displayName = currentStudent.displayName || 'Estudante';
+                document.getElementById('userCourseLine').textContent = `${displayName} • ⚡ Digital Life & Gaming`;
+            }
+        }
+
+        async function loadQuizzesGrid() {
+            try {
+                const currentStudent = getCurrentStudent();
+                let lightningProgress = {};
+                
+                // SAFE: Try to load existing Lightning Quiz progress
+                if (currentStudent) {
+                    try {
+                        const { doc, getDoc } = await import('https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js');
+                        const studentRef = doc(db, 'students', currentStudent.username);
+                        const studentDoc = await getDoc(studentRef);
+                        
+                        if (studentDoc.exists()) {
+                            const studentData = studentDoc.data();
+                            lightningProgress = studentData.lightningQuizzes?.digitalGaming || {};
+                        }
+                    } catch (error) {
+                        console.log('⚡ Lightning progress loading skipped - using defaults');
+                    }
+                }
+                
+                const grid = document.getElementById('lessonsGrid');
+                
+                grid.innerHTML = LIGHTNING_QUIZZES.map((quiz, index) => {
+                    const progress = lightningProgress[quiz.id] || {};
+                    const hasCompleted = progress.score !== undefined;
+                    const attempts = progress.attempts || 0;
+                    const bestScore = progress.score || 0;
+                    const bestPercentage = progress.percentage || 0;
+                    
+                    return `
+                        <div class="lightning-quiz-card professional-card rounded-xl p-4 cursor-pointer hover:scale-105 transition-all" onclick="startLightningQuiz('${quiz.id}')">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="text-2xl">${quiz.icon}</div>
+                                <span class="status-badge ${hasCompleted ? 'status-completed' : 'status-not-started'}">
+                                    ${hasCompleted ? '⚡ Feito' : '⚡ Lightning'}
+                                </span>
+                            </div>
+                            <h3 class="font-semibold text-charcoal mb-2">Lição ${index + 1}: ${quiz.title}</h3>
+                            <p class="text-sm text-medium-gray mb-3">${quiz.description}</p>
+                            <div class="flex items-center justify-between text-xs text-medium-gray">
+                                <span>⚡ 15s por pergunta</span>
+                                <span class="font-semibold text-foundation-primary">
+                                    ${hasCompleted ? `${bestScore}/5 (${bestPercentage}%)` : '5 perguntas'}
+                                </span>
+                            </div>
+                            ${attempts > 0 ? `
+                                <div class="mt-2 text-xs text-medium-gray">
+                                    Tentativas: ${attempts} • Melhor: ${bestScore}/5
+                                </div>
+                            ` : ''}
+                        </div>
+                    `;
+                }).join('');
+                
+                // Update status message
+                const completedCount = Object.keys(lightningProgress).length;
+                document.getElementById('lightningStatus').innerHTML = 
+                    `<span class="text-primary-blue font-medium">⚡ ${completedCount}/5 Digital Gaming quizzes completed</span>`;
+                    
+            } catch (error) {
+                console.error('❌ Error loading quizzes grid:', error);
+                // SAFE: Show default grid if loading fails
+                const grid = document.getElementById('lessonsGrid');
+                grid.innerHTML = LIGHTNING_QUIZZES.map((quiz, index) => `
+                    <div class="lightning-quiz-card professional-card rounded-xl p-4 cursor-pointer hover:scale-105 transition-all" onclick="startLightningQuiz('${quiz.id}')">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="text-2xl">${quiz.icon}</div>
+                            <span class="status-badge status-not-started">⚡ Lightning</span>
+                        </div>
+                        <h3 class="font-semibold text-charcoal mb-2">Lição ${index + 1}: ${quiz.title}</h3>
+                        <p class="text-sm text-medium-gray mb-3">${quiz.description}</p>
+                        <div class="flex items-center justify-between text-xs text-medium-gray">
+                            <span>⚡ 15s por pergunta</span>
+                            <span class="font-semibold text-foundation-primary">5 perguntas</span>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Start Lightning Quiz
+        window.startLightningQuiz = function(quizId) {
+            currentQuiz = LIGHTNING_QUIZZES.find(q => q.id === quizId);
+            if (!currentQuiz) return;
+
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            timePerQuestion = [];
+            
+            // Switch to quiz interface
+            document.getElementById('quizSelection').classList.add('hidden');
+            document.getElementById('quizInterface').classList.remove('hidden');
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Update quiz info
+            const quizIndex = LIGHTNING_QUIZZES.findIndex(q => q.id === quizId) + 1;
+            document.getElementById('quizTitle').textContent = currentQuiz.title;
+            document.getElementById('quizDescription').textContent = currentQuiz.description;
+            
+            // Update header
+            const currentStudent = getCurrentStudent();
+            const displayName = currentStudent ? currentStudent.displayName : 'Estudante';
+            document.getElementById('userCourseLine').textContent = `${displayName} • ⚡ ${currentQuiz.title}`;
+            
+            // Start first question
+            loadQuestion();
+            
+            console.log('⚡ Lightning Quiz started:', currentQuiz.title);
+        };
+
+        function loadQuestion() {
+            const question = currentQuiz.questions[currentQuestionIndex];
+            questionStartTime = Date.now();
+            
+            // Update progress
+            document.getElementById('quizProgress').textContent = `Pergunta ${currentQuestionIndex + 1} de ${currentQuiz.questions.length}`;
+            document.getElementById('progressText').textContent = `Pergunta ${currentQuestionIndex + 1}/${currentQuiz.questions.length}`;
+            const progressPercentage = ((currentQuestionIndex + 1) / currentQuiz.questions.length) * 100;
+            document.getElementById('progressBar').style.width = `${progressPercentage}%`;
+            
+            // Update question
+            document.getElementById('questionIcon').textContent = currentQuiz.icon;
+            document.getElementById('questionText').textContent = question.question;
+            
+            // Load answer options
+            const optionsContainer = document.getElementById('answerOptions');
+            optionsContainer.innerHTML = question.options.map((option, index) => `
+                <div class="answer-option cursor-pointer" data-option="${index}" onclick="selectLightningAnswer(${index})">
+                    <div class="option-letter">${String.fromCharCode(65 + index)}</div>
+                    <div class="flex-1">${option}</div>
+                </div>
+            `).join('');
+            
+            // Reset controls
+            document.getElementById('nextQuestion').disabled = true;
+            document.getElementById('controlText').textContent = 'Selecione uma resposta';
+            
+            // Start 15-second timer
+            startLightningTimer();
+        }
+
+        function startLightningTimer() {
+            let timeLeft = 15;
+            document.getElementById('timerDisplay').textContent = timeLeft;
+            
+            // Reset timer circle
+            const timerProgress = document.getElementById('timerProgress');
+            timerProgress.style.strokeDasharray = '100, 100';
+            
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                document.getElementById('timerDisplay').textContent = timeLeft;
+                
+                // Update circle progress
+                const percentage = (timeLeft / 15) * 100;
+                timerProgress.style.strokeDasharray = `${percentage}, 100`;
+                
+                // Change color as time runs out
+                if (timeLeft <= 5) {
+                    timerProgress.style.stroke = '#ef4444'; // Red
+                    document.getElementById('timerDisplay').style.color = '#ef4444';
+                } else if (timeLeft <= 10) {
+                    timerProgress.style.stroke = '#f59e0b'; // Orange
+                    document.getElementById('timerDisplay').style.color = '#f59e0b';
+                } else {
+                    timerProgress.style.stroke = '#10b981'; // Green
+                    document.getElementById('timerDisplay').style.color = '#10b981';
+                }
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    // Auto-advance if no answer selected
+                    if (!userAnswers[currentQuestionIndex] !== undefined) {
+                        selectLightningAnswer(-1); // No answer selected
+                    }
+                }
+            }, 1000);
+        }
+
+        function stopLightningTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+        }
+
+        window.selectLightningAnswer = function(optionIndex) {
+            stopLightningTimer();
+            
+            // Record time taken
+            const timeSpent = Math.max(1, 15 - parseInt(document.getElementById('timerDisplay').textContent));
+            timePerQuestion.push(timeSpent);
+            
+            // Store answer
+            userAnswers[currentQuestionIndex] = optionIndex;
+            
+            // Highlight selected answer
+            document.querySelectorAll('.answer-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            if (optionIndex >= 0) {
+                document.querySelector(`[data-option="${optionIndex}"]`).classList.add('selected');
+            }
+            
+            // Enable next button
+            document.getElementById('nextQuestion').disabled = false;
+            document.getElementById('nextQuestion').textContent = 
+                currentQuestionIndex === currentQuiz.questions.length - 1 ? '⚡ Ver Resultados' : '⚡ Próxima Pergunta';
+            document.getElementById('controlText').textContent = 'Pressione para continuar';
+        };
+
+        function initializeEventListeners() {
+            // Navigation
+            document.getElementById('backToQuizzes').addEventListener('click', () => {
+                document.getElementById('quizInterface').classList.add('hidden');
+                document.getElementById('quizSelection').classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                const currentStudent = getCurrentStudent();
+                const displayName = currentStudent ? currentStudent.displayName : 'Estudante';
+                document.getElementById('userCourseLine').textContent = `${displayName} • ⚡ Digital Life & Gaming`;
+                
+                stopLightningTimer();
+            });
+            
+            // Next question
+            document.getElementById('nextQuestion').addEventListener('click', () => {
+                if (currentQuestionIndex < currentQuiz.questions.length - 1) {
+                    currentQuestionIndex++;
+                    loadQuestion();
+                } else {
+                    showLightningResults();
+                }
+            });
+            
+            // Results modal
+            document.getElementById('tryAgainBtn').addEventListener('click', restartQuiz);
+            document.getElementById('nextLightningQuiz').addEventListener('click', goToNextQuiz);
+            document.getElementById('backToHub').addEventListener('click', () => {
+                window.location.href = 'lightning-quiz-hub.html';
+            });
+            
+            // Review modal
+            document.getElementById('reviewAnswers').addEventListener('click', showReviewModal);
+            document.getElementById('closeReview').addEventListener('click', () => {
+                document.getElementById('reviewModal').classList.add('hidden');
+            });
+            
+            // Backdrop clicks
+            document.getElementById('resultsModal').addEventListener('click', (e) => {
+                if (e.target === document.getElementById('resultsModal')) {
+                    document.getElementById('resultsModal').classList.add('hidden');
+                }
+            });
+        }
+
+        async function showLightningResults() {
+            stopLightningTimer();
+            
+            const score = userAnswers.reduce((total, answer, index) => {
+                return total + (answer === currentQuiz.questions[index].correct ? 1 : 0);
+            }, 0);
+            
+            const percentage = Math.round((score / currentQuiz.questions.length) * 100);
+            const averageTime = Math.round(timePerQuestion.reduce((a, b) => a + b, 0) / timePerQuestion.length);
+            const xpEarned = score * 5; // 5 XP per correct answer
+            
+            // SAFE: Save Lightning Quiz progress to Firebase
+            await saveLightningProgress(score, percentage, averageTime, xpEarned);
+            
+            document.getElementById('resultIcon').textContent = percentage >= 80 ? '🏆' : percentage >= 60 ? '⚡' : '📝';
+            document.getElementById('resultTitle').textContent = 
+                percentage >= 80 ? 'Lightning Master!' : percentage >= 60 ? 'Good Lightning!' : 'Lightning Complete!';
+            document.getElementById('scoreDisplay').textContent = `${score}/${currentQuiz.questions.length}`;
+            document.getElementById('percentageDisplay').textContent = `${percentage}% Correct`;
+            document.getElementById('timeDisplay').textContent = `Tempo médio: ${averageTime}s por pergunta`;
+            document.getElementById('xpEarned').textContent = `+${xpEarned} XP Earned!`;
+            
+            document.getElementById('resultsModal').classList.remove('hidden');
+            
+            console.log(`⚡ Lightning Quiz completed: ${score}/${currentQuiz.questions.length} (${percentage}%)`);
+        }
+
+        function showReviewModal() {
+            const reviewContent = document.getElementById('reviewContent');
+            
+            reviewContent.innerHTML = currentQuiz.questions.map((question, index) => {
+                const userAnswer = userAnswers[index];
+                const isCorrect = userAnswer === question.correct;
+                const correctAnswer = question.options[question.correct];
+                const userAnswerText = userAnswer >= 0 ? question.options[userAnswer] : 'Não respondeu';
+                const timeSpent = timePerQuestion[index] || 0;
+                
+                return `
+                    <div class="border-b border-soft-border pb-4 last:border-b-0">
+                        <div class="flex items-center justify-between mb-2">
+                            <div class="font-medium text-charcoal">${index + 1}. ${question.question}</div>
+                            <div class="text-xs text-medium-gray">${timeSpent}s</div>
+                        </div>
+                        <div class="space-y-1">
+                            <div class="${isCorrect ? 'text-success-green' : 'text-error-red'} font-medium">
+                                ${isCorrect ? '⚡' : '❌'} Sua resposta: ${userAnswerText}
+                            </div>
+                            ${!isCorrect ? `
+                                <div class="text-success-green font-medium">
+                                    ✅ Correto: ${correctAnswer}
+                                </div>
+                            ` : ''}
+                            <div class="text-medium-gray text-sm italic">
+                                💡 ${question.explanation}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            document.getElementById('reviewModal').classList.remove('hidden');
+        }
+
+        function restartQuiz() {
+            document.getElementById('resultsModal').classList.add('hidden');
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            timePerQuestion = [];
+            loadQuestion();
+        }
+
+        function goToNextQuiz() {
+            const currentIndex = LIGHTNING_QUIZZES.findIndex(q => q.id === currentQuiz.id);
+            const nextQuiz = LIGHTNING_QUIZZES[currentIndex + 1];
+            
+            document.getElementById('resultsModal').classList.add('hidden');
+            
+            if (nextQuiz) {
+                startLightningQuiz(nextQuiz.id);
+            } else {
+                // All quizzes completed
+                alert('🎉 Parabéns! Você completou todos os Lightning Quizzes de Digital Life & Gaming!');
+                window.location.href = 'lightning-quiz-hub.html';
+            }
+        }
+
+        // ========================================================================
+        // LIGHTNING PROGRESS SAVING SYSTEM (BULLETPROOF & SAFE)
+        // ========================================================================
+        
+        // SAFE: Save Lightning Quiz progress following Alex's flat Firebase structure
+        async function saveLightningProgress(score, percentage, averageTime, xpEarned) {
+            try {
+                const currentStudent = getCurrentStudent();
+                if (!currentStudent) {
+                    console.log('⚡ No student logged in - progress not saved');
+                    return;
+                }
+
+                // Import Firebase functions
+                const { doc, getDoc, updateDoc, serverTimestamp } = await import('https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js');
+                
+                const studentRef = doc(db, 'students', currentStudent.username);
+                const studentDoc = await getDoc(studentRef);
+                
+                if (studentDoc.exists()) {
+                    const studentData = studentDoc.data();
+                    
+                    // Calculate new total XP and level using Alex's system
+                    const currentTotalXP = studentData.totalXP || 0;
+                    const newTotalXP = currentTotalXP + xpEarned;
+                    const newLevel = calculateLevelFromXP(newTotalXP);
+                    
+                    // SAFE: Create Lightning Quiz progress field (flat structure)
+                    const quizProgressKey = `lightningQuizzes.digitalGaming.${currentQuiz.id}`;
+                    
+                    const updateData = {
+                        [quizProgressKey]: {
+                            score: score,
+                            percentage: percentage,
+                            averageTime: averageTime,
+                            xpEarned: xpEarned,
+                            completedAt: serverTimestamp(),
+                            attempts: (studentData.lightningQuizzes?.digitalGaming?.[currentQuiz.id]?.attempts || 0) + 1
+                        },
+                        totalXP: newTotalXP,              // Update total XP (FLAT)
+                        level: newLevel,                  // Update level (FLAT) 
+                        lastLoginDate: serverTimestamp()  // Update activity (FLAT)
+                    };
+
+                    await updateDoc(studentRef, updateData);
+                    
+                    console.log(`✅ Lightning Quiz progress saved: +${xpEarned} XP, Level ${newLevel}`);
+                    
+                    // Show level up notification if applicable
+                    const oldLevel = calculateLevelFromXP(currentTotalXP);
+                    if (newLevel > oldLevel) {
+                        setTimeout(() => {
+                            alert(`🎉 LEVEL UP! Você chegou ao Nível ${newLevel}!`);
+                        }, 1000);
+                    }
+                    
+                } else {
+                    console.warn('⚠️ Student document not found');
+                }
+                
+            } catch (error) {
+                console.error('❌ Error saving Lightning progress:', error);
+                // SAFE: Never break user experience - fail silently
+                console.log('💾 Progress will be tracked locally for this session');
+            }
+        }
+        
+        // Level calculation function (matches Alex's portal system exactly)
+        function calculateLevelFromXP(totalXP) {
+            if (totalXP < 100) return 1;
+            
+            // Exponential scaling: Level 2 = 100 XP, Level 3 = 250 XP, Level 4 = 450 XP, etc.
+            let level = 1;
+            let xpRequired = 0;
+            
+            while (totalXP >= xpRequired) {
+                level++;
+                xpRequired += (level - 1) * 150; // Exponential increase
+                if (level > 1000) break;
+            }
+            
+            return Math.min(level - 1, 1000);
+        }
+    </script>
+
+    <!-- Lightning Quiz Styles -->
+    <style>
+        /* Universal Theme Variables (Same as Alex's system) */
+        :root {
+            --foundation-primary: #3b82f6;
+            --foundation-secondary: #1d4ed8;
+            --foundation-light: #93c5fd;
+            --foundation-dark: #1e40af;
+            
+            --primary-blue: #3b82f6;
+            --secondary-blue: #1e40af;
+            --accent-red: #ef4444;
+            --success-green: #10b981;
+            --error-red: #f87171;
+            --warning-orange: #f59e0b;
+            
+            --charcoal: #1f2937;
+            --medium-gray: #6b7280;
+            --light-gray: #e5e7eb;
+            --soft-border: #d1d5db;
+            
+            --bg-primary: #f8fafc;
+            --bg-secondary: #e2e8f0;
+            --bg-card: #ffffff;
+            --bg-accent: #dbeafe;
+        }
+
+        /* Background (Same as Alex's lessons) */
+        .colorful-bg {
+            background: #f1f5f9;
+            min-height: 100vh;
+        }
+
+        @media (max-width: 768px) {
+            .colorful-bg {
+                background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f1f5f9 100%);
+                background-attachment: fixed;
+            }
+        }
+
+        /* Header Bar (Exact copy from Alex's system) */
+        .colorful-header-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            background: linear-gradient(135deg, var(--foundation-primary), var(--foundation-secondary));
+            border-bottom: 2px solid var(--foundation-dark);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+            padding: 16px 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .colorful-header-bar .brand-line {
+            font-size: 12px;
+            font-weight: 600;
+            color: white;
+            text-align: center;
+            letter-spacing: 0.5px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .colorful-header-bar .user-course-line {
+            font-size: 14px;
+            color: #e2e8f0;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .colorful-header-bar .btn-portal {
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--foundation-secondary);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .colorful-header-bar .btn-portal:hover {
+            background: white;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .colorful-header-bar .btn-sair {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .colorful-header-bar .btn-sair:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Cards (Same as Alex's system) */
+        .colorful-main-card {
+            background: linear-gradient(135deg, var(--foundation-primary), var(--foundation-secondary));
+            border: none;
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+            color: white;
+        }
+
+        .colorful-accent-card {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .professional-card {
+            background: var(--bg-card);
+            border: 2px solid var(--bg-accent);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .professional-card:hover {
+            box-shadow: 0 12px 35px rgba(59, 130, 246, 0.25);
+            transform: translateY(-3px);
+            border-color: var(--foundation-primary);
+        }
+
+        .status-card {
+            background: linear-gradient(135deg, var(--bg-accent), var(--bg-secondary));
+            border: 2px solid var(--foundation-light);
+            color: var(--foundation-dark);
+        }
+
+        .progress-card {
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-accent));
+            border: 2px solid var(--foundation-light);
+        }
+
+        .question-card {
+            background: var(--bg-card);
+            border: 2px solid var(--bg-accent);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.1);
+        }
+
+        .submit-card {
+            background: linear-gradient(135deg, var(--bg-accent), var(--foundation-light));
+            border: 2px solid var(--foundation-primary);
+        }
+
+        .modal-card {
+            background: var(--bg-card);
+            border: 2px solid var(--foundation-primary);
+            box-shadow: 0 25px 50px rgba(59, 130, 246, 0.25);
+        }
+
+        .score-card {
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-accent));
+            border: 2px solid var(--foundation-primary);
+        }
+
+        /* Lightning Timer Card */
+        .lightning-timer-card {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border: 2px solid #f59e0b;
+        }
+
+        .timer-circle {
+            width: 36px;
+            height: 36px;
+        }
+
+        .timer-svg {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .timer-bg {
+            fill: none;
+            stroke: #e5e7eb;
+            stroke-width: 3;
+        }
+
+        .timer-progress {
+            fill: none;
+            stroke: #10b981;
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-dasharray: 100, 100;
+            transition: stroke-dasharray 0.3s ease;
+        }
+
+        /* Progress Bar */
+        .progress-bar-container {
+            background: var(--bg-secondary);
+            overflow: hidden;
+            border: 1px solid var(--foundation-light);
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, var(--foundation-primary), var(--foundation-light));
+            transition: width 0.8s ease;
+            box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Answer Options */
+        .answer-option {
+            background: var(--bg-secondary);
+            border: 2px solid var(--foundation-light);
+            padding: 1rem;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .answer-option:hover {
+            border-color: var(--foundation-primary);
+            background: var(--bg-accent);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+        }
+
+        .answer-option.selected {
+            border-color: var(--foundation-primary);
+            background: var(--foundation-primary) !important;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+            transform: translateY(-1px);
+            color: white !important;
+        }
+
+        .answer-option.selected .option-letter {
+            background: white;
+            color: var(--foundation-primary);
+            border: 2px solid white;
+        }
+
+        .answer-option.selected div {
+            color: white !important;
+        }
+
+        .option-letter {
+            background: var(--foundation-primary);
+            color: white;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.875rem;
+            flex-shrink: 0;
+        }
+
+        /* Status Badges */
+        .status-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border: 1px solid;
+        }
+
+        .status-not-started {
+            background: var(--bg-accent);
+            color: var(--foundation-dark);
+            border-color: var(--foundation-light);
+        }
+
+        .status-completed {
+            background: var(--foundation-primary);
+            color: white;
+            border-color: var(--foundation-secondary);
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-red), #dc2626);
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--foundation-primary), var(--foundation-secondary));
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, var(--foundation-secondary), var(--foundation-dark));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-subtle {
+            background: var(--bg-accent);
+            color: var(--foundation-dark);
+            border: 2px solid var(--foundation-light);
+            transition: all 0.3s ease;
+        }
+
+        .btn-subtle:hover {
+            background: var(--foundation-light);
+            border-color: var(--foundation-primary);
+            transform: translateY(-1px);
+        }
+
+        /* Typography */
+        .text-primary-blue { color: var(--primary-blue); }
+        .text-accent-red { color: var(--accent-red); }
+        .text-success-green { color: var(--success-green); }
+        .text-error-red { color: var(--error-red); }
+        .text-foundation-primary { color: var(--foundation-primary); }
+        .text-charcoal { color: var(--charcoal); }
+        .text-medium-gray { color: var(--medium-gray); }
+        .text-light-gray { color: var(--light-gray); }
+        .border-soft-border { border-color: var(--soft-border); }
+        .text-blue-100 { color: #dbeafe; }
+
+        /* Links */
+        .link-sophisticated {
+            color: var(--foundation-primary);
+            transition: color 0.2s ease;
+        }
+        
+        .link-sophisticated:hover {
+            color: var(--foundation-secondary);
+        }
+        
+        .link-muted {
+            color: var(--medium-gray);
+            transition: color 0.2s ease;
+        }
+        
+        .link-muted:hover {
+            color: var(--charcoal);
+        }
+
+        /* Content spacing */
+        .lesson-content {
+            margin-top: 120px;
+        }
+
+        /* Desktop responsive */
+        @media (min-width: 768px) {
+            .colorful-header-bar {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                padding: 12px 40px;
+            }
+            
+            .header-left {
+                text-align: left;
+            }
+            
+            .lesson-content {
+                margin-top: 80px;
+            }
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 480px) {
+            .colorful-header-bar {
+                padding: 12px 16px;
+                gap: 6px;
+            }
+            
+            .colorful-header-bar .brand-line {
+                font-size: 11px;
+            }
+            
+            .colorful-header-bar .user-course-line {
+                font-size: 13px;
+            }
+            
+            .colorful-header-bar .btn-portal, 
+            .colorful-header-bar .btn-sair {
+                padding: 6px 12px;
+                font-size: 11px;
+            }
+            
+            .lesson-content {
+                margin-top: 110px;
+            }
+        }
+    </style>
+
+</body>
+</html>
