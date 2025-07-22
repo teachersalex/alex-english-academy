@@ -117,12 +117,29 @@
                     </a>
                 </div>
 
-                <!-- Exercises Card (Coming Soon) -->
+                <!-- Exercises Card (NOW WITH LIGHTNING QUIZ TEST!) -->
+                <div class="lesson-card-active">
+                    <div class="flex items-center justify-between">
+                        <div class="flex-1">
+                            <h3 class="text-lg sm:text-xl font-semibold text-charcoal mb-1 sm:mb-2">⚡ LIGHTNING QUIZ</h3>
+                            <p class="text-sm sm:text-base text-medium-gray mb-3 sm:mb-4">Sistema de quiz viciante - teste a nova mecânica!</p>
+                            <div class="beta-badge inline-flex">
+                                🧪 TESTE BETA
+                            </div>
+                        </div>
+                        <div class="ml-4 text-2xl sm:text-3xl">⚡</div>
+                    </div>
+                    <a href="lightning-quiz.html" class="btn-secondary w-full sm:w-auto inline-block text-center font-semibold py-3 px-6 rounded-lg text-sm sm:text-base no-underline">
+                        TESTAR AGORA
+                    </a>
+                </div>
+
+                <!-- Original Exercises Card (Coming Soon) -->
                 <div class="lesson-card-soon">
                     <div class="flex items-center justify-between">
                         <div class="flex-1">
                             <h3 class="text-lg sm:text-xl font-semibold text-medium-gray mb-1 sm:mb-2">📝 EXERCÍCIOS</h3>
-                            <p class="text-sm sm:text-base text-medium-gray mb-3 sm:mb-4">Sistema de exercícios interativos</p>
+                            <p class="text-sm sm:text-base text-medium-gray mb-3 sm:mb-4">Sistema de exercícios interativos completo</p>
                         </div>
                         <div class="ml-4 text-2xl sm:text-3xl text-light-gray">────</div>
                     </div>
@@ -451,6 +468,7 @@
             }, 30000);
             
             console.log('🚀 Portal Design Loaded with ANIMATED PROGRESS DASHBOARD!');
+            console.log('⚡ Lightning Quiz test link added - ready for addiction testing!');
             console.log('📱 Responsive: ' + window.innerWidth + 'px');
             console.log('🎬 Smooth animations enabled for dopamine boost!');
         });
@@ -670,6 +688,20 @@
             transform: translateY(-1px);
             text-decoration: none;
             box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--primary-blue), #2563eb);
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            transform: translateY(-1px);
+            text-decoration: none;
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
         }
 
         .btn-disabled {
