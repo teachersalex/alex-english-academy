@@ -20,7 +20,7 @@
     <!-- Main Content -->
     <div class="max-w-sm mx-auto px-4 sm:max-w-md md:max-w-lg lg:max-w-2xl xl:max-w-4xl sm:px-6 md:px-8 py-6 space-y-6">
         
-        <!-- Progress Section -->
+        <!-- Level & XP Card -->
         <div class="professional-card rounded-xl p-4 sm:p-5 md:p-6">
             <div class="text-center">
                 <h2 id="levelDisplay" class="text-lg sm:text-xl md:text-2xl font-semibold text-charcoal mb-2">Nível 1 • Beginner</h2>
@@ -40,6 +40,60 @@
                         <div id="lessonProgressBar" class="bg-foundation-primary h-2 rounded-full transition-all duration-500" style="width: 0%;"></div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- NEW: Animated Progress Dashboard -->
+        <div class="professional-card rounded-xl p-4 sm:p-5 md:p-6 bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-100">
+            <div class="text-center mb-4">
+                <h3 class="text-xl sm:text-2xl font-bold text-charcoal mb-2">📊 Seu Progresso</h3>
+                <p class="text-medium-gray text-sm sm:text-base">Veja como você está evoluindo em tempo real!</p>
+            </div>
+            
+            <!-- Animated Stats Grid -->
+            <div class="grid grid-cols-2 gap-3 sm:gap-4 md:gap-6">
+                <!-- Total Completed -->
+                <div class="bg-white rounded-xl p-3 sm:p-4 shadow-sm border border-blue-100 hover:shadow-md transition-all duration-300">
+                    <div class="text-center">
+                        <div class="text-2xl sm:text-3xl font-bold text-blue-600 mb-1 counter-number" 
+                             data-target="0" id="totalCompletedCounter">0</div>
+                        <div class="text-xs sm:text-sm text-medium-gray font-medium">Lições Completas</div>
+                    </div>
+                </div>
+                
+                <!-- Total XP -->
+                <div class="bg-white rounded-xl p-3 sm:p-4 shadow-sm border border-red-100 hover:shadow-md transition-all duration-300">
+                    <div class="text-center">
+                        <div class="text-2xl sm:text-3xl font-bold text-red-500 mb-1 counter-number" 
+                             data-target="0" id="totalXPCounter">0</div>
+                        <div class="text-xs sm:text-sm text-medium-gray font-medium">Total XP</div>
+                    </div>
+                </div>
+                
+                <!-- Current Level -->
+                <div class="bg-white rounded-xl p-3 sm:p-4 shadow-sm border border-purple-100 hover:shadow-md transition-all duration-300">
+                    <div class="text-center">
+                        <div class="text-2xl sm:text-3xl font-bold text-purple-600 mb-1 counter-number" 
+                             data-target="1" id="currentLevelCounter">1</div>
+                        <div class="text-xs sm:text-sm text-medium-gray font-medium">Nível Atual</div>
+                    </div>
+                </div>
+                
+                <!-- Day Streak -->
+                <div class="bg-white rounded-xl p-3 sm:p-4 shadow-sm border border-green-100 hover:shadow-md transition-all duration-300">
+                    <div class="text-center">
+                        <div class="text-2xl sm:text-3xl font-bold text-green-600 mb-1 counter-number" 
+                             data-target="0" id="dayStreakCounter">0</div>
+                        <div class="text-xs sm:text-sm text-medium-gray font-medium">Sequência</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Motivational Message -->
+            <div class="mt-4 text-center">
+                <p class="text-sm sm:text-base text-blue-600 font-medium" id="motivationalMessage">
+                    🚀 Continue estudando para ver estes números crescerem!
+                </p>
             </div>
         </div>
 
@@ -153,14 +207,89 @@
             return 'Expert';
         }
 
-        function getXPForNextLevel(currentLevel) {
-            if (currentLevel >= 1000) return 0;
+        // ========================================================================
+        // SMOOTH NUMBER ANIMATION SYSTEM
+        // ========================================================================
+
+        function animateNumber(element, finalValue, duration = 1500, formatFunction = null) {
+            const startValue = 0;
+            const startTime = Date.now();
             
-            let totalXPNeeded = 0;
-            for (let i = 2; i <= currentLevel + 1; i++) {
-                totalXPNeeded += (i - 1) * 150;
+            function updateNumber() {
+                const elapsed = Date.now() - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                // Easing function for smooth animation (ease-out)
+                const easeOut = 1 - Math.pow(1 - progress, 3);
+                
+                const currentValue = Math.floor(startValue + (finalValue - startValue) * easeOut);
+                
+                if (formatFunction) {
+                    element.textContent = formatFunction(currentValue);
+                } else {
+                    element.textContent = currentValue.toLocaleString('pt-BR');
+                }
+                
+                if (progress < 1) {
+                    requestAnimationFrame(updateNumber);
+                } else {
+                    // Ensure final value is set exactly
+                    element.textContent = formatFunction ? formatFunction(finalValue) : finalValue.toLocaleString('pt-BR');
+                    
+                    // Add a subtle bounce effect when animation completes
+                    element.style.transform = 'scale(1.1)';
+                    setTimeout(() => {
+                        element.style.transform = 'scale(1)';
+                    }, 200);
+                }
             }
-            return totalXPNeeded;
+            
+            updateNumber();
+        }
+
+        function triggerCounterAnimations(data) {
+            // Calculate total completed lessons across all themes
+            const foundationCompleted = data.completedLessons || 0;
+            
+            // Calculate themed lesson completions
+            let themedCompleted = 0;
+            const themes = ['gaming', 'movies', 'food'];
+            themes.forEach(theme => {
+                const themeLessons = data[`${theme}Lessons`] || {};
+                themedCompleted += Object.values(themeLessons).filter(lesson => lesson && lesson.status === 'completed').length;
+            });
+            
+            const totalCompleted = foundationCompleted + themedCompleted;
+            const totalXP = data.profile.totalXP || 0;
+            const currentLevel = calculateLevelFromXP(totalXP);
+            const currentStreak = data.profile.currentStreak || 0;
+            
+            // Animate each counter with slight delays for dramatic effect
+            setTimeout(() => animateNumber(document.getElementById('totalCompletedCounter'), totalCompleted, 1200), 100);
+            setTimeout(() => animateNumber(document.getElementById('totalXPCounter'), totalXP, 1400), 300);
+            setTimeout(() => animateNumber(document.getElementById('currentLevelCounter'), currentLevel, 1000), 500);
+            setTimeout(() => animateNumber(document.getElementById('dayStreakCounter'), currentStreak, 1100), 700);
+            
+            // Update motivational message based on progress
+            const motivationalElement = document.getElementById('motivationalMessage');
+            setTimeout(() => {
+                if (totalCompleted === 0) {
+                    motivationalElement.textContent = '🌟 Comece sua primeira lição hoje!';
+                } else if (totalCompleted < 5) {
+                    motivationalElement.textContent = '🚀 Ótimo começo! Continue assim!';
+                } else if (totalCompleted < 15) {
+                    motivationalElement.textContent = '🔥 Você está no ritmo certo!';
+                } else if (totalCompleted < 30) {
+                    motivationalElement.textContent = '⭐ Progresso impressionante!';
+                } else {
+                    motivationalElement.textContent = '🏆 Você é um verdadeiro English Master!';
+                }
+                
+                // Add streak motivation if streak > 1
+                if (currentStreak > 1) {
+                    motivationalElement.textContent += ` • 🔥 ${currentStreak} dias seguidos!`;
+                }
+            }, 1000);
         }
 
         // Load REAL student data and update UI with ALL lesson progress
@@ -192,11 +321,11 @@
                         document.getElementById('streakDisplay').textContent = `Sequência ${data.profile.currentStreak || 0}`;
                         
                         // Calculate TOTAL lesson progress across ALL themes
-                        const foundationCompleted = data.completedLessons || 0; // from audioLessons
+                        const foundationCompleted = data.completedLessons || 0;
                         
                         // Calculate themed lesson completions (when implemented)
                         let themedCompleted = 0;
-                        const themes = ['gaming', 'movies', 'business', 'travel', 'conversation', 'food', 'technology', 'culture', 'sports', 'news'];
+                        const themes = ['gaming', 'movies', 'food'];
                         themes.forEach(theme => {
                             const themeLessons = data[`${theme}Lessons`] || {};
                             themedCompleted += Object.values(themeLessons).filter(lesson => lesson && lesson.status === 'completed').length;
@@ -209,8 +338,11 @@
                         document.getElementById('lessonProgress').textContent = `${totalCompleted}/${totalLessons}`;
                         document.getElementById('lessonProgressBar').style.width = `${progressPercentage}%`;
                         
+                        // 🎬 TRIGGER SMOOTH ANIMATIONS!
+                        triggerCounterAnimations(data);
+                        
                         // Log comprehensive progress data
-                        console.log(`📊 COMPLETE Student Progress Loaded:`);
+                        console.log(`📊 COMPLETE Student Progress Loaded with Animations:`);
                         console.log(`   → Level: ${level} (${category})`);
                         console.log(`   → XP: ${realXP} (earned from all lessons)`);
                         console.log(`   → Foundation: ${foundationCompleted}/10 completed`);
@@ -244,6 +376,15 @@
             document.getElementById('streakDisplay').textContent = 'Sequência 0';
             document.getElementById('lessonProgress').textContent = '0/110';
             document.getElementById('lessonProgressBar').style.width = '0%';
+            
+            // Still animate default values for smooth experience
+            setTimeout(() => {
+                animateNumber(document.getElementById('totalCompletedCounter'), 0, 800);
+                animateNumber(document.getElementById('totalXPCounter'), 0, 800);
+                animateNumber(document.getElementById('currentLevelCounter'), 1, 800);
+                animateNumber(document.getElementById('dayStreakCounter'), 0, 800);
+            }, 500);
+            
             console.log('📴 Using default data - Firebase unavailable');
         }
 
@@ -255,20 +396,6 @@
             setTimeout(() => {
                 progressSection.style.border = '';
             }, 2000);
-        }
-
-        // Show achievement indicator
-        function showAchievementIndicator(count) {
-            const levelDisplay = document.getElementById('levelDisplay');
-            const originalText = levelDisplay.textContent;
-            
-            // Add achievement indicator
-            levelDisplay.innerHTML = `${originalText} <span style="color: #f59e0b; font-size: 0.8em;">🏆 ${count}</span>`;
-            
-            // Remove after 5 seconds
-            setTimeout(() => {
-                levelDisplay.textContent = originalText;
-            }, 5000);
         }
 
         // Logout function
@@ -314,7 +441,7 @@
             
             // Refresh data when returning from lessons/hub
             window.addEventListener('focus', () => {
-                console.log('🔄 Page focused - refreshing student data...');
+                console.log('🔄 Page focused - refreshing student data with animations...');
                 loadStudentData();
             });
             
@@ -323,14 +450,13 @@
                 loadStudentData();
             }, 30000);
             
-            console.log('🚀 Portal Design Loaded with HUB INTEGRATION!');
+            console.log('🚀 Portal Design Loaded with ANIMATED PROGRESS DASHBOARD!');
             console.log('📱 Responsive: ' + window.innerWidth + 'px');
-            console.log('🔄 Auto-refresh enabled for ALL lesson progress');
-            console.log('🌟 Hub system: Portal → Hub → 11 Theme Categories');
+            console.log('🎬 Smooth animations enabled for dopamine boost!');
         });
     </script>
 
-    <!-- Universal Theme Styles for Portal -->
+    <!-- Universal Theme Styles for Portal + Animation Styles -->
     <style>
         /* Universal Theme Variables */
         :root {
@@ -374,6 +500,43 @@
                 background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f1f5f9 100%);
                 background-attachment: fixed;
             }
+        }
+
+        /* SMOOTH ANIMATION STYLES */
+        .counter-number {
+            transition: transform 0.2s ease;
+            display: inline-block;
+        }
+
+        .counter-number:hover {
+            transform: scale(1.05);
+        }
+
+        /* Breathing animation for progress cards */
+        .professional-card {
+            animation: subtleBreath 4s ease-in-out infinite;
+        }
+
+        @keyframes subtleBreath {
+            0%, 100% { 
+                transform: scale(1); 
+                box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15); 
+            }
+            50% { 
+                transform: scale(1.002); 
+                box-shadow: 0 10px 30px rgba(59, 130, 246, 0.18); 
+            }
+        }
+
+        /* Pulse effect for high numbers */
+        .high-achievement {
+            animation: achievementPulse 0.6s ease-in-out;
+        }
+
+        @keyframes achievementPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
 
         .portal-header {
@@ -507,20 +670,6 @@
             transform: translateY(-1px);
             text-decoration: none;
             box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
-        }
-
-        .btn-secondary {
-            background: linear-gradient(135deg, var(--foundation-primary), var(--foundation-secondary));
-            color: white;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-        }
-
-        .btn-secondary:hover {
-            background: linear-gradient(135deg, var(--foundation-secondary), var(--foundation-dark));
-            transform: translateY(-1px);
-            text-decoration: none;
-            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
         }
 
         .btn-disabled {
