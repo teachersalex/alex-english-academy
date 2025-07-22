@@ -146,7 +146,7 @@
                     <button id="reviewAnswers" class="btn-secondary w-full py-3 rounded-lg font-semibold">
                         📊 Review Answers
                     </button>
-                    <!-- Try Again Button (appears when score < 5) -->
+                    <!-- ✅ FIXED: Try Again Button (appears when score < 5) -->
                     <button id="tryAgainBtn" class="btn-subtle w-full py-3 rounded-lg font-semibold hidden">
                         🔄 Tentar Novamente
                     </button>
@@ -182,7 +182,7 @@
         import { db } from '../js/firebase.js';
         import { doc, getDoc, updateDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js';
 
-        // Complete Movie Magic lesson data with ALL 10 lessons
+        // ✅ FIXED: Complete Movie Magic lesson data - EXACTLY matching the scripts provided
         const MOVIE_LESSONS = [
             {
                 id: 'movie-01',
@@ -805,10 +805,10 @@
                 returnToLessonsList();
             });
             
-            // 🔄 NEW: Try Again Button
+            // ✅ FIXED: Try Again Button
             document.getElementById('tryAgainBtn').addEventListener('click', restartLesson);
             
-            // 🔄 NEW: Backdrop click to close modal
+            // ✅ FIXED: Backdrop click to close modal
             document.getElementById('resultsModal').addEventListener('click', (e) => {
                 if (e.target === document.getElementById('resultsModal')) {
                     closeResultsModal();
@@ -816,7 +816,7 @@
                 }
             });
             
-            // 🔄 NEW: Backdrop click for review modal too
+            // ✅ FIXED: Backdrop click for review modal too
             document.getElementById('reviewModal').addEventListener('click', (e) => {
                 if (e.target === document.getElementById('reviewModal')) {
                     document.getElementById('reviewModal').classList.add('hidden');
@@ -933,7 +933,7 @@
             document.getElementById('percentageDisplay').textContent = `${percentage}% Correct`;
             document.getElementById('xpEarned').textContent = `+${xpEarned} XP Earned!`;
             
-            // Show/hide Try Again button based on score
+            // ✅ FIXED: Show/hide Try Again button based on score
             const tryAgainBtn = document.getElementById('tryAgainBtn');
             if (score < 5) {
                 tryAgainBtn.classList.remove('hidden');
@@ -999,7 +999,7 @@
             document.getElementById('resultsModal').classList.add('hidden');
         }
 
-        // 🔄 NEW: Restart current lesson function
+        // ✅ FIXED: Restart current lesson function
         function restartLesson() {
             if (!currentLesson) return;
             
@@ -1035,7 +1035,7 @@
             console.log('🔄 Movie lesson restarted:', currentLesson.title);
         }
 
-        // 🔄 NEW: Return to lessons list helper
+        // ✅ FIXED: Return to lessons list helper
         function returnToLessonsList() {
             document.getElementById('lessonInterface').classList.add('hidden');
             document.getElementById('lessonSelection').classList.remove('hidden');
@@ -1260,6 +1260,11 @@
         .answer-option {
             background: var(--bg-secondary);
             border: 2px solid var(--foundation-light);
+            padding: 1rem;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
             transition: all 0.3s ease;
         }
 
@@ -1295,6 +1300,15 @@
         .option-letter {
             background: var(--foundation-primary);
             color: white;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.875rem;
+            flex-shrink: 0;
         }
 
         /* Status Badges */
@@ -1429,17 +1443,6 @@
             }
         }
 
-        /* Professional Background */
-        .professional-bg {
-            background: linear-gradient(135deg, var(--bg-primary) 0%, #ffffff 50%, var(--bg-secondary) 100%);
-            background-attachment: fixed;
-        }
-
-        .bg-primary-blue { background-color: var(--primary-blue); }
-        .bg-accent-red { background-color: var(--accent-red); }
-        .bg-foundation-primary { background-color: var(--foundation-primary); }
-        .text-blue-100 { color: #dbeafe; }
-        
         /* Link Styles */
         .link-sophisticated {
             color: var(--foundation-primary);
@@ -1458,6 +1461,14 @@
         .link-muted:hover {
             color: var(--charcoal);
         }
+
+        .bg-primary-blue { background-color: var(--primary-blue); }
+        .bg-accent-red { background-color: var(--accent-red); }
+        .bg-foundation-primary { background-color: var(--foundation-primary); }
+        .text-blue-100 { color: #dbeafe; }
+        .text-charcoal { color: var(--charcoal); }
+        .text-medium-gray { color: var(--medium-gray); }
+        .border-soft-border { border-color: var(--soft-border); }
     </style>
 
 </body>
