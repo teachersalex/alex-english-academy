@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚡ Lightning Quiz Hub - Teacher Alex Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="sophisticated-bg min-h-screen">
+
+    <!-- Professional Header Bar (EXACT COPY from hub.html) -->
+    <header class="lesson-header-bar">
+        <div class="header-left">
+            <div class="brand-line">Teacher Alex English Academy</div>
+            <div class="user-course-line" id="userCourseLine">Alex12345 • ⚡ Lightning Quiz Hub</div>
+        </div>
+        
+        <div class="header-actions">
+            <button class="btn-portal" onclick="window.location.href='../student/portal.html'">← Portal</button>
+            <button class="btn-sair" onclick="logout()">Sair</button>
+        </div>
+    </header>
+
+    <!-- Main Content (SAME STRUCTURE as hub.html) -->
+    <main class="lesson-content">
+        <div class="max-w-6xl mx-auto px-4 pb-8">
+        
+            <!-- Lightning Quiz Header with Brazilian Touch -->
+            <div class="elegant-card rounded-lg p-6 mb-6 bg-gradient-to-br from-yellow-500 via-orange-500 to-red-600 text-white">
+                <div class="text-center">
+                    <div class="text-6xl mb-4">⚡</div>
+                    <h1 class="text-3xl font-bold mb-3">⚡ Lightning Quiz Hub</h1>
+                    <p class="text-yellow-100 text-lg mb-4">🧠 10 temas viciantes • 15 segundos por pergunta • True/False apenas!</p>
+                    <div class="bg-white/20 backdrop-blur-sm rounded-lg p-4 border border-white/30">
+                        <p class="text-white font-semibold text-base sm:text-lg">🎯 100 atividades ultra-rápidas para testar seu inglês</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Back to Main Hub Link -->
+            <div class="elegant-card rounded-lg p-4 sm:p-6 mb-6 bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-100">
+                <div class="text-center">
+                    <div class="flex items-center justify-center space-x-4 text-sm sm:text-base text-charcoal mb-3">
+                        <span class="font-semibold" id="userDisplayName">Estudante</span>
+                        <span class="text-light-gray">•</span>
+                        <span class="font-medium text-purple-600">Sistema Experimental</span>
+                        <span class="text-light-gray">•</span>
+                        <span class="font-medium text-blue-600">100 Quiz Activities</span>
+                    </div>
+                    
+                    <div class="max-w-md mx-auto">
+                        <a href="../student/hub.html" class="btn-secondary w-full sm:w-auto inline-block text-center font-semibold py-3 px-6 rounded-lg text-sm sm:text-base no-underline">
+                            🎧 Voltar para Audio Lessons
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lightning Quiz Themes - 10 themes with 10 activities each -->
+
+            <!-- Theme 1: Digital Life & Gaming -->
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                    <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-semibold mr-3">TEMA 1</span>
+                    🎮 Digital Life & Gaming
+                </h2>
+                <div class="elegant-card rounded-lg p-6 bg-gradient-to-r from-purple-600 to-blue-600 text-white cursor-pointer hover:scale-105 transition-all shadow-lg" onclick="navigateToQuiz('digital-gaming')">
+                    <div class="flex items-center justify-between">
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold mb-3">🎮 Digital Life & Gaming</h3>
+                            <p class="text-purple-100 text-lg mb-4">Social media, online world, gaming culture vocabulary</p>
+                            <div class="bg-white/20 rounded-lg p-3 mb-4">
+                                <div class="flex justify-between text-sm mb-2 text-white font-medium">
+                                    <span>Progresso</span>
+                                    <span id="digital-progress">0/10 completas</span>
+                                </div>
+                                <div class="w-full bg-white/30 rounded-full h-3">
+                                    <div id="digital-bar" class="bg-white h-3 rounded-full transition-all duration-500" style="width: 0%;"></div>
+                                </div>
+                            </div>
+                            <div class="bg-white text-purple-600 px-6 py-3 rounded-lg text-base font-bold inline-block">
+                                ⚡ QUIZ RÁPIDO
+                            </div>
+                        </div>
+                        <div class="ml-6 text-5xl">🎮</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Theme 2: Music & Entertainment -->
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                    <span class="bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-sm font-semibold mr-3">TEMA 2</span>
+                    🎵 Music & Entertainment
+                </h2>
+                <div class="elegant-card rounded-lg p-6 bg-gradient-to-r from-pink-500 to-purple-500 text-white cursor-pointer hover:scale-105 transition-all shadow-lg" onclick="navigateToQuiz('music-entertainment')">
+                    <div class="flex items-center justify-between">
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold mb-3">🎵 Music & Entertainment</h3>
+                            <p class="text-pink-100 text-lg mb-4">Brazilian music, international artists, concerts and shows</p>
+                            <div class="bg-white/20 rounded-lg p-3 mb-4">
+                                <div class="flex justify-between text-sm mb-2 text-white font-medium">
+                                    <span>Progresso</span>
+                                    <span id="music-progress">0/10 completas</span>
+                                </div>
+                                <div class="w-full bg-white/30 rounded-full h-3">
+                                    <div id="music-bar" class="bg-white h-3 rounded-full transition-all duration-500" style="width: 0%;"></div>
+                                </div>
+                            </div>
+                            <div class="bg-white text-pink-600 px-6 py-3 rounded-lg text-base font-bold inline-block">
+                                ⚡ QUIZ RÁPIDO
+                            </div>
+                        </div>
+                        <div class="ml-6 text-5xl">🎵</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Theme 3: Love & Dating -->
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                    <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-semibold mr-3">TEMA 3</span>
+                    💕 Love & Dating
+                </h2>
+                <div class="elegant-card rounded-lg p-6 bg-gradient-to-r from-red-500 to-pink-500 text-white cursor-pointer hover:scale-105 transition-all shadow-lg" onclick="navigateToQuiz('love-dating')">
+                    <div class="flex items-center justify-between">
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold mb-3">💕 Love & Dating</h3>
+                            <p class="text-red-100 text-lg mb-4">Relationships, dating apps, romantic expressions</p>
+                            <div class="bg-white/20 rounded-lg p-3 mb-4">
+                                <div class="flex justify-between text-sm mb-2 text-white font-medium">
+                                    <span>Progresso</span>
+                                    <span id="love-progress">0/10 completas</span>
+                                </div>
+                                <div class="w-full bg-white/30 rounded-full h-3">
+                                    <div id="love-bar" class="bg-white h-3 rounded-full transition-all duration-500" style="width: 0%;"></div>
+                                </div>
+                            </div>
+                            <div class="bg-white text-red-600 px-6 py-3 rounded-lg text-base font-bold inline-block">
+                                ⚡ QUIZ RÁPIDO
+                            </div>
+                        </div>
+                        <div class="ml-6 text-5xl">💕</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Theme 4: Home & Living -->
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                    <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold mr-3">TEMA 4</span>
+                    🏠 Home & Living
+                </h2>
+                <div class="elegant-card rounded-lg p-6 bg-gradient-to-r from-green-500 to-teal-500 text-white cursor-pointer hover:scale-105 transition-all shadow-lg" onclick="navigateToQuiz('home-living')">
+                    <div class="flex items-center justify-between">
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold mb-3">🏠 Home & Living</h3>
+                            <p class="text-green-100 text-lg mb-4">Apartments, furniture, household life and decoration</p>
+                            <div class="bg-white/20 rounded-lg p-3 mb-4">
+                                <div class="flex justify-between text-sm mb-2 text-white font-medium">
+                                    <span>Progresso</span>
+                                    <span id="home-progress">0/10 completas</span>
+                                </div>
+                                <div class="w-full bg-white/30 rounded-full h-3">
+                                    <div id="home-bar" class="bg-white h-3 rounded-full transition-all duration-500" style="width: 0%;"></div>
+                                </div>
+                            </div>
+                            <div class="bg-white text-green-600 px-6 py-3 rounded-lg text-base font-bold inline-block">
+                                ⚡ QUIZ RÁPIDO
+                            </div>
+                        </div>
+                        <div class="ml-6 text-5xl">🏠</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Theme 5: Transportation & City Life -->
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold mr-3">TEMA 5</span>
+                    🚗 Transportation & City Life
+                </h2>
+                <div class="elegant-card rounded-lg p-6 bg-gradient-to-r from-blue-500 to-indigo-500 text-white cursor-pointer hover:scale-105 transition-all shadow-lg" onclick="navigateToQuiz('transport-city')">
+                    <div class="flex items-center justify-between">
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold mb-3">🚗 Transportation & City Life</h3>
+                            <p class="text-blue-100 text-lg mb-4">Traffic, Uber, public transport, São Paulo city life</p>
+                            <div class="bg-white/20 rounded-lg p-3 mb-4">
+                                <div class="flex justify-between text-sm mb-2 text-white font-medium">
+                                    <span>Progresso</span>
+                                    <span id="transport-progress">0/10 completas</span>
+                                </div>
+                                <div class="w-full bg-white/30 rounded-full h-3">
+                                    <div id="transport-bar" class="bg-white h-3 rounded-full transition-all duration-500" style="width: 0%;"></div>
+                                </div>
+                            </div>
+                            <div class="bg-white text-blue-600 px-6 py-3 rounded-lg text-base font-bold inline-block">
+                                ⚡ QUIZ RÁPIDO
+                            </div>
+                        </div>
+                        <div class="ml-6 text-5xl">🚗</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Theme 6: Money & Success -->
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                    <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-semibold mr-3">TEMA 6</span>
+                    💰 Money & Success
+                </h2>
+                <div class="elegant-card rounded-lg p-6 bg-gradient-to-r from-yellow-500 to-orange-500 text-white cursor-pointer hover:scale-105 transition-all shadow-lg" onclick="navigateToQuiz('money-success')">
+                    <div class="flex items-center justify-between">
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold mb-3">💰 Money & Success</h3>
+                            <p class="text-yellow-100 text-lg mb-4">Banking, investments, financial goals, entrepreneurship</p>
+                            <div class="bg-white/20 rounded-lg p-3 mb-4">
+                                <div class="flex justify-between text-sm mb-2 text-white font-medium">
+                                    <span>Progresso</span>
+                                    <span id="money-progress">0/10 completas</span>
+                                </div>
+                                <div class="w-full bg-white/30 rounded-full h-3">
+                                    <div id="money-bar" class="bg-white h-3 rounded-full transition-all duration-500" style="width: 0%;"></div>
+                                </div>
+                            </div>
+                            <div class="bg-white text-yellow-600 px-6 py-3 rounded-lg text-base font-bold inline-block">
+                                ⚡ QUIZ RÁPIDO
+                            </div>
+                        </div>
+                        <div class="ml-6 text-5xl">💰</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Theme 7: Learning & Growth -->
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                    <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm font-semibold mr-3">TEMA 7</span>
+                    🎓 Learning & Growth
+                </h2>
+                <div class="elegant-card rounded-lg p-6 bg-gradient-to-r from-indigo-500 to-purple-500 text-white cursor-pointer hover:scale-105 transition-all shadow-lg" onclick="navigateToQuiz('learning-growth')">
+                    <div class="flex items-center justify-between">
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold mb-3">🎓 Learning & Growth</h3>
+                            <p class="text-indigo-100 text-lg mb-4">Education, courses, personal development, English goals</p>
+                            <div class="bg-white/20 rounded-lg p-3 mb-4">
+                                <div class="flex justify-between text-sm mb-2 text-white font-medium">
+                                    <span>Progresso</span>
+                                    <span id="learning-progress">0/10 completas</span>
+                                </div>
+                                <div class="w-full bg-white/30 rounded-full h-3">
+                                    <div id="learning-bar" class="bg-white h-3 rounded-full transition-all duration-500" style="width: 0%;"></div>
+                                </div>
+                            </div>
+                            <div class="bg-white text-indigo-600 px-6 py-3 rounded-lg text-base font-bold inline-block">
+                                ⚡ QUIZ RÁPIDO
+                            </div>
+                        </div>
+                        <div class="ml-6 text-5xl">🎓</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Theme 8: Brazil vs World -->
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                    <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold mr-3">TEMA 8</span>
+                    🌍 Brazil vs World
+                </h2>
+                <div class="elegant-card rounded-lg p-6 bg-gradient-to-r from-green-600 to-blue-600 text-white cursor-pointer hover:scale-105 transition-all shadow-lg" onclick="navigateToQuiz('brazil-world')">
+                    <div class="flex items-center justify-between">
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold mb-3">🌍 Brazil vs World</h3>
+                            <p class="text-green-100 text-lg mb-4">Cultural differences, travel dreams, global perspective</p>
+                            <div class="bg-white/20 rounded-lg p-3 mb-4">
+                                <div class="flex justify-between text-sm mb-2 text-white font-medium">
+                                    <span>Progresso</span>
+                                    <span id="brazil-progress">0/10 completas</span>
+                                </div>
+                                <div class="w-full bg-white/30 rounded-full h-3">
+                                    <div id="brazil-bar" class="bg-white h-3 rounded-full transition-all duration-500" style="width: 0%;"></div>
+                                </div>
+                            </div>
+                            <div class="bg-white text-green-600 px-6 py-3 rounded-lg text-base font-bold inline-block">
+                                ⚡ QUIZ RÁPIDO
+                            </div>
+                        </div>
+                        <div class="ml-6 text-5xl">🌍</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Theme 9: Sports & Passion -->
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                    <span class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm font-semibold mr-3">TEMA 9</span>
+                    ⚽ Sports & Passion
+                </h2>
+                <div class="elegant-card rounded-lg p-6 bg-gradient-to-r from-orange-500 to-red-500 text-white cursor-pointer hover:scale-105 transition-all shadow-lg" onclick="navigateToQuiz('sports-passion')">
+                    <div class="flex items-center justify-between">
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold mb-3">⚽ Sports & Passion</h3>
+                            <p class="text-orange-100 text-lg mb-4">Football, Olympics, Brazilian sports culture and passion</p>
+                            <div class="bg-white/20 rounded-lg p-3 mb-4">
+                                <div class="flex justify-between text-sm mb-2 text-white font-medium">
+                                    <span>Progresso</span>
+                                    <span id="sports-progress">0/10 completas</span>
+                                </div>
+                                <div class="w-full bg-white/30 rounded-full h-3">
+                                    <div id="sports-bar" class="bg-white h-3 rounded-full transition-all duration-500" style="width: 0%;"></div>
+                                </div>
+                            </div>
+                            <div class="bg-white text-orange-600 px-6 py-3 rounded-lg text-base font-bold inline-block">
+                                ⚡ QUIZ RÁPIDO
+                            </div>
+                        </div>
+                        <div class="ml-6 text-5xl">⚽</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Theme 10: Future & Technology -->
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                    <span class="bg-cyan-100 text-cyan-800 px-3 py-1 rounded-full text-sm font-semibold mr-3">TEMA 10</span>
+                    🔮 Future & Technology
+                </h2>
+                <div class="elegant-card rounded-lg p-6 bg-gradient-to-r from-cyan-500 to-blue-500 text-white cursor-pointer hover:scale-105 transition-all shadow-lg" onclick="navigateToQuiz('future-tech')">
+                    <div class="flex items-center justify-between">
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold mb-3">🔮 Future & Technology</h3>
+                            <p class="text-cyan-100 text-lg mb-4">AI, careers, dreams, what's coming next in our world</p>
+                            <div class="bg-white/20 rounded-lg p-3 mb-4">
+                                <div class="flex justify-between text-sm mb-2 text-white font-medium">
+                                    <span>Progresso</span>
+                                    <span id="future-progress">0/10 completas</span>
+                                </div>
+                                <div class="w-full bg-white/30 rounded-full h-3">
+                                    <div id="future-bar" class="bg-white h-3 rounded-full transition-all duration-500" style="width: 0%;"></div>
+                                </div>
+                            </div>
+                            <div class="bg-white text-cyan-600 px-6 py-3 rounded-lg text-base font-bold inline-block">
+                                ⚡ QUIZ RÁPIDO
+                            </div>
+                        </div>
+                        <div class="ml-6 text-5xl">🔮</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Firebase SDK (SAME as hub.html) -->
+    <script type="module" src="../js/firebase.js"></script>
+
+    <!-- Lightning Quiz Hub Logic (EXACT PATTERNS from hub.html) -->
+    <script type="module">
+        import { db } from '../js/firebase.js';
+        import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js';
+
+        // Check auth (EXACT COPY from hub.html)
+        function checkAuth() {
+            if (!localStorage.getItem('studentLoggedIn')) {
+                window.location.href = '../index.html';
+                return false;
+            }
+            return true;
+        }
+
+        function getCurrentStudent() {
+            const authData = localStorage.getItem('studentAuth');
+            return authData ? JSON.parse(authData) : null;
+        }
+
+        // Navigation function - SAFE placeholder for now
+        window.navigateToQuiz = function(quizTheme) {
+            // TODO: Will link to individual quiz pages in student-quiz/ folder
+            alert(`🚧 ${quizTheme} quiz em desenvolvimento!\n\n⚡ Sistema Lightning Quiz chegando em breve!\n\n📝 Por enquanto, teste o Lightning Quiz básico no Portal.`);
+        };
+
+        // Logout function (EXACT COPY from hub.html)
+        window.logout = function() {
+            localStorage.clear();
+            window.location.href = '../index.html';
+        };
+
+        // Load progress - SAFE (doesn't touch existing Firebase)
+        async function loadQuizProgress() {
+            try {
+                const currentStudent = getCurrentStudent();
+                if (!currentStudent) return;
+
+                // Update header with Brazilian touch (SAME as hub.html)
+                const displayName = currentStudent.displayName || 'Estudante';
+                document.getElementById('userCourseLine').textContent = `${displayName} • ⚡ Lightning Quiz Hub`;
+                document.getElementById('userDisplayName').textContent = displayName;
+
+                // TODO: When Lightning Quiz progress is implemented, load from Firebase
+                // For now, all progress bars stay at 0% (safe)
+                console.log('⚡ Lightning Quiz Hub loaded - progress tracking ready for implementation');
+
+            } catch (error) {
+                console.error('❌ Error loading quiz progress:', error);
+                // Fail silently - never break student experience
+            }
+        }
+
+        // Initialize (EXACT PATTERN from hub.html)
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!checkAuth()) return;
+            loadQuizProgress();
+            console.log('⚡ Lightning Quiz Hub initialized - 10 themes ready!');
+        });
+    </script>
+
+    <!-- Header Bar Styles (EXACT COPY from hub.html) -->
+    <style>
+        /* Professional Header Bar */
+        .lesson-header-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            padding: 16px 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-left {
+            text-align: center;
+        }
+
+        .brand-line {
+            font-size: 12px;
+            font-weight: 600;
+            color: #3b82f6;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        .user-course-line {
+            font-size: 14px;
+            color: #1f2937;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .btn-portal {
+            background: #3b82f6;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-portal:hover {
+            background: #2563eb;
+        }
+
+        .btn-sair {
+            background: transparent;
+            color: #6b7280;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            border: 1px solid #e5e7eb;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-sair:hover {
+            background: #f9fafb;
+            color: #374151;
+        }
+
+        .lesson-content {
+            margin-top: 120px;
+        }
+
+        /* Desktop responsive */
+        @media (min-width: 768px) {
+            .lesson-header-bar {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                padding: 12px 40px;
+            }
+            
+            .header-left {
+                text-align: left;
+            }
+            
+            .lesson-content {
+                margin-top: 80px;
+            }
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 480px) {
+            .lesson-header-bar {
+                padding: 12px 16px;
+                gap: 6px;
+            }
+            
+            .brand-line {
+                font-size: 11px;
+            }
+            
+            .user-course-line {
+                font-size: 13px;
+            }
+            
+            .btn-portal, .btn-sair {
+                padding: 6px 12px;
+                font-size: 11px;
+            }
+            
+            .lesson-content {
+                margin-top: 110px;
+            }
+        }
+    </style>
+
+</body>
+</html>
